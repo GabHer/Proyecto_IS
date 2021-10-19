@@ -4,7 +4,7 @@ Desarrollo de una aplicación que permita realizar la gestión de eventos acadé
 Épica
 ---
 - Nombre de la épica: Sistema para la gestión de eventos académicos.
-- Dueño de la épica: 
+- Dueño de la épica: EduEvents
 - Descripción:
     - ¿Para quién?: ?
     - ¿Qué?: Ofrecer eventos, conferencias y talleres
