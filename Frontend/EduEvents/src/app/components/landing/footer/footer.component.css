@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Cardo:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre&family=Cardo:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre&family=Cardo:wght@700&family=Roboto&display=swap');
+.footer {
+  background-color: #2F2E41;
+  margin-top: 5rem;
+}
+
+.titulo {
+  font-family: 'Cardo', serif;
+  color: white;
+}
+
+.margin-footer {
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+.txt-item {
+  font-family: 'Abhaya Libre', serif;
+  color: white;
+  font-weight: bold;
+
+}
+
+.txt-contacto {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-weight: 800;
+}
