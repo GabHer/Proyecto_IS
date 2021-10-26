@@ -1,0 +1,103 @@
+
+<div class="row mt-3 ">
+  <div class="col-4">
+    <img src="../../../assets/img/CuadroDibujoConferencia.svg" alt="">
+  </div>
+  <div class="col-7 ml-5">
+
+    <form action="">
+      <div class="row ">
+        <div class="col-12">
+          <h2 class="titulo-formulario">Únete a EduEvents</h2>
+        </div>
+
+        <div class="col-6">
+
+          <mat-form-field class="control-formulario" appearance="fill">
+            <mat-label class="">Nombre</mat-label>
+            <input matInput>
+          </mat-form-field>
+
+          <mat-form-field class="control-formulario" appearance="fill">
+            <mat-label>Apellido</mat-label>
+            <input matInput>
+          </mat-form-field>
+
+
+          <mat-form-field class="control-formulario" appearance="fill">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field class="control-formulario" appearance="fill">
+            <mat-label>Formación Académica</mat-label>
+            <mat-select>
+              <mat-option value="one">Opción 1</mat-option>
+              <mat-option value="two">Opción 2</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="control-formulario"  appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput rows="5"></textarea>
+          </mat-form-field>
+
+        </div>
+
+
+        <div class="col-6 ">
+          <div class="row">
+            <div class="col-12" style="margin-left: 25%;" *ngIf="!previsualizacion">
+              <img src="../../../assets/img/FotoDePerfilPorDefecto.png" alt="">
+            </div>
+            <div class="col-12"  style="margin-left: 25%;" *ngIf="previsualizacion">
+              <img class="img-usuario" [src]="previsualizacion" alt="">
+            </div>
+            <div class="col-12 mt-3"  style="margin-left: 25%;">
+              <button type="button" class="btn btn-primary btn-1">Cambiar</button>
+              <button type="button" class="btn btn-primary btn-2 ml-3">Eliminar</button>
+            </div>
+
+            <div class="col-12 mt-3"  style="text-align: center;">
+              <h4 class="h4-formulario">Subir imagen desde el computador</h4>
+            </div>
+
+            <div class="col-12">
+              <div class="">
+                <input class="" (change)="capturarFile($event)" type="file" >
+              </div>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="control-formulario" appearance="fill">
+                <mat-label>Institución</mat-label>
+                <input matInput>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <mat-form-field class="control-formulario"  appearance="fill">
+                <mat-label>Intereses Separados por coma</mat-label>
+                <textarea matInput rows="5"></textarea>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary centrar btn-1">Registrarse</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+

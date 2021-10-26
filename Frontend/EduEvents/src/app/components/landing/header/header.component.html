@@ -22,14 +22,17 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item mr-4" [ngClass]="item('eventos')" (click)="seleccionarItem('eventos');">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn  eventos item" id="dropdown-eventos" ngbDropdownToggle>Eventos</button>
-          <div ngbDropdownMenu aria-labelledby="dropdown-eventos">
-            <button ngbDropdownItem>Conferencias</button>
-            <button ngbDropdownItem>Talleres</button>
 
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn  eventos item" id="dropdown-eventos" ngbDropdownToggle>Eventos</button>
+            <div ngbDropdownMenu aria-labelledby="dropdown-eventos">
+              <button ngbDropdownItem>Conferencias</button>
+              <button ngbDropdownItem>Talleres</button>
           </div>
         </div>
+
+
       </li>
       <li class="nav-item mr-5 " [ngClass]="item('acercaDe')" (click)="seleccionarItem('acercaDe');">
         <a class="nav-link item" href="#">Acerca de</a>
@@ -41,7 +44,7 @@
         <a class="nav-link item" href="#">Iniciar sesión</a>
       </li>
       <li class="nav-item mr-5 " [ngClass]="item('registrate')" (click)="seleccionarItem('registrate');">
-        <a class="nav-link item" href="#">Registrate</a>
+        <a class="nav-link item" href="/registrate">Registrate</a>
       </li>
 
     </ul>

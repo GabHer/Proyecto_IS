@@ -1,0 +1,72 @@
+@import url('http://fonts.cdnfonts.com/css/ponnala');
+
+.titulo-formulario {
+  font-family: 'Ponnala', sans-serif;
+  font-size: 22px;
+  color: black;
+}
+.h4-formulario {
+  font-family: 'Ponnala', sans-serif;
+  font-size: 14px;
+  color: black;
+}
+
+
+
+.control-formulario {
+  width: 85% !important;
+}
+
+.lbl-1 {
+  font-family: 'Ponnala', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: black;
+}
+
+.img-usuario-defecto {
+  font-size: 128px;
+  color: white;
+}
+
+.img-usuario {
+  width: 128px;
+  border-radius: 25px;
+
+}
+.div-img-usuario {
+  background-color: rgb(117, 117, 117);
+  width: 130px;
+  height: 130px;
+}
+
+.btn-1 {
+  background-color: #4484CE;
+  border-radius: 25px;
+}
+.btn-2 {
+  background-color: #CE4444;
+  border-radius: 25px;
+}
+
+
+.contenedor-input {
+  text-align: center;
+  background: #282828;
+  border-top: 5px solid #c39f77;
+  padding: 50px 0;
+  border-radius: 6px;
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.centrar {
+  margin-left: auto;
+  margin-right: auto;
+}
+.formulario {
+  padding: none;
+  margin: none;
+}
+

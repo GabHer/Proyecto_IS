@@ -12,7 +12,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
+import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +27,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LandingComponent,
     HeaderComponent,
     FooterComponent,
-    BodyComponent
+    BodyComponent,
+    RegistroUsuarioComponent,
+    SubirArchivoComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +39,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatGridListModule,
     MatToolbarModule,
     MatIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
