@@ -11,11 +11,16 @@
   color: black;
 }
 
-
+.txt-1 {
+  font-family: 'Ponnala', sans-serif;
+}
 
 .control-formulario {
-  width: 85% !important;
+  width: 95% !important;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 .lbl-1 {
   font-family: 'Ponnala', sans-serif;
@@ -31,7 +36,8 @@
 
 .img-usuario {
   width: 128px;
-  border-radius: 25px;
+  border-radius: 100%;
+  cursor: pointer;
 
 }
 .div-img-usuario {
@@ -62,11 +68,54 @@
 }
 
 .centrar {
+  margin-left: 35%;
+
+}
+
+.centrar-contenedor {
   margin-left: auto;
   margin-right: auto;
 }
+
 .formulario {
-  padding: none;
-  margin: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+
+
+.interes {
+
+  background-color:#2196F3;
+  border-radius: 15px;
+  padding: 2px;
+  color:#fff;
+  display:inline-block;
+  padding-left:8px;
+  padding-right:8px;
+  text-align:center
+}
+
+
+.no-row {
+    display: initial;
+    flex-wrap:none;
+    margin-right:none;
+    margin-left:none;
+}
+
+.previsualizacion {
+  cursor: pointer;
+  width: 256px;
+  border-radius: 100%;
+}
+
+.campo-correcto {
+  color: green;
 }
 
