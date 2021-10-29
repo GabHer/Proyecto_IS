@@ -6,7 +6,7 @@ Desarrollo de una aplicación que permita realizar la gestión de eventos acadé
 - Nombre de la épica: Sistema para la gestión de eventos académicos.
 - Dueño de la épica: EduEvents
 - Descripción:
-    - ¿Para quién?: ?
+    - ¿Para quién?: Para personas que buscan gestionar sus eventos o para personas que quieren asistir a ellos.
     - ¿Qué?: Ofrecer eventos, conferencias y talleres
     - ¿La solución?: Facilitar la organización de eventos académicos, virtuales o presenciales.
     - ¿Cómo se logra?: Es una plataforma que siempre está disponible al servicio de sus usuarios.
@@ -29,7 +29,6 @@ Funcionalidades Principales
 
 Requerimientos funcionales
 -----
-Requisitos funcionales
 - RF1. La aplicación debe permitir el registro de usuarios. Para el registro la aplicación debe solicitar nombre, institución que representa, formación académica, correo electrónico, descripción e intereses y fotografía (todo carácter obligatorio).
 - RF2. La aplicación debe solicitar el inicio de sesión con cuenta de usuario válida para acceder a los recursos que ofrece la misma.
 - RF3. La aplicación debe mostrar una lista de los eventos, esta lista puede verse por los usuarios inscritos o no pero el detalle solo se muestra a los inscritos.
