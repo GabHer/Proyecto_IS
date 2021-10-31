@@ -30,7 +30,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     FooterComponent,
     BodyComponent,
     RegistroUsuarioComponent,
-    SubirArchivoComponent
+    SubirArchivoComponent,
+
   ],
   imports: [
     BrowserModule,

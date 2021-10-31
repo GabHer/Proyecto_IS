@@ -6,6 +6,7 @@ import { ViewChild } from '@angular/core';
 
 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -53,7 +54,7 @@ export class RegistroUsuarioComponent implements OnInit {
   inputImagenPerfil: ElementRef;
 
 
-  constructor( private sanitizer: DomSanitizer ) { }
+  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
   }
@@ -177,61 +178,26 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
 
-
-
-
-
-
-  /*
-  capturarFile(event:any):any{
-    const archivoCapturado = event.target.files[0];
-    this.extraerBase64(archivoCapturado).then( (imagen:any)  => {
-      this.previsualizacion = imagen.base;
-      console.log(imagen);
-    })
-    this.archivos.push(archivoCapturado);
-  }
-
-  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
-    try {
-      const unsafeImg = window.URL.createObjectURL($event);
-      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-      const reader = new FileReader();
-      reader.readAsDataURL($event);
-      reader.onload = () => {
-        resolve({
-
-          base: reader.result
-        });
-      };
-      reader.onerror = error => {
-        resolve({
-          blob: $event,
-          image,
-          base: null
-        });
-      };
-
-    } catch (e) {
-      return null;
-    }
-  })
-
-  /*
-
   /**
   * @name onSubmitRegistro
   * @summary Función al presionar el boton de registro.
   * @param {any} evento - Evento onSubmit del formulario
   * @return {}
   */
-  onSubmitRegistro(evento:any){
+  onSubmitRegistro(evento:any, modalExito:any, modalError:any){
     evento.preventDefault();
 
     // Si el formulario es valido, esta listo para guardar
     if(this.formularioRegistro.valid){
 
       console.log(this.formularioRegistro.value);
+
+      // Si la respuesta del backend es exitosa, se muestra un modal de exito
+      this.abrirModal(modalExito);
+      // Si la respuesta del backend es error, se muestra un modal de error
+      //this.abrirModal(modalError);
+
+
       return;
     }
 
@@ -245,6 +211,15 @@ export class RegistroUsuarioComponent implements OnInit {
     return
   }
 
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
+  }
 
 
 

@@ -119,3 +119,22 @@
   color: green;
 }
 
+.modal-encabezado {
+  text-align: center;
+
+}
+
+.modal-exito {
+  background-color: #56A33B;
+}
+.modal-error {
+  background-color: #ff0000;
+}
+
+.modal-cuerpo{
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Ponnala', sans-serif;
+}
