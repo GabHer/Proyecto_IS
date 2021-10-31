@@ -3,19 +3,23 @@
 .btn-registrate {
   background-color: #F9CF00;
   color: #4484CE;
+  position:absolute;
+  left:28%;
 }
 
 .evento {
   font-size: 50px;
   color: green;
+
 }
 
 .txt-crearEvento {
   color: #4484CE;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 28px;
   margin-left: 5rem;
+  margin-top: 4%;
 }
 
 .separador-1{
@@ -25,7 +29,7 @@
 .contenedor-div {
   padding: none;
   margin: none;
-  height: 80px;
+  height: 180px;
   border: 3px #636363 solid;
   border-radius: 25px;
 
@@ -33,18 +37,17 @@
 .v-line {
   height:50px;
   border-left: 3px #636363 solid;
-  position: relative;
+  margin-left: 1rem;
+
 }
 .h-line {
 
     border-top: 3px #636363 solid;
-    margin-top: 3rem;
-
-
+    margin-top: 10rem;
 }
 .h-line-2 {
   border-top: 3px #636363 solid;
-  margin-top: 3rem;
+  margin-top: 10rem;
 }
 
 .txt-caracteristicas {
@@ -52,6 +55,7 @@
   font-weight: bold;
   font-size: 15px;
   margin-top: 2rem;
+  text-align: center;
 }
 .centrar {
   margin-left: 4rem;
@@ -62,8 +66,20 @@
 }
 
 .margen-y {
-  margin-top: 10rem;
+  margin-top: 7rem;
 }
 .margen-b {
   margin-bottom: 10rem;
+}
+
+.cardBody{
+  height: 120px;
+}
+
+.margen-card{
+  margin-top: 100px;
+}
+
+.center{
+  text-align: center;
 }

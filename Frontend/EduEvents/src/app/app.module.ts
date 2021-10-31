@@ -22,6 +22,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
 import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
