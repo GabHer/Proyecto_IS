@@ -1,0 +1,96 @@
+
+
+  <div class="row  mt-1">
+    <div class="col-12 ">
+      <div class="text-right">
+        <a href="/"><img src="../../../assets/img/RetornarAHomePage.svg" alt=""></a>
+      </div>
+    </div>
+  </div>
+
+<div class="contenedor">
+  <div class="row">
+    <div class="col-lg-7" >
+      <div class="row">
+        <div class="col-12">
+          <img class="img-inputs" style="position: absolute; width: 100%;" src="../../../assets/img/RecuadroConPatrón.svg" alt="">
+        </div>
+        <div class="col-12 titulo-formulario mt-3" >
+          <h2>Inicio de sesión</h2>
+        </div>
+        <div class="col-12 h4-formulario">
+          <h4>Inicia sesión para acceder a nuestros servicios</h4>
+        </div>
+        <div class="col-12 mt-2">
+          <form (ngSubmit)="onSubmitInicioSesion($event)" [formGroup]="formularioInicioSesion">
+            <div class="container text-center">
+              <mat-form-field class="control-formulario" appearance="fill">
+                <mat-label>Ingrese su correo</mat-label>
+                <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
+                <mat-error *ngIf="formularioInicioSesion.get('email').invalid">{{getErrorMessage('email')}}</mat-error>
+              </mat-form-field>
+
+              <span style="font-size: 50px;" class="material-icons">
+                person
+              </span>
+            </div>
+
+            <div class="container text-center">
+
+                <mat-form-field class="control-formulario mr-2" appearance="fill">
+                  <mat-label>Ingrese su contraseña</mat-label>
+                  <input matInput [type]="oculto ? 'password' : 'text'" formControlName="contrasenia" required >
+                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                    <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="formularioInicioSesion.get('contrasenia').invalid">{{getErrorMessage('contrasenia')}}</mat-error>
+                </mat-form-field>
+                <span style="font-size: 50px;" class="material-icons">
+                  key
+                </span>
+            </div>
+
+            <div class="row">
+              <div class="col-12 h4-formulario">
+                <a class="h4-formulario" href=""><h4>¿Olvidó su contraseña?</h4></a>
+              </div>
+              <div class="col-12">
+                <div class="text-center">
+                  <button  type="submit" class="btn btn-primary  btn-1 mt-1 ">Acceder</button>
+                </div>
+              </div>
+              <div class="col-12 h4-formulario mt-3">
+                <h4>¿Todavía no tienes una cuenta en EduEvents?</h4>
+                <h4>¡Regístrate!</h4>
+              </div>
+              <div class="col-12" >
+                <div class="text-center">
+                  <a href="/registrate" class="btn btn-primary btn-1 mb-2 ">Registrate</a>
+                </div>
+              </div>
+            </div>
+
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-lg-5 col-sm-12" style="padding-left: 0; padding-right: 0;">
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center div-bienvenido">
+            <img class="mt-5 mb-1" src="../../../assets/img/EduEventsLetrasVector.svg" alt="">
+            <img class="mb-4" style="width:100%;" src="../../../assets/img/DibujoAutenticar.svg" alt="">
+            <h1 style="font-weight: bold;" >¡Bienvenido de Nuevo!</h1>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+

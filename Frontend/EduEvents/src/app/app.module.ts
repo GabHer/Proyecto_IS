@@ -23,6 +23,7 @@ import { RegistroUsuarioComponent } from './components/registro-usuario/registro
 import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatCardModule} from '@angular/material/card';
+import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import {MatCardModule} from '@angular/material/card';
     BodyComponent,
     RegistroUsuarioComponent,
     SubirArchivoComponent,
+    InicioSesionComponent,
 
   ],
   imports: [

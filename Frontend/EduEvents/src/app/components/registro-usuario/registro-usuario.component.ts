@@ -40,6 +40,7 @@ export class RegistroUsuarioComponent implements OnInit {
     {
       nombre: new FormControl('', [Validators.required]),
       apellido: new FormControl('', [Validators.required]),
+      nacimiento: new FormControl('', [Validators.required]),
       email :  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       contrasenia: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
       formacionAcademica: new FormControl('', Validators.required),
