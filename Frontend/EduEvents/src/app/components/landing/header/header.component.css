@@ -48,7 +48,7 @@
 
 .eventos:hover{
   border: none !important;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border-radius: none;
   color: black;
 
