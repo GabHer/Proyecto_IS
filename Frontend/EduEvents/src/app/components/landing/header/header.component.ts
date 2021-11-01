@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbNav } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,6 +8,8 @@ import { NgbNav } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input () current="";
+
   items:any = {
     home: true,
     eventos:false,
@@ -16,13 +18,18 @@ export class HeaderComponent implements OnInit {
     iniciarSesion:false,
     registrate:false
   }
-  itemActual = 'home';
   cssItemActual = 'div-item-actual'
+  itemActual= "home";
 
 
-  constructor() { }
+  constructor() {
 
+  }
   ngOnInit(): void {
+
+
+    this.seleccionarItem(this.current);
+
   }
   seleccionarItem(item:string){
     this.items[this.itemActual]= false;
