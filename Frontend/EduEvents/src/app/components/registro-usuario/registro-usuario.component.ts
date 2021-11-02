@@ -55,9 +55,11 @@ export class RegistroUsuarioComponent implements OnInit {
   inputImagenPerfil: ElementRef;
 
 
+
   constructor( private sanitizer: DomSanitizer, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
+
   }
 
 
