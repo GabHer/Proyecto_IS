@@ -56,13 +56,13 @@
 .div-bienvenido{
   background-color: #E5E5E5;
   padding-bottom: 2rem;
-  width: 95%;
+  width: 100%;
 
 }
 
 .contenedor {
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 
