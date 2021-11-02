@@ -1,12 +1,15 @@
 .landing-1 {
   background-image: url("../../../assets/img/ImagenLanding.png");
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
   height: 100vh;
 
 }
 .stlog{
-  margin-top: 320px;
-  margin-left: 850px;
+  margin-top: 20%;
+  margin-left: 55%;
 }
 
 
