@@ -1,0 +1,27 @@
+.stback{
+  background-image: url(../../../assets/img/BackAcercaDe.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100vh;
+  position: absolute;
+}
+.backPanel{
+  background-color:#d9d9d996
+}
+
+.stBody{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.stPad{
+  padding: 10px;
+}
+
+.stLetra{
+  font-size: 20px;
+  color: #4484CE;
+}

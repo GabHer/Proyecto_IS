@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatDialogModule} from "@angular/material/dialog";
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
@@ -24,6 +25,7 @@ import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatCardModule} from '@angular/material/card';
 import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.component';
+import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,7 @@ import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.
     RegistroUsuarioComponent,
     SubirArchivoComponent,
     InicioSesionComponent,
+    AcercaDeComponent,
 
   ],
   imports: [
@@ -52,7 +55,8 @@ import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.
     ReactiveFormsModule,
     ImageCropperModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
