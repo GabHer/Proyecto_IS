@@ -26,6 +26,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatCardModule} from '@angular/material/card';
 import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.component';
 import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
+import { NgwWowModule } from 'ngx-wow';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
     ImageCropperModule,
     MatDialogModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgwWowModule
   ],
   providers: [],
   bootstrap: [AppComponent]

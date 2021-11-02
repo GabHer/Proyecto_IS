@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-
-
+import { NgwWowService } from 'ngx-wow';
 
 @Component({
   selector: 'app-landing',
@@ -13,9 +12,9 @@ export class LandingComponent implements OnInit {
 
 
 
-  constructor() {
-
-   }
+  constructor( private wowService: NgwWowService ) {
+    this.wowService.init();
+  }
 
   ngOnInit(): void {
   }
