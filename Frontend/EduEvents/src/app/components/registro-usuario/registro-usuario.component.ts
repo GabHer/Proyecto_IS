@@ -8,6 +8,8 @@ import { ViewChild } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { UsuariosService } from 'src/app/services/usuarios.service';
+
 @Component({
   selector: 'app-registro-usuario',
   templateUrl: './registro-usuario.component.html',
@@ -41,7 +43,7 @@ export class RegistroUsuarioComponent implements OnInit {
       nombre: new FormControl('', [Validators.required]),
       apellido: new FormControl('', [Validators.required]),
       nacimiento: new FormControl('', [Validators.required]),
-      email :  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      email:  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       contrasenia: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
       formacionAcademica: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
@@ -56,10 +58,10 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
 
-  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal ) { }
+  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private usuariosService:UsuariosService ) { }
 
   ngOnInit(): void {
-
+    this.obtenerUsuarios();
   }
 
 
@@ -195,8 +197,32 @@ export class RegistroUsuarioComponent implements OnInit {
 
       console.log(this.formularioRegistro.value);
 
+      const nuevoUsuario = {
+        nombre: this.formularioRegistro.get("nombre").value,
+        apellido: this.formularioRegistro.get("apellido").value,
+        nacimiento: this.formularioRegistro.get("nacimiento").value,
+        email: this.formularioRegistro.get("email").value,
+        contrasenia: this.formularioRegistro.get("contrasenia").value,
+        formacionAcademica: this.formularioRegistro.get("formacionAcademica").value,
+        descripcion: this.formularioRegistro.get("descripcion").value,
+        imagen: this.previsualizacion,
+        institucion: this.formularioRegistro.get("institucion").value,
+        intereses: this.formularioRegistro.get("intereses").value
+      }
+
+      this.usuariosService.guardarUsuario( nuevoUsuario ).subscribe(
+        res=>{
+
+          console.log(res);
+        },
+        error=>{
+          console.log(error)
+        }
+      );
       // Si la respuesta del backend es exitosa, se muestra un modal de exito
       this.abrirModal(modalExito);
+
+          //this.artistas =
       // Si la respuesta del backend es error, se muestra un modal de error
       //this.abrirModal(modalError);
 
@@ -223,6 +249,21 @@ export class RegistroUsuarioComponent implements OnInit {
       }
     );
   }
+
+
+  obtenerUsuarios(){
+    this.usuariosService.obtenerUsuarios(  ).subscribe(
+      res=>{
+
+        console.log(res);
+      },
+      error=>{
+        console.log(error)
+      }
+    );
+  }
+
+
 
 
 

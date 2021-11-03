@@ -28,6 +28,7 @@ import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.
 import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 import { NgwWowModule } from 'ngx-wow';
 import { EventosComponent } from './components/eventos/eventos.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EventosComponent } from './components/eventos/eventos.component';
     MatDialogModule,
     MatCardModule,
     MatExpansionModule,
-    NgwWowModule
+    NgwWowModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

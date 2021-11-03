@@ -12,4 +12,6 @@ export class AppComponent {
   constructor( private wowService: NgwWowService ) {
   this.wowService.init();
   }
+
+
 }

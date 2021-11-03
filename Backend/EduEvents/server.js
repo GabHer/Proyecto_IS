@@ -10,8 +10,17 @@ const routesPersonas = require('./routes/personas-routes')
 const app = express()
 app.use(cors());
 app.use(bodyParser.json());
-app.set('port', process.env.PORT || 9000)
+app.set('port', process.env.PORT || 8080)
 
+// Parámetros a usar para la conexión con la base de datos.
+const dbOpciones = {
+    host: 'localhost',
+    port: 3306,
+    user: 'admin',
+    password: 'admin',
+    database: 'EduEvents'
+}
+/*
 // Parámetros a usar para la conexión con la base de datos.
 const dbOpciones = {
     host: 'localhost',
@@ -19,7 +28,8 @@ const dbOpciones = {
     user: 'root',
     password: 'Admin123.',
     database: 'EduEvents'
-}
+
+*/
 
 // middlewares -------------------------------------
 app.use(miconn(mysql, dbOpciones, 'single'))

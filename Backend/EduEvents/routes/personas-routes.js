@@ -21,6 +21,7 @@ routes.get('/',(req, res)=> {
 //Crear una persona
 routes.post('/',(req, res)=> {
     //Obtener todas las personas
+
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
 
@@ -30,6 +31,7 @@ routes.post('/',(req, res)=> {
             res.send('El Usuario se ha registrado')
         })
     })
+    
 })
 
 
