@@ -3,17 +3,23 @@
     <app-header [current]="'eventos'"></app-header>
   </div>
 
-<div class="row col-9" >
+<div class="row " >
   <div class="input-group mb-3 stPos" >
-    <button class="btn btn-outline-secondary dropdown-toggle" style="background-color:#d9d9d988; padding-block-end: 0px;"  type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="material-icons">
-      filter_alt</span></button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-      </ul>
+
+    <div style="background-color: #d9d9d988; height: 40px; margin-top: 0.5px;">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn " id="dropdownBasic1" ngbDropdownToggle><span class="material-icons">
+          filter_alt</span></button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>Nombre</button>
+          <button ngbDropdownItem>Fecha</button>
+          <button ngbDropdownItem>Estado</button>
+        </div>
+      </div>
+    </div>
+
     <input type="text" style="background-color:#d9d9d988; height: 40px; margin-top: 1px;" class="form-control" aria-label="Text input with dropdown button">
-    <button class="btn btn-outline-secondary" style="background-color:#F9CF00; padding-block-end: 0px;" type="button" id="button-addon2"><span class="material-icons">search</span></button>
+    <button class="btn btn-outline-secondary" style="background-color:#F9CF00; height: 43px; padding-bottom: 0px;" type="button" id="button-addon2"><span class="material-icons">search</span></button>
   </div>
   </div>
 </div>
