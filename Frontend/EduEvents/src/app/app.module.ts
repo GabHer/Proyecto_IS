@@ -27,6 +27,8 @@ import {MatCardModule} from '@angular/material/card';
 import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.component';
 import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 import { NgwWowModule } from 'ngx-wow';
+import { EventosComponent } from './components/eventos/eventos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { NgwWowModule } from 'ngx-wow';
     SubirArchivoComponent,
     InicioSesionComponent,
     AcercaDeComponent,
+    EventosComponent,
 
   ],
   imports: [
