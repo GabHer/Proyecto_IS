@@ -198,16 +198,16 @@ export class RegistroUsuarioComponent implements OnInit {
       console.log(this.formularioRegistro.value);
 
       const nuevoUsuario = {
-        nombre: this.formularioRegistro.get("nombre").value,
-        apellido: this.formularioRegistro.get("apellido").value,
-        nacimiento: this.formularioRegistro.get("nacimiento").value,
-        email: this.formularioRegistro.get("email").value,
-        contrasenia: this.formularioRegistro.get("contrasenia").value,
-        formacionAcademica: this.formularioRegistro.get("formacionAcademica").value,
-        descripcion: this.formularioRegistro.get("descripcion").value,
-        imagen: this.previsualizacion,
-        institucion: this.formularioRegistro.get("institucion").value,
-        intereses: this.formularioRegistro.get("intereses").value
+        Nombre: this.formularioRegistro.get("nombre").value,
+        Apellido: this.formularioRegistro.get("apellido").value,
+        Institucion: this.formularioRegistro.get("institucion").value,
+        Formacion_Academica: this.formularioRegistro.get("formacionAcademica").value,
+        Descripcion: this.formularioRegistro.get("descripcion").value,
+        Intereses: this.formularioRegistro.get("intereses").value,
+        Fecha_Nacimiento: this.formularioRegistro.get("nacimiento").value,
+        Fotografia: this.previsualizacion,
+        Correo: this.formularioRegistro.get("email").value,
+        Contrasena: this.formularioRegistro.get("contrasenia").value
       }
 
       this.usuariosService.guardarUsuario( nuevoUsuario ).subscribe(
