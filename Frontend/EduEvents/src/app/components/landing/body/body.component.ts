@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
