@@ -158,7 +158,9 @@ export class InicioSesionComponent implements OnInit {
     // Validar que el código haga match con el código generado por el backend
 
 
-    // Si pasa la validación, entonces actualizar el usuario con la nueva contraseña
+
+
+    // Si pasa la validación, entonces validar que la contraseña nueva sea valida y actualizar el usuario con la nueva contraseña
 
     console.log(this.formularioRecuperarContrasenia.value);
   }
