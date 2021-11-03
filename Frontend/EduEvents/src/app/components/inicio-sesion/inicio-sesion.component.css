@@ -111,4 +111,11 @@
   width: 70%;
 }
 
+.campo-correcto {
+  color: green;
+}
 
+.campo-incorrecto {
+  color: rgb(230, 40, 40);
+
+}
