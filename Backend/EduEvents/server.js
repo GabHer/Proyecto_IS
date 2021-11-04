@@ -1,51 +1,33 @@
-const express = require('express')
-const mysql = require('mysql')
-var cors = require('cors');
-var bodyParser = require('body-parser');
-const miconn = require('express-myconnection')
-const routesPersonas = require('./routes/personas-routes')
+const express = require("express");
 
-/*const routes = require('./routes')*/
+const app = express();
+app.set('port', process.env.PORT || 8888)
 
-const app = express()
-app.use(cors());
-//app.use(bodyParser.json());
-app.set('port', process.env.PORT || 8080)
-app.use(bodyParser.json({limit:'50mb'}));
-app.use(bodyParser.json({limit: '50mb', extended: true,parameterLimit:50000}));
-
-// Parámetros a usar para la conexión con la base de datos.
-const dbOpciones = {
-    host: 'localhost',
-    port: 3306,
-    user: 'admin',
-    password: 'admin',
-    database: 'EduEvents'
+// Acceso mediante cors para todos los clientes
+const cors = require('cors');
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
 }
-/*
-// Parámetros a usar para la conexión con la base de datos.
-const dbOpciones = {
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'Admin123.',
-    database: 'EduEvents'
 
-*/
+app.use(cors(corsOptions));
 
-// middlewares -------------------------------------
-app.use(miconn(mysql, dbOpciones, 'single'))
-app.use(express.json())
+// Hacemos un parse a json y definimos un limite
+app.use(express.json({limit: '50mb', extended: true,parameterLimit:50000}));
 
+// parse requests of content-type: application/x-www-form-urlencoded
+app.use(express.urlencoded({extended: true})); 
 
-app.get('/',(req, res)=> {
-    res.send('Bienvenido a EduEvents')
-})
+// Ruta raiz
+app.get("/", (req, res) => {
+  res.json({ message: "Bienvenido a EduEvents" });
+});
 
-app.use('/registrate', routesPersonas)
+require("./app/routes/persona.routes.js")(app);
 
-// server running -----------------------------------
-app.listen(app.get('port'), ()=>{
-    console.log('server running on port', app.get('port'))
-})
+// set port, listen for requests
+app.listen(8888, () => {
+    console.log("El servidor esta corriendo en el puerto 8888.");
+  });
 

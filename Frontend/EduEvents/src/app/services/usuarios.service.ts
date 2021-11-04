@@ -10,12 +10,13 @@ export class UsuariosService {
   constructor( private httpClient: HttpClient ) { }
 
   obtenerUsuarios(){
-    return this.httpClient.get('http://localhost:8080/registrate');
+    return this.httpClient.get('http://localhost:8888/registro');
+
 
   }
   guardarUsuario(usuario:any){
 
 
-    return this.httpClient.post('http://localhost:8080/registrate',usuario);
+    return this.httpClient.post('http://localhost:8888/registro',usuario);
   }
 }

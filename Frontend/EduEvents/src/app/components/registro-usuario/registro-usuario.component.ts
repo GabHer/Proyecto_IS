@@ -234,7 +234,6 @@ export class RegistroUsuarioComponent implements OnInit {
         error=>{
           this.mensajeError = "No se pudo registrar el usuario"
           this.abrirModal(modalError);
-          console.log(error)
         }
         );
 
