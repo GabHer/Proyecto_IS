@@ -48,7 +48,7 @@
 
             <mat-form-field class="control-formulario" appearance="fill">
               <mat-label>Fecha Nacimiento</mat-label>
-              <input matInput type="date" formControlName="nacimiento" required>
+              <input matInput type="date" formControlName="nacimiento" min="1870-01-01" required>
               <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nacimiento').invalid" >Fecha de nacimiento valida</mat-hint>
               <mat-error *ngIf="formularioRegistro.get('nacimiento').invalid">{{getErrorMessageEmail()}}</mat-error>
             </mat-form-field>
@@ -56,8 +56,10 @@
             <mat-form-field class="control-formulario" appearance="fill">
               <mat-label>Correo</mat-label>
               <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
-              <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('email').invalid" >El correo ingresado es valido</mat-hint>
+              <mat-hint class="campo-correcto" *ngIf="!(formularioRegistro.get('email').invalid) && (mensajeError == '')" >El correo ingresado es valido</mat-hint>
+              <mat-hint class="campo-incorrecto" *ngIf="(mensajeError != '')" >Este correo electronico ya esta en uso</mat-hint>
               <mat-error *ngIf="formularioRegistro.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
+
             </mat-form-field>
 
             <mat-form-field class="control-formulario" appearance="fill">
@@ -192,7 +194,8 @@
       <h3>Tu registro ha sido exitoso</h3>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Ok</button>
+      <a class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')" href="/inicioSesion">OK</a>
+
   </div>
 </ng-template>
 
@@ -218,7 +221,7 @@
 
   <div class="modal-body modal-cuerpo">
       <h3>¡Error!</h3>
-      <h3>Mensaje de error</h3>
+      <h3>{{mensajeError}}</h3>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Ok</button>

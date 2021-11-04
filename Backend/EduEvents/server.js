@@ -9,8 +9,10 @@ const routesPersonas = require('./routes/personas-routes')
 
 const app = express()
 app.use(cors());
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080)
+app.use(bodyParser.json({limit:'50mb'}));
+app.use(bodyParser.json({limit: '50mb', extended: true,parameterLimit:50000}));
 
 // Parámetros a usar para la conexión con la base de datos.
 const dbOpciones = {

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
-import {FormControl, Validators, FormGroup} from '@angular/forms';
+import {FormControl, Validators, FormGroup, AbstractControl} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ViewChild } from '@angular/core';
 
@@ -31,6 +31,7 @@ export class RegistroUsuarioComponent implements OnInit {
   oculto = true;
   errorImagen = false;
   intereses:any = [];
+  mensajeError="";
 
 
   /**
@@ -58,9 +59,11 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
 
+
   constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private usuariosService:UsuariosService ) { }
 
   ngOnInit(): void {
+    this.mensajeError = "";
     this.obtenerUsuarios();
   }
 
@@ -151,6 +154,8 @@ export class RegistroUsuarioComponent implements OnInit {
     if (this.formularioRegistro.get('email').hasError('required')) {
       return 'Este es un campo obligatorio';
     }
+
+
     return this.formularioRegistro.get('email').errors?.pattern ? 'Correo no valido' : '';
   }
 
@@ -195,8 +200,6 @@ export class RegistroUsuarioComponent implements OnInit {
     // Si el formulario es valido, esta listo para guardar
     if(this.formularioRegistro.valid){
 
-      console.log(this.formularioRegistro.value);
-
       const nuevoUsuario = {
         Nombre: this.formularioRegistro.get("nombre").value,
         Apellido: this.formularioRegistro.get("apellido").value,
@@ -210,21 +213,32 @@ export class RegistroUsuarioComponent implements OnInit {
         Contrasena: this.formularioRegistro.get("contrasenia").value
       }
 
-      this.usuariosService.guardarUsuario( nuevoUsuario ).subscribe(
-        res=>{
+      this.mensajeError = "";
 
-          console.log(res);
+      this.usuariosService.guardarUsuario( nuevoUsuario ).subscribe(
+        (res:any)=>{
+
+          if(res.codigo == 406){
+            this.mensajeError = "El correo ingresado ya esta en uso."
+            this.abrirModal(modalError);
+
+          }
+
+          if(res.codigo == 200 ){
+            this.abrirModal(modalExito);
+
+
+          }
+
         },
         error=>{
+          this.mensajeError = "No se pudo registrar el usuario"
+          this.abrirModal(modalError);
           console.log(error)
         }
-      );
-      // Si la respuesta del backend es exitosa, se muestra un modal de exito
-      this.abrirModal(modalExito);
+        );
 
-          //this.artistas =
-      // Si la respuesta del backend es error, se muestra un modal de error
-      //this.abrirModal(modalError);
+
 
 
       return;
@@ -252,7 +266,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
   obtenerUsuarios(){
-    this.usuariosService.obtenerUsuarios(  ).subscribe(
+    this.usuariosService.obtenerUsuarios( ).subscribe(
       res=>{
 
         console.log(res);

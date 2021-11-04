@@ -11,11 +11,11 @@ export class UsuariosService {
 
   obtenerUsuarios(){
     return this.httpClient.get('http://localhost:8080/registrate');
-    
+
   }
   guardarUsuario(usuario:any){
-    console.log("Guardando usuario...");
-    console.log(usuario);
+
+
     return this.httpClient.post('http://localhost:8080/registrate',usuario);
   }
 }
