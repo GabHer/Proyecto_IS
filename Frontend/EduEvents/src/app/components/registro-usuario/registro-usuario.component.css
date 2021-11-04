@@ -13,6 +13,7 @@
 
 .txt-1 {
   font-family: 'Ponnala', sans-serif;
+
 }
 
 .control-formulario {
@@ -137,4 +138,8 @@
   font-weight: bold;
   font-size: 20px;
   font-family: 'Ponnala', sans-serif;
+}
+
+body {
+ height: 100%;
 }
