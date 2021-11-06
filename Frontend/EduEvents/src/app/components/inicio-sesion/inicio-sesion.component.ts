@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { SpinnerService } from 'src/app/services/spinner.service';
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.component.html',
@@ -29,7 +29,8 @@ export class InicioSesionComponent implements OnInit {
     {
       email :  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       codigo :  new FormControl(''),
-      nuevaContrasenia: new FormControl('', [Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')])
+      nuevaContrasenia: new FormControl('', [Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
+      repetirContrasenia: new FormControl('', [Validators.required])
     }
   );
 
@@ -37,12 +38,13 @@ export class InicioSesionComponent implements OnInit {
 
 
 
+
   oculto = true;
 
-  usuarioEncontrado = false;
+  recuperarContrasenia = { usuarioEncontrado: false, codigo:0 };
   codigoValido = false;
 
-  constructor( private modalService:NgbModal ) { }
+  constructor( private modalService:NgbModal, private spinner:SpinnerService  ) { }
 
   ngOnInit(): void {
   }
@@ -89,7 +91,7 @@ export class InicioSesionComponent implements OnInit {
       return 'Este es un campo obligatorio';
     }
 
-    if ( !this.usuarioEncontrado ) {
+    if ( !this.recuperarContrasenia.usuarioEncontrado ) {
       return 'No se encontro ninguna cuenta registrada con ese correo';
     }
 
@@ -138,14 +140,27 @@ export class InicioSesionComponent implements OnInit {
   */
   onClickEnviarCodigo(){
     // Hacemos la consulta al backend para comprobar la existencia de ese correo electronico
-    this.usuarioEncontrado = true;
+    this.recuperarContrasenia.usuarioEncontrado = true;
 
 
-    if( this.usuarioEncontrado ){
+    if( this.recuperarContrasenia.usuarioEncontrado ){
       this.formularioRecuperarContrasenia.get('codigo').enable();
       this.formularioRecuperarContrasenia.get('nuevaContrasenia').enable();
 
     }
+  }
+
+  validarCodigo(){
+    // Comprobar con el backend si el código es el mismo
+    console.log("Validando código...");
+    this.spinner.mostrarSpinner()
+    setTimeout(() => {
+      this.recuperarContrasenia.codigo = 4444;
+      console.log(this.recuperarContrasenia);
+      this.spinner.ocultarSpinner()
+    }, 3000);
+
+    console.log(this.recuperarContrasenia);
   }
 
   /**
@@ -164,6 +179,8 @@ export class InicioSesionComponent implements OnInit {
 
     console.log(this.formularioRecuperarContrasenia.value);
   }
+
+
 
 
 

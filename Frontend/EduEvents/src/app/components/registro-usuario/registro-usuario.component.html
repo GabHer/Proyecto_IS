@@ -19,12 +19,16 @@
               <h2 class="titulo-formulario " style="text-align:center; color: #4484CE;"><strong>Únete a EduEvents</strong></h2>
             </div>
           </div>
+
+
       </div>
 
       </div>
       <form   [formGroup]="formularioRegistro" (ngSubmit)="onSubmitRegistro($event, modaDialogoExito, modalDialogoError)">
         <div class="row">
           <div class="col-12" >
+            <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
             <span style="color: red; ">*</span>
             <span class="txt-1 ml-2" >Indica un campo obligatorio</span>
           </div>

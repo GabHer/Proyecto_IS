@@ -9,7 +9,6 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UsuariosService } from 'src/app/services/usuarios.service';
-
 @Component({
   selector: 'app-registro-usuario',
   templateUrl: './registro-usuario.component.html',
@@ -89,6 +88,7 @@ export class RegistroUsuarioComponent implements OnInit {
   imageCropped(event: ImageCroppedEvent) {
 
     this.croppedImage = event.base64;
+
   }
 
 
@@ -266,7 +266,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
   obtenerUsuarios(){
     this.usuariosService.obtenerUsuarios( ).subscribe(
-      res=>{
+      (res:any)=>{
 
         console.log(res);
       },

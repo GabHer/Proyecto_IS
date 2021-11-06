@@ -29,6 +29,8 @@ import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 import { NgwWowModule } from 'ngx-wow';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -63,9 +65,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatExpansionModule,
     NgwWowModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

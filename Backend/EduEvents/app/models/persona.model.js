@@ -22,13 +22,15 @@ const Persona = function(objPersona) {
 
 
 
+
+
 Persona.crear = ( nuevoObjetoPersona, resultado ) => {
     Persona.buscarPorCorreo(nuevoObjetoPersona.Correo, (err, data) => {
         if (err) {
-
             // Si no se encuentra un usuario registrado con el correo electronico se hace el insert
+            consulta = `INSERT INTO Persona (Nombre, Apellido, Institucion, Formacion_Academica, Descripcion, Intereses, Fecha_Nacimiento, Fotografia, Correo, Contrasena) VALUES ('${nuevoObjetoPersona.Nombre}','${nuevoObjetoPersona.Apellido}','${nuevoObjetoPersona.Institucion}','${nuevoObjetoPersona.Formacion_Academica}','${nuevoObjetoPersona.Descripcion}','${nuevoObjetoPersona.Intereses}','${nuevoObjetoPersona.Fecha_Nacimiento}','${nuevoObjetoPersona.Fotografia}','${nuevoObjetoPersona.Correo}',AES_ENCRYPT('${nuevoObjetoPersona.Contrasena}','${nuevoObjetoPersona.Contrasena}'));`
             if (err.estado === "no_encontrado") {
-                sql.query("INSERT INTO Persona SET ?", nuevoObjetoPersona, (err, res) => {
+                sql.query( consulta, (err, res) => {
                     if (err) {
                         console.log(err);
                         resultado(err, null);

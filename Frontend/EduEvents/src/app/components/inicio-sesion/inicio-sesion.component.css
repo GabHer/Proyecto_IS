@@ -55,6 +55,11 @@
 
 }
 
+.enviar {
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
 .centrar {
   margin-left: 25%;
 
