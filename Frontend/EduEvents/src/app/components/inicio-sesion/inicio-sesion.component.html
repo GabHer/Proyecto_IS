@@ -173,11 +173,11 @@
               <div class="col-12">
                 <mat-form-field   class="form-recuperar-Contraseña"  appearance="fill">
                   <mat-label>Repetir contraseña</mat-label>
-                  <input  matInput [type]="oculto ? 'password' : 'text'" formControlName="nuevaContrasenia"  >
+                  <input  matInput [type]="oculto ? 'password' : 'text'" formControlName="repetirContrasenia" required  >
                   <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
-                  <mat-hint class="campo-incorrecto" *ngIf="(formularioRecuperarContrasenia.get('nuevaContrasenia').invalid)" >Contraseña no valida</mat-hint>
+                  <mat-hint class="campo-incorrecto" *ngIf="(formularioRecuperarContrasenia.get('repetirContrasenia').invalid)" >La contraseña no coincide</mat-hint>
                 </mat-form-field>
                 <span style="font-size: 50px;" class="material-icons mt-2">
                   key
@@ -185,8 +185,8 @@
               </div>
             </div>
 
-            <div class="container text-center">
-              <button [disabled]="!recuperarContrasenia.usuarioEncontrado" (click)="onClickCambiarContrasenia();"  type="submit" class="btn btn-primary  btn-3 mt-1 ">Iniciar Sesión</button>
+            <div *ngIf="(recuperarContrasenia.codigo !=0)" class="container text-center">
+              <button  (click)="onClickCambiarContrasenia();"  type="submit" class="btn btn-primary  btn-3 mt-1 ">Iniciar Sesión</button>
             </div>
           </form>
 
@@ -198,10 +198,10 @@
 
   <div class="modal-footer">
     <div class="container text-center">
-      <h4>¿Todavía no tienes una cuenta en EduEvents? ¡Regístrate!</h4>
+      <h4>¿Todavía no tienes una cuenta en EduEvents?</h4>
     </div>
     <div class="container text-center">
-      <a href="/registrate" (click)="modal.close('Close click')" class="btn btn-primary btn-1 mb-2">Registrate</a>
+      <a href="/registrate" (click)="modal.close('Close click')" class="btn btn-primary btn-1 mb-2"> ¡Regístrate!</a>
     </div>
   </div>
 </ng-template>

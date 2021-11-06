@@ -7,7 +7,7 @@ import { ViewChild } from '@angular/core';
 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 @Component({
   selector: 'app-registro-usuario',
@@ -59,7 +59,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
 
 
-  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private usuariosService:UsuariosService ) { }
+  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private usuariosService:UsuariosService, private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
     this.mensajeError = "";
@@ -215,6 +215,8 @@ export class RegistroUsuarioComponent implements OnInit {
 
       this.mensajeError = "";
 
+      this.spinnerService.mostrarSpinner();
+
       this.usuariosService.guardarUsuario( nuevoUsuario ).subscribe(
         (res:any)=>{
 
@@ -234,6 +236,9 @@ export class RegistroUsuarioComponent implements OnInit {
         error=>{
           this.mensajeError = "No se pudo registrar el usuario"
           this.abrirModal(modalError);
+        },
+        () => {
+          this.spinnerService.ocultarSpinner();
         }
         );
 
@@ -264,17 +269,34 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
 
+
+
   obtenerUsuarios(){
+    let usuario:any;
+    this.spinnerService.mostrarSpinner();
     this.usuariosService.obtenerUsuarios( ).subscribe(
       (res:any)=>{
 
         console.log(res);
+        usuario = res;
       },
       error=>{
         console.log(error)
+      },
+      ()=> {
+        this.spinnerService.ocultarSpinner();
+        console.log("Se termino de ejecutar la función");
+        console.log(usuario);
       }
-    );
+      );
+      console.log(usuario);
+
+
+
   }
+
+
+
 
 
 

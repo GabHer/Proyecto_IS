@@ -140,14 +140,21 @@ export class InicioSesionComponent implements OnInit {
   */
   onClickEnviarCodigo(){
     // Hacemos la consulta al backend para comprobar la existencia de ese correo electronico
-    this.recuperarContrasenia.usuarioEncontrado = true;
+    this.spinner.mostrarSpinner()
+    setTimeout(() => {
+
+      this.recuperarContrasenia.usuarioEncontrado = true;
+      console.log(this.recuperarContrasenia);
+      this.spinner.ocultarSpinner()
+
+      if( this.recuperarContrasenia.usuarioEncontrado ){
+        this.formularioRecuperarContrasenia.get('codigo').enable();
+        this.formularioRecuperarContrasenia.get('nuevaContrasenia').enable();
+
+      }
+    }, 3000);
 
 
-    if( this.recuperarContrasenia.usuarioEncontrado ){
-      this.formularioRecuperarContrasenia.get('codigo').enable();
-      this.formularioRecuperarContrasenia.get('nuevaContrasenia').enable();
-
-    }
   }
 
   validarCodigo(){
