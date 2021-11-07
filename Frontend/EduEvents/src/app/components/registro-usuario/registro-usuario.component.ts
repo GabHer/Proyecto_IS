@@ -9,6 +9,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { contraseniasIguales } from '../../helppers/validaciones-personalizadas';
 @Component({
   selector: 'app-registro-usuario',
   templateUrl: './registro-usuario.component.html',
@@ -45,13 +46,15 @@ export class RegistroUsuarioComponent implements OnInit {
       nacimiento: new FormControl('', [Validators.required]),
       email:  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       contrasenia: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
+      repetirContrasenia: new FormControl('', [Validators.required]),
       formacionAcademica: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
       imagen: new FormControl('', Validators.required),
       institucion: new FormControl('', Validators.required),
       intereses: new FormControl('', Validators.required)
-    }
-  );
+    },
+    { validators:contraseniasIguales }
+    );
 
   @ViewChild('inputImagen')
   inputImagenPerfil: ElementRef;
@@ -172,6 +175,19 @@ export class RegistroUsuarioComponent implements OnInit {
     return this.formularioRegistro.get('contrasenia').hasError('pattern') ? 'La contraseña debe tener un mínimo de 8 caracteres, al menos 1 letra mayúscula, 1 letra minúscula y 1 número' : '';
   }
 
+  getErrorMessageRepetirContrasenia(){
+
+    if (this.formularioRegistro.get('repetirContrasenia').hasError('required')) {
+      return 'Este es un campo obligatorio';
+    }
+    if (this.formularioRegistro.getError('contraseniasIguales')) {
+
+      return 'Las contraseñas no coinciden';
+    }
+
+    return "Ocurrio un error";
+  }
+
   /**
   * @name getErrorMessage
   * @summary Comprueba el error en un campo previamente definido.
@@ -277,19 +293,20 @@ export class RegistroUsuarioComponent implements OnInit {
     this.usuariosService.obtenerUsuarios( ).subscribe(
       (res:any)=>{
 
-        console.log(res);
+
         usuario = res;
       },
       error=>{
-        console.log(error)
+
+        this.spinnerService.ocultarSpinner();
       },
       ()=> {
         this.spinnerService.ocultarSpinner();
-        console.log("Se termino de ejecutar la función");
-        console.log(usuario);
+
+
       }
       );
-      console.log(usuario);
+
 
 
 
