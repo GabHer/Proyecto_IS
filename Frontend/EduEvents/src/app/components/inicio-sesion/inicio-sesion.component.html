@@ -1,9 +1,7 @@
 
-
-
   <div class="row  mt-1">
     <div class="col-12 ">
-      <div class="text-right">
+      <div class="text-right mr-5 mb-1">
         <a href="/"><img src="../../../assets/img/RetornarAHomePage.svg" alt=""></a>
       </div>
     </div>
@@ -17,7 +15,6 @@
           <img class="img-inputs" style="position: absolute; width: 100%;" src="../../../assets/img/RecuadroConPatrón.svg" alt="">
         </div>
         <div class="col-12 titulo-formulario mt-3" >
-
           <h2>Inicio de sesión</h2>
         </div>
         <div class="col-12 h4-formulario">
@@ -25,7 +22,7 @@
         </div>
         <div class="col-12 mt-2">
           <form (ngSubmit)="onSubmitInicioSesion($event)" [formGroup]="formularioInicioSesion">
-            <div class="container text-center">
+            <div class="container stCenter" >
               <mat-form-field class="control-formulario" appearance="fill">
                 <mat-label>Ingrese su correo</mat-label>
                 <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
@@ -37,17 +34,16 @@
               </span>
             </div>
 
-            <div class="container text-center">
-
-                <mat-form-field class="control-formulario mr-2" appearance="fill">
+            <div class="container stCenter" >
+                <mat-form-field class="control-formulario" appearance="fill">
                   <mat-label>Ingrese su contraseña</mat-label>
                   <input matInput [type]="oculto ? 'password' : 'text'" formControlName="contrasenia" required >
-                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                  <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                   <mat-error *ngIf="formularioInicioSesion.get('contrasenia').invalid">{{getErrorMessage('contrasenia')}}</mat-error>
                 </mat-form-field>
-                <span style="font-size: 50px;" class="material-icons">
+                <span style="font-size: 50px; " class="material-icons">
                   key
                 </span>
             </div>
@@ -124,7 +120,7 @@
         <h4 class="h4-body-modal">para restablecer tu contraseña</h4>
       </div>
 
-      <div class="col-12">
+      <div class="col-12 mt-3">
         <div class="text-center">
           <form  [formGroup]="formularioRecuperarContrasenia">
 
@@ -139,7 +135,6 @@
                 <button [disabled]="recuperarContrasenia.usuarioEncontrado || formularioRecuperarContrasenia.get('email').invalid" (click)="onClickEnviarCodigo()" class="btn btn-primary btn-1 mb-2 ml-5">Enviar correo</button>
 
               </div>
-
 
             </div>
 
@@ -157,29 +152,29 @@
             <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
             <div *ngIf="(recuperarContrasenia.codigo != 0)" class="row mt-2">
 
-              <div class="col-12">
+              <div class="col-12 stCenterModal">
                 <mat-form-field   class="form-recuperar-Contraseña"  appearance="fill">
                   <mat-label>Ingrese su nueva contraseña</mat-label>
                   <input  matInput [type]="oculto ? 'password' : 'text'" formControlName="nuevaContrasenia"  >
-                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                  <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                   <mat-hint class="campo-incorrecto" *ngIf="(formularioRecuperarContrasenia.get('nuevaContrasenia').invalid)" >Contraseña no valida</mat-hint>
                 </mat-form-field>
-                <span style="font-size: 50px;" class="material-icons mt-2">
+                <span style="font-size: 50px;" class="material-icons">
                   key
                 </span>
               </div>
-              <div class="col-12">
+              <div class="col-12 stCenterModal">
                 <mat-form-field   class="form-recuperar-Contraseña"  appearance="fill">
                   <mat-label>Repetir contraseña</mat-label>
                   <input  matInput [type]="oculto ? 'password' : 'text'" formControlName="repetirContrasenia" required  >
-                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                  <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                   <mat-hint class="campo-incorrecto" *ngIf="(formularioRecuperarContrasenia.get('repetirContrasenia').invalid)" >La contraseña no coincide</mat-hint>
                 </mat-form-field>
-                <span style="font-size: 50px;" class="material-icons mt-2">
+                <span style="font-size: 50px;" class="material-icons">
                   key
                 </span>
               </div>

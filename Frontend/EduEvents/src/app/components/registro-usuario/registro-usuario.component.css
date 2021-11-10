@@ -3,7 +3,8 @@
 .titulo-formulario {
   font-family: 'Ponnala', sans-serif;
   font-size: 22px;
-  color: black;
+  color: #4484CE;
+  margin-bottom: 0%!important;
 }
 .h4-formulario {
   font-family: 'Ponnala', sans-serif;
@@ -86,6 +87,7 @@
 .home {
   cursor: pointer;
   margin-left: auto;
+
 }
 
 
@@ -146,4 +148,19 @@ body {
 .campo-incorrecto {
   color: rgb(230, 40, 40);
 
+}
+
+.stOjo{
+  border: whitesmoke;
+  background-color: whitesmoke;
+}
+
+.stback{
+  background-image: url(../../../assets/img/ImgBackRegistro.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100vh;
+  position: absolute;
 }
