@@ -1,0 +1,55 @@
+@import url('http://fonts.cdnfonts.com/css/ponnala');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap');
+.background-header {
+  background-image: url("../../../../assets/img/HeaderConCírculos.svg");
+  background-repeat: no-repeat;
+  height: 209px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-toggle {
+  cursor:pointer;
+  font-size: 42px;
+}
+.mostrar-btn {
+  display: block;
+}
+.ocultar-btn {
+  display: none;
+}
+
+.brand-edu {
+  margin-left: 8rem;
+}
+
+.contenedor-usuario {
+    width: 300px;
+    height: 50px;
+    box-shadow: 7px 7px 15px #00000069;
+    margin-left: auto;
+  }
+
+  .icono-usuario {
+    font-size: 42px;
+    padding: 0.25rem;
+    color: white;
+  }
+
+.txt-nombreUsuario {
+  font-size: 22px;
+  padding: 0;
+  font-family: 'Ponnala', sans-serif;
+  color: white;
+  font-weight: 400;
+  position: absolute;
+  margin-top: 1.25rem;
+}
+
+.txt-perfil{
+  font-size: 48px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-weight: 700;
+}

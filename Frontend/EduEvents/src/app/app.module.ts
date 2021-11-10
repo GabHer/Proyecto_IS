@@ -31,7 +31,11 @@ import { EventosComponent } from './components/eventos/eventos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { NgxSpinnerModule } from "ngx-spinner";
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { SidenavComponent } from './components/dashboard/sidenav/sidenav.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +48,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     InicioSesionComponent,
     AcercaDeComponent,
     EventosComponent,
+    DashboardComponent,
+    PerfilUsuarioComponent,
+    SidenavComponent,
+    HeaderDashboardComponent,
 
   ],
   imports: [
@@ -67,7 +75,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgwWowModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatSidenavModule
   ],
   providers: [
 

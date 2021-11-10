@@ -1,0 +1,82 @@
+
+@import url('http://fonts.cdnfonts.com/css/ponnala');
+
+.contenedor {
+  width: 20rem;
+  height: 100vh;
+  background-color: transparent;
+  position: fixed;
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+}
+
+.sidenav {
+  padding: 10px;
+  background-color: #F19F4D;
+}
+
+
+.btn-toggle {
+  cursor:pointer;
+  font-size: 42px;
+}
+
+.panel-interno {
+  background-color: #00000015;
+  border-radius: 5px;
+}
+
+.iconos {
+  font-size: 22px;
+  color: #F9CF00;
+}
+
+.text-items {
+  font-size: 22px;
+  color:white;
+  font-family: 'Ponnala', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.logo {
+  margin-top:5rem;
+  margin-bottom: 3rem;
+}
+
+.div-item {
+  cursor: pointer;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.div-item:hover {
+  cursor: pointer;
+  background-color: #ffffff36;
+}
+
+.item-seleccionado {
+  background-color: #0000006e;
+}
+.item-seleccionado:hover {
+  background-color: #0000006e !important;
+}
+
+.mostrar-div {
+  display: block;
+}
+
+.ocultar-div {
+  display: none;
+}
+
+.background-transparente {
+  background-color: rgba(255, 255, 255, 0)!important;
+}
