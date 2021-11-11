@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class HeaderDashboardComponent implements OnInit {
   @Output() bandera = new EventEmitter<Boolean>();
   @Input() usuarioHeader:any;
+  @Input() nombreItemActual:string;
 
   mostrarBtn = true;
   constructor() { }

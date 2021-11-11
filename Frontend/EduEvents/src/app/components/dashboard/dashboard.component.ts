@@ -22,7 +22,7 @@ export class DashboardComponent implements AfterViewInit  {
     ["Cerrar sesión", "logout"],
   ]
 
-  indexItemActual:any;
+  indexItemActual = 0;
 
   bandera = true;
   constructor() {
@@ -61,5 +61,8 @@ export class DashboardComponent implements AfterViewInit  {
     return this.items.findIndex( item => item[0] == nombreItem);
   }
 
+  obtenerItem(indice:any){
+    return this.items[indice][0]
+  }
 
 }

@@ -29,6 +29,7 @@
     height: 50px;
     box-shadow: 7px 7px 15px #00000069;
     margin-left: auto;
+    cursor: pointer;
   }
 
   .icono-usuario {
