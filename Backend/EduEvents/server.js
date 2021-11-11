@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/persona.routes.js")(app);
+require("./app/routes/loging.routes.js")(app);
 
 // set port, listen for requests
 app.listen(8888, () => {
