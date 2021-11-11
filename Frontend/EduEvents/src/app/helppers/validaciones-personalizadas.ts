@@ -9,6 +9,3 @@ export const contraseniasIguales: ValidatorFn = (control: AbstractControl): Vali
   return contrasenia1.value == contrasenia2.value ?null : { contraseniasIguales: true } ;
 };
 
-
-
-

@@ -14,7 +14,7 @@
 const sql = require("./db.js");
 
 // Definimos el constructor
-const Loging = function( datosAutenticacion ) {
+const Login = function( datosAutenticacion ) {
     this.Correo = datosAutenticacion.Correo;
     this.Contrasena = datosAutenticacion.Contrasena;
   };
@@ -22,7 +22,7 @@ const Loging = function( datosAutenticacion ) {
 
 // Creamos las funciones
 
-Loging.iniciarSesion = ( objLoging, resultado ) => {
+Login.iniciarSesion = ( objLoging, resultado ) => {
 
     const consulta = `SELECT * FROM Persona WHERE Contrasena = AES_ENCRYPT('${objLoging.Contrasena}', '${objLoging.Contrasena}') AND Correo
     = '${objLoging.Correo}';
@@ -43,8 +43,8 @@ Loging.iniciarSesion = ( objLoging, resultado ) => {
         }
         
         // En ultima instancia, no se encontro el usuario con ese correo y contraseña
-        resultado({ estado: "no_encontrado"}, null)
+        resultado( null, {estado: "no_encontrado"})
       });
 }
 
-module.exports = Loging;
+module.exports = Login;

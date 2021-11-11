@@ -1,7 +1,8 @@
-const Loging = require("../models/loging.model.js");
+const Login = require("../models/login.model.js");
 var jwt = require('jsonwebtoken');
-// nuevo loging
+// nuevo login
 exports.iniciarSesion = (req, res) => {
+
 
   // Validar consulta
   if (!req.body) {
@@ -10,16 +11,16 @@ exports.iniciarSesion = (req, res) => {
     });
   }
 
-  // Crear ojeto Loging
+  // Crear ojeto Login
 
-  const loging = new Loging({
+  const login = new Login({
     Correo: req.body.Correo,
     Contrasena: req.body.Contrasena
   });
 
   // Autenticar
 
-  Loging.iniciarSesion(loging, (err, data) => {
+  Login.iniciarSesion(login, (err, data) => {
     if (err)
       res.status(500).send({
         mensaje: err.mensaje || "Error en el inicio de sesión",
@@ -33,7 +34,7 @@ exports.iniciarSesion = (req, res) => {
         // Crear el token
 
         const token = jwt.sign({
-            correo: loging.Correo
+            correo: login.Correo
         },"miClaveUltraSuperMegaSecreta123", { expiresIn: '14400s' })
         res.send({mensaje:'El usuario se autentico correctamente', codigo:200, estado: data.estado, data:token})
       }

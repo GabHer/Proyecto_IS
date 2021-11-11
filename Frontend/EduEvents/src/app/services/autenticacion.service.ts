@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 const helper = new JwtHelperService();
@@ -8,8 +9,10 @@ const helper = new JwtHelperService();
 })
 export class AutenticacionService {
 
-  constructor( private httpClient: HttpClient ) {
-    this.leerToken();
+  login = false;
+
+  constructor( private httpClient: HttpClient, private router:Router ) {
+
   }
 
   inicioSesion( datos:any ){
@@ -18,18 +21,23 @@ export class AutenticacionService {
   }
   cerrarSesion(){
    localStorage.removeItem('token');
-   //set usuarioLogeged = false;
+   this.router.navigate(["/"]);
   }
 
-  private leerToken(){
+  leerToken(){
     const tokenUsuario = localStorage.getItem('token');
     const tokenExpiro = helper.isTokenExpired(tokenUsuario); // helper
+    if ( tokenExpiro ){
+      return false;
+    }
 
-    // set usuarioLogeged = tokenExpiro
+    return true;
 
   }
-  private guardarToken(){}
-  private handlerError(error:any){}
+  guardarToken( token:any ){
+    localStorage.setItem("token", token);
+  }
+  mostrarError(error:any){}
 }
 
 

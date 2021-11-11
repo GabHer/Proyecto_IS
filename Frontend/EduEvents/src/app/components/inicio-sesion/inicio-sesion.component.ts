@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { AutenticacionService } from 'src/app/services/autenticacion.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.component.html',
@@ -16,8 +18,8 @@ export class InicioSesionComponent implements OnInit {
   */
    formularioInicioSesion = new FormGroup(
     {
-      email :  new FormControl('', [Validators.required]),
-      contrasenia: new FormControl('', [Validators.required])
+      email :  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") ]),
+      contrasenia: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')])
     }
   );
   /**
@@ -40,11 +42,11 @@ export class InicioSesionComponent implements OnInit {
 
 
   oculto = true;
-
   recuperarContrasenia = { usuarioEncontrado: false, codigo:0 };
+  estadoLogin = { codigo:0, estado: "", mensaje:""};
   codigoValido = false;
 
-  constructor( private modalService:NgbModal, private spinner:SpinnerService  ) { }
+  constructor( private modalService:NgbModal, private spinner:SpinnerService, private loginService:AutenticacionService, private router: Router  ) { }
 
   ngOnInit(): void {
   }
@@ -63,6 +65,28 @@ export class InicioSesionComponent implements OnInit {
     return "Error";
 
   }
+
+  getErrorMessageEmail() {
+
+    if (this.formularioInicioSesion.get('email').hasError('required')) {
+      return 'Este es un campo obligatorio';
+    }
+    return this.formularioInicioSesion.get('email').errors?.pattern ? 'Correo no valido' : '';
+  }
+
+    /**
+  * @name getErrorMessageContrasenia
+  * @summary Comprueba el error del campo 'contrasenia'.
+  * @param {}  - No recibe parametro
+  * @return { String } Retorna una cadena con el mensaje personalizado segun el error encontrado.
+  */
+    getErrorMessageContrasenia() {
+      if (this.formularioInicioSesion.get('contrasenia').hasError('required')) {
+        return 'Este es un campo obligatorio';
+      }
+      return this.formularioInicioSesion.get('contrasenia').hasError('pattern') ? 'La contraseña debe tener un mínimo de 8 caracteres, al menos 1 letra mayúscula, 1 letra minúscula y 1 número' : '';
+    }
+
   /**
   * @name getErrorMessageRecuperarContrasenia
   * @summary Comprueba el error del campo 'email' o 'contrasenia'.
@@ -106,8 +130,41 @@ export class InicioSesionComponent implements OnInit {
 * @return {} No retorna.
 */
 
-  onSubmitInicioSesion(evento:any){
-    console.log(evento);
+  onClickInicioSesion(modalExito:any, modalError:any){
+    this.spinner.mostrarSpinner();
+
+    let datos = {
+      Correo: this.formularioInicioSesion.get("email").value,
+      Contrasena: this.formularioInicioSesion.get("contrasenia").value
+    }
+    this.loginService.inicioSesion( datos ).subscribe(
+
+      (res:any)=> {
+        this.estadoLogin = res;
+
+        if( res.codigo == 200){
+          this.loginService.guardarToken(res.data);
+          this.abrirModal(modalExito);
+          this.router.navigate(['dashboard']);
+          this.spinner.ocultarSpinner();
+          return;
+        }
+        this.abrirModal(modalError);
+
+      },
+
+      (error:any) => {
+        this.abrirModal(modalError);
+        this.loginService.cerrarSesion()
+        this.spinner.ocultarSpinner();
+      },
+
+      ()=> {
+        this.spinner.ocultarSpinner();
+      }
+
+
+     )
   }
 
   /**
