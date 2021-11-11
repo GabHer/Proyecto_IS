@@ -6,8 +6,8 @@
       </div>
 
       <div class="col-lg-5">
-        <div class="contenedor-usuario">
-            <span class="material-icons icono-usuario">account_circle</span>
+        <div class="contenedor-usuario" (click)="verMiPerfil()">
+            <img class=" ml-4 mt-1 imagen-usuario" [src]="usuarioHeader.imagen" alt="">
             <span class="ml-4 txt-nombreUsuario">{{obtenerNombreCompleto()}}</span>
           </div>
       </div>

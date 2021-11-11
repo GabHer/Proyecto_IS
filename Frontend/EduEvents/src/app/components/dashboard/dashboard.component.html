@@ -1,7 +1,12 @@
 <div class="row">
   <div class="col-12" style="position: relative;">
     <app-sidenav  style="position: absolute; padding: 0; margin: 0;" (setItem)="actualizarItemActual($event)" (bandera)="actualizarBandera($event)" [ngClass]="(bandera ? 'col-1': 'col-lg-3')"    [indexItemActual]="0"></app-sidenav>
-    <app-header-dashboard [nombreItemActual]="obtenerItem(indexItemActual)" [usuarioHeader]="usuario" ></app-header-dashboard>
+    <app-header-dashboard
+     [nombreItemActual]="obtenerItem(indexItemActual)"
+     [usuarioHeader]="usuario"
+    (onClickUsuario)="actualizarItemActual(obtenerIndexItem($event))"
+     >
+    </app-header-dashboard>
 
 
     <div class="row">

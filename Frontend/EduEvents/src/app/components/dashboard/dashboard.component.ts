@@ -65,4 +65,6 @@ export class DashboardComponent implements AfterViewInit  {
     return this.items[indice][0]
   }
 
+
+
 }

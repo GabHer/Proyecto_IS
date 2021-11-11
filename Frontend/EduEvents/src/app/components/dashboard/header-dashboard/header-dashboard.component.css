@@ -38,6 +38,11 @@
     color: white;
   }
 
+  .imagen-usuario {
+    width: 42px;
+    border-radius: 100%;
+  }
+
 .txt-nombreUsuario {
   font-size: 22px;
   padding: 0;

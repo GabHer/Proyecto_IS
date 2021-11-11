@@ -9,6 +9,7 @@ export class HeaderDashboardComponent implements OnInit {
   @Output() bandera = new EventEmitter<Boolean>();
   @Input() usuarioHeader:any;
   @Input() nombreItemActual:string;
+  @Output() onClickUsuario = new EventEmitter<string>();
 
   mostrarBtn = true;
   constructor() { }
@@ -23,6 +24,10 @@ export class HeaderDashboardComponent implements OnInit {
 
   obtenerNombreCompleto(){
     return `${this.usuarioHeader.nombre} ${this.usuarioHeader.apellido}`
+  }
+
+  verMiPerfil(){
+    this.onClickUsuario.emit('Mi perfil');
   }
 
 }
