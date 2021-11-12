@@ -4,6 +4,11 @@
 */
 
 const sql = require("./db.js");
+const Token = require("./resetToken.model");
+const Crypto =  require("crypto");
+const transport = require("../models/enviarCorreo.js");
+const configCorreo = require("../config/envemail.config.js");
+const { encontrarToken } = require("./resetToken.model");
 
 // constructor del objeto persona
 const Persona = function(objPersona) {
@@ -51,9 +56,25 @@ Persona.crear = ( nuevoObjetoPersona, resultado ) => {
       });
 }
 
-Persona.actualizar = ( correoPersona, resultado ) => {
+Persona.actualizar = ( parametros, resultado ) => {
 
 }
+
+Persona.actualizarContrasena = (objetoPersona, resultado) => {
+
+    sql.query(`UPDATE Persona SET Contrasena = '${objetoPersona.Contrasena}' WHERE Correo = '${objetoPersona.Correo}'`, (err, res) => {
+        
+        if (err) {
+            console.log(err);
+            resultado(err, null);
+            return;
+        };
+        
+        resultado(null, { estado:"ok"});
+        return;
+    });
+};
+
 
 Persona.eliminar = ( correoPersona, resultado ) => {
 
@@ -78,8 +99,8 @@ Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
 
         resultado({ estado: "no_encontrado"}, null)
 
-    })
-}
+    });
+};
 
 Persona.obtenerPersonas = ( resultado ) => {
     sql.query("SELECT * FROM Persona", (err, res) => {
@@ -94,6 +115,122 @@ Persona.obtenerPersonas = ( resultado ) => {
       });
 };
 
+
+
+Persona.validar = (correoPersona, resultado) => {
+    Persona.buscarPorCorreo(correoPersona, (err,data) => {
+        if (err) {
+            resultado(null, {estado: "no encontrado"});
+            return
+        }
+        else {
+            
+            Token.actualizarPorCorreo(correoPersona, (err,data) => {
+                if (err) {
+                    console.log(err)
+                    resultado(null, {estado: "no realizado"});
+                    return
+                }
+
+                else {
+                    const tok = Crypto.randomBytes(64).toString('base64');
+                    const resetToken = new Token({
+                        Correo: correoPersona,
+                        Token: tok
+                      });
+                    
+                    Token.crear(resetToken, (err,res) => {
+                        if(err){
+                            resultado(null, {estado: "no creado"});
+                            return
+                        }
+                        else{
+
+                            const message = {
+                                from: '"EduEvents" <edueventsmanagement@gmail.com>',
+                                to: correoPersona,
+                                subject: "Restablecimiento de Contraseña",
+                                text: `Para reestablecer tu contraseña copia y pega el siguiente código en el campo de "validar código": ${resetToken.Token}`
+                              };
+
+                              console.log(message);
+                            
+                              //send email
+                              transport.sendMail(message, function (err, info) {
+                                if(err) { 
+                                  console.log(err);
+                                  resultado(null, { estado:"No enviado"});
+                                }
+                            
+                                else { 
+                                  console.log(info);
+                                  resultado(null, { estado:"ok"});
+                                  return;
+                                }
+                              });
+                        
+                        };
+                    });
+
+                }
+            });
+        };
+    });
+};
+
+
+Persona.validarToken = (objetoResetToken, resultado ) => {
+  Token.borrarTokens (objetoResetToken, (err,data) => {
+    if (err) {
+        resultado(null, {estado: "Error al intentar eliminar los tokens no válidos"});
+        return
+    }
+    else {
+           Token.encontrarToken(objetoResetToken, (err,data) => {
+                if (err) {
+                    resultado(null, {estado: "no encontrado"});
+                    return
+                }   
+                else {
+                    resultado(null, { estado:"ok"});
+                    return;
+                };
+            });
+        };   
+    });
+};
+
+
+Persona.cambioContrasena = (objetoNuevaContra, resultado ) => {
+    Token.actualizarPorCorreo (objetoNuevaContra.Correo, (err,data) => {
+      if (err) {
+          resultado(null, {estado: "Sin actualizar"});
+          return
+      }
+      else {
+
+        /*
+        //Aquí se encripta contra//
+        var newSalt = Crypto.randomBytes(64).toString('hex');
+        
+        var newPassword = Crypto.pbkdf2Sync(objetoNuevaContra.Contrasena, newSalt, 10000, 64, 'sha512').toString('base64');
+
+        ///////////////////////////
+        */
+          
+          Persona.actualizarContrasena(objetoNuevaContra, (err,data) => {
+                  if (err) {
+                      resultado(null, {estado: "no actualizado"});
+                      return
+                  }   
+                  else {
+                      resultado(null, { estado:"ok"});
+                      return;
+                  };
+              });
+          };   
+      });
+  };
 
 
 module.exports = Persona;
