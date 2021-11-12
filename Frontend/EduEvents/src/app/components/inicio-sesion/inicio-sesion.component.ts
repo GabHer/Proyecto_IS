@@ -45,6 +45,8 @@ export class InicioSesionComponent implements OnInit {
   recuperarContrasenia = { usuarioEncontrado: false, codigo:0 };
   estadoLogin = { codigo:0, estado: "", mensaje:""};
   codigoValido = false;
+  tiempoEspera = 180; // 180 segundos
+  contador:any;
 
   constructor( private modalService:NgbModal, private spinner:SpinnerService, private loginService:AutenticacionService, private router: Router  ) { }
 
@@ -198,6 +200,7 @@ export class InicioSesionComponent implements OnInit {
   onClickEnviarCodigo(){
     // Hacemos la consulta al backend para comprobar la existencia de ese correo electronico
     this.spinner.mostrarSpinner()
+    this.iniciarContador();
     setTimeout(() => {
 
       this.recuperarContrasenia.usuarioEncontrado = true;
@@ -212,7 +215,33 @@ export class InicioSesionComponent implements OnInit {
     }, 3000);
 
 
+
+
+
   }
+
+  obtenerTiempoEspera(){
+
+    return `Reenviar en: ${this.tiempoEspera}s`
+  }
+
+
+  iniciarContador() {
+      this.contador = setInterval(() => {
+        console.log(this.contador)
+        if(this.tiempoEspera > 0) {
+
+          this.tiempoEspera--;
+        } else {
+          this.tiempoEspera = 180;
+          this.detenerContador()
+        }
+      },1000)
+    }
+
+    detenerContador() {
+      clearInterval(this.contador);
+    }
 
   validarCodigo(){
     // Comprobar con el backend si el código es el mismo
@@ -223,7 +252,7 @@ export class InicioSesionComponent implements OnInit {
       console.log(this.recuperarContrasenia);
       this.spinner.ocultarSpinner()
     }, 3000);
-
+    console.log(this.tiempoEspera);
     console.log(this.recuperarContrasenia);
   }
 
