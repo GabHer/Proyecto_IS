@@ -133,6 +133,7 @@
                   <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
                   <mat-error *ngIf="formularioRecuperarContrasenia.get('email').invalid">{{getErrorMessageRecuperarContrasenia('email')}}</mat-error>
                   <mat-hint class="campo-correcto" *ngIf="(recuperarContrasenia.usuarioEncontrado) && (!formularioRecuperarContrasenia.get('email').invalid)" >Código de verificación enviado a: {{formularioRecuperarContrasenia.get('email').value}}</mat-hint>
+                  <mat-hint class="campo-incorrecto" *ngIf="(recuperarContrasenia.estado == 'no_encontrado')" >¡Error! correo no valido</mat-hint>
                 </mat-form-field>
                 <button [disabled]="((recuperarContrasenia.codigo != 404) || formularioRecuperarContrasenia.get('email').invalid) && (recuperarContrasenia.tiempoEspera != 180)" (click)="onClickEnviarCodigo()" class="btn btn-primary btn-1 mb-2 ml-5">{{recuperarContrasenia.tiempoEspera == 180? 'Enviar código': obtenerTiempoEspera()}}</button>
 

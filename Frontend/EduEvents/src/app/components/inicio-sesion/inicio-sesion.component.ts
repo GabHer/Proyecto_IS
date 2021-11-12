@@ -177,8 +177,10 @@ export class InicioSesionComponent implements OnInit {
   */
   abrirModal( modal:any ){
 
-    this.formularioRecuperarContrasenia.get('codigo').disable();
-    this.formularioRecuperarContrasenia.get('contrasenia').disable();
+    if(!this.recuperarContrasenia.usuarioEncontrado){
+      this.formularioRecuperarContrasenia.get('codigo').disable();
+      this.formularioRecuperarContrasenia.get('contrasenia').disable();
+    }
     this.modalService.open(
       modal,
       {
@@ -200,18 +202,19 @@ export class InicioSesionComponent implements OnInit {
   onClickEnviarCodigo(){
     // Hacemos la consulta al backend para comprobar la existencia de ese correo electronico
     this.spinner.mostrarSpinner()
-    this.iniciarContador();
-
+    
     let datos = {Correo: this.formularioRecuperarContrasenia.get("email").value}
     this.loginService.enviarCorreoRecuperarContrasena(datos).subscribe(
       (res:any)=> {
-
+        
         if(res.codigo == 200){
+          this.iniciarContador();
 
 
 
           this.recuperarContrasenia.usuarioEncontrado = true;
           this.recuperarContrasenia.codigo = 200;
+          this.recuperarContrasenia.estado = "";
           this.formularioRecuperarContrasenia.get('codigo').enable();
           this.formularioRecuperarContrasenia.get('contrasenia').enable();
           this.spinner.ocultarSpinner()
@@ -219,6 +222,7 @@ export class InicioSesionComponent implements OnInit {
         }else{
           this.recuperarContrasenia.usuarioEncontrado = false;
           this.recuperarContrasenia.codigo = 404;
+          this.recuperarContrasenia.estado= "no_encontrado";
           this.spinner.ocultarSpinner()
           return
         }
@@ -227,6 +231,7 @@ export class InicioSesionComponent implements OnInit {
       (error:any) => {
         this.recuperarContrasenia.usuarioEncontrado = false;
         this.recuperarContrasenia.codigo = 404;
+        this.recuperarContrasenia.estado= "no_encontrado";
         this.spinner.ocultarSpinner()
       }
     )
