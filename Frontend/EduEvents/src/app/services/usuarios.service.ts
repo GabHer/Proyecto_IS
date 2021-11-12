@@ -15,8 +15,12 @@ export class UsuariosService {
 
   }
   guardarUsuario(usuario:any){
-
-
     return this.httpClient.post('http://localhost:8888/registro',usuario);
   }
+
+  obtenerUsuario(correo:string){
+    return this.httpClient.get(`http://localhost:8888/registro/${correo}`);
+
+  }
+
 }

@@ -25,8 +25,13 @@ export class AutenticacionService {
   }
 
   leerToken(){
-    const tokenUsuario = localStorage.getItem('token');
-    const tokenExpiro = helper.isTokenExpired(tokenUsuario); // helper
+    let data = localStorage.getItem('token');
+    let tokenUsuario:any;
+    if( data ){
+      tokenUsuario = JSON.parse(data);
+    }
+
+    const tokenExpiro = helper.isTokenExpired(tokenUsuario.token); // helper
     if ( tokenExpiro ){
       return false;
     }
@@ -34,9 +39,12 @@ export class AutenticacionService {
     return true;
 
   }
-  guardarToken( token:any ){
-    localStorage.setItem("token", token);
+  guardarToken( data:any ){
+
+    localStorage.setItem("token", JSON.stringify({token:data.token, id:data.correo}));
+
   }
+
   mostrarError(error:any){}
 }
 

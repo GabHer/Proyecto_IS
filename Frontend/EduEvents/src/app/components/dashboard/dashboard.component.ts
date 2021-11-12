@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChildren , Output, EventEmitter, Input} from '@angular/core';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AutenticacionService } from '../../services/autenticacion.service';
-
+import { UsuariosService } from '../../services/usuarios.service';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,8 +26,7 @@ export class DashboardComponent implements AfterViewInit  {
   indexItemActual = 0;
 
   bandera = true;
-  constructor( private auth:AutenticacionService) {
-
+  constructor( private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService) {
   }
   ngAfterViewInit(): void {
 
@@ -34,19 +34,7 @@ export class DashboardComponent implements AfterViewInit  {
 
   ngOnInit(): void {
 
-    // Variables de prueba
-    this.usuario = {
-      nombre: 'Juan',
-      apellido: 'Perez',
-      nacimiento: '2001-05-28',
-      email: 'juanp@gmail.com',
-      contrasenia: 'Hola12345',
-      formacionAcademica: 'Educación superior',
-      descripcion: 'Estudiante universitario',
-      imagen: '../../../assets/img/FotoDePerfilPorDefecto.png',
-      institucion: 'UNAH',
-      intereses: ['Programación', 'Ingeniería', 'Gatos', 'Jugar videojuegos', 'Estudiar', 'Escuchar musica', 'Practicar Futbol']
-    }
+    this.obtenerUsuario()
 
   }
 
@@ -66,10 +54,40 @@ export class DashboardComponent implements AfterViewInit  {
   }
 
   onClickCerrarSesion(evento:any){
-    console.log("Cerrar sesión...")
+
     this.auth.cerrarSesion();
   }
 
+
+
+  async obtenerUsuario(){
+    let correo = JSON.parse(localStorage.getItem("token")).id;
+
+    this.usuariosService.obtenerUsuario(correo).subscribe(
+      (res:any)=> {
+        console.log(res.data);
+
+        // Variables de prueba
+        this.usuario = {
+          nombre: res.data.Nombre,
+          apellido: res.data.Apellido,
+          nacimiento: res.data.Fecha_Nacimiento,
+          email: res.data.Correo,
+          contrasenia: "",
+          formacionAcademica: res.data.Formacion_Academica,
+          descripcion: res.data.Descripcion,
+          imagen: res.data.Fotografia,
+          institucion: res.data.Institucion,
+          intereses: res.data.Intereses
+        }
+
+      },
+      (error:any) => {
+        console.log(error);
+      }
+     )
+
+  }
 
 
 }
