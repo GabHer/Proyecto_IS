@@ -96,7 +96,8 @@ exports.actualizarContra = (req, res) => {
     Persona.actualizarContrasena(req.body, (err) => {
       if (err) {
         res.send({
-          mensaje: "Se produjo un error al actualizar la contraseña del usuario"
+          mensaje: "Se produjo un error al actualizar la contraseña del usuario",
+          codigo:500
         });
   
       }
@@ -113,12 +114,23 @@ exports.procesoEnviarCorreo = (req, res) => {
   Persona.validar(req.body.Correo, (err,data) => {
     if (err) {
       res.send({
-        mensaje: "El correo no se encuentra registrado en la plataforma."
+        mensaje: "El correo no se encuentra registrado en la plataforma.",
+        codigo:404,
+        error:err
       });
-
+      return;
+      
     }
-    else {
-      res.send({mensaje:"Se ha enviado el correo con el token para reestablecer la contraseña", codigo:200, data:null});
+    
+    if(data.estado == 'ok'){
+      res.send({mensaje:"Se ha enviado el correo con el token para reestablecer la contraseña", codigo:200, data:data});
+      return;
+    }else {
+      res.send({
+        mensaje: "El correo no se encuentra registrado en la plataforma.",
+        codigo: 404,
+        data:data
+      });
     }
    
   });
@@ -128,7 +140,8 @@ exports.procesoValidarToken = (req, res) => {
   Persona.validarToken(req.body, (err,data) => {
     if (err || (data.estado == "no encontrado")) {
       res.send({
-        mensaje: "El token no es válido"
+        mensaje: "El token no es válido",
+        codigo: 500
       });
 
     }

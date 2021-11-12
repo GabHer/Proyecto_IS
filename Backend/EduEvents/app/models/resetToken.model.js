@@ -19,7 +19,7 @@ const ResetToken = function (objResetToken) {
 
 ResetToken.crear = ( nuevoResetToken, resultado ) => {
 
-    consulta = `INSERT INTO reset_token (Correo, Token, Vencimiento, Creado, Actualizado) VALUES ('${nuevoResetToken.Correo}','${nuevoResetToken.Token}', DATE_ADD(NOW(), INTERVAL 1 HOUR), NOW(), NOW())`;
+    consulta = `INSERT INTO Reset_Token (Correo, Token, Vencimiento, Creado, Actualizado) VALUES ('${nuevoResetToken.Correo}','${nuevoResetToken.Token}', DATE_ADD(NOW(), INTERVAL 1 HOUR), NOW(), NOW())`;
 
     sql.query(consulta, (err, res) => {
         if (err) {
@@ -35,7 +35,7 @@ ResetToken.crear = ( nuevoResetToken, resultado ) => {
 
 
 ResetToken.actualizarPorCorreo = ( correoPersona, resultado ) => {
-    consulta = `UPDATE reset_token SET Usado = 1, Actualizado = now() WHERE Correo = '${correoPersona}'`;
+    consulta = `UPDATE Reset_Token SET Usado = 1, Actualizado = now() WHERE Correo = '${correoPersona}'`;
     
     sql.query( consulta, (err) => {
         if (err) {
@@ -50,7 +50,7 @@ ResetToken.actualizarPorCorreo = ( correoPersona, resultado ) => {
 
 
 ResetToken.encontrarToken = ( objResetToken, resultado ) => {
-    consulta = `SELECT * FROM reset_token WHERE Correo = '${objResetToken.Correo}' AND Token = '${objResetToken.Token}' AND now() < Vencimiento AND Usado = 0`;
+    consulta = `SELECT * FROM Reset_Token WHERE Correo = '${objResetToken.Correo}' AND Token = '${objResetToken.Token}' AND now() < Vencimiento AND Usado = 0`;
 
     sql.query( consulta, (err, res) => {
         if (err){
@@ -74,7 +74,7 @@ ResetToken.encontrarToken = ( objResetToken, resultado ) => {
 
 
 ResetToken.borrarTokens = (peticion, resultado) => {
-    consulta = `DELETE FROM reset_token WHERE now() > Vencimiento`;
+    consulta = `DELETE FROM Reset_Token WHERE now() > Vencimiento`;
 
     sql.query( consulta, (err) => {
         if (err) {

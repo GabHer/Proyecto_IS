@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { AutenticacionService } from 'src/app/services/autenticacion.service';
 import { Router } from '@angular/router';
+import { contraseniasIguales } from 'src/app/helppers/validaciones-personalizadas';
 @Component({
   selector: 'app-inicio-sesion',
   templateUrl: './inicio-sesion.component.html',
@@ -30,10 +31,10 @@ export class InicioSesionComponent implements OnInit {
    formularioRecuperarContrasenia = new FormGroup(
     {
       email :  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      codigo :  new FormControl(''),
-      nuevaContrasenia: new FormControl('', [Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
+      codigo :  new FormControl('', [Validators.required]),
+      contrasenia: new FormControl('', [Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
       repetirContrasenia: new FormControl('', [Validators.required])
-    }
+    },{ validators:contraseniasIguales }
   );
 
 
@@ -42,10 +43,9 @@ export class InicioSesionComponent implements OnInit {
 
 
   oculto = true;
-  recuperarContrasenia = { usuarioEncontrado: false, codigo:0 };
+  recuperarContrasenia = { usuarioEncontrado: false, codigo:404, tiempoEspera: 180, codigoValido : false, estado:"" };
   estadoLogin = { codigo:0, estado: "", mensaje:""};
-  codigoValido = false;
-  tiempoEspera = 180; // 180 segundos
+
   contador:any;
 
   constructor( private modalService:NgbModal, private spinner:SpinnerService, private loginService:AutenticacionService, private router: Router  ) { }
@@ -178,7 +178,7 @@ export class InicioSesionComponent implements OnInit {
   abrirModal( modal:any ){
 
     this.formularioRecuperarContrasenia.get('codigo').disable();
-    this.formularioRecuperarContrasenia.get('nuevaContrasenia').disable();
+    this.formularioRecuperarContrasenia.get('contrasenia').disable();
     this.modalService.open(
       modal,
       {
@@ -201,39 +201,52 @@ export class InicioSesionComponent implements OnInit {
     // Hacemos la consulta al backend para comprobar la existencia de ese correo electronico
     this.spinner.mostrarSpinner()
     this.iniciarContador();
-    setTimeout(() => {
 
-      this.recuperarContrasenia.usuarioEncontrado = true;
-      console.log(this.recuperarContrasenia);
-      this.spinner.ocultarSpinner()
+    let datos = {Correo: this.formularioRecuperarContrasenia.get("email").value}
+    this.loginService.enviarCorreoRecuperarContrasena(datos).subscribe(
+      (res:any)=> {
 
-      if( this.recuperarContrasenia.usuarioEncontrado ){
-        this.formularioRecuperarContrasenia.get('codigo').enable();
-        this.formularioRecuperarContrasenia.get('nuevaContrasenia').enable();
+        if(res.codigo == 200){
 
+
+
+          this.recuperarContrasenia.usuarioEncontrado = true;
+          this.recuperarContrasenia.codigo = 200;
+          this.formularioRecuperarContrasenia.get('codigo').enable();
+          this.formularioRecuperarContrasenia.get('contrasenia').enable();
+          this.spinner.ocultarSpinner()
+          return;
+        }else{
+          this.recuperarContrasenia.usuarioEncontrado = false;
+          this.recuperarContrasenia.codigo = 404;
+          this.spinner.ocultarSpinner()
+          return
+        }
+      },
+
+      (error:any) => {
+        this.recuperarContrasenia.usuarioEncontrado = false;
+        this.recuperarContrasenia.codigo = 404;
+        this.spinner.ocultarSpinner()
       }
-    }, 3000);
-
-
-
-
+    )
 
   }
 
   obtenerTiempoEspera(){
 
-    return `Reenviar en: ${this.tiempoEspera}s`
+    return `Reenviar en: ${this.recuperarContrasenia.tiempoEspera}s`
   }
 
 
   iniciarContador() {
       this.contador = setInterval(() => {
-        console.log(this.contador)
-        if(this.tiempoEspera > 0) {
 
-          this.tiempoEspera--;
+        if(this.recuperarContrasenia.tiempoEspera > 0) {
+
+          this.recuperarContrasenia.tiempoEspera--;
         } else {
-          this.tiempoEspera = 180;
+          this.recuperarContrasenia.tiempoEspera = 180;
           this.detenerContador()
         }
       },1000)
@@ -245,15 +258,41 @@ export class InicioSesionComponent implements OnInit {
 
   validarCodigo(){
     // Comprobar con el backend si el código es el mismo
-    console.log("Validando código...");
+
     this.spinner.mostrarSpinner()
-    setTimeout(() => {
-      this.recuperarContrasenia.codigo = 4444;
-      console.log(this.recuperarContrasenia);
-      this.spinner.ocultarSpinner()
-    }, 3000);
-    console.log(this.tiempoEspera);
-    console.log(this.recuperarContrasenia);
+    let datos = {
+      Correo: this.formularioRecuperarContrasenia.get("email").value,
+      Token: this.formularioRecuperarContrasenia.get("codigo").value
+     }
+
+    this.loginService.validarTokenRecuperarContrasena( datos ).subscribe (
+
+      (res:any) => {
+
+        if(res.codigo == 200){
+          this.recuperarContrasenia.codigoValido = true;
+          this.recuperarContrasenia.estado = "ok";
+          this.spinner.ocultarSpinner()
+
+          return;
+        }else {
+          this.recuperarContrasenia.codigoValido = false;
+          this.recuperarContrasenia.estado = "error";
+          this.spinner.ocultarSpinner()
+          return;
+        }
+
+      },
+
+      (error:any) => {
+        this.recuperarContrasenia.codigoValido = false;
+        this.recuperarContrasenia.estado = "error";
+        this.spinner.ocultarSpinner()
+        return;
+      }
+
+    )
+
   }
 
   /**
@@ -262,15 +301,58 @@ export class InicioSesionComponent implements OnInit {
   * @param {}  - No recibe parametros
   * @return {} No retorna.
   */
-  onClickCambiarContrasenia(){
-    // Validar que el código haga match con el código generado por el backend
+  onClickCambiarContrasenia( modalExito:any, modalError:any, letModal:any){
+
+    this.spinner.mostrarSpinner();
+    let datos = {
+      Correo: this.formularioRecuperarContrasenia.get("email").value,
+      Contrasena: this.formularioRecuperarContrasenia.get("contrasenia").value
+    }
+    this.loginService.actualizarContrasena( datos ).subscribe(
+
+      (res:any) => {
+        if( res.codigo == 200 ){
+          this.spinner.ocultarSpinner()
+          this.estadoLogin.codigo = 200;
+          this.estadoLogin.estado = "ok";
+          this.estadoLogin.mensaje = res.mensaje;
+
+          this.abrirModal(modalExito);
+          letModal.close('Close click');
+          return;
+        }
+        this.spinner.ocultarSpinner()
+        this.estadoLogin.codigo = 400;
+        this.estadoLogin.estado = "error";
+        this.estadoLogin.mensaje = res.mensaje;
+
+        this.abrirModal(modalError);
+        letModal.close('Close click');
+
+        return
+      },
+
+      (error:any) => {
+        this.spinner.ocultarSpinner()
+        this.estadoLogin.codigo = 400;
+        this.estadoLogin.estado = "error";
+        this.estadoLogin.mensaje = "Error, No se pudo actualizar su contraseña";
+
+        this.abrirModal(modalError);
+        letModal.close('Close click');
+        this.recuperarContrasenia = { usuarioEncontrado: false, codigo:404, tiempoEspera: 180, codigoValido : false, estado:"" };
+        this.estadoLogin = { codigo:0, estado: "", mensaje:""};
+
+      },
+
+      () => {
+        this.recuperarContrasenia = { usuarioEncontrado: false, codigo:404, tiempoEspera: 180, codigoValido : false, estado:"" };
+        this.estadoLogin = { codigo:0, estado: "", mensaje:""};
+      }
 
 
 
-
-    // Si pasa la validación, entonces validar que la contraseña nueva sea valida y actualizar el usuario con la nueva contraseña
-
-    console.log(this.formularioRecuperarContrasenia.value);
+    )
   }
 
 

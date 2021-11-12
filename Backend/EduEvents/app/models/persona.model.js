@@ -37,7 +37,6 @@ Persona.crear = ( nuevoObjetoPersona, resultado ) => {
             if (err.estado === "no_encontrado") {
                 sql.query( consulta, (err, res) => {
                     if (err) {
-                        console.log(err);
                         resultado(err, null);
                         return;
                     }
@@ -61,15 +60,16 @@ Persona.actualizar = ( parametros, resultado ) => {
 }
 
 Persona.actualizarContrasena = (objetoPersona, resultado) => {
+    let consulta = `UPDATE Persona SET Contrasena = AES_ENCRYPT('${objetoPersona.Contrasena}','${objetoPersona.Contrasena}') WHERE Correo = '${objetoPersona.Correo}'`
 
-    sql.query(`UPDATE Persona SET Contrasena = '${objetoPersona.Contrasena}' WHERE Correo = '${objetoPersona.Correo}'`, (err, res) => {
+    
+    sql.query(consulta, (err, res) => {
         
         if (err) {
-            console.log(err);
+          
             resultado(err, null);
             return;
-        };
-        
+        };        
         resultado(null, { estado:"ok"});
         return;
     });
@@ -84,7 +84,7 @@ Persona.eliminar = ( correoPersona, resultado ) => {
 Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
     sql.query(`SELECT * FROM Persona WHERE correo = '${correoPersona}'`, (err, res) => {
         if (err){
-            console.log("error: ", err);
+
             resultado(err, null);
             return;
         }
@@ -110,7 +110,6 @@ Persona.obtenerPersonas = ( resultado ) => {
           return;
         }
     
-        console.log("Personas: ", res);
         resultado(null, res);
       });
 };
@@ -127,7 +126,6 @@ Persona.validar = (correoPersona, resultado) => {
             
             Token.actualizarPorCorreo(correoPersona, (err,data) => {
                 if (err) {
-                    console.log(err)
                     resultado(null, {estado: "no realizado"});
                     return
                 }
@@ -153,17 +151,17 @@ Persona.validar = (correoPersona, resultado) => {
                                 text: `Para reestablecer tu contraseña copia y pega el siguiente código en el campo de "validar código": ${resetToken.Token}`
                               };
 
-                              console.log(message);
+         
                             
                               //send email
                               transport.sendMail(message, function (err, info) {
                                 if(err) { 
-                                  console.log(err);
+   
                                   resultado(null, { estado:"No enviado"});
                                 }
                             
                                 else { 
-                                  console.log(info);
+         
                                   resultado(null, { estado:"ok"});
                                   return;
                                 }

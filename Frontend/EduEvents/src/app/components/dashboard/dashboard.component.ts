@@ -12,7 +12,18 @@ export class DashboardComponent implements AfterViewInit  {
 
   @ViewChildren(SidenavComponent) sidenav: SidenavComponent;
 
-  @Input() usuario:any;
+  @Input() usuario:any ={
+    nombre: "Juan",
+    apellido: "Perez",
+    nacimiento: "2020/12/20",
+    email: "juanperez@gmail.com",
+    contrasenia: "Hola1234",
+    formacionAcademica: "Educación superior",
+    descripcion: "Estudiante universitario",
+    imagen: "../../../assets/img/FotoDePerfilPorDefecto.png",
+    institucion: "UNAH",
+    intereses: ["Programación", "Jugar videojuegos, Practicar deporte"]
+  };
 
   items = [
     ["Inicio", "home"],
@@ -60,9 +71,10 @@ export class DashboardComponent implements AfterViewInit  {
 
 
 
-  async obtenerUsuario(){
+  obtenerUsuario(){
     let correo = JSON.parse(localStorage.getItem("token")).id;
-
+    console.log(correo);
+    /*
     this.usuariosService.obtenerUsuario(correo).subscribe(
       (res:any)=> {
         console.log(res.data);
@@ -87,7 +99,9 @@ export class DashboardComponent implements AfterViewInit  {
       }
      )
 
-  }
+
+     */
+    }
 
 
 }

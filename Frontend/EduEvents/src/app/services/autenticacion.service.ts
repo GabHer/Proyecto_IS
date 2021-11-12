@@ -24,6 +24,8 @@ export class AutenticacionService {
    this.router.navigate(["/"]);
   }
 
+
+
   leerToken(){
     let data = localStorage.getItem('token');
     let tokenUsuario:any;
@@ -44,6 +46,21 @@ export class AutenticacionService {
     localStorage.setItem("token", JSON.stringify({token:data.token, id:data.correo}));
 
   }
+
+
+  enviarCorreoRecuperarContrasena( datos:any ){
+    return this.httpClient.post('http://localhost:8888/inicioSesion/restablecer_contrasena/verificar_correo', datos)
+  }
+
+  validarTokenRecuperarContrasena( datos:any ){
+    return this.httpClient.post(`http://localhost:8888/inciarSesion/restablecer_contrasena/${datos.Correo}`, datos)
+
+  }
+
+  actualizarContrasena( datos:any ){
+    return this.httpClient.post(`http://localhost:8888/inciarSesion/restablecer_contrasena/cambio_contrasena/${datos.Correo}`, datos)
+  }
+
 
   mostrarError(error:any){}
 }
