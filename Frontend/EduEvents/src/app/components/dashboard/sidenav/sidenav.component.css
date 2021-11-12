@@ -29,7 +29,7 @@
 
 
 .header-sidenav {
-  background-color: #0000006e;
+  background-color: #4484CE;
   padding: 0.5rem;
   width: 100%;
 }
@@ -49,18 +49,18 @@
   background-color: #00000015;
   border-radius: 5px;
   padding: 1rem;
-  width: 70%;
-  height: 80%;
+  width: 95%;
   margin: auto;
+
 }
 
 .iconos {
-  font-size: 28px;
-  color: #4484CE;
+  font-size: 36px;
+  color: #ffffff;
 }
 
 .text-items {
-  font-size: 15px;
+  font-size: 18px;
   color:rgb(255, 255, 255);
   padding: 0;
   margin: 0;

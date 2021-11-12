@@ -8,6 +8,7 @@ export class SidenavComponent implements OnInit {
 
   @Output() bandera = new EventEmitter<Boolean>();
   @Output() setItem =  new EventEmitter<any>();
+  @Output() cerrarSesion =  new EventEmitter<Boolean>();
 
   @Input () indexItemActual:any;
   @Input() mostrarBotonTogglet = true;
@@ -36,6 +37,10 @@ export class SidenavComponent implements OnInit {
   }
 
   seleccionarItem( nombreItem:string ) {
+    if(nombreItem == "Cerrar sesión"){
+      this.onClickCerrarSesion();
+      return;
+    }
     this.indexItemActual = this.obtenerIndexItem( nombreItem );
     this.setItem.emit(this.indexItemActual);
 
@@ -47,6 +52,10 @@ export class SidenavComponent implements OnInit {
 
   setItems(items:any){
     this.items = items;
+  }
+
+  onClickCerrarSesion(){
+    this.cerrarSesion.emit(true);
   }
 
 }
