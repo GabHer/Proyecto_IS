@@ -23,7 +23,7 @@
       <div class="row panel-interno">
         <div *ngFor="let item of items" (click)="seleccionarItem(item[0])" [class.item-seleccionado]="indexItemActual == obtenerIndexItem(item[0])" class="col-12  div-item mt-3">
           <div class="row">
-            <div class="col-2">
+            <div class="col-2 mt-1">
               <span class="material-icons iconos">{{item[1]}}</span>
             </div>
             <div class="col mt-2 ml-2">
@@ -32,8 +32,8 @@
             </div>
         </div>
 
-          <div class="col-12 mt-3 text-center" style="margin-bottom: 5rem;">
-              <img src="../../../../assets/img/Logo.svg" alt="">
+          <div class="col-12 mt-3 text-center">
+              <img src="../../../../assets/img/Logo.png" alt="">
          </div>
       </div>
 

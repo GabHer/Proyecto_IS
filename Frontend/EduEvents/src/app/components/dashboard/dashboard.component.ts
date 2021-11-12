@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChildren , Output, EventEmitter, Input} from '@angular/core';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { AutenticacionService } from '../../services/autenticacion.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +25,7 @@ export class DashboardComponent implements AfterViewInit  {
   indexItemActual = 0;
 
   bandera = true;
-  constructor( private auth:AutenticacionService) {
+  constructor() {
 
   }
   ngAfterViewInit(): void {
@@ -63,11 +63,6 @@ export class DashboardComponent implements AfterViewInit  {
 
   obtenerItem(indice:any){
     return this.items[indice][0]
-  }
-
-  onClickCerrarSesion(evento:any){
-    console.log("Cerrar sesión...")
-    this.auth.cerrarSesion();
   }
 
 

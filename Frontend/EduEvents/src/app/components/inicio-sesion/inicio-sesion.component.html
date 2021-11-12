@@ -21,12 +21,12 @@
           <h4>Inicia sesión para acceder a nuestros servicios</h4>
         </div>
         <div class="col-12 mt-2">
-          <form  [formGroup]="formularioInicioSesion">
+          <form (ngSubmit)="onSubmitInicioSesion($event)" [formGroup]="formularioInicioSesion">
             <div class="container stCenter" >
               <mat-form-field class="control-formulario" appearance="fill">
                 <mat-label>Ingrese su correo</mat-label>
                 <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
-                <mat-error *ngIf="formularioInicioSesion.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
+                <mat-error *ngIf="formularioInicioSesion.get('email').invalid">{{getErrorMessage('email')}}</mat-error>
               </mat-form-field>
 
               <span style="font-size: 50px;" class="material-icons">
@@ -41,19 +41,17 @@
                   <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
-                  <mat-error *ngIf="formularioInicioSesion.get('contrasenia').invalid">{{getErrorMessageContrasenia()}}</mat-error>
-                  <mat-hint class="campo-incorrecto" *ngIf="(estadoLogin.codigo == 404)" > Correo o contraseña incorrectos</mat-hint>
-
+                  <mat-error *ngIf="formularioInicioSesion.get('contrasenia').invalid">{{getErrorMessage('contrasenia')}}</mat-error>
                 </mat-form-field>
                 <span style="font-size: 50px; " class="material-icons">
                   key
                 </span>
             </div>
 
-            <div class="row mt-3">
+            <div class="row">
               <div class="col-12">
                 <div class="text-center">
-                  <button [disabled]="formularioInicioSesion.invalid"  type="button" (click)="onClickInicioSesion(modaDialogoExito, modalDialogoError)" class="btn btn-primary  btn-3">Acceder</button>
+                  <button  type="submit" class="btn btn-primary  btn-3">Acceder</button>
                 </div>
               </div>
               <div class="col-12 text-center mt-3">
@@ -96,7 +94,7 @@
 <!--Modal Recuperar contraseña-->
 <ng-template #modalRecuperarContrasenia let-modal>
 
- <div class="modal-encabezado-1">
+ <div class="modal-encabezado">
   <div class="row">
     <div class="col-12">
       <button type="button" class="close mr-2 mt-2 text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -203,63 +201,4 @@
   </div>
 </ng-template>
 
-<!--Modal dialogo exito-->
-<ng-template #modaDialogoExito let-modal>
-  <div class="modal-encabezado modal-exito">
-    <div class="row">
 
-      <div class="col-12">
-        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span style="color: white;" aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="col-12">
-        <span class="material-icons" style="color: white; font-size: 121px;">
-          check_circle_outline
-        </span>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="modal-body modal-cuerpo">
-      <h3>¡Excelente!</h3>
-      <h3>{{estadoLogin.mensaje}}</h3>
-  </div>
-  <div class="modal-footer">
-      <button type="button" (click)="modal.close('Close click')" class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;">OK</button>
-
-  </div>
-</ng-template>
-
-<!--Modal dialogo error-->
-<ng-template #modalDialogoError let-modal>
-  <div class="modal-encabezado modal-error">
-    <div class="row">
-
-      <div class="col-12">
-        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span style="color: white;" aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="col-12">
-        <span class="material-icons" style="color: white; font-size: 121px;">
-          error
-        </span>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div class="modal-body modal-cuerpo">
-      <h3>¡Error {{estadoLogin.codigo}}!</h3>
-      <h3>{{estadoLogin.mensaje}}</h3>
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Ok</button>
-  </div>
-</ng-template>
-
-<!--Spinner-->
-<ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
