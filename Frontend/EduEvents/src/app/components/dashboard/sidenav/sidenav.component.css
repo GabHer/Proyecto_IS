@@ -2,7 +2,7 @@
 @import url('http://fonts.cdnfonts.com/css/ponnala');
 
 .contenedor {
-  width: 18rem;
+  width: 17rem;
   height: 100vh;
   background-color: transparent;
   position: fixed;
@@ -29,7 +29,7 @@
 
 
 .header-sidenav {
-  background-color: #4484CE;
+  background-color: #0000006e;
   padding: 0.5rem;
   width: 100%;
 }
@@ -49,18 +49,19 @@
   background-color: #00000015;
   border-radius: 5px;
   padding: 1rem;
-  width: 95%;
+  width: 75%;
+  height: 80%;
   margin: auto;
 
 }
 
 .iconos {
-  font-size: 36px;
-  color: #ffffff;
+  font-size: 29px;
+  color: #4484CE;
 }
 
 .text-items {
-  font-size: 18px;
+  font-size: 15px;
   color:rgb(255, 255, 255);
   padding: 0;
   margin: 0;
