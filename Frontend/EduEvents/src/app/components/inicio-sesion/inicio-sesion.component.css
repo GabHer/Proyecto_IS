@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap');
 .img-inputs{
-
   border-left: #ece7e7 solid 1px;
   border-top: #ece7e7 solid 1px;
 
@@ -44,7 +43,12 @@
 }
 .btn-3 {
   background-color: #56A33B;
+  border-color: #54a836;
   border-radius: 25px;
+}
+
+.btn-3:focus{
+  box-shadow: 0 0 0 0.2rem #519c35;
 }
 
 .btn-4{
@@ -92,7 +96,7 @@
   cursor: pointer;
 }
 
-.modal-encabezado {
+.modal-encabezado-1 {
   background-color: #F19F4D;
 }
 
@@ -123,4 +127,19 @@
 .campo-incorrecto {
   color: rgb(230, 40, 40);
 
+}
+
+.stOjo{
+  border: whitesmoke;
+  background-color: whitesmoke;
+}
+
+.stCenter{
+  display:flex;
+  margin-left: 21%;
+}
+
+.stCenterModal{
+  display: flex;
+  margin-left: 10%;
 }

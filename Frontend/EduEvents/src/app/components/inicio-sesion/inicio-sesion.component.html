@@ -1,9 +1,7 @@
 
-
-
   <div class="row  mt-1">
     <div class="col-12 ">
-      <div class="text-right">
+      <div class="text-right mr-5 mb-1">
         <a href="/"><img src="../../../assets/img/RetornarAHomePage.svg" alt=""></a>
       </div>
     </div>
@@ -17,19 +15,18 @@
           <img class="img-inputs" style="position: absolute; width: 100%;" src="../../../assets/img/RecuadroConPatrón.svg" alt="">
         </div>
         <div class="col-12 titulo-formulario mt-3" >
-
           <h2>Inicio de sesión</h2>
         </div>
         <div class="col-12 h4-formulario">
           <h4>Inicia sesión para acceder a nuestros servicios</h4>
         </div>
         <div class="col-12 mt-2">
-          <form (ngSubmit)="onSubmitInicioSesion($event)" [formGroup]="formularioInicioSesion">
-            <div class="container text-center">
+          <form  [formGroup]="formularioInicioSesion">
+            <div class="container stCenter" >
               <mat-form-field class="control-formulario" appearance="fill">
                 <mat-label>Ingrese su correo</mat-label>
                 <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
-                <mat-error *ngIf="formularioInicioSesion.get('email').invalid">{{getErrorMessage('email')}}</mat-error>
+                <mat-error *ngIf="formularioInicioSesion.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
               </mat-form-field>
 
               <span style="font-size: 50px;" class="material-icons">
@@ -37,25 +34,26 @@
               </span>
             </div>
 
-            <div class="container text-center">
-
-                <mat-form-field class="control-formulario mr-2" appearance="fill">
+            <div class="container stCenter" >
+                <mat-form-field class="control-formulario" appearance="fill">
                   <mat-label>Ingrese su contraseña</mat-label>
                   <input matInput [type]="oculto ? 'password' : 'text'" formControlName="contrasenia" required >
-                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                  <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
-                  <mat-error *ngIf="formularioInicioSesion.get('contrasenia').invalid">{{getErrorMessage('contrasenia')}}</mat-error>
+                  <mat-error *ngIf="formularioInicioSesion.get('contrasenia').invalid">{{getErrorMessageContrasenia()}}</mat-error>
+                  <mat-hint class="campo-incorrecto" *ngIf="(estadoLogin.codigo == 404)" > Correo o contraseña incorrectos</mat-hint>
+
                 </mat-form-field>
-                <span style="font-size: 50px;" class="material-icons">
+                <span style="font-size: 50px; " class="material-icons">
                   key
                 </span>
             </div>
 
-            <div class="row">
+            <div class="row mt-3">
               <div class="col-12">
                 <div class="text-center">
-                  <button  type="submit" class="btn btn-primary  btn-3">Acceder</button>
+                  <button [disabled]="formularioInicioSesion.invalid"  type="button" (click)="onClickInicioSesion(modaDialogoExito, modalDialogoError)" class="btn btn-primary  btn-3">Acceder</button>
                 </div>
               </div>
               <div class="col-12 text-center mt-3">
@@ -98,7 +96,7 @@
 <!--Modal Recuperar contraseña-->
 <ng-template #modalRecuperarContrasenia let-modal>
 
- <div class="modal-encabezado">
+ <div class="modal-encabezado-1">
   <div class="row">
     <div class="col-12">
       <button type="button" class="close mr-2 mt-2 text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -124,7 +122,7 @@
         <h4 class="h4-body-modal">para restablecer tu contraseña</h4>
       </div>
 
-      <div class="col-12">
+      <div class="col-12 mt-3">
         <div class="text-center">
           <form  [formGroup]="formularioRecuperarContrasenia">
 
@@ -136,10 +134,9 @@
                   <mat-error *ngIf="formularioRecuperarContrasenia.get('email').invalid">{{getErrorMessageRecuperarContrasenia('email')}}</mat-error>
                   <mat-hint class="campo-correcto" *ngIf="(recuperarContrasenia.usuarioEncontrado) && (!formularioRecuperarContrasenia.get('email').invalid)" >Código de verificación enviado a: {{formularioRecuperarContrasenia.get('email').value}}</mat-hint>
                 </mat-form-field>
-                <button [disabled]="recuperarContrasenia.usuarioEncontrado || formularioRecuperarContrasenia.get('email').invalid" (click)="onClickEnviarCodigo()" class="btn btn-primary btn-1 mb-2 ml-5">Enviar correo</button>
+                <button [disabled]="recuperarContrasenia.usuarioEncontrado || formularioRecuperarContrasenia.get('email').invalid" (click)="onClickEnviarCodigo()" class="btn btn-primary btn-1 mb-2 ml-5">{{tiempoEspera == 180? 'Enviar código': obtenerTiempoEspera()}}</button>
 
               </div>
-
 
             </div>
 
@@ -157,29 +154,29 @@
             <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
             <div *ngIf="(recuperarContrasenia.codigo != 0)" class="row mt-2">
 
-              <div class="col-12">
+              <div class="col-12 stCenterModal">
                 <mat-form-field   class="form-recuperar-Contraseña"  appearance="fill">
                   <mat-label>Ingrese su nueva contraseña</mat-label>
                   <input  matInput [type]="oculto ? 'password' : 'text'" formControlName="nuevaContrasenia"  >
-                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                  <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                   <mat-hint class="campo-incorrecto" *ngIf="(formularioRecuperarContrasenia.get('nuevaContrasenia').invalid)" >Contraseña no valida</mat-hint>
                 </mat-form-field>
-                <span style="font-size: 50px;" class="material-icons mt-2">
+                <span style="font-size: 50px;" class="material-icons">
                   key
                 </span>
               </div>
-              <div class="col-12">
+              <div class="col-12 stCenterModal">
                 <mat-form-field   class="form-recuperar-Contraseña"  appearance="fill">
                   <mat-label>Repetir contraseña</mat-label>
                   <input  matInput [type]="oculto ? 'password' : 'text'" formControlName="repetirContrasenia" required  >
-                  <button mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+                  <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
                     <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                   <mat-hint class="campo-incorrecto" *ngIf="(formularioRecuperarContrasenia.get('repetirContrasenia').invalid)" >La contraseña no coincide</mat-hint>
                 </mat-form-field>
-                <span style="font-size: 50px;" class="material-icons mt-2">
+                <span style="font-size: 50px;" class="material-icons">
                   key
                 </span>
               </div>
@@ -206,4 +203,63 @@
   </div>
 </ng-template>
 
+<!--Modal dialogo exito-->
+<ng-template #modaDialogoExito let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
 
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>{{estadoLogin.mensaje}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" (click)="modal.close('Close click')" class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;">OK</button>
+
+  </div>
+</ng-template>
+
+<!--Modal dialogo error-->
+<ng-template #modalDialogoError let-modal>
+  <div class="modal-encabezado modal-error">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          error
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Error {{estadoLogin.codigo}}!</h3>
+      <h3>{{estadoLogin.mensaje}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Ok</button>
+  </div>
+</ng-template>
+
+<!--Spinner-->
+<ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

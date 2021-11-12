@@ -1,0 +1,109 @@
+
+@import url('http://fonts.cdnfonts.com/css/ponnala');
+
+.contenedor {
+  width: 17rem;
+  height: 100vh;
+  background-color: transparent;
+  position: fixed;
+
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+}
+
+.sidenav {
+  padding: 10px;
+  background-color: #F19F4D;
+}
+.sidenav-1 {
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+
+.header-sidenav {
+  background-color: #0000006e;
+  padding: 0.5rem;
+  width: 100%;
+}
+.img-headerSidenav{
+  margin-top: 6px;
+  width: 100px;
+}
+
+
+.btn-toggle {
+  cursor:pointer;
+  font-size: 36px;
+  color: white;
+}
+
+.panel-interno {
+  background-color: #00000015;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 75%;
+  height: 80%;
+  margin: auto;
+
+}
+
+.iconos {
+  font-size: 29px;
+  color: #4484CE;
+}
+
+.text-items {
+  font-size: 15px;
+  color:rgb(255, 255, 255);
+  padding: 0;
+  margin: 0;
+  margin-right: auto  !important;
+}
+
+
+
+.div-item {
+  cursor: pointer;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.div-item:hover {
+  cursor: pointer;
+  background-color: #ffffff36;
+}
+
+.item-seleccionado {
+  background-color: #0000006e;
+}
+.item-seleccionado:hover {
+  background-color: #0000006e !important;
+}
+
+.mostrar-div {
+  display: block;
+}
+
+.ocultar-div {
+  display: none;
+}
+
+.background-transparente {
+  background-color: rgba(255, 255, 255, 0)!important;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-margin {
+  margin: -1px;
+}

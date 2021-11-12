@@ -3,7 +3,8 @@
 .titulo-formulario {
   font-family: 'Ponnala', sans-serif;
   font-size: 22px;
-  color: black;
+  color: #4484CE;
+  margin-bottom: 0%!important;
 }
 .h4-formulario {
   font-family: 'Ponnala', sans-serif;
@@ -86,6 +87,7 @@
 .home {
   cursor: pointer;
   margin-left: auto;
+
 }
 
 
@@ -120,25 +122,7 @@
   color: green;
 }
 
-.modal-encabezado {
-  text-align: center;
 
-}
-
-.modal-exito {
-  background-color: #56A33B;
-}
-.modal-error {
-  background-color: #ff0000;
-}
-
-.modal-cuerpo{
-  text-align: center;
-  color: black;
-  font-weight: bold;
-  font-size: 20px;
-  font-family: 'Ponnala', sans-serif;
-}
 
 body {
  height: 100%;
@@ -146,4 +130,19 @@ body {
 .campo-incorrecto {
   color: rgb(230, 40, 40);
 
+}
+
+.stOjo{
+  border: whitesmoke;
+  background-color: whitesmoke;
+}
+
+.stback{
+  background-image: url(../../../assets/img/ImgBackRegistro.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100vh;
+  position: absolute;
 }

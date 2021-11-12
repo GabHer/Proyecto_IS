@@ -66,7 +66,6 @@ export class RegistroUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.mensajeError = "";
-    this.obtenerUsuarios();
   }
 
 

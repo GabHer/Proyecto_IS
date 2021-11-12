@@ -1,0 +1,175 @@
+<div class="row">
+  <div class="col-12">
+    <div class="container-fluid">
+      <div class="div-imagen container-fluid">
+        <img class="imagen" [src]="perfil.imagen" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <h4 class="text-center txt-nombreUsuario mt-3">{{obtenerNombreCompleto()}}</h4>
+  </div>
+
+  <div class="col-12">
+    <div class="row container centrar">
+
+      <div class="col-lg-6">
+        <div class="row">
+
+          <div class="col-12">
+            <div class="row mt-4 item">
+              <!-- Titulo-->
+              <div class="col-2">
+                <div class="row no-padding no-margin">
+                  <div class="col-2 no-padding no-margin">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </div>
+
+                  <div class="col-10 no-padding no-margin">
+                    <span class="txt-tituloNombre ml-3">Nombre</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Contenido-->
+              <div class="col-10">
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.nombre}}</span>
+              </div>
+            </div>
+
+            <div class="row mt-4 item">
+              <!-- Titulo-->
+              <div class="col-2">
+                <div class="row no-padding no-margin">
+                  <div class="col-2 no-padding no-margin">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </div>
+
+                  <div class="col-10 no-padding no-margin">
+                    <span class="txt-tituloNombre ml-3">Apellido</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Contenido-->
+              <div class="col-9">
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.apellido}}</span>
+              </div>
+            </div>
+
+            <div class="row mt-4 item">
+              <!-- Titulo-->
+              <div class="col-2">
+                <div class="row no-padding no-margin">
+                  <div class="col-2 no-padding no-margin">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </div>
+
+                  <div class="col-10 no-padding no-margin">
+                    <span class="txt-tituloNombre ml-3">Correo</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Contenido-->
+              <div class="col-9">
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.email}}</span>
+              </div>
+            </div>
+
+            <div class="row mt-4 item">
+              <!-- Titulo-->
+              <div class="col-2">
+                <div class="row no-padding no-margin">
+                  <div class="col-2 no-padding no-margin">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </div>
+
+                  <div class="col-10 no-padding no-margin">
+                    <span class="txt-tituloNombre ml-3">Institución</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Contenido-->
+              <div class="col-9">
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.institucion}}</span>
+              </div>
+            </div>
+
+            <div class="row mt-4 item">
+              <!-- Titulo-->
+              <div class="col-2">
+                <div class="row no-padding no-margin">
+                  <div class="col-2 no-padding no-margin">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                  </div>
+
+                  <div class="col-10 no-padding no-margin">
+                    <span class="txt-tituloNombre ml-3">Formación Acádemica</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Contenido-->
+              <div class="col-9">
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.formacionAcademica}}</span>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-6">
+        <div class="row mt-4 item">
+          <!-- Titulo-->
+          <div class="col-2">
+            <div class="row no-padding no-margin">
+              <div class="col-2 no-padding no-margin">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </div>
+
+              <div class="col-10 no-padding no-margin">
+                <span class="txt-tituloNombre ml-3">Intereses</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- Contenido-->
+          <div class="col-9">
+            <div class="texto ml-5 border border-3">
+              <span class="ml-1 interes mt-1 mb-1" *ngFor="let tag of perfil.intereses" >{{tag}}</span>
+            </div>
+          </div>
+         </div>
+
+         <div class="row mt-4 item">
+          <!-- Titulo-->
+          <div class="col-2">
+            <div class="row no-padding no-margin">
+              <div class="col-2 no-padding no-margin">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </div>
+
+              <div class="col-10 no-padding no-margin">
+                <span class="txt-tituloNombre ml-3">Descripción</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- Contenido-->
+          <div class="col-9 mb-5">
+            <div class="texto ml-5 border border-3">
+              <p class="mt-1 mb-1">{{perfil.descripcion}}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>

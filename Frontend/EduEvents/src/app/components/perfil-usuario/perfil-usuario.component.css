@@ -1,0 +1,72 @@
+@import url('http://fonts.cdnfonts.com/css/ponnala');
+.imagen {
+  border-radius: 100%;
+  width: 128px;
+  height: 128px;
+  margin-top: 0.95rem;
+
+}
+
+.div-imagen {
+
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 100%;
+  width: 160px;
+  height: 160px;
+  background-color: #4484ce;
+}
+
+.txt-nombreUsuario {
+  font-family: 'Ponnala', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.txt-tituloNombre {
+  font-family: 'Ponnala', sans-serif;
+  color: #908D8D;
+  font-size: 16px;
+}
+
+.txt-spanNombreUsuario {
+  font-family: 'Ponnala', sans-serif;
+  font-size: 18px;
+
+}
+
+.no-padding {
+  padding: 0;
+}
+.no-margin {
+  margin: 0;
+}
+
+.item {
+  margin-left: 10%;
+}
+
+.interes {
+
+  background-color:#2196F3;
+  border-radius: 15px;
+  padding: 2px;
+  color:#fff;
+  display:inline-block;
+  padding-left:8px;
+  padding-right:8px;
+  text-align:center
+}
+.texto {
+  padding: 2rem;
+  border-radius: 25px;
+}
+
+.contenedor {
+  width: 80% !important;
+}
+.centrar {
+  margin-left: auto;
+  margin-right: auto;
+}

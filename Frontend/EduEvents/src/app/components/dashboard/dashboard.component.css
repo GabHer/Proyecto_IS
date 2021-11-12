@@ -1,0 +1,17 @@
+.btn-toggle {
+  cursor:pointer;
+  font-size: 42px;
+}
+
+.mostrar-div {
+  display: block;
+}
+
+.ocultar-div {
+  display: none;
+}
+
+.perfil-usuario {
+  margin-top: -7rem;
+
+}
