@@ -31,7 +31,15 @@
         </div>
 
         <div *ngIf="(indexItemActual == obtenerIndexItem('Mis eventos'))" class="row">
-          <app-mis-eventos></app-mis-eventos>
+          <div class="col-12">
+            <app-mis-eventos></app-mis-eventos>
+          </div>
+        </div>
+
+        <div *ngIf="(indexItemActual == obtenerIndexItem('Inscripciones'))" class="row">
+          <div class="col-12">
+            <app-inscripciones></app-inscripciones>
+          </div>
         </div>
 
       </div>

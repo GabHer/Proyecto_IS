@@ -36,7 +36,9 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
 import { SidenavComponent } from './components/dashboard/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component';
-import { MisEventosComponent } from './components/mis-eventos/mis-eventos.component'
+import { MisEventosComponent } from './components/mis-eventos/mis-eventos.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { InscripcionesComponent } from './components/inscripciones/inscripciones.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +56,7 @@ import { MisEventosComponent } from './components/mis-eventos/mis-eventos.compon
     SidenavComponent,
     HeaderDashboardComponent,
     MisEventosComponent,
+    InscripcionesComponent,
 
   ],
   imports: [
@@ -78,7 +81,8 @@ import { MisEventosComponent } from './components/mis-eventos/mis-eventos.compon
     HttpClientModule,
     MatProgressSpinnerModule,
     NgxSpinnerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTooltipModule
   ],
   providers: [
 
