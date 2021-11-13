@@ -73,7 +73,7 @@ export class InicioSesionComponent implements OnInit {
     if (this.formularioInicioSesion.get('email').hasError('required')) {
       return 'Este es un campo obligatorio';
     }
-    return this.formularioInicioSesion.get('email').errors?.pattern ? 'Correo no valido' : '';
+    return this.formularioInicioSesion.get('email').errors?.pattern ? 'Correo no válido' : '';
   }
 
     /**
@@ -202,11 +202,11 @@ export class InicioSesionComponent implements OnInit {
   onClickEnviarCodigo(){
     // Hacemos la consulta al backend para comprobar la existencia de ese correo electronico
     this.spinner.mostrarSpinner()
-    
+
     let datos = {Correo: this.formularioRecuperarContrasenia.get("email").value}
     this.loginService.enviarCorreoRecuperarContrasena(datos).subscribe(
       (res:any)=> {
-        
+
         if(res.codigo == 200){
           this.iniciarContador();
 

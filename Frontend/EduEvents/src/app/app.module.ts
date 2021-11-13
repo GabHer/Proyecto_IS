@@ -35,7 +35,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { SidenavComponent } from './components/dashboard/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component'
+import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component';
+import { MisEventosComponent } from './components/mis-eventos/mis-eventos.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { HeaderDashboardComponent } from './components/dashboard/header-dashboar
     PerfilUsuarioComponent,
     SidenavComponent,
     HeaderDashboardComponent,
+    MisEventosComponent,
 
   ],
   imports: [

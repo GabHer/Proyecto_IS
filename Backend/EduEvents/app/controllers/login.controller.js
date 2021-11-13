@@ -36,7 +36,7 @@ exports.iniciarSesion = (req, res) => {
         const token = jwt.sign({
             correo: login.Correo
         },"miClaveUltraSuperMegaSecreta123", { expiresIn: '14400s' })
-        res.send({mensaje:'El usuario se autentico correctamente', codigo:200, estado: data.estado, data:{token:token, correo:login.Correo}})
+        res.send({mensaje:'El usuario se autenticó correctamente', codigo:200, estado: data.estado, data:{token:token, correo:login.Correo}})
       }
     }
     

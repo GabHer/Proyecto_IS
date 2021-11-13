@@ -7,8 +7,8 @@ const transport = nodemailer.createTransport({
     port: envCorreoConfig.host,
     secure: envCorreoConfig.secure,
     auth: {
-       user: envCorreoConfig.user,
-       pass: envCorreoConfig.pass
+    user: envCorreoConfig.user,
+    pass: envCorreoConfig.pass
     }
 });
 

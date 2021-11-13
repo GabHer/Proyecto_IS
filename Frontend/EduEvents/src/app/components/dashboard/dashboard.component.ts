@@ -41,7 +41,7 @@ export class DashboardComponent implements AfterViewInit  {
   bandera = true;
 
   mensajeModal = [
-    {tipo:"confirmacion", titulo1:"¿Cerrar sesión?", titulo2:"Se cerrara la sesión actual", icono:"quiz"}
+    {tipo:"confirmacion", titulo1:"¿Cerrar sesión?", titulo2:"Se cerrará la sesión actual", icono:"quiz"}
   ]
 
   constructor( private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService, private modalService:NgbModal, private spinner:SpinnerService) {

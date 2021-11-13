@@ -30,6 +30,10 @@
           <app-perfil-usuario class="perfil-usuario" [perfil]="usuario" ></app-perfil-usuario>
         </div>
 
+        <div *ngIf="(indexItemActual == obtenerIndexItem('Mis eventos'))" class="row">
+          <app-mis-eventos></app-mis-eventos>
+        </div>
+
       </div>
     </div>
   </div>
@@ -68,7 +72,7 @@
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, no cerrar sesión</button>
-      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="onConfirmarCerrarSesion(modal)">Si, cerrar sesión</button>
+      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="onConfirmarCerrarSesion(modal)">Sí, cerrar sesión</button>
   </div>
 </ng-template>
 
