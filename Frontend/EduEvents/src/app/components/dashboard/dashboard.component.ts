@@ -3,6 +3,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { AutenticacionService } from '../../services/autenticacion.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from 'src/app/services/spinner.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -37,7 +39,12 @@ export class DashboardComponent implements AfterViewInit  {
   indexItemActual = 0;
 
   bandera = true;
-  constructor( private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService) {
+
+  mensajeModal = [
+    {tipo:"confirmacion", titulo1:"¿Cerrar sesión?", titulo2:"Se cerrara la sesión actual", icono:"quiz"}
+  ]
+
+  constructor( private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService, private modalService:NgbModal, private spinner:SpinnerService) {
   }
   ngAfterViewInit(): void {
 
@@ -54,7 +61,12 @@ export class DashboardComponent implements AfterViewInit  {
   }
 
   actualizarItemActual(e:any){
-    this.indexItemActual = e;
+    this.spinner.mostrarSpinner()
+
+    setTimeout(() => {
+      this.indexItemActual = e;
+      this.spinner.ocultarSpinner()
+    }, 200);
   }
   obtenerIndexItem( nombreItem:string ){
     return this.items.findIndex( item => item[0] == nombreItem);
@@ -64,43 +76,73 @@ export class DashboardComponent implements AfterViewInit  {
     return this.items[indice][0]
   }
 
-  onClickCerrarSesion(evento:any){
+  onClickCerrarSesion(evento:any, modal:any, ){
+    this.abrirModal(modal);
+  }
 
-    this.auth.cerrarSesion();
+  onConfirmarCerrarSesion(referenciaModal:any){
+    this.spinner.mostrarSpinner()
+
+    setTimeout(() => {
+      this.auth.cerrarSesion();
+      referenciaModal.close('Close click');
+    }, 300);
+  }
+
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
   }
 
 
 
+
   obtenerUsuario(){
-    let correo = JSON.parse(localStorage.getItem("token")).id;
-    console.log(correo);
-    /*
-    this.usuariosService.obtenerUsuario(correo).subscribe(
-      (res:any)=> {
-        console.log(res.data);
+    let tokenUsuario = localStorage.getItem("token");
+    if( tokenUsuario ){
 
-        // Variables de prueba
-        this.usuario = {
-          nombre: res.data.Nombre,
-          apellido: res.data.Apellido,
-          nacimiento: res.data.Fecha_Nacimiento,
-          email: res.data.Correo,
-          contrasenia: "",
-          formacionAcademica: res.data.Formacion_Academica,
-          descripcion: res.data.Descripcion,
-          imagen: res.data.Fotografia,
-          institucion: res.data.Institucion,
-          intereses: res.data.Intereses
+      let correo = JSON.parse(tokenUsuario).id;
+      console.log(correo);
+
+      this.usuariosService.obtenerUsuario( correo ).subscribe(
+
+        (res:any) => {
+
+          //let imagen = encode( res.data.Fotografia.data );
+          let imagen = res.data.Fotografia;
+
+          this.usuario = {
+            nombre: res.data.Nombre,
+            apellido: res.data.Apellido,
+            nacimiento: res.data.Fecha_Nacimiento,
+            email: res.data.Correo,
+            contrasenia: "",
+            formacionAcademica: res.data.Formacion_Academica,
+            descripcion: res.data.Descripcion,
+            imagen: imagen,
+            institucion: res.data.Institucion,
+            intereses: res.data.Intereses.split(",")
+          };
+
+
+        },
+
+        (error:any) => {
+
+        },
+
+        ()=> {
+
         }
+      )
 
-      },
-      (error:any) => {
-        console.log(error);
+
       }
-     )
-
-
-     */
     }
 
 

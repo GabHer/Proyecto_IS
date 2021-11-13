@@ -91,7 +91,11 @@ Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
 
         if(res.length){
             // Significa que encontro un usuario registrado con este correo
+            let buff = res[0].Fotografia
+            let srcImagen = buff.toString('ascii');
+            res[0].Fotografia = srcImagen;
             resultado(null, res[0])
+
             return;
         }
 

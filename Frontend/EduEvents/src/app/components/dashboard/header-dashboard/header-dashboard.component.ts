@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { SpinnerService } from 'src/app/services/spinner.service';
 @Component({
   selector: 'app-header-dashboard',
   templateUrl: './header-dashboard.component.html',
@@ -12,11 +12,13 @@ export class HeaderDashboardComponent implements OnInit {
   @Output() onClickUsuario = new EventEmitter<string>();
 
   mostrarBtn = true;
-  constructor() { }
+  constructor( private spinner:SpinnerService ) { }
 
   ngOnInit(): void {
 
   }
+
+
 
   onClickBtnTogglet(b:boolean){
     this.mostrarBtn = b;

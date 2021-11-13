@@ -37,6 +37,7 @@ export class SidenavComponent implements OnInit {
   }
 
   seleccionarItem( nombreItem:string ) {
+
     if(nombreItem == "Cerrar sesión"){
       this.onClickCerrarSesion();
       return;

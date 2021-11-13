@@ -31,14 +31,14 @@ export class AutenticacionService {
     let tokenUsuario:any;
     if( data ){
       tokenUsuario = JSON.parse(data);
+      const tokenExpiro = helper.isTokenExpired(tokenUsuario.token); // helper
+
+      return tokenExpiro ? false: true;
     }
 
-    const tokenExpiro = helper.isTokenExpired(tokenUsuario.token); // helper
-    if ( tokenExpiro ){
-      return false;
-    }
 
-    return true;
+
+    return false;
 
   }
   guardarToken( data:any ){

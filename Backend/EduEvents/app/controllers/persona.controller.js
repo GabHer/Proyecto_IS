@@ -59,6 +59,7 @@ exports.obtenerPersonas = (req, res) => {
           });
         else 
         {
+          
           res.send(data);
         }
       });

@@ -14,7 +14,10 @@ const corsOptions ={
 app.use(cors(corsOptions));
 
 // Hacemos un parse a json y definimos un limite
-app.use(express.json({limit: '50mb', extended: true,parameterLimit:50000}));
+//app.use(express.json({limit: '50mb', extended: true,parameterLimit:50000}));
+
+app.use(express.json({limit: "500mb"}))
+app.use(express.urlencoded({limit:"500mb", extended: true, parameterLimit:500000}));
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true})); 

@@ -78,6 +78,7 @@ export class RegistroUsuarioComponent implements OnInit {
      fileChangeEvent(event: any=""): void {
 
       this.imageChangedEvent = event;
+
   }
 
 
@@ -126,7 +127,7 @@ export class RegistroUsuarioComponent implements OnInit {
   */
   onEliminarRecorte(){
 
-
+    console.log(this.previsualizacion);
     this.croppedImage = ""
     this.previsualizacion = ""
     this.imageChangedEvent = ""
@@ -201,8 +202,6 @@ export class RegistroUsuarioComponent implements OnInit {
   }
 
 
-
-
   /**
   * @name onSubmitRegistro
   * @summary Función al presionar el boton de registro.
@@ -214,6 +213,8 @@ export class RegistroUsuarioComponent implements OnInit {
 
     // Si el formulario es valido, esta listo para guardar
     if(this.formularioRegistro.valid){
+
+
 
       const nuevoUsuario = {
         Nombre: this.formularioRegistro.get("nombre").value,
