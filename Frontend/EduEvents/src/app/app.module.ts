@@ -36,16 +36,12 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
 import { SidenavComponent } from './components/dashboard/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component';
-<<<<<<< HEAD
 import { MisEventosComponent } from './components/mis-eventos/mis-eventos.component'
 import { MatDatepickerModule  } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { BuscadorComponent } from './components/buscador/buscador.component'; 
-=======
-import { MisEventosComponent } from './components/mis-eventos/mis-eventos.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component'
->>>>>>> b06725772a1d98a073df94ddc0b25e08518258e7
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,12 +59,8 @@ import { InscripcionesComponent } from './components/inscripciones/inscripciones
     SidenavComponent,
     HeaderDashboardComponent,
     MisEventosComponent,
-<<<<<<< HEAD
     BuscadorComponent,
-=======
     InscripcionesComponent,
->>>>>>> b06725772a1d98a073df94ddc0b25e08518258e7
-
   ],
   imports: [
     BrowserModule,
@@ -93,14 +85,11 @@ import { InscripcionesComponent } from './components/inscripciones/inscripciones
     MatProgressSpinnerModule,
     NgxSpinnerModule,
     MatSidenavModule,
-<<<<<<< HEAD
     MatDatepickerModule,
-    MatNativeDateModule
-    
-    
-=======
+    MatNativeDateModule,
     MatTooltipModule
->>>>>>> b06725772a1d98a073df94ddc0b25e08518258e7
+
+
   ],
   providers: [
 
