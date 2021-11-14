@@ -37,6 +37,13 @@
           </div>
         </div>
 
+        <div *ngIf="(indexItemActual == obtenerIndexItem('Buscar'))" class="row">
+          <div [class]="(bandera ? 'col-12 ml-3' : 'col-12')">
+            <app-buscar-evento [collapsar]="bandera" ></app-buscar-evento>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>

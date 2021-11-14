@@ -8,6 +8,13 @@
   position: fixed;
 
 }
+.ocultar-contenedor {
+  width: 3rem;
+  height: 100vh;
+  background-color: transparent;
+  position: fixed;
+
+}
 
 .sidenav-content {
   display: flex;
@@ -16,7 +23,11 @@
   justify-content: center;
   width: 100%;
 
+
 }
+
+
+
 
 .sidenav {
   padding: 10px;

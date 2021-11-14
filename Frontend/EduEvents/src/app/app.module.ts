@@ -41,7 +41,9 @@ import { MatDatepickerModule  } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { InscripcionesComponent } from './components/inscripciones/inscripciones.component'
+import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
+import { BuscarEventoComponent } from './components/buscar-evento/buscar-evento.component';
+import { CardEventoComponent } from './components/card-evento/card-evento.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,8 @@ import { InscripcionesComponent } from './components/inscripciones/inscripciones
     MisEventosComponent,
     BuscadorComponent,
     InscripcionesComponent,
+    BuscarEventoComponent,
+    CardEventoComponent,
   ],
   imports: [
     BrowserModule,

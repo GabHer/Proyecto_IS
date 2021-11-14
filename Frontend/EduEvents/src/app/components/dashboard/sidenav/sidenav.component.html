@@ -1,12 +1,12 @@
 
 <div class="col-12 no-padding no-margin">
-  <mat-drawer-container class="contenedor" >
+  <mat-drawer-container  [class]="(mostrarBotonTogglet ? 'ocultar-contenedor' : 'contenedor')" >
 
     <div class="container-fluid text-left no-padding no-margin">
       <span *ngIf="(mostrarBotonTogglet)" class="material-icons btn-toggle ml-3 mt-3" mat-button (click)="mostarTogglet(drawer, false)">menu</span>
     </div>
 
-    <mat-drawer #drawer class="sidenav no-padding no-margin" mode="side">
+    <mat-drawer  #drawer  class="sidenav no-padding no-margin" mode="side">
       <div class="header-sidenav">
         <div class="row no-padding no-margin">
 
@@ -20,7 +20,7 @@
 
       </div>
       <hr>
-      <div class="row panel-interno">
+      <div  class="row panel-interno">
         <div *ngFor="let item of items" (click)="seleccionarItem(item[0])" [class.item-seleccionado]="indexItemActual == obtenerIndexItem(item[0])" class="col-12  div-item mt-3">
           <div class="row">
             <div class="col-2">
