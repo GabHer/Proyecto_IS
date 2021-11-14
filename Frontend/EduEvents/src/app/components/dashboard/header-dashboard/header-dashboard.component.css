@@ -28,7 +28,6 @@
     width: 300px;
     height: 50px;
     box-shadow: 7px 7px 15px #00000069;
-    margin-left: auto;
     cursor: pointer;
   }
 
@@ -54,7 +53,7 @@
 }
 
 .txt-perfil{
-  font-size: 48px;
+  font-size: 32px;
   font-family: 'Montserrat', sans-serif;
   color: white;
   font-weight: 700;

@@ -1,24 +1,25 @@
-<div class="row">
+
   <div class="col-12 container-fluid background-header">
-    <div class="row mt-3">
-      <div class="col-lg-6">
+    <div class="row mt-2">
+      <div class="col">
         <img class="brand-edu" [src]="'../../../../assets/img/EduEventsLetrasBlancoVector.svg'" alt="">
       </div>
 
-      <div class="col-lg-5">
+      <div class="col text-center">
+        <h1 class="txt-perfil">{{nombreItemActual}}</h1>
+      </div>
+
+      <div class="col">
         <div class="contenedor-usuario" (click)="verMiPerfil()">
             <img class=" ml-4 mt-1 imagen-usuario" [src]="usuarioHeader.imagen" alt="">
             <span class="ml-4 txt-nombreUsuario">{{obtenerNombreCompleto()}}</span>
           </div>
       </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-12  text-center txt-perfil">
-        <h1>{{nombreItemActual}}</h1>
+      <div *ngIf="(nombreItemActual != 'Mi perfil')" class="col-12 mt-3">
+        <app-buscador></app-buscador>
       </div>
     </div>
 
+
   </div>
-</div>
+

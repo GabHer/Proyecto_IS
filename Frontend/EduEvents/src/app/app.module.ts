@@ -37,6 +37,9 @@ import { SidenavComponent } from './components/dashboard/sidenav/sidenav.compone
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderDashboardComponent } from './components/dashboard/header-dashboard/header-dashboard.component';
 import { MisEventosComponent } from './components/mis-eventos/mis-eventos.component'
+import { MatDatepickerModule  } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BuscadorComponent } from './components/buscador/buscador.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +57,7 @@ import { MisEventosComponent } from './components/mis-eventos/mis-eventos.compon
     SidenavComponent,
     HeaderDashboardComponent,
     MisEventosComponent,
+    BuscadorComponent,
 
   ],
   imports: [
@@ -78,7 +82,11 @@ import { MisEventosComponent } from './components/mis-eventos/mis-eventos.compon
     HttpClientModule,
     MatProgressSpinnerModule,
     NgxSpinnerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    
+    
   ],
   providers: [
 

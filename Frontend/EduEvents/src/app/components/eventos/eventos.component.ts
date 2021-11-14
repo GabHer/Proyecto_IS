@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {FormGroup, FormControl} from '@angular/forms';
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
 
 }

@@ -12,6 +12,7 @@
 
 
     <app-header-dashboard
+    class="row"
      [nombreItemActual]="obtenerItem(indexItemActual)"
      [usuarioHeader]="usuario"
     (onClickUsuario)="actualizarItemActual(obtenerIndexItem($event))"
@@ -31,7 +32,9 @@
         </div>
 
         <div *ngIf="(indexItemActual == obtenerIndexItem('Mis eventos'))" class="row">
-          <app-mis-eventos></app-mis-eventos>
+          <div class="col-12">
+            <app-mis-eventos class="ml-3" ></app-mis-eventos>
+          </div>
         </div>
 
       </div>

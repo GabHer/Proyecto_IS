@@ -1,54 +1,42 @@
-<div>
-  <div class="stback col-12">
-    <app-header [current]="'eventos'"></app-header>
-  </div>
+<div class="row" style="padding: 0; margin: 0;">
+  <div class="col-lg-12 stback">
+    <div class="row">
+      <div class="col-lg-12">
+        <app-header [current]="'eventos'"></app-header>
+      </div>
+    </div>
+    <app-buscador></app-buscador>
 
-<div class="row " >
-  <div class="input-group mb-3 stPos" >
 
-    <div style="background-color: #d9d9d988; height: 40px; margin-top: 0.5px;">
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn " id="dropdownBasic1" ngbDropdownToggle><span class="material-icons">
-          filter_alt</span></button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Nombre</button>
-          <button ngbDropdownItem>Fecha</button>
-          <button ngbDropdownItem>Estado</button>
+    <div class="container" style="margin-top: 8%;">
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col wow animate_animated animate__backInLeft">
+          <div class="card">
+            <img src="../../../assets/img/conf_1.png" class="card-img-top" alt="...">
+
+          </div>
+        </div>
+        <div class="col wow animate_animated animate__backInLeft">
+          <div class="card">
+            <img src="../../../assets/img/conf_4.jpg" class="card-img-top" alt="...">
+
+          </div>
+        </div>
+        <div class="col wow animate_animated animate__backInLeft">
+          <div class="card">
+            <img src="../../../assets/img/conf_3.png" class="card-img-top" alt="...">
+
+          </div>
+        </div>
+        <div class="col wow animate_animated animate__backInLeft">
+          <div class="card">
+            <img src="../../../assets/img/conf_4.jpg" class="card-img-top" alt="...">
+
+          </div>
         </div>
       </div>
     </div>
 
-    <input type="text" style="background-color:#d9d9d988; height: 40px; margin-top: 1px;" class="form-control" aria-label="Text input with dropdown button">
-    <button class="btn btn-outline-secondary" style="background-color:#F9CF00; height: 43px; padding-bottom: 0px;" type="button" id="button-addon2"><span class="material-icons">search</span></button>
-  </div>
-  </div>
-</div>
 
-<div class="container" style="margin-top: 8%;">
-  <div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col wow animate_animated animate__backInLeft">
-      <div class="card">
-        <img src="../../../assets/img/conf_1.png" class="card-img-top" alt="...">
-
-      </div>
-    </div>
-    <div class="col wow animate_animated animate__backInLeft">
-      <div class="card">
-        <img src="../../../assets/img/conf_4.jpg" class="card-img-top" alt="...">
-
-      </div>
-    </div>
-    <div class="col wow animate_animated animate__backInLeft">
-      <div class="card">
-        <img src="../../../assets/img/conf_3.png" class="card-img-top" alt="...">
-
-      </div>
-    </div>
-    <div class="col wow animate_animated animate__backInLeft">
-      <div class="card">
-        <img src="../../../assets/img/conf_4.jpg" class="card-img-top" alt="...">
-
-      </div>
-    </div>
   </div>
 </div>
