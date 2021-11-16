@@ -88,7 +88,7 @@ exports.obtenerPorCorreo = (req, res) => {
 exports.actualizarPersona = (req, res) => {
 
   const personaActualizar = {
-    Id : req.params.id,
+    Id : req.body.Id,
     Nombre : req.body.Nombre,
     Apellido : req.body.Apellido,
     Institucion : req.body.Institucion,
@@ -114,32 +114,6 @@ exports.actualizarPersona = (req, res) => {
    
   });
 };
-
-
-//Actualizar solo un dato del usuario
-exports.actualizarDatoPersona = (req, res) => {
-
-  const personaActualizar = {
-    id : req.params.id,
-    campo: req.body.campo,
-    valor: req.body.valor
-  }
-
-  Persona.actualizarDato(personaActualizar, (err) => {
-    if (err) {
-      res.send({
-        mensaje: `Se produjo un error al actualizar el dato del usuario.`,
-        codigo:500
-      });
-
-    }
-    else {
-      res.send({mensaje:"Dato del usuario actualizado", codigo:200, data:null});
-    }
-   
-  });
-};
-
 
 //Actualizar Contraseña
 exports.actualizarContra = (req, res) => {

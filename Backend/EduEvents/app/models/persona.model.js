@@ -70,24 +70,6 @@ Persona.actualizar = (objetoPersona, resultado) => {
 };
 
 
-Persona.actualizarDato = (personaDatoActualizar, resultado) => {
-    let consulta = `UPDATE Persona SET ${personaDatoActualizar.campo} = '${personaDatoActualizar.valor}' WHERE Id = ${personaDatoActualizar.id}`;
-
-    console.log(consulta)
-    
-    sql.query(consulta, (err, res) => {
-        
-        if (err) {
-          
-            resultado(err, null);
-            return;
-        };        
-        resultado(null, { estado:"ok"});
-        return;
-    });
-};
-
-
 Persona.actualizarContrasena = (objetoPersona, resultado) => {
     let consulta = `UPDATE Persona SET Contrasena = AES_ENCRYPT('${objetoPersona.Contrasena}','${objetoPersona.Contrasena}') WHERE Correo = '${objetoPersona.Correo}'`
 
