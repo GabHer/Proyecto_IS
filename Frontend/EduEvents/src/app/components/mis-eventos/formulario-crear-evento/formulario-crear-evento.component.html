@@ -6,27 +6,59 @@
     </div>
   </div>
 
-  <form [formGroup]="formularioCrearEvento" class="row mt-3">
+  <form [formGroup]="formularioCrearEvento" class="row mt-1">
     <div class="col-lg-4">
-      <div class="row">
+      <div class="row" style="padding: 0; margin: 0;">
+        <div  class="col-12 text-center">
+          <image-cropper
+          *ngIf="(!mostrarCaratula)"
+          style="width: 100px; margin-left: auto; margin-right: auto;"
+          [imageChangedEvent]="caratulaImageChangeEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="3 / 3"
+          [resizeToWidth]="256"
+          format="png"
+          (imageCropped)="caratulaImageCropped($event)"
+          >
+          </image-cropper>
+          <div *ngIf="(mostrarCaratula)" class="caratulaEvento">
+            <span style="font-size: 56px;" *ngIf="(previsualizacionCaratula == '')" class="material-icons mt-3">cloud_upload</span>
+            <img style="width: 100px;" *ngIf="(previsualizacionCaratula != '')" [src]="(previsualizacionCaratula)" alt="">
+          </div>
+        </div>
+
+        <div class="col-12 text-center mt-2">
+          <button  *ngIf="(previsualizacionCaratula != '') "  type="button"  (click)="onEliminarRecorteCaratula() " class="btn btn-primary btn-2 ml-3">Eliminar</button>
+        </div>
+
+        <div class="col-12 text-center">
+          <button   *ngIf="caratulaCroppedImage !=''" type="button" (click)="onGuardarRecorteCaratula()"  class="btn btn-primary btn-1 ml-3">Guardar</button>
+          <button  *ngIf="(caratulaCroppedImage != '') "  type="button"  (click)="onEliminarRecorteCaratula() " class="btn btn-primary btn-2 ml-3">Eliminar</button>
+        </div>
+
+        <div class="col-12">
+          <mat-form-field style="width: 100%;">
+            <div class="myfilebrowser">
+              <mat-toolbar>
+                <input matInput class="input-archivo"  readonly formControlName="inputCaratula" />
+                <button mat-flat-button class="btn-file btn-1" color="primary">Subir caratula</button>
+              </mat-toolbar>
+
+              <input type="file" #inputImagen id="fileUpload" (change)="caratulaFileChangeEvent($event)" formControlName="subirArchivo" name="fileUpload" multiple="multiple" accept='image/*' />
+
+            </div>
+
+          </mat-form-field>
+        </div>
+
         <div class="col-12 mt-3">
           <mat-form-field style="width: 100%;"   appearance="fill">
             <mat-label>Nombre</mat-label>
             <input placeholder="Escribe el nombre que mejor describa tu evento" name="nombre" formControlName="nombre" required matInput>
             <mat-error *ngIf="formularioCrearEvento.get('nombre').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint  *ngIf="!formularioCrearEvento.get('nombre').invalid" >Nombre del evento valido</mat-hint>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('nombre').invalid" >Nombre del evento valido</mat-hint>
           </mat-form-field>
         </div>
-
-        <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;"  appearance="fill">
-            <mat-label>Institución</mat-label>
-            <input placeholder="Brinda el nombre de la institución que impartirá la conferencia" name="institucion" formControlName="institucion" required matInput>
-            <mat-error *ngIf="formularioCrearEvento.get('institucion').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint  *ngIf="!formularioCrearEvento.get('institucion').invalid" >Nombre valido</mat-hint>
-          </mat-form-field>
-        </div>
-
         <div class="col-12 mt-3">
           <mat-form-field style="width: 100%;"  appearance="fill">
             <mat-label>Descripción</mat-label>
@@ -34,14 +66,16 @@
             <textarea placeholder="Comparte una breve descripción del evento para que los demás sepan de que se trata" name="descripcion"  formControlName="descripcion" required matInput rows="5">
             </textarea>
             <mat-error *ngIf="formularioCrearEvento.get('descripcion').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Intereses validos</mat-hint>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Descripción valida</mat-hint>
           </mat-form-field>
         </div>
+
       </div>
     </div>
 
     <div class="col-lg-3">
       <div class="row">
+
         <div class="col-12 mt-3">
           <mat-form-field style="width: 100%;" appearance="fill">
             <mat-label>Establece una fecha de inicio y una fecha final para tu evento</mat-label>
@@ -60,6 +94,15 @@
         </div>
 
         <div class="col-12 mt-3">
+          <mat-form-field style="width: 100%;"  appearance="fill">
+            <mat-label>Institución</mat-label>
+            <input placeholder="Brinda el nombre de la institución que impartirá la conferencia" name="institucion" formControlName="institucion" required matInput>
+            <mat-error *ngIf="formularioCrearEvento.get('institucion').invalid">Este es un campo obligatorio</mat-error>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('institucion').invalid" >Nombre valido</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 mt-3">
 
             <mat-radio-group  formControlName="tipoEvento" [(ngModel)]="labelPosition">
               <mat-radio-button class="" value="privado">Evento Privado</mat-radio-button>
@@ -68,7 +111,7 @@
         </div>
 
         <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
-          <p>Subir desde el computador lista blanca de los usuarios que podrán inscribirse en las conferencias. Debe de ser un archivo .txt separado por comas.</p>
+          <p>Subir desde el computador lista blanca de los usuarios que podrán inscribirse en las conferencias. Debe de ser un archivo .csv (Valores separado por comas).</p>
         </div>
 
         <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
@@ -95,7 +138,7 @@
                 multiple="multiple" accept='.csv,.xls,.txt'/>
 
                 <mat-error *ngIf="formularioCrearEvento.get('subirArchivo').invalid">Este es un campo obligatorio</mat-error>
-                <mat-hint  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Archivo valido</mat-hint>
+                <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Archivo valido</mat-hint>
             </div>
 
           </mat-form-field>
@@ -107,12 +150,7 @@
     <div [class]="(isCollaps ? 'col-lg-4': 'col-lg-5')">
       <div class="row ">
         <div class="col-6">
-
-
             <div class="myfilebrowser" style="width: 10rem;">
-
-
-
                 <!-- Readonly Input to show File names -->
                 <input matInput class="input-archivo"  [(ngModel)]="nombreArchivoImagen" readonly formControlName="subirImagen" />
 
@@ -123,14 +161,10 @@
 
               <input type="file" #UploadFileInput id="fileUpload" (change)="fileChangeEvent($event)" name="fileUpload"
                 multiple="multiple" accept="image/*" />
-
-
             </div>
-
-
         </div>
 
-        <div class="col-6">
+        <div *ngIf="(mostrarMiniaturaImagenes)" class="col-6">
           <div class="row">
             <div class="col-12" *ngIf="(previsualizacion == '')">
               <image-cropper
@@ -160,8 +194,31 @@
         <div class="col-12">
 
           <div class="row contenedor-imagenes">
-              <div [class]="(isCollaps ? 'col-12' : 'col-6')" *ngFor="let imagen of (imagenesEvento)">
-                <div class="row">
+
+            <div *ngIf="(!mostrarMiniaturaImagenes)" class="col-12">
+              <div class="row">
+                <div class="col-12" *ngIf="(previsualizacion == '')">
+                  <image-cropper
+                    style="width: 10rem; margin-left: auto; margin-right: auto;"
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="3 / 3"
+                    [resizeToWidth]="256"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    >
+                  </image-cropper>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button   *ngIf="croppedImage !=''" type="button" (click)="onGuardarRecorte()"  class="btn btn-primary btn-1 ml-3">Guardar</button>
+                    <button  *ngIf="(croppedImage != '') "  type="button"  (click)="onEliminarRecorte() " class="btn btn-primary btn-2 ml-3">Eliminar</button>
+                </div>
+
+              </div>
+            </div>
+              <div [class]="(isCollaps ? 'col-12' : 'col-6')"  *ngFor="let imagen of (imagenesEvento)">
+                <div *ngIf="(mostrarMiniaturaImagenes)" class="row">
                   <div class="col-12">
                     <div class="titulo-item-imagen">
                       <div class="row">

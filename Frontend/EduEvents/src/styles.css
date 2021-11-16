@@ -3,6 +3,26 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-x: hidden; }
 
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  display: block;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+body::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
 .modal-encabezado {
   text-align: center;
 

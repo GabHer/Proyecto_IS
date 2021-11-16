@@ -1,11 +1,9 @@
 
 <div *ngIf="(mostrarFormulario)" class="row">
-  <div class="col-12 ">
+  <div class="col-12 mb-5">
     <app-formulario-crear-evento (onCrearEvento)="misEventos.push($event)" (onChangePath)="actualizarPath($event)" [organizador]="usuarioActual" [isCollaps]="isCollaps" ></app-formulario-crear-evento>
   </div>
 </div>
-
-
 
 
 <div  *ngIf="(misEventos.length == 0 && !mostrarFormulario)" class="row" style="margin-top: 9rem;">
@@ -13,8 +11,6 @@
       <h1 style="color:#4484CE;">¡Aún no hay eventos creados!</h1>
   </div>
 </div>
-
-
 
 
 <div *ngIf="(!mostrarFormulario)" class="row">

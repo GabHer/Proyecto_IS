@@ -2,9 +2,6 @@
     margin: 50px;
     width: 350px;
 
-
-
-
 }
 .mat-form-field {
   width: 100%;
@@ -81,6 +78,7 @@
   height: 15rem;
   width: 100%;
   overflow-y: scroll;
+  background-color: #99999941;
 }
 .contenedor-imagenes::-webkit-scrollbar {
   width: 8px;
@@ -100,4 +98,16 @@
 
 .contenedor-imagenes::-webkit-scrollbar-thumb:active {
   background-color: #999999;
+}
+
+.caratulaEvento {
+  background-color: #4484CE;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.campo-correcto {
+  color: #188333;
 }

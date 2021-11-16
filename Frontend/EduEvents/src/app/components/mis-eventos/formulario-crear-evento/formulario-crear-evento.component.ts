@@ -22,8 +22,8 @@ export class FormularioCrearEventoComponent implements OnInit {
   @Input() isCollaps: boolean;
   @Input() organizador: any;
 
-
-
+  mostrarCaratula = true;
+  mostrarMiniaturaImagenes = true;
 
 
   labelPosition: 'privado' | 'publico' = 'publico';
@@ -32,9 +32,14 @@ export class FormularioCrearEventoComponent implements OnInit {
 
   imagenesEvento:any = [];
 
+  caratulaImageChangeEvent: any = '';
+  caratulaCroppedImage: any = '';
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
+
   previsualizacion:any = '';
+  previsualizacionCaratula:any = '';
 
   listaBlanca:any = '';
 
@@ -58,7 +63,15 @@ export class FormularioCrearEventoComponent implements OnInit {
      imageCropped(event: ImageCroppedEvent) {
 
       this.croppedImage = event.base64;
-
+    }
+    /**
+  * @name caratulaImageCropped
+  * @summary Esta función actualiza la referencia al BLOB de la imagen una vez que ha sido recortada y elegida por el usuario.
+  * @param {ParamDataTypeHere} parameterNameHere - Brief description of the parameter here. Note: For other notations of data types, please refer to JSDocs: DataTypes command.
+  * @return {ReturnValueDataTypeHere} Brief description of the returning value here.
+  */
+     caratulaImageCropped(event: ImageCroppedEvent) {
+      this.caratulaCroppedImage = event.base64;
     }
 
   /**
@@ -74,7 +87,9 @@ export class FormularioCrearEventoComponent implements OnInit {
       tipoEvento: new FormControl( '', [Validators.required]),
       subirArchivo: new FormControl( ''),
       inputArchivo: new FormControl( 'Seleccionar'),
-      subirImagen: new FormControl('', [Validators.required])
+      subirImagen: new FormControl('', [Validators.required]),
+      inputCaratula: new FormControl( 'Seleccionar'),
+      subirCaratula: new FormControl('')
     }
     );
 
@@ -91,10 +106,22 @@ export class FormularioCrearEventoComponent implements OnInit {
   * @return {null} Esta función no retorna.
   */
      fileChangeEvent(event: any=""): void {
-
       this.imageChangedEvent = event;
+      this.mostrarMiniaturaImagenes = false;
+  }
+
+    /**
+  * @name caratulaFileChangeEvent
+  * @summary Esta función actualiza la referencia al evento de un `<input type="file">`.
+  * @param {any} event - Evento que se desencadena al cambiar el estado de un `<input type="file">`.
+  * @return {null} Esta función no retorna.
+  */
+     caratulaFileChangeEvent(event: any=""): void {
+      this.caratulaImageChangeEvent = event;
+      this.mostrarCaratula = false;
 
   }
+
 
     /**
   * @name archivoFileChangeEvent
@@ -109,10 +136,6 @@ export class FormularioCrearEventoComponent implements OnInit {
       this.extraerBase64(archivoCapturado).then( (contenido:any)  => {
         this.listaBlanca = contenido.base;
       })
-
-
-
-
   }
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
@@ -155,10 +178,34 @@ export class FormularioCrearEventoComponent implements OnInit {
     }
 
     this.imagenesEvento.push(dataImagen);
-
     this.onEliminarRecorte();
+    this.mostrarMiniaturaImagenes = true;
+  }
+  /**
+  * @name onGuardarRecorte
+  * @summary Esta función guarda la imagen recortada por el usuario y actualiza la referencia a la previsualización de la misma.
+  * @param {}  - Esta función no recibe parametros.
+  * @return {} - Esta función no retorna.
+  */
+   onGuardarRecorteCaratula(){
+    this.formularioCrearEvento.get('inputCaratula').setValue(this.caratulaImageChangeEvent.target.files[0].name);
+    this.previsualizacionCaratula = this.caratulaCroppedImage;
+    this.caratulaCroppedImage = '';
+    this.caratulaImageChangeEvent = '';
+    this.mostrarCaratula = true;
+  }
 
-
+    /**
+  * @name onEliminarRecorte
+  * @summary Esta función elimina la referencia a la imagen cargada y recortada.
+  * @param {} - Esta función no recibe parametros.
+  * @return {} - Esta función no retorna.
+  */
+  onEliminarRecorteCaratula(){
+    this.caratulaCroppedImage = ""
+    this.previsualizacionCaratula = ""
+    this.caratulaImageChangeEvent = ""
+    this.mostrarCaratula = true;
   }
     /**
   * @name onEliminarRecorte
@@ -172,6 +219,7 @@ export class FormularioCrearEventoComponent implements OnInit {
     this.croppedImage = ""
     this.previsualizacion = ""
     this.imageChangedEvent = ""
+    this.mostrarMiniaturaImagenes = true;
   }
   eliminarImagen( idImagen:string ){
     this.imagenesEvento = this.imagenesEvento.filter( (imagen:any) => imagen.id != idImagen );
@@ -189,6 +237,9 @@ export class FormularioCrearEventoComponent implements OnInit {
 
   onClickCrearEvento( modalExito:any, modalError:any){
 
+    if( this.formularioCrearEvento.invalid ) return;
+
+    console.log(this.formularioCrearEvento.get('subirCaratula'));
     let evento = {
       Nombre: this.formularioCrearEvento.get('nombre').value,
       Institucion: this.formularioCrearEvento.get('institucion').value,
@@ -200,6 +251,7 @@ export class FormularioCrearEventoComponent implements OnInit {
       Id_Organizacion: this.organizador.id,
       Lista_Blanca: this.listaBlanca,
       imagenesEvento: this.imagenesEvento,
+      Caratula: this.previsualizacionCaratula
 
     }
 
@@ -211,6 +263,11 @@ export class FormularioCrearEventoComponent implements OnInit {
 
     if( evento.imagenesEvento.length == 0 ){
       this.mensajeModal[1].titulo2 = 'Es necesario que subas almenos una imagen para promocionar tu evento';
+      this.abrirModal( modalError );
+      return;
+    }
+    if( this.previsualizacionCaratula == '' ){
+      this.mensajeModal[1].titulo2 = 'Se requiere una imagen de caratula para tu evento';
       this.abrirModal( modalError );
       return;
     }
