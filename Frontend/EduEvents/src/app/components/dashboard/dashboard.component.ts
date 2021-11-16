@@ -15,16 +15,17 @@ export class DashboardComponent implements AfterViewInit  {
   @ViewChildren(SidenavComponent) sidenav: SidenavComponent;
 
   @Input() usuario:any ={
-    nombre: "Juan",
-    apellido: "Perez",
-    nacimiento: "2020/12/20",
-    email: "juanperez@gmail.com",
-    contrasenia: "Hola1234",
-    formacionAcademica: "Educación superior",
-    descripcion: "Estudiante universitario",
-    imagen: "../../../assets/img/FotoDePerfilPorDefecto.png",
-    institucion: "UNAH",
-    intereses: ["Programación", "Jugar videojuegos, Practicar deporte"]
+    id: -1,
+    nombre: "",
+    apellido: "",
+    nacimiento: "",
+    email: "",
+    contrasenia: "",
+    formacionAcademica: "",
+    descripcion: "",
+    imagen: "",
+    institucion: "",
+    intereses: []
   };
 
   items = [
@@ -36,7 +37,7 @@ export class DashboardComponent implements AfterViewInit  {
     ["Cerrar sesión", "logout"],
   ]
 
-  indexItemActual = 1;
+  indexItemActual = 0;
 
   bandera = true;
 
@@ -117,6 +118,7 @@ export class DashboardComponent implements AfterViewInit  {
           let imagen = res.data.Fotografia;
 
           this.usuario = {
+            id:res.data.Id,
             nombre: res.data.Nombre,
             apellido: res.data.Apellido,
             nacimiento: res.data.Fecha_Nacimiento,

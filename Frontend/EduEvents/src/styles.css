@@ -29,3 +29,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-x:
 .mat-drawer-content {
   overflow: hidden !important;
 }
+
+.linkDahsboard-1 {
+  color: coral;
+  cursor: pointer;
+
+}
+.linkDahsboard-2 {
+  color: cadetblue;
+  cursor: pointer;
+
+}
+.linkDahsboard-3 {
+  color: blueviolet;
+  cursor: pointer;
+
+}
+
+.linkDahsboard-1:hover {
+  text-decoration: underline;
+}
+.linkDahsboard-2:hover {
+  text-decoration: underline;
+}
+.linkDahsboard-3:hover {
+  text-decoration: underline;
+}

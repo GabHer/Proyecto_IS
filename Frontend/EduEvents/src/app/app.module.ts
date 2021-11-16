@@ -43,7 +43,12 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { BuscarEventoComponent } from './components/buscar-evento/buscar-evento.component';
-import { CardEventoComponent } from './components/card-evento/card-evento.component'
+import { CardEventoComponent } from './components/card-evento/card-evento.component';
+import { FormularioCrearEventoComponent } from './components/mis-eventos/formulario-crear-evento/formulario-crear-evento.component'
+import { MatRadioModule } from '@angular/material/radio';
+
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +70,7 @@ import { CardEventoComponent } from './components/card-evento/card-evento.compon
     InscripcionesComponent,
     BuscarEventoComponent,
     CardEventoComponent,
+    FormularioCrearEventoComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +97,9 @@ import { CardEventoComponent } from './components/card-evento/card-evento.compon
     MatSidenavModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule,
+    MatButtonModule
 
 
   ],

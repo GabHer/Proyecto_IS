@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-mis-eventos',
@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MisEventosComponent implements OnInit {
 
+  @Input() isCollaps:boolean;
+  @Input() usuarioActual:any;
+
+  mostrarFormulario = false;
+
+  misEventos:any = [];
+
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+  mostrarFormularioCrearEvento(b: boolean){
+    this.mostrarFormulario = b
+  }
+
+  actualizarPath( path:string ){
+    if( path== 'Mis eventos' ){
+      this.mostrarFormulario = false;
+    }else{
+      this.mostrarFormulario = false;
+    }
   }
 
 }

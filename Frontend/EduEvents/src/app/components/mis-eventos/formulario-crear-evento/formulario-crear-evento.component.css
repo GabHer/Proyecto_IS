@@ -1,0 +1,103 @@
+.myform-wrapper {
+    margin: 50px;
+    width: 350px;
+
+
+
+
+}
+.mat-form-field {
+  width: 100%;
+}
+.mat-toolbar-single-row {
+  height: auto !important;
+  background: transparent;
+
+
+}
+
+.btn-file {
+  width: 100% !important ;
+}
+
+#fileUpload {
+    position: absolute;
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+
+.input-archivo {
+  font-size: 12px !important;
+  color: black;
+}
+
+.titulo-item-imagen {
+  border-radius: 5px;
+  border: black 1px solid;
+  text-align: center;
+  background-color: #C4C4C4;
+  cursor: default;
+}
+
+.txt-nombreItem{
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.div-previsualizacionImagen {
+  background-color: #C4C4C4;
+  width: 55px;
+  height: 59px;
+}
+
+.btn-1 {
+  border-radius: 50px;
+  background-color: #4484CE;
+  color: white;
+}
+.btn-2 {
+  background-color: #CE4444;
+  border-radius: 25px;
+  color: white;
+}
+.btn-3 {
+  background-color: #188333;
+  border-radius: 25px;
+  color: white;
+}
+
+.titulo-formulario {
+  color: #4484CE;
+  font-size: 36px;
+  text-align: center;
+}
+
+.contenedor-imagenes {
+  height: 15rem;
+  width: 100%;
+  overflow-y: scroll;
+}
+.contenedor-imagenes::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  display: block;
+}
+
+.contenedor-imagenes::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.contenedor-imagenes::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.contenedor-imagenes::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
