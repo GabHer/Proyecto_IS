@@ -26,9 +26,6 @@ const Persona = function(objPersona) {
 };
 
 
-
-
-
 Persona.crear = ( nuevoObjetoPersona, resultado ) => {
     Persona.buscarPorCorreo(nuevoObjetoPersona.Correo, (err, data) => {
         if (err) {
@@ -53,11 +50,43 @@ Persona.crear = ( nuevoObjetoPersona, resultado ) => {
             return
         }
       });
-}
+};
 
-Persona.actualizar = ( parametros, resultado ) => {
+Persona.actualizar = (objetoPersona, resultado) => {
+    let consulta = `UPDATE Persona SET Nombre = '${objetoPersona.Nombre}', Apellido = '${objetoPersona.Apellido}', Institucion = '${objetoPersona.Institucion}', Formacion_Academica = '${objetoPersona.Formacion_Academica}', Descripcion = '${objetoPersona.Descripcion}', Intereses = '${objetoPersona.Intereses}', Fecha_Nacimiento = '${objetoPersona.Fecha_Nacimiento}', Fotografia = '${objetoPersona.Fotografia}', Correo = '${objetoPersona.Correo}' WHERE Id = ${objetoPersona.Id}`;
 
-}
+    console.log(consulta)
+    
+    sql.query(consulta, (err, res) => {
+        
+        if (err) {
+          
+            resultado(err, null);
+            return;
+        };        
+        resultado(null, { estado:"ok"});
+        return;
+    });
+};
+
+
+Persona.actualizarDato = (personaDatoActualizar, resultado) => {
+    let consulta = `UPDATE Persona SET ${personaDatoActualizar.campo} = '${personaDatoActualizar.valor}' WHERE Id = ${personaDatoActualizar.id}`;
+
+    console.log(consulta)
+    
+    sql.query(consulta, (err, res) => {
+        
+        if (err) {
+          
+            resultado(err, null);
+            return;
+        };        
+        resultado(null, { estado:"ok"});
+        return;
+    });
+};
+
 
 Persona.actualizarContrasena = (objetoPersona, resultado) => {
     let consulta = `UPDATE Persona SET Contrasena = AES_ENCRYPT('${objetoPersona.Contrasena}','${objetoPersona.Contrasena}') WHERE Correo = '${objetoPersona.Correo}'`

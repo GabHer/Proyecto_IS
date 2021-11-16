@@ -12,34 +12,22 @@ module.exports = app => {
     app.get("/registro/:correo", personas.obtenerPorCorreo);
   
 
-    // actualizar un usuario por correo
+    // actualizar un usuario por id
+    app.put("/editar_perfil/:id", personas.actualizarPersona);
+
     /*
-    app.pot("/registro/:correo",function(req,res) {
+    //obtener usuario por id
+    app.get("/perfil/:id",function(req,res) {
         personas.actualizar
     });
     */
 
+    //Actualizar un campo dentro del perfil del usuario
+    app.put("/perfil/:id", personas.actualizarDatoPersona);
+
     // Actualizar la contraseña de un usuario por correo
     app.post("/inicioSesion/restablecerContrasena", personas.actualizarContra);
   
-    // Eliminar un usuario por correo
-    /*app.delete("/registro/:correo", personas.eliminar)*/;
-
-
-    /*
-    //Enviar código al usuario
-    app.get("/inicioSesion/restablecer_contrasena/:correo" ,personas.reestablecer_contrasena);
-    */
-
-
-    /*app.post("/inicioSesion/guardar_token", personas.guardarResetToken);
-
-    app.put("/inicioSesion/actualizar_token/:correo", personas.actualizarToken);
-    */
-
-
-
-
     //Método para probar enviar el correo según un correo.
     app.post("/inicioSesion/restablecer_contrasena/verificar_correo", personas.procesoEnviarCorreo);
     
@@ -52,18 +40,6 @@ module.exports = app => {
     app.post("/inciarSesion/restablecer_contrasena/cambio_contrasena/:correo", personas.actualizarContra);
     
     
-    /*
-    
-    app.delete("/iniciarSesion/borrarTokens", personas.borrarTokensExpirados);
 
-
-    app.post("/iniciarSesion/encontrarToken", personas.encontrarToken)
-    */
-
-    
-
-    /*
-    app.post("/iniciarSesion/enviarCorreo",personas.enviarCorreo);
-    */
     
   };
