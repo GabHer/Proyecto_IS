@@ -116,29 +116,14 @@
 
         <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
           <mat-form-field style="width: 100%;">
-
             <div class="myfilebrowser">
-
               <mat-toolbar>
-
-                <!-- Readonly Input to show File names -->
                 <input matInput class="input-archivo"  readonly formControlName="inputArchivo" />
-
-                <!-- Browse Button -->
-                <button mat-flat-button class="btn-file btn-1" color="primary">
-                  Subir archivo
-                </button>
-
+                <button mat-flat-button class="btn-file btn-1" color="primary">Subir Archivo</button>
               </mat-toolbar>
 
-              <!-- Fetch selected filed on change -->
+              <input type="file" #inputImagen id="fileUpload" (change)="archivoFileChangeEvent($event)"  name="fileUpload" accept='.csv' />
 
-
-              <input type="file" #inputImagen id="fileUpload" (change)="archivoFileChangeEvent($event)" formControlName="subirArchivo" name="fileUpload"
-                multiple="multiple" accept='.csv,.xls,.txt'/>
-
-                <mat-error *ngIf="formularioCrearEvento.get('subirArchivo').invalid">Este es un campo obligatorio</mat-error>
-                <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Archivo valido</mat-hint>
             </div>
 
           </mat-form-field>

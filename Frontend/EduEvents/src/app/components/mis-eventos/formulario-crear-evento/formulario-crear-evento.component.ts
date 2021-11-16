@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { ListaBlancaService } from 'src/app/services/lista-blanca.service';
 
 @Component({
   selector: 'app-formulario-crear-evento',
@@ -43,12 +44,13 @@ export class FormularioCrearEventoComponent implements OnInit {
 
   listaBlanca:any = '';
 
+
   mensajeModal = [
     {tipo:"confirmacion", titulo1:"¿Cancelar?", titulo2:"El evento no se creara", icono:"quiz"},
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
   ]
 
-  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal  ) { }
+  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private listaBlancaService:ListaBlancaService  ) { }
 
 
   ngOnInit(): void {
@@ -85,7 +87,7 @@ export class FormularioCrearEventoComponent implements OnInit {
       institucion: new FormControl('', [Validators.required]),
       descripcion: new FormControl('', [Validators.required]),
       tipoEvento: new FormControl( '', [Validators.required]),
-      subirArchivo: new FormControl( ''),
+      subirArchivo: new FormControl('', [Validators.required]),
       inputArchivo: new FormControl( 'Seleccionar'),
       subirImagen: new FormControl('', [Validators.required]),
       inputCaratula: new FormControl( 'Seleccionar'),
@@ -131,12 +133,16 @@ export class FormularioCrearEventoComponent implements OnInit {
   */
      archivoFileChangeEvent(event:any): void {
       let archivoCapturado = event.target.files[0];
+
+
       this.formularioCrearEvento.get('inputArchivo').setValue(archivoCapturado.name);
 
       this.extraerBase64(archivoCapturado).then( (contenido:any)  => {
         this.listaBlanca = contenido.base;
       })
+
   }
+
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
     try {
@@ -254,6 +260,7 @@ export class FormularioCrearEventoComponent implements OnInit {
       Caratula: this.previsualizacionCaratula
 
     }
+
 
     if( (evento.Lista_Blanca == '') && (evento.Estado_Participantes == 0)){
       this.mensajeModal[1].titulo2 = 'Si un evento es privado se requiere una lista blanca con los participantes con acceso';

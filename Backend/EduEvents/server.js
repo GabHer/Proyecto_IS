@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
 require("./app/routes/persona.routes.js")(app);
 require("./app/routes/login.routes.js")(app);
 
+
 // set port, listen for requests
 app.listen(8888, () => {
     console.log("El servidor esta corriendo en el puerto 8888.");
