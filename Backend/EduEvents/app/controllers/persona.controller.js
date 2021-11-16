@@ -29,8 +29,8 @@ exports.crear = (req, res) => {
     Contrasena: req.body.Contrasena
   });
 
-  // Guardar el usuario en la base de datos
 
+  // Guardar el usuario en la base de datos
   Persona.crear(persona, (err, data) => {
     if (err)
       res.status(500).send({
@@ -84,7 +84,79 @@ exports.obtenerPorCorreo = (req, res) => {
   
 };
 
+//Actualizar toda el perfil de un usuario
+exports.actualizarPersona = (req, res) => {
+
+  const personaActualizar = {
+    Id : req.params.id,
+    Nombre : req.body.Nombre,
+    Apellido : req.body.Apellido,
+    Institucion : req.body.Institucion,
+    Formacion_Academica : req.body.Formacion_Academica,
+    Descripcion : req.body.Descripcion,
+    Intereses : req.body.Intereses,
+    Fecha_Nacimiento : req.body.Fecha_Nacimiento,
+    Fotografia : req.body.Fotografia,
+    Correo : req.body.Correo,
+  }
+
+  Persona.actualizar(personaActualizar, (err) => {
+    if (err) {
+      res.send({
+        mensaje: `Se produjo un error al actualizar los datos del usuario.`,
+        codigo:500
+      });
+
+    }
+    else {
+      res.send({mensaje:"Datos del usuario actualizados", codigo:200, data:null});
+    }
+   
+  });
+};
+
+
+//Actualizar solo un dato del usuario
+exports.actualizarDatoPersona = (req, res) => {
+
+  const personaActualizar = {
+    id : req.params.id,
+    campo: req.body.campo,
+    valor: req.body.valor
+  }
+
+  Persona.actualizarDato(personaActualizar, (err) => {
+    if (err) {
+      res.send({
+        mensaje: `Se produjo un error al actualizar el dato del usuario.`,
+        codigo:500
+      });
+
+    }
+    else {
+      res.send({mensaje:"Dato del usuario actualizado", codigo:200, data:null});
+    }
+   
+  });
+};
+
+
 //Actualizar Contraseña
+exports.actualizarContra = (req, res) => {
+  Persona.actualizarContrasena(req.body, (err) => {
+    if (err) {
+      res.send({
+        mensaje: "Se produjo un error al actualizar la contraseña del usuario",
+        codigo:500
+      });
+
+    }
+    else {
+      res.send({mensaje:"Contraseña Actualizada", codigo:200, data:null});
+    }
+   
+  });
+};
 
 
 
@@ -92,25 +164,7 @@ exports.obtenerPorCorreo = (req, res) => {
 
 
 
-
-exports.actualizarContra = (req, res) => {
-    Persona.actualizarContrasena(req.body, (err) => {
-      if (err) {
-        res.send({
-          mensaje: "Se produjo un error al actualizar la contraseña del usuario",
-          codigo:500
-        });
-  
-      }
-      else {
-        res.send({mensaje:"Contraseña Actualizada", codigo:200, data:null});
-      }
-     
-    });
-};
-
-
-
+//Enviar correo con el Token
 exports.procesoEnviarCorreo = (req, res) => {
   Persona.validar(req.body.Correo, (err,data) => {
     if (err) {
@@ -137,6 +191,7 @@ exports.procesoEnviarCorreo = (req, res) => {
   });
 };
 
+//validar el Token enviado con el proporcionado por el usuario
 exports.procesoValidarToken = (req, res) => {
   Persona.validarToken(req.body, (err,data) => {
     if (err || (data.estado == "no encontrado")) {
@@ -153,7 +208,7 @@ exports.procesoValidarToken = (req, res) => {
   });
 };
 
-
+//Actualizar la contraseña del usuario
 exports.actualizarContra = (req, res) => {
   Persona.cambioContrasena(req.body, (err,data) => {
     if (err) {
