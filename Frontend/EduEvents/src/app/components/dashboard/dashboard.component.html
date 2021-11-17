@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12" style="position: relative;">
+  <div class="col-12" >
     <app-sidenav
       style="position: absolute; padding: 0; margin: 0;"
       (setItem)="actualizarItemActual($event)"
@@ -36,6 +36,12 @@
         <div  *ngIf="(indexItemActual == obtenerIndexItem('Mis eventos'))" class="row">
           <div class="col-12">
             <app-mis-eventos [usuarioActual]="usuario" [isCollaps]="!bandera" ></app-mis-eventos>
+          </div>
+        </div>
+
+        <div *ngIf="(indexItemActual == obtenerIndexItem('Inscripciones'))" class="row">
+          <div class="col-12">
+            <app-inscripciones class="ml-3" ></app-inscripciones>
           </div>
         </div>
 

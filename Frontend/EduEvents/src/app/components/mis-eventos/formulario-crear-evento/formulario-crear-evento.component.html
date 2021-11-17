@@ -1,30 +1,81 @@
 <div class="container mt-3">
 
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 mt-4">
       <h4 class="titulo-formulario">Crear Evento</h4>
     </div>
   </div>
 
   <form [formGroup]="formularioCrearEvento" class="row mt-1">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <div class="row" style="padding: 0; margin: 0;">
+
+        <div class="col-12 mt-3">
+          <mat-form-field style="width: 100%;"   appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input placeholder="Escribe el nombre que mejor describa tu evento" name="nombre" formControlName="nombre" required matInput>
+            <mat-error *ngIf="formularioCrearEvento.get('nombre').invalid">Este es un campo obligatorio</mat-error>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('nombre').invalid" >Nombre del evento valido</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-12 mt-3">
+          <mat-form-field style="width: 100%;"  appearance="fill">
+            <mat-label>Descripción</mat-label>
+
+            <textarea placeholder="Comparte una breve descripción del evento para que los demás sepan de que se trata" name="descripcion"  formControlName="descripcion" required matInput rows="8">
+            </textarea>
+            <mat-error *ngIf="formularioCrearEvento.get('descripcion').invalid">Este es un campo obligatorio</mat-error>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Descripción valida</mat-hint>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="col-12 mt-3">
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>Establece una fecha de inicio y una fecha final para tu evento</mat-label>
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+            <input required matStartDate formControlName="start" placeholder="Fecha de inicio">
+            <input required matEndDate formControlName="end" placeholder="Fecha final">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          <mat-error *ngIf="range.controls.start.hasError('required')">Fecha incial necesaria</mat-error>
+          <mat-error *ngIf="range.controls.end.hasError('required')">Fecha final necesaria</mat-error>
+          <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha inicial no valida</mat-error>
+          <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha final no valida</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 mt-3">
+        <mat-form-field style="width: 100%;"  appearance="fill">
+          <mat-label>Institución</mat-label>
+          <input placeholder="Brinda el nombre de la institución que impartirá la conferencia" name="institucion" formControlName="institucion" required matInput>
+          <mat-error *ngIf="formularioCrearEvento.get('institucion').invalid">Este es un campo obligatorio</mat-error>
+          <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('institucion').invalid" >Nombre valido</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div [class]="(isCollaps ? 'col-lg-6': 'col-lg-6')">
+      <div class="row ">
         <div  class="col-12 text-center">
-          <image-cropper
-          *ngIf="(!mostrarCaratula)"
-          style="width: 100px; margin-left: auto; margin-right: auto;"
-          [imageChangedEvent]="caratulaImageChangeEvent"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="3 / 3"
-          [resizeToWidth]="256"
-          format="png"
-          (imageCropped)="caratulaImageCropped($event)"
-          >
-          </image-cropper>
-          <div *ngIf="(mostrarCaratula)" class="caratulaEvento">
-            <span style="font-size: 56px;" *ngIf="(previsualizacionCaratula == '')" class="material-icons mt-3">cloud_upload</span>
-            <img style="width: 100px;" *ngIf="(previsualizacionCaratula != '')" [src]="(previsualizacionCaratula)" alt="">
-          </div>
+            <image-cropper
+            *ngIf="(!mostrarCaratula)"
+            style="width: 100px; margin-left: auto; margin-right: auto;"
+            [imageChangedEvent]="caratulaImageChangeEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="3 / 3"
+            [resizeToWidth]="256"
+            format="png"
+            (imageCropped)="caratulaImageCropped($event)">
+            </image-cropper>
+            <div *ngIf="(mostrarCaratula)" class="caratulaEvento">
+              <span style="font-size: 56px;" *ngIf="(previsualizacionCaratula == '')" class="material-icons mt-3">cloud_upload</span>
+              <img style="width: 100px;" *ngIf="(previsualizacionCaratula != '')" [src]="(previsualizacionCaratula)" alt="">
+            </div>
         </div>
 
         <div class="col-12 text-center mt-2">
@@ -41,7 +92,7 @@
             <div class="myfilebrowser">
               <mat-toolbar>
                 <input matInput class="input-archivo"  readonly formControlName="inputCaratula" />
-                <button mat-flat-button class="btn-file btn-1" color="primary">Subir caratula</button>
+                <button mat-flat-button class="btn-file btn-1" color="primary">Subir carátula</button>
               </mat-toolbar>
 
               <input type="file" #inputImagen id="fileUpload" (change)="caratulaFileChangeEvent($event)" formControlName="subirArchivo" name="fileUpload" multiple="multiple" accept='image/*' />
@@ -50,90 +101,6 @@
 
           </mat-form-field>
         </div>
-
-        <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;"   appearance="fill">
-            <mat-label>Nombre</mat-label>
-            <input placeholder="Escribe el nombre que mejor describa tu evento" name="nombre" formControlName="nombre" required matInput>
-            <mat-error *ngIf="formularioCrearEvento.get('nombre').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('nombre').invalid" >Nombre del evento valido</mat-hint>
-          </mat-form-field>
-        </div>
-        <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;"  appearance="fill">
-            <mat-label>Descripción</mat-label>
-
-            <textarea placeholder="Comparte una breve descripción del evento para que los demás sepan de que se trata" name="descripcion"  formControlName="descripcion" required matInput rows="5">
-            </textarea>
-            <mat-error *ngIf="formularioCrearEvento.get('descripcion').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Descripción valida</mat-hint>
-          </mat-form-field>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="col-lg-3">
-      <div class="row">
-
-        <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;" appearance="fill">
-            <mat-label>Establece una fecha de inicio y una fecha final para tu evento</mat-label>
-            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-              <input required matStartDate formControlName="start" placeholder="Fecha de inicio">
-              <input required matEndDate formControlName="end" placeholder="Fecha final">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-
-            <mat-error *ngIf="range.controls.start.hasError('required')">Fecha incial necesaria</mat-error>
-            <mat-error *ngIf="range.controls.end.hasError('required')">Fecha final necesaria</mat-error>
-            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha inicial no valida</mat-error>
-            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha final no valida</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;"  appearance="fill">
-            <mat-label>Institución</mat-label>
-            <input placeholder="Brinda el nombre de la institución que impartirá la conferencia" name="institucion" formControlName="institucion" required matInput>
-            <mat-error *ngIf="formularioCrearEvento.get('institucion').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('institucion').invalid" >Nombre valido</mat-hint>
-          </mat-form-field>
-        </div>
-
-        <div class="col-12 mt-3">
-
-            <mat-radio-group  formControlName="tipoEvento" [(ngModel)]="labelPosition">
-              <mat-radio-button class="" value="privado">Evento Privado</mat-radio-button>
-              <mat-radio-button class="" value="publico">Evento Público</mat-radio-button>
-            </mat-radio-group>
-        </div>
-
-        <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
-          <p>Subir desde el computador lista blanca de los usuarios que podrán inscribirse en las conferencias. Debe de ser un archivo .csv (Valores separado por comas).</p>
-        </div>
-
-        <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
-          <mat-form-field style="width: 100%;">
-            <div class="myfilebrowser">
-              <mat-toolbar>
-                <input matInput class="input-archivo"  readonly formControlName="inputArchivo" />
-                <button mat-flat-button class="btn-file btn-1" color="primary">Subir Archivo</button>
-              </mat-toolbar>
-
-              <input type="file" #inputImagen id="fileUpload" (change)="archivoFileChangeEvent($event)"  name="fileUpload" accept='.csv' />
-
-            </div>
-
-          </mat-form-field>
-        </div>
-
-      </div>
-    </div>
-
-    <div [class]="(isCollaps ? 'col-lg-4': 'col-lg-5')">
-      <div class="row ">
         <div class="col-6">
             <div class="myfilebrowser" style="width: 10rem;">
                 <!-- Readonly Input to show File names -->
@@ -141,7 +108,7 @@
 
                 <button mat-flat-button class="btn-file btn-1" color="primary">
                   <span class="material-icons">add_circle</span>
-                  Subir imagen
+                  Subir otras imágenes
                 </button>
 
               <input type="file" #UploadFileInput id="fileUpload" (change)="fileChangeEvent($event)" name="fileUpload"
@@ -202,6 +169,7 @@
 
               </div>
             </div>
+
               <div [class]="(isCollaps ? 'col-12' : 'col-6')"  *ngFor="let imagen of (imagenesEvento)">
                 <div *ngIf="(mostrarMiniaturaImagenes)" class="row">
                   <div class="col-12">
@@ -231,15 +199,43 @@
           </div>
         </div>
 
-        <div class="col-12 text-right mt-2">
-          <div class="container">
-            <button (click)="onClickCancelar( modalConfirmacion )" class="btn btn-2" style="margin-left: auto; margin-right: auto;">Cancelar</button>
-            <button (click)="onClickCrearEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-5" style="margin-left: auto; margin-right: auto;">Crear evento</button>
-          </div>
-        </div>
 
       </div>
     </div>
+
+    <div class="col-12 mt-2 ml-4">
+
+      <mat-radio-group  formControlName="tipoEvento" [(ngModel)]="labelPosition">
+        <mat-radio-button class="" value="privado">Evento Privado</mat-radio-button>
+        <mat-radio-button class="ml-2" value="publico">Evento Público</mat-radio-button>
+      </mat-radio-group>
+  </div>
+
+  <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
+    <p>Subir desde el computador lista blanca de los usuarios que podrán inscribirse en las conferencias. Debe de ser un archivo .csv (Valores separado por comas).</p>
+  </div>
+
+  <div *ngIf="formularioCrearEvento.get('tipoEvento').value == 'privado'" class="col-12 mt-3">
+    <mat-form-field style="width: 100%;">
+      <div class="myfilebrowser">
+        <mat-toolbar>
+          <input matInput class="input-archivo"  readonly formControlName="inputArchivo" />
+          <button mat-flat-button class="btn-file btn-1" color="primary">Subir Archivo</button>
+        </mat-toolbar>
+
+        <input type="file" #inputImagen id="fileUpload" (change)="archivoFileChangeEvent($event)"  name="fileUpload" accept='.csv' />
+
+      </div>
+
+    </mat-form-field>
+  </div>
+
+  <div class="col-12 text-right mt-2">
+    <div class="container">
+      <button (click)="onClickCancelar( modalConfirmacion )" class="btn btn-2" style="margin: auto; ">Cancelar</button>
+      <button (click)="onClickCrearEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-2 " style="margin: auto;">Crear evento</button>
+    </div>
+  </div>
 
   </form>
 
@@ -329,6 +325,6 @@
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir creando el evento</button>
-      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="onModalCancelar(modal)">Sí, cancelar</button>
+      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onModalCancelar(modal)">Sí, cancelar</button>
   </div>
 </ng-template>

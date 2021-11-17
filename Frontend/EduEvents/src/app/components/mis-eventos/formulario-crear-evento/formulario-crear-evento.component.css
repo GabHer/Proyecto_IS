@@ -14,7 +14,7 @@
 }
 
 .btn-file {
-  width: 100% !important ;
+  width: 200px !important ;
 }
 
 #fileUpload {
@@ -62,10 +62,38 @@
   border-radius: 25px;
   color: white;
 }
+
+.btn-2:focus {
+  box-shadow: 0 0 0 0.2rem #d33d3d;
+}
+
+.btn-2:hover{
+  background-color: #501b1b;
+  border-color:#501b1b ;
+}
+
+.btn-2:active{
+  background-color: #501b1b!important;
+  border-color:#501b1b !important;
+}
+
+.btn-2:active:focus{
+  box-shadow: 0 0 0 0.2rem #d33d3d!important;
+}
+
 .btn-3 {
   background-color: #188333;
   border-radius: 25px;
   color: white;
+}
+
+.btn-3 {
+  background-color: #188333;
+  border-radius: 25px;
+  color: white;
+}
+.btn-3:active:focus{
+  box-shadow: 0 0 0 0.2rem #188333ce!important;
 }
 
 .titulo-formulario {
@@ -75,7 +103,7 @@
 }
 
 .contenedor-imagenes {
-  height: 15rem;
+  height: 10rem;
   width: 100%;
   overflow-y: scroll;
   background-color: #99999941;
