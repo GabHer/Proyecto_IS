@@ -13,7 +13,7 @@ module.exports = app => {
   
 
     // actualizar un usuario por id
-    app.put("/editar_perfil/:id", personas.actualizarPersona);
+    app.put("/editar_perfil", personas.actualizarPersona);
 
     /*
     //obtener usuario por id
@@ -21,9 +21,6 @@ module.exports = app => {
         personas.actualizar
     });
     */
-
-    //Actualizar un campo dentro del perfil del usuario
-    app.put("/perfil/:id", personas.actualizarDatoPersona);
 
     // Actualizar la contraseña de un usuario por correo
     app.post("/inicioSesion/restablecerContrasena", personas.actualizarContra);

@@ -49,13 +49,14 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8888/editar_perfil/1 HTTP/1.1
+PUT http://localhost:8888/editar_perfil HTTP/1.1
 Content-Type: application/json
 
-{
-    "Nombre" : "Sandra",
-    "Apellido" : "Umanzor",
-    "Institucion" : "Católica",
+{   
+    "Id": 1,
+    "Nombre" : "Carmen",
+    "Apellido" : "Robledal",
+    "Institucion" : "Banco Ficohsa",
     "Formacion_Academica": "Educación Superior",
     "Descripcion" : "Hola a todos",
     "Intereses" : "Tejer",

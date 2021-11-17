@@ -5,11 +5,8 @@
         <img class="brand-edu" [src]="'../../../../assets/img/EduEventsLetrasBlancoVector.svg'" alt="">
       </div>
 
-      <div class="col text-center">
-        <h1 class="txt-perfil">{{nombreItemActual}}</h1>
-      </div>
 
-      <div class="col">
+      <div class="col mt-3 " style="margin-left: 41%;">
         <div class="contenedor-usuario" (click)="verMiPerfil()">
             <img class=" ml-4 mt-1 imagen-usuario" [src]="usuarioHeader.imagen" alt="">
             <span class="ml-4 txt-nombreUsuario">{{obtenerNombreCompleto()}}</span>
@@ -20,6 +17,11 @@
       </div>
     </div>
 
+    <!--
+    <div class="col" style="margin-left: 80%;">
+      <h1 class="txt-perfil">{{nombreItemActual}}</h1>
+    </div>
+    -->
+
 
   </div>
-
