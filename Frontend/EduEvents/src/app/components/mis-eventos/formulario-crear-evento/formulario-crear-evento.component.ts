@@ -245,7 +245,6 @@ export class FormularioCrearEventoComponent implements OnInit {
 
     if( this.formularioCrearEvento.invalid ) return;
 
-    console.log(this.formularioCrearEvento.get('subirCaratula'));
     let evento = {
       Nombre: this.formularioCrearEvento.get('nombre').value,
       Institucion: this.formularioCrearEvento.get('institucion').value,
@@ -254,12 +253,14 @@ export class FormularioCrearEventoComponent implements OnInit {
       Fecha_Final: this.range.get('end').value,
       Estado_Participantes: this.formularioCrearEvento.get('tipoEvento').value == 'privado' ? 0 : 1,
       Estado_Evento: 'Inactivo',
-      Id_Organizacion: this.organizador.id,
+      Id_Organizador: this.organizador.id,
       Lista_Blanca: this.listaBlanca,
       imagenesEvento: this.imagenesEvento,
       Caratula: this.previsualizacionCaratula
 
     }
+    console.log(evento);
+
 
 
     if( (evento.Lista_Blanca == '') && (evento.Estado_Participantes == 0)){
