@@ -16,4 +16,9 @@ export class EventosService {
   obtenerMisEventos( idUsuario:number ){
     return this.httpClient.get(`http://localhost:8888/eventos/obtenerMisEventos/${idUsuario}`);
   }
+
+  eliminarEvento( idEvento:number ){
+    return this.httpClient.delete(`http://localhost:8888/eventos/eliminarEvento/${idEvento}`);
+
+  }
 }

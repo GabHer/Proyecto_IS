@@ -49,6 +49,19 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
   })
 }
 
+Evento.eliminarEvento = ( idEvento, resultado ) => {
+  let consulta = `DELETE FROM Evento WHERE Id = ${idEvento}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+    resultado( null, res );
+
+  } )
+}
+
 
 Evento.crear = (nuevoObjetoEvento, resultado) => {
 

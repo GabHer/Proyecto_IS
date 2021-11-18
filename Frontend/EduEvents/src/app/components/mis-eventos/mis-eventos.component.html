@@ -28,9 +28,9 @@
     </div>
 
 
-    <div class="row">
-      <div class="col-3 mt-4" *ngFor="let evento of (misEventos)">
-        <app-card-evento-organizador  [evento]="evento"></app-card-evento-organizador>
+    <div class="row container" style="margin-left: auto; margin-right: auto;">
+      <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of (misEventos)">
+        <app-card-evento-organizador (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" [evento]="evento"></app-card-evento-organizador>
       </div>
     </div>
 
@@ -40,3 +40,32 @@
 
 </div>
 
+<!-- Modal de confirmación-->
+<ng-template #modalConfirmacion let-modal>
+  <div class="modal-encabezado modal-confirmacion">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[0].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[0].titulo1}}</h3>
+      <h3>{{mensajeModal[0].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, no eliminar este evento</button>
+      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onClickConfirmarEliminarEvento(modal, idEvento)">Sí, eliminar el evento</button>
+  </div>
+</ng-template>

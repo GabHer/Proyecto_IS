@@ -5,5 +5,8 @@ module.exports = app => {
     
     // Obtener todos los eventos
     app.get("/eventos/obtenerMisEventos/:idUsuario", eventos.obtenerEventosUsuario);
+
+    // Eliminar un evento
+    app.delete('/eventos/eliminarEvento/:idEvento', eventos.eliminarEvento);
     
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventosService } from 'src/app/services/eventos.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 
@@ -12,10 +13,18 @@ export class MisEventosComponent implements OnInit {
   @Input() isCollaps:boolean;
   @Input() usuarioActual:any;
 
+  idEvento = -1;
+
   mostrarFormulario = false;
   misEventos:any = [];
 
-  constructor( private eventosService:EventosService,private spinner:SpinnerService ) {
+
+  mensajeModal = [
+    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"El evento se eliminara de tu lista", icono:"quiz"},
+    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
+  ]
+
+  constructor( private eventosService:EventosService,private spinner:SpinnerService, private modalService:NgbModal ) {
   }
 
   ngOnInit(): void {
@@ -46,6 +55,33 @@ export class MisEventosComponent implements OnInit {
      );
   }
 
+  eliminarEvento(idEvento:any){
+
+    this.spinner.mostrarSpinner();
+    this.eventosService.eliminarEvento( idEvento ).subscribe(
+      (res:any) => {
+        console.log("Se ha eliminado el evento");
+      },
+      (err:any) => {
+        console.log(err);
+      },
+      () => {
+        this.spinner.ocultarSpinner();
+        this.obtenerMisEventos();
+      }
+    );
+  }
+
+  onClickAbrirModalEliminarEvento(modal:any, idEvento:number){
+    this.idEvento = idEvento;
+    this.abrirModal(modal);
+  }
+
+  onClickConfirmarEliminarEvento(letModal:any, idEvento:any){
+    letModal.close('Close click');
+    this.eliminarEvento(idEvento);
+  }
+
   actualizarPath( path:string ){
     if( path== 'Mis eventos' ){
       this.mostrarFormulario = false;
@@ -53,5 +89,17 @@ export class MisEventosComponent implements OnInit {
       this.mostrarFormulario = false;
     }
   }
+
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
+  }
+
+
 
 }
