@@ -21,6 +21,34 @@ const Evento = function(objEvento) {
     
 };
 
+Evento.obtenerEventos = (resultado) => {
+  sql.query("SELECT * FROM Evento", (err, res) => {
+      if(err) {
+          resultado(null, err);
+          return;
+      }
+      resultado(null, res);
+  });
+};
+
+Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Id_Organizador = ${idUsuario};`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+    for( let i = 0; i < res.length; i++){
+      let buff = res[i].Caratula
+      let srcImagen = buff.toString('ascii');
+      res[i].Caratula = srcImagen;
+    }  
+    resultado( null, res);
+
+
+  })
+}
+
 
 Evento.crear = (nuevoObjetoEvento, resultado) => {
 
@@ -84,14 +112,5 @@ Evento.eliminar = (nombreEvento, resultado) => {
 
 };
 
-Evento.obtenerEventos = (resultado) => {
-    sql.query("SELECT * FROM Evento", (err, res) => {
-        if(err) {
-            resultado(null, err);
-            return;
-        }
-        resultado(null, res);
-    });
-};
 
 module.exports = Evento;

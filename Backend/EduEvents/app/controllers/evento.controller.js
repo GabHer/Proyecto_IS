@@ -5,10 +5,10 @@ const Evento = require("../models/evento.model");
 exports.crear = (req, res) => {
     // Validar consulta
     if(!req.body) {
-        asf
         res.status(400).send({
             message: "El contenido no puede ser vacio"
         });
+        return;
     }
 
     // Crear evento
@@ -50,6 +50,44 @@ exports.crear = (req, res) => {
       }
     });
 };
+
+// Obtener todos los eventos de la base de datos
+exports.obtenerEventos = (req, res) => {
+  evento.obtenerEventos((err, data) => {
+    if(err){
+      res.status(500).send({
+        mensaje: "Se produjo un error al obtener los eventos de la base de datos"
+      });
+    }
+    else{
+      res.send(data);
+    }
+  });
+};
+
+exports.obtenerEventosUsuario = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  } 
+  Evento.obtenerEventosUsuario (req.params.idUsuario, (err, data) => {
+    console.log(req.body);
+    if(err){
+      res.status(500).send({
+        mensaje: err.mensaje || "Ocurrió un error al obtener los eventos.",
+        error:err
+      });
+      return;
+    }
+
+    res.send( {mensaje: 'Se obtuvieron los eventos de este usuario', codigo:200, estado:'ok', data: data} )
+
+  })
+
+}
+
 /*
 // Obtener todos los eventos de la base de datos
 exports.obtenerEventos = (req, res) => {

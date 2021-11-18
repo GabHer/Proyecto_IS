@@ -48,6 +48,7 @@ import { FormularioCrearEventoComponent } from './components/mis-eventos/formula
 import { MatRadioModule } from '@angular/material/radio';
 
 import { MatButtonModule } from '@angular/material/button';
+import { CardEventoOrganizadorComponent } from './components/card-evento-organizador/card-evento-organizador.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { MatButtonModule } from '@angular/material/button';
     BuscarEventoComponent,
     CardEventoComponent,
     FormularioCrearEventoComponent,
+    CardEventoOrganizadorComponent,
   ],
   imports: [
     BrowserModule,

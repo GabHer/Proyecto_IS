@@ -12,4 +12,8 @@ export class EventosService {
     return this.httpClient.post('http://localhost:8888/eventos/nuevoEvento', evento);
 
   }
+
+  obtenerMisEventos( idUsuario:number ){
+    return this.httpClient.get(`http://localhost:8888/eventos/obtenerMisEventos/${idUsuario}`);
+  }
 }

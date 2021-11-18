@@ -10,12 +10,11 @@
     </div>
 
 
-    <div  *ngIf="(misEventos.length == 0 && !mostrarFormulario)" class="row" style="margin-top: 9rem;">
+    <div  *ngIf="(!mostrarFormulario)" class="row" [style]="(misEventos.length == 0 ? 'margin-top: 9rem;': 'margin-top: 1rem;' )">
       <div class="col-12">
-          <h1 style="color:#4484CE;">¡Aún no hay eventos creados!</h1>
+          <h1 style="color:#4484CE;">{{misEventos.length == 0 ? '¡Aún no hay eventos creados!': 'Agregar nuevo evento'}}</h1>
       </div>
     </div>
-
 
     <div *ngIf="(!mostrarFormulario)" class="row">
       <div class="col-12">
@@ -27,6 +26,16 @@
         </span>
       </div>
     </div>
+
+
+    <div class="row">
+      <div class="col-3 mt-4" *ngFor="let evento of (misEventos)">
+        <app-card-evento-organizador  [evento]="evento"></app-card-evento-organizador>
+      </div>
+    </div>
+
+
+
   </div>
 
 </div>

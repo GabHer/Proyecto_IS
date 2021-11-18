@@ -52,9 +52,7 @@ export class DashboardComponent implements AfterViewInit  {
   }
 
   ngOnInit(): void {
-
-    this.obtenerUsuario()
-
+    this.obtenerUsuario();
   }
 
   actualizarBandera(e:any){
