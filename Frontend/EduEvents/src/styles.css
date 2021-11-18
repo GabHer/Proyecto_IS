@@ -75,3 +75,15 @@ body::-webkit-scrollbar-thumb:active {
 .linkDahsboard-3:hover {
   text-decoration: underline;
 }
+
+.height-1 {
+  height: 25px;
+}
+.height-2 {
+  height: 100%;
+}
+
+.contenedor-dashboard {
+  width: 83%;
+  margin-left: auto;
+}

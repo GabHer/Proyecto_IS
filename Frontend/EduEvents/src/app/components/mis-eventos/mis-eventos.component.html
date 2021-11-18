@@ -1,25 +1,33 @@
-
-<div *ngIf="(mostrarFormulario)" class="row">
-  <div class="col-12 mb-5">
-    <app-formulario-crear-evento (onCrearEvento)="misEventos.push($event)" (onChangePath)="actualizarPath($event)" [organizador]="usuarioActual" [isCollaps]="isCollaps" ></app-formulario-crear-evento>
-  </div>
-</div>
+<div class="row">
 
 
-<div  *ngIf="(misEventos.length == 0 && !mostrarFormulario)" class="row" style="margin-top: 9rem;">
   <div class="col-12 text-center">
-      <h1 style="color:#4484CE;">¡Aún no hay eventos creados!</h1>
-  </div>
-</div>
+
+    <div *ngIf="(mostrarFormulario)" class="row">
+      <div class="col-12 mb-5">
+        <app-formulario-crear-evento (onCrearEvento)="misEventos.push($event)" (onChangePath)="actualizarPath($event)" [organizador]="usuarioActual" [isCollaps]="isCollaps" ></app-formulario-crear-evento>
+      </div>
+    </div>
 
 
-<div *ngIf="(!mostrarFormulario)" class="row">
-  <div class="col-12 text-center">
-    <span
-      mat-raised-button matTooltip="Agregar un nuevo evento"
-      class="material-icons btn-add"
-      (click)="mostrarFormularioCrearEvento(true)"
-      >add_circle_outline
-    </span>
+    <div  *ngIf="(misEventos.length == 0 && !mostrarFormulario)" class="row" style="margin-top: 9rem;">
+      <div class="col-12">
+          <h1 style="color:#4484CE;">¡Aún no hay eventos creados!</h1>
+      </div>
+    </div>
+
+
+    <div *ngIf="(!mostrarFormulario)" class="row">
+      <div class="col-12">
+        <span
+          mat-raised-button matTooltip="Agregar un nuevo evento"
+          class="material-icons btn-add"
+          (click)="mostrarFormularioCrearEvento(true)"
+          >add_circle_outline
+        </span>
+      </div>
+    </div>
   </div>
+
 </div>
+

@@ -5,8 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
-import { ListaBlancaService } from 'src/app/services/lista-blanca.service';
-
+import { EventosService } from 'src/app/services/eventos.service';
 @Component({
   selector: 'app-formulario-crear-evento',
   templateUrl: './formulario-crear-evento.component.html',
@@ -50,7 +49,7 @@ export class FormularioCrearEventoComponent implements OnInit {
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
   ]
 
-  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private listaBlancaService:ListaBlancaService  ) { }
+  constructor( private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService   ) { }
 
 
   ngOnInit(): void {
@@ -221,7 +220,6 @@ export class FormularioCrearEventoComponent implements OnInit {
   */
   onEliminarRecorte(){
 
-    console.log(this.previsualizacion);
     this.croppedImage = ""
     this.previsualizacion = ""
     this.imageChangedEvent = ""
@@ -241,6 +239,11 @@ export class FormularioCrearEventoComponent implements OnInit {
     );
   }
 
+  obtenerFormatoFecha( date:Date){
+
+    return date.toISOString().split('T')[0]
+  }
+
   onClickCrearEvento( modalExito:any, modalError:any){
 
     if( this.formularioCrearEvento.invalid ) return;
@@ -249,8 +252,8 @@ export class FormularioCrearEventoComponent implements OnInit {
       Nombre: this.formularioCrearEvento.get('nombre').value,
       Institucion: this.formularioCrearEvento.get('institucion').value,
       Descripcion: this.formularioCrearEvento.get('descripcion').value,
-      Fecha_Inicio: this.range.get('start').value,
-      Fecha_Final: this.range.get('end').value,
+      Fecha_Inicio: this.obtenerFormatoFecha(this.range.get('start').value),
+      Fecha_Final: this.obtenerFormatoFecha(this.range.get('end').value),
       Estado_Participantes: this.formularioCrearEvento.get('tipoEvento').value == 'privado' ? 0 : 1,
       Estado_Evento: 'Inactivo',
       Id_Organizador: this.organizador.id,
@@ -259,9 +262,6 @@ export class FormularioCrearEventoComponent implements OnInit {
       Caratula: this.previsualizacionCaratula
 
     }
-    console.log(evento);
-
-
 
     if( (evento.Lista_Blanca == '') && (evento.Estado_Participantes == 0)){
       this.mensajeModal[1].titulo2 = 'Si un evento es privado se requiere una lista blanca con los participantes con acceso';
@@ -279,12 +279,36 @@ export class FormularioCrearEventoComponent implements OnInit {
       this.abrirModal( modalError );
       return;
     }
+    this.spinner.mostrarSpinner();
 
     // Hacer la petición al servidor
-    this.abrirModal(modalExito);
-    console.log(evento);
-    this.onChangePath.emit('Mis eventos');
-    this.onCrearEvento.emit(evento);
+
+    this.eventoService.crearEvento(evento).subscribe(
+      (res:any) => {
+        if(res.codigo == 200){
+
+          this.abrirModal(modalExito);
+          this.onChangePath.emit('Mis eventos');
+          this.onCrearEvento.emit(evento);
+          this.spinner.ocultarSpinner()
+        }
+        if(res.codigo == 500){
+          this.mensajeModal[1].titulo2 = res.mensaje;
+          this.abrirModal(modalError);
+          this.spinner.ocultarSpinner();
+        }
+      },
+      (err:any) => {
+
+        this.mensajeModal[1].titulo2 = 'No se pudo crear el evento, intentalo de nuevo';
+        this.abrirModal(modalError)
+        this.spinner.ocultarSpinner();
+
+      },
+      () => {
+        this.spinner.ocultarSpinner();
+      }
+     );
   }
 
 

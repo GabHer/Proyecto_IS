@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-12" >
     <app-sidenav
@@ -12,48 +13,59 @@
 
 
     <app-header-dashboard
-    class="row"
-     [nombreItemActual]="obtenerItem(indexItemActual)"
-     [usuarioHeader]="usuario"
-    (onClickUsuario)="actualizarItemActual(obtenerIndexItem($event))"
+      class="row"
+      [nombreItemActual]="obtenerItem(indexItemActual)"
+      [usuarioHeader]="usuario"
+      (onClickUsuario)="actualizarItemActual(obtenerIndexItem($event))"
      >
     </app-header-dashboard>
 
+    <div class="row" style="margin-left: auto;">
 
-    <div class="row">
-      <div *ngIf="(!bandera)" class="col-3"></div>
-      <div [ngClass]="bandera? 'col-12' : 'col-9'">
+      <div [ngClass]="bandera? 'col-12' : 'col-12'">
+        <div class="row" [ngClass]="!bandera ? 'contenedor-dashboard': null">
+
+          <!-- Aquí reenderizamos los componentes del dashboard-->
+
+          <!-- Mi Perfil -->
+          <app-perfil-usuario
+            *ngIf="(indexItemActual == obtenerIndexItem('Mi perfil'))"
+            class="perfil-usuario"
+            [perfil]="usuario" >
+          </app-perfil-usuario>
+
+          <!-- Mis eventos-->
+          <app-mis-eventos
+            *ngIf="(indexItemActual == obtenerIndexItem('Mis eventos'))"
+            class="container-fluid"
+            style="width: 100%;"
+            [usuarioActual]="usuario"
+            [isCollaps]="!bandera" >
+          </app-mis-eventos>
+
+          <!-- Inscripciones -->
+          <app-inscripciones
+            *ngIf="(indexItemActual == obtenerIndexItem('Inscripciones'))"
+            class="container-fluid"
+            style="width: 100%;"  >
+          </app-inscripciones>
 
 
-        <!--
-          En esta parte se reenderizara mediante condiciones los componentes que van en el cuerpo del dashboard
-        -->
+          <!-- Buscar evento -->
+          <app-buscar-evento
+            *ngIf="(indexItemActual == obtenerIndexItem('Buscar'))"
+            [collapsar]="bandera"
+            style="width: 100%;" >
+          </app-buscar-evento>
 
-        <div *ngIf="(indexItemActual == obtenerIndexItem('Mi perfil'))" class="row">
-          <app-perfil-usuario class="perfil-usuario" [perfil]="usuario" ></app-perfil-usuario>
+
+
         </div>
-
-        <div  *ngIf="(indexItemActual == obtenerIndexItem('Mis eventos'))" class="row">
-          <div class="col-12">
-            <app-mis-eventos [usuarioActual]="usuario" [isCollaps]="!bandera" ></app-mis-eventos>
-          </div>
-        </div>
-
-        <div *ngIf="(indexItemActual == obtenerIndexItem('Inscripciones'))" class="row">
-          <div class="col-12">
-            <app-inscripciones class="ml-3" ></app-inscripciones>
-          </div>
-        </div>
-
-        <div *ngIf="(indexItemActual == obtenerIndexItem('Buscar'))" class="row">
-          <div [class]="(bandera ? 'col-12 ml-3' : 'col-12')">
-            <app-buscar-evento [collapsar]="bandera" ></app-buscar-evento>
-          </div>
-
-        </div>
-
       </div>
     </div>
+
+
+
   </div>
 
 
