@@ -28,7 +28,6 @@ export class MisEventosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.usuarioActual);
     this.obtenerMisEventos();
 
   }
@@ -63,7 +62,7 @@ export class MisEventosComponent implements OnInit {
         console.log("Se ha eliminado el evento");
       },
       (err:any) => {
-        console.log(err);
+        this.spinner.ocultarSpinner();
       },
       () => {
         this.spinner.ocultarSpinner();
