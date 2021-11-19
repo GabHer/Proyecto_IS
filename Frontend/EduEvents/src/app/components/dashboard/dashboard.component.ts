@@ -14,6 +14,10 @@ export class DashboardComponent implements AfterViewInit  {
 
   @ViewChildren(SidenavComponent) sidenav: SidenavComponent;
 
+  @Input() configComponenteUsuario = {
+    mostrarFormularioEditarUsuario : false
+  }
+
   @Input() usuario:any ={
     id: -1,
     nombre: "",
@@ -37,7 +41,7 @@ export class DashboardComponent implements AfterViewInit  {
     ["Cerrar sesión", "logout"],
   ]
 
-  indexItemActual = 0;
+  indexItemActual = 4;
 
   bandera = true;
 
@@ -99,6 +103,44 @@ export class DashboardComponent implements AfterViewInit  {
   }
 
 
+  actualizarUsuarioActual(event:any){
+
+    this.configComponenteUsuario.mostrarFormularioEditarUsuario= false;
+    this.usuariosService.obtenerUsuario( event.Correo ).subscribe(
+
+      (res:any) => {
+
+        console.log(res);
+        //let imagen = encode( res.data.Fotografia.data );
+        let imagen = res.data.Fotografia;
+
+        this.usuario = {
+          id:res.data.Id,
+          nombre: res.data.Nombre,
+          apellido: res.data.Apellido,
+          nacimiento: res.data.Fecha_Nacimiento,
+          email: res.data.Correo,
+          contrasenia: "",
+          formacionAcademica: res.data.Formacion_Academica,
+          descripcion: res.data.Descripcion,
+          imagen: imagen,
+          institucion: res.data.Institucion,
+          intereses: res.data.Intereses.split(",")
+        };
+
+
+      },
+
+      (error:any) => {
+
+      },
+
+      ()=> {
+
+      }
+    )
+
+  }
 
 
   obtenerUsuario(){

@@ -17,6 +17,11 @@
 
 
     <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia)" class="row">
+
+     
+
+ 
+
       <div class="col-12">
         <span
           mat-raised-button matTooltip="Agregar un nuevo evento"
@@ -35,6 +40,9 @@
     </div>
 
     <div *ngIf="(mostrarFormularioConferencia)" class="row">
+      <div class="col-12 mt-4">
+        <h4 style="font-size: 36px; text-align:center" class="titulo-formulario">Editar perfil</h4>
+      </div>
       <div class="col-12">
         <app-crear-conferencia></app-crear-conferencia>
       </div>

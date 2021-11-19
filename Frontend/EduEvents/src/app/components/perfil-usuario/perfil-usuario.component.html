@@ -1,5 +1,5 @@
 
-<div class="row">
+<div *ngIf="(!editando.mostrarFormularioEditarPerfil)" class="row">
   <div class="col-12">
     <div class="container-fluid">
       <div class="div-imagen container-fluid">
@@ -157,7 +157,7 @@
           </div>
 
           <div class="row col-12">
-            <fa-icon class=" mr-4" style="font-size: 30px; margin-left: auto; color: #4484ce;" [icon]="faEdit"></fa-icon>
+            <fa-icon (click)="mostrarFormularioEditar()" class=" mr-4" style="cursor:pointer; font-size: 30px; margin-left: auto; color: #4484ce;" [icon]="faEdit"></fa-icon>
           </div>
         </div>
     </div>
@@ -165,3 +165,102 @@
   </div>
 
 </div>
+
+<div  *ngIf="(editando.mostrarFormularioEditarPerfil)" class="row container centrar">
+  <div class="col-12">
+    <app-formulario-registro-usuario
+      (cancelarEditar)="editando.mostrarFormularioEditarPerfil=false;"
+      (formularioEditar)="onClickEditar(modalConfirmacion, $event)"
+      [objUsuario]="perfil"
+      [editarPerfil]="true">
+    </app-formulario-registro-usuario>
+  </div>
+</div>
+
+<!-- Modal Error -->
+<ng-template #modalError let-modal>
+  <div class="modal-encabezado modal-error">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[2].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[2].titulo1}}</h3>
+      <h3>{{mensajeModal[2].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
+  </div>
+</ng-template>
+
+
+<!--Modal dialogo exito-->
+<ng-template #modaDialogoExito let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>Su perfil se actualizo exitosamente</h3>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Modal de confirmación-->
+<ng-template #modalConfirmacion let-modal>
+  <div class="modal-encabezado modal-confirmacion">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[1].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{editando.mostrarFormularioEditarPerfil ? mensajeModal[1].titulo1 : null}}</h3>
+      <h3>{{editando.mostrarFormularioEditarPerfil ? mensajeModal[1].titulo2 : null}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-2" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, cancelar</button>
+      <button type="button" class="btn btn-primary  btn-1 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="editarUsuario(modal, modalError, modaDialogoExito)">Sí, editar</button>
+  </div>
+</ng-template>

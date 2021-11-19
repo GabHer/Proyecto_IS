@@ -1,0 +1,197 @@
+
+<form  (submit)="onSubmitFormulario()" [formGroup]="formularioRegistro">
+
+  <div class="row mt-4">
+    <div class="col-12" >
+      <ngx-spinner  bdColor="rgba(0, 0, 0, 0.8)"  size = "medium" color = "#fff" type = "ball-spin" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+      <span style="color: red; ">*</span>
+      <span class="txt-1 ml-2" >Indica un campo obligatorio</span>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-xl-4 col-lg-5" >
+
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label class="">Nombre</mat-label>
+        <input formControlName="nombre" required matInput>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nombre').invalid" >El nombre ingresado es valido</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('nombre').invalid">{{getErrorMessage('nombre')}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input formControlName="apellido" required matInput>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('apellido').invalid" >El apellido ingresado es valido</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('apellido').invalid">{{getErrorMessage('apellido')}}</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label>Fecha Nacimiento</mat-label>
+        <input matInput type="date" formControlName="nacimiento" min="1870-01-01" required>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nacimiento').invalid" >Fecha de nacimiento valida</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('nacimiento').invalid">{{getErrorMessageEmail()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
+        <mat-hint class="campo-correcto" *ngIf="!(formularioRegistro.get('email').invalid) && (mensajeError == '')" >El correo ingresado es valido</mat-hint>
+        <mat-hint class="campo-incorrecto" *ngIf="(mensajeError != '')" >Este correo electronico ya esta en uso</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario" appearance="legacy">
+        <mat-label color="success" >Formación Académica</mat-label>
+        <mat-select formControlName="formacionAcademica" required>
+          <mat-option value="Primaria">Primaria</mat-option>
+          <mat-option value="Secundaria">Secundaria</mat-option>
+          <mat-option value="Educación superior">Educación superior</mat-option>
+        </mat-select>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('formacionAcademica').invalid" >Formación academica valida</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('formacionAcademica').invalid">{{getErrorMessage('formacionAcademica')}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label>Institución</mat-label>
+        <input formControlName="institucion" required matInput>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('institucion').invalid" >Nombre de institución valido</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('institucion').invalid">{{getErrorMessage('institucion')}}</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-xl-4 col-lg-5">
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [type]="oculto ? 'password' : 'text'" formControlName="contrasenia" required >
+        <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+          <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('contrasenia').invalid" >La contraseña ingresada es valida</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('contrasenia').invalid">{{getErrorMessageContrasenia()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario" appearance="fill">
+        <mat-label>Repetir contraseña</mat-label>
+        <input matInput [type]="oculto ? 'password' : 'text'" formControlName="repetirContrasenia" required >
+        <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
+          <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint class="campo-correcto" *ngIf="!(formularioRegistro.get('repetirContrasenia').invalid) && !(formularioRegistro.getError('contraseniasIguales'))" >Las contraseñas coinciden</mat-hint>
+        <mat-hint class="campo-incorrecto" *ngIf="(formularioRegistro.getError('contraseniasIguales') && (formularioRegistro.get('repetirContrasenia').value != ''))" >Las contraseñas no coinciden</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('repetirContrasenia').invalid">{{getErrorMessageRepetirContrasenia()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario"  appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput rows="5" formControlName="descripcion" required></textarea>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('descripcion').invalid" >La descripción es valida</mat-hint>
+        <mat-error *ngIf="formularioRegistro.get('descripcion').invalid">{{getErrorMessageEmail()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="control-formulario"  appearance="fill">
+        <mat-label>Intereses separados por coma</mat-label>
+        <div class="row">
+          <div class="col-12 mt-2">
+            <mat-label class="interes ml-1 mt-1 mb-1" *ngFor="let tag of intereses">{{tag}}</mat-label>
+          </div>
+        </div>
+        <textarea name="txt-intereses" (ngModelChange)="actualizarIntereses($event)" formControlName="intereses" required matInput rows="5">
+        </textarea>
+        <mat-error *ngIf="formularioRegistro.get('intereses').invalid">{{getErrorMessage('intereses')}}</mat-error>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('intereses').invalid" >Intereses validos</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="col-sm-12 col-md-5 col-xl-4 col-lg-6 text-center " >
+
+      <div class="row">
+        <div class="col-lg-12"  *ngIf="(previsualizacion == '' && croppedImage == '')">
+          <img [src]="imgUsuarioPorDefecto" alt="">
+        </div>
+        <div class="col-lg-12"  >
+
+            <img  (click)="previsualizacion = '' " class="img-usuario" *ngIf="previsualizacion != '' " [src]="previsualizacion" alt="">
+
+          <div *ngIf="(previsualizacion == '')" style="width: 256px;">
+            <image-cropper
+              [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true"
+              [aspectRatio]="4 / 4"
+              [resizeToWidth]="256"
+              format="png"
+              (imageCropped)="imageCropped($event)"
+              >
+            </image-cropper>
+          </div>
+
+
+        </div>
+        <div  class="col-lg-12"  >
+          <button   *ngIf="croppedImage !=''" type="button" (click)="onGuardarRecorte()"  class="btn btn-primary btn-1 ml-3">Guardar</button>
+          <button  *ngIf="(previsualizacion !='' || croppedImage != '') "  type="button"  (click)="onEliminarRecorte() " class="btn btn-primary btn-2 ml-3">Eliminar</button>
+        </div>
+
+        <div class="col-lg-12"  style="text-align: center;">
+          <h4 class="h4-formulario">Subir imagen desde el computador</h4>
+        </div>
+
+        <div class="col-12">
+          <mat-form-field style="width: 100%;">
+            <div class="myfilebrowser">
+              <mat-toolbar>
+                <input matInput class="input-archivo"  readonly formControlName="inputImg" />
+                <button mat-flat-button class="btn-file btn-1" color="primary">Subir carátula</button>
+              </mat-toolbar>
+
+              <input type="file" #inputImagen (change)="fileChangeEvent($event)" id="fileUpload"  formControlName="imagen" name="fileUpload" multiple="multiple" accept='image/*' />
+              <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('imagen').invalid && !errorImagen" >Foto de perfil valida</mat-hint>
+              <mat-error class="mt-2" *ngIf="errorImagen">{{getErrorMessage('imagen')}}</mat-error>
+            </div>
+
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="col-12 mt-5">
+          <button *ngIf="editarPerfil" (click)="abrirModal(modalConfirmacion)"   type="submit" class="btn btn-primary  btn-2 ">Cancelar</button>
+          <button [disabled]="formularioRegistro.invalid"  type="submit" class="btn btn-primary ml-2  btn-1">{{editarPerfil ? 'Editar perfil' : 'Registrarse'}}</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Modal de confirmación-->
+<ng-template #modalConfirmacion let-modal>
+  <div class="modal-encabezado modal-confirmacion">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[0].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[0].titulo1}}</h3>
+      <h3>{{mensajeModal[0].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir editando</button>
+      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onClickCancelar(modal)">Sí, cancelar</button>
+  </div>
+</ng-template>

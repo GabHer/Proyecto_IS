@@ -30,8 +30,12 @@
           <!-- Mi Perfil -->
           <app-perfil-usuario
             *ngIf="(indexItemActual == obtenerIndexItem('Mi perfil'))"
-            class="perfil-usuario"
+            (onClickMostrarFormularioEditarPerfil)="configComponenteUsuario.mostrarFormularioEditarUsuario = true"
+            (actualizarUsuarioActual)="actualizarUsuarioActual($event)"
+            [class]="configComponenteUsuario.mostrarFormularioEditarUsuario ? null : 'perfil-usuario' "
+            style="width:100%;"
             [perfil]="usuario" >
+
           </app-perfil-usuario>
 
           <!-- Mis eventos-->

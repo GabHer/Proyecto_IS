@@ -50,6 +50,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { CardEventoOrganizadorComponent } from './components/card-evento-organizador/card-evento-organizador.component';
 import { CrearConferenciaComponent } from './components/crear-conferencia/crear-conferencia.component';
+import { FormularioRegistroUsuarioComponent } from './components/formulario-registro-usuario/formulario-registro-usuario.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CrearConferenciaComponent } from './components/crear-conferencia/crear-
     FormularioCrearEventoComponent,
     CardEventoOrganizadorComponent,
     CrearConferenciaComponent,
+    FormularioRegistroUsuarioComponent,
   ],
   imports: [
     BrowserModule,
