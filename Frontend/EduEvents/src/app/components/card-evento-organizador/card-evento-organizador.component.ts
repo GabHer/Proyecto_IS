@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class CardEventoOrganizadorComponent implements OnInit {
   @Input() evento:any;
   @Output() onClickEliminarEvento = new EventEmitter<number>();
+  @Output() onClickNuevaConferencia = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
@@ -18,5 +19,8 @@ export class CardEventoOrganizadorComponent implements OnInit {
     this.onClickEliminarEvento.emit(this.evento.Id);
   }
 
+  mostrarFormularioConferencia(){
+    this.onClickNuevaConferencia.emit(true);
+  }
 
 }

@@ -15,7 +15,8 @@ export class MisEventosComponent implements OnInit {
 
   idEvento = -1;
 
-  mostrarFormulario = false;
+  mostrarFormularioEvento = false;
+  mostrarFormularioConferencia = false;
   misEventos:any = [];
 
 
@@ -32,7 +33,7 @@ export class MisEventosComponent implements OnInit {
 
   }
   mostrarFormularioCrearEvento(b: boolean){
-    this.mostrarFormulario = b
+    this.mostrarFormularioEvento = b
   }
 
   obtenerMisEventos(){
@@ -83,9 +84,9 @@ export class MisEventosComponent implements OnInit {
 
   actualizarPath( path:string ){
     if( path== 'Mis eventos' ){
-      this.mostrarFormulario = false;
+      this.mostrarFormularioEvento = false;
     }else{
-      this.mostrarFormulario = false;
+      this.mostrarFormularioEvento = false;
     }
   }
 
@@ -97,6 +98,11 @@ export class MisEventosComponent implements OnInit {
         centered: true
       }
     );
+  }
+
+  mostrarFormularioCrearConferencia(event:any){
+    this.mostrarFormularioConferencia = true;
+    this.idEvento = event;
   }
 
 
