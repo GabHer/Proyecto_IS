@@ -280,6 +280,7 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
   }
 
   onClickCancelar(letModal:any){
+    this.editarPerfil = false;
     this.cancelarEditar.emit(true);
     letModal.close('Close click');
 
