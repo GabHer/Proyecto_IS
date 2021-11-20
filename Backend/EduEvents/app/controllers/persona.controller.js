@@ -17,6 +17,7 @@ exports.crear = (req, res) => {
 
   // Crear usuario
   const persona = new Persona({
+    Id_Evento : req.body.Id_Evento,
     Nombre: req.body.Nombre,
     Apellido: req.body.Apellido,
     Institucion: req.body.Institucion,
