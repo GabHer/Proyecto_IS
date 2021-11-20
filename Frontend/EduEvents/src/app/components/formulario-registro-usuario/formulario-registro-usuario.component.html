@@ -1,5 +1,5 @@
 
-<form  (submit)="onSubmitFormulario()" [formGroup]="formularioRegistro">
+<form   [formGroup]="formularioRegistro">
 
   <div class="row mt-4">
     <div class="col-12" >
@@ -63,7 +63,7 @@
     </div>
 
     <div class="col-sm-12 col-md-6 col-xl-4 col-lg-5">
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field *ngIf="(!editarPerfil)" class="control-formulario" appearance="fill">
         <mat-label>Contraseña</mat-label>
         <input matInput [type]="oculto ? 'password' : 'text'" formControlName="contrasenia" required >
         <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
@@ -73,7 +73,7 @@
         <mat-error *ngIf="formularioRegistro.get('contrasenia').invalid">{{getErrorMessageContrasenia()}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field *ngIf="(!editarPerfil)" class="control-formulario" appearance="fill">
         <mat-label>Repetir contraseña</mat-label>
         <input matInput [type]="oculto ? 'password' : 'text'" formControlName="repetirContrasenia" required >
         <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
@@ -143,7 +143,7 @@
             <div class="myfilebrowser">
               <mat-toolbar>
                 <input matInput class="input-archivo"  readonly formControlName="inputImg" />
-                <button mat-flat-button class="btn-file btn-1" color="primary">Subir carátula</button>
+                <button mat-flat-button class="btn-file btn-1" color="primary">Subir fotografía</button>
               </mat-toolbar>
 
               <input type="file" #inputImagen (change)="fileChangeEvent($event)" id="fileUpload"  formControlName="imagen" name="fileUpload" multiple="multiple" accept='image/*' />
@@ -157,8 +157,8 @@
 
 
         <div class="col-12 mt-5">
-          <button *ngIf="editarPerfil" (click)="abrirModal(modalConfirmacion)"   type="submit" class="btn btn-primary  btn-2 ">Cancelar</button>
-          <button [disabled]="formularioRegistro.invalid"  type="submit" class="btn btn-primary ml-2  btn-1">{{editarPerfil ? 'Editar perfil' : 'Registrarse'}}</button>
+          <button *ngIf="editarPerfil" (click)="abrirModal(modalConfirmacion)" class="btn btn-primary  btn-2 ">Cancelar</button>
+          <button [disabled]="formularioRegistro.invalid" (click)="onSubmitFormulario()"  class="btn btn-primary ml-2  btn-1">{{editarPerfil ? 'Editar perfil' : 'Registrarse'}}</button>
         </div>
 
       </div>

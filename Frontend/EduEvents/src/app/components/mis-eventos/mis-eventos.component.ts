@@ -83,11 +83,16 @@ export class MisEventosComponent implements OnInit {
   }
 
   actualizarPath( path:string ){
-    if( path== 'Mis eventos' ){
-      this.mostrarFormularioEvento = false;
-    }else{
-      this.mostrarFormularioEvento = false;
+    switch (path) {
+      case "Mis eventos":
+        this.mostrarFormularioEvento = false;
+        this.mostrarFormularioConferencia = false;
+        break;
+
+      default:
+        break;
     }
+
   }
 
   abrirModal( modal:any ){

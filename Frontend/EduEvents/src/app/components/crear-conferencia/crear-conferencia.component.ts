@@ -128,7 +128,7 @@ export class CrearConferenciaComponent implements OnInit {
     this.onChangePath.emit('Mis eventos');
   };
 
-  onClickCrearEvento( modalExito:any, modalError:any){
+  onClickCrearConferenciaEvento( modalExito:any, modalError:any){
 
     if( this.formularioCrearConferencia.invalid ) return;
 

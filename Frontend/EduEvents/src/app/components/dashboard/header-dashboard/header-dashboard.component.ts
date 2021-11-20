@@ -26,7 +26,7 @@ export class HeaderDashboardComponent implements OnInit {
   }
 
   obtenerNombreCompleto(){
-    return `${this.usuarioHeader.nombre} ${this.usuarioHeader.apellido}`
+    return `${this.usuarioHeader.nombre.split(" ")[0]} ${this.usuarioHeader.apellido.split(" ")[0]}`
   }
 
   verMiPerfil(){

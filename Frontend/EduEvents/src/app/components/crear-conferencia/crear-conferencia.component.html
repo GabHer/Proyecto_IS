@@ -157,7 +157,7 @@
               <button mat-flat-button class="btn-file btn-1" style="background-color: #4484CE;" color="primary">Subir Imagen</button>
             </mat-toolbar>
 
-            <input type="file" #inputImagen id="fileUpload" (change)="imgFileChangeEvent($event)" formControlName="subirArchivo" name="fileUpload" multiple="multiple" accept='image/*' required />
+            <input type="file" #inputImagen id="fileUpload" (change)="imgFileChangeEvent($event)" formControlName="subirImg" name="fileUpload" multiple="multiple" accept='image/*' required />
 
           </div>
 
@@ -169,7 +169,7 @@
       <div class="col-12 text-right mt-2">
         <div class="container">
           <button (click)="onClickCancelar( modalConfirmacion )" class="btn btn-2" style="margin: auto; ">Cancelar</button>
-          <button (click)="onClickCrearEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-2 " style="margin: auto;">Crear</button>
+          <button (click)="onClickCrearConferenciaEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-2 " style="margin: auto;">Crear</button>
         </div>
       </div>
       <!-- Fin Botones-->
@@ -208,7 +208,7 @@
       <h3>?</h3>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir creando {{formularioCrearConferencia.get("tipo").value}}</button>
+      <button type="button" class="btn btn-primary  btn-3" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir creando {{formularioCrearConferencia.get("tipo").value}}</button>
       <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onModalCancelar(modal)">Sí, cancelar</button>
   </div>
 </ng-template>

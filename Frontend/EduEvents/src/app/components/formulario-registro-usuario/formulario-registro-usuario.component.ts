@@ -48,7 +48,7 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
         apellido: new FormControl('', [Validators.required]),
         nacimiento: new FormControl('', [Validators.required]),
         email:  new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        contrasenia: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]),
+        contrasenia: new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')] ),
         repetirContrasenia: new FormControl('', [Validators.required]),
         formacionAcademica: new FormControl('', Validators.required),
         descripcion: new FormControl('', Validators.required),
@@ -116,8 +116,8 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
       this.previsualizacion = this.objUsuario.imagen;
       this.formularioRegistro.get("inputImg").setValue("Foto_De_Perfil");
       this.formularioRegistro.get("email").setValue(this.objUsuario.email);
-      this.formularioRegistro.get("contrasenia").setValue('');
-      this.formularioRegistro.get("repetirContrasenia").setValue('');
+      this.formularioRegistro.get("contrasenia").setValue('Pruebas1234');
+      this.formularioRegistro.get("repetirContrasenia").setValue('Pruebas1234');
 
       // Desactivar el boton para subir imagen
       this.formularioRegistro.get('imagen').disable();
