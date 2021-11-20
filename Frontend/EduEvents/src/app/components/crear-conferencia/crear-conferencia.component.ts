@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { EventosService } from 'src/app/services/eventos.service';
-
+import { UsuariosService } from 'src/app/services/usuarios.service';
 @Component({
   selector: 'app-crear-conferencia',
   templateUrl: './crear-conferencia.component.html',
@@ -15,7 +15,7 @@ import { EventosService } from 'src/app/services/eventos.service';
 export class CrearConferenciaComponent implements OnInit {
 
   nombreArchivoImagen = 'Subir imagen';
-
+  usuarios:any = [];
 
 
   @Output() onChangePath = new EventEmitter<string>();
@@ -34,9 +34,10 @@ export class CrearConferenciaComponent implements OnInit {
 
   previsualizacion:any = '';
   previsualizacionImg:any = '';
-  constructor(private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService  ) { }
+  constructor(private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService, private usuarioService:UsuariosService ) { }
 
   ngOnInit(): void {
+    this.obtenerUsuarios();
   }
 
   formularioCrearConferencia = new FormGroup({
@@ -133,4 +134,16 @@ export class CrearConferenciaComponent implements OnInit {
     if( this.formularioCrearConferencia.invalid ) return;
 
   };
+
+  obtenerUsuarios(){
+    this.usuarioService.obtenerUsuarios().subscribe(
+      (res:any) => {
+        this.usuarios = res;
+
+      },
+      (err:any) => {
+        console.log(err)
+      }
+    );
+  }
 }

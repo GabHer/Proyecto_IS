@@ -41,7 +41,7 @@ export class DashboardComponent implements AfterViewInit  {
     ["Cerrar sesión", "logout"],
   ]
 
-  indexItemActual = 0;
+  indexItemActual = 2;
 
   bandera = true;
 

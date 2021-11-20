@@ -21,4 +21,9 @@ export class EventosService {
     return this.httpClient.delete(`http://localhost:8888/eventos/eliminarEvento/${idEvento}`);
 
   }
+
+  crearConferencia( objConferencia:any ){
+    return this.httpClient.post(`http://localhost:8888/eventos/`, objConferencia);
+
+  }
 }

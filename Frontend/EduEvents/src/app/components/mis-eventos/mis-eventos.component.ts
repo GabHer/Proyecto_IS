@@ -16,7 +16,7 @@ export class MisEventosComponent implements OnInit {
   idEvento = -1;
 
   mostrarFormularioEvento = false;
-  mostrarFormularioConferencia = false;
+  mostrarFormularioConferencia = true;
   misEventos:any = [];
 
 
