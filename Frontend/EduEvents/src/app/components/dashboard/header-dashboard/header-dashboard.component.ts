@@ -10,6 +10,9 @@ export class HeaderDashboardComponent implements OnInit {
   @Input() usuarioHeader:any;
   @Input() nombreItemActual:string;
   @Output() onClickUsuario = new EventEmitter<string>();
+  @Output() ctrlInput = new EventEmitter<any>();
+
+
 
   mostrarBtn = true;
   constructor( private spinner:SpinnerService ) { }
@@ -31,6 +34,10 @@ export class HeaderDashboardComponent implements OnInit {
 
   verMiPerfil(){
     this.onClickUsuario.emit('Mi perfil');
+  }
+
+  filtrarBusqueda(event:any){
+    this.ctrlInput.emit(event);
   }
 
 }

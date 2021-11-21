@@ -48,6 +48,23 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
 
   })
 }
+Evento.obtenerEventos = ( resultado ) => {
+  let consulta = `SELECT * FROM Evento;`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+    for( let i = 0; i < res.length; i++){
+      let buff = res[i].Caratula
+      let srcImagen = buff.toString('ascii');
+      res[i].Caratula = srcImagen;
+    }  
+    resultado( null, res);
+
+
+  })
+}
 
 Evento.eliminarEvento = ( idEvento, resultado ) => {
   let consulta = `DELETE FROM Evento WHERE Id = ${idEvento}`;

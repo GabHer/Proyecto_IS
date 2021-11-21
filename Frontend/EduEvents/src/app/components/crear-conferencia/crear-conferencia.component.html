@@ -148,7 +148,7 @@
         *ngIf="(!mostrarImg)"
         style="width: 100px; margin-left: auto; margin-right: auto;"
         [imageChangedEvent]="ImageChangeEvent"
-        [maintainAspectRatio]="true"
+        [maintainAspectRatio]="false"
         [aspectRatio]="3 / 3"
         [resizeToWidth]="256"
         format="png"
@@ -165,7 +165,7 @@
       </div>
 
       <div class="col-12 text-center">
-        <button   *ngIf="croppedImage !=''" type="button" (click)="onGuardarRecorteImg()"  class="btn btn-primary btn-1 ml-3">Guardar</button>
+        <button   *ngIf="croppedImage !=''" type="button" (click)="onGuardarRecorteImg()"  class="btn btn-primary btn-3 ml-3">Guardar</button>
         <button  *ngIf="(croppedImage != '') "  type="button"  (click)="onEliminarRecorteImg() " class="btn btn-danger btn-2 ml-3">Eliminar</button>
       </div>
 

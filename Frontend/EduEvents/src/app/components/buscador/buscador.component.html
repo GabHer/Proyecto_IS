@@ -3,7 +3,7 @@
     <div class="row" style="width: 35%; margin-left: 61%;">
       <div class="input-group mb-3" >
 
-        <div style=" background-color: rgba(0, 0, 0, 0.04); height: 45px; margin-top: 0.6px;">
+        <div style=" background-color: rgba(0, 0, 0, 0.04); height: 51px; margin-top: 0.6px;">
           <div ngbDropdown class="d-inline-block mt-1">
 
             <button class="btn" id="dropdownBasic1" ngbDropdownToggle>
@@ -26,7 +26,7 @@
 
         <mat-form-field style="width: 60%; " *ngIf="(filtroActual == 'Fecha')"  appearance="fill">
           <mat-label >Ingrese un rango de fecha</mat-label>
-          <mat-date-range-input style="height: 0;" [formGroup]="range" [rangePicker]="picker">
+          <mat-date-range-input  [formGroup]="range" [rangePicker]="picker">
             <input matStartDate formControlName="start" placeholder="Fecha Inicio">
             <input matEndDate formControlName="end" placeholder="Fecha Final">
           </mat-date-range-input>
@@ -36,14 +36,42 @@
           <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha final no valida</mat-error>
         </mat-form-field>
 
-        <input [formControl]="nombre" *ngIf="(filtroActual == 'Nombre')" type="text" style="background-color:rgba(0, 0, 0, 0.04); height: 45px; margin-top: 1px; border-color: whitesmoke;" class="form-control" placeholder="Nombre del evento" aria-label="Text input with dropdown button">
-        <select [formControl]="estado" *ngIf="(filtroActual == 'Estado')"  style="background-color:rgba(0, 0, 0, 0.04); height: 45px; margin-top: 1px; border-color: whitesmoke;" class="form-control" aria-placeholder="Seleccione">
+
+        <mat-form-field style="width: 60%;" *ngIf="(filtroActual == 'Nombre')" appearance="fill">
+          <mat-label>Nombre del evento</mat-label>
+          <input
+                (ngModelChange)="onChangeInput()"
+                matInput
+                required
+                aria-label="Evento"
+                [matAutocomplete]="auto"
+                [formControl]="nombre">
+          <mat-autocomplete sty #auto="matAutocomplete">
+
+              <mat-option *ngFor="let evento of (filteredEvento) | async" [value]="evento.Nombre">
+
+                <div>
+                  <img aria-hidden  [src]="evento.Caratula" height="25">
+                  <span style="margin-left: 2px;">{{evento.Nombre}}</span> |
+                  <small>{{evento.Estado_Evento}}</small>
+                </div>
+              </mat-option>
+
+          </mat-autocomplete>
+
+        </mat-form-field>
+
+        <!--
+          <input [formControl]="nombre" *ngIf="(filtroActual == 'Nombre')" type="text" style="background-color:rgba(0, 0, 0, 0.04); height: 45px; margin-top: 1px; border-color: whitesmoke;" class="form-control" placeholder="Nombre del evento" aria-label="Text input with dropdown button">
+        -->
+
+        <select [formControl]="estado" *ngIf="(filtroActual == 'Estado')"  style="background-color:rgba(0, 0, 0, 0.04); height: 51px; margin-top: 1px; border-color: whitesmoke;" class="form-control" aria-placeholder="Seleccione">
           <option>Activo</option>
           <option>Inactivo</option>
           <option>Cerrado</option>
         </select>
 
-        <button class="btn btn-outline-secondary" (click)="onClickBuscar()" style="background-color:#F9CF00; height: 45px; padding-bottom: 0px;" type="button" id="button-addon2"><span class="material-icons">search</span></button>
+        <button class="btn btn-outline-secondary" (click)="onClickBuscar()" style="background-color:#F9CF00; height: 51px; padding-bottom: 0px;" type="button" id="button-addon2"><span class="material-icons">search</span></button>
       </div>
 
     </div>

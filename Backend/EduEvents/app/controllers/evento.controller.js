@@ -85,7 +85,27 @@ exports.obtenerEventosUsuario = (req, res) => {
     res.send( {mensaje: 'Se obtuvieron los eventos de este usuario', codigo:200, estado:'ok', data: data} )
 
   })
+}
+exports.obtenerEventos = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  } 
+  Evento.obtenerEventos ((err, data) => {
 
+    if(err){
+      res.status(500).send({
+        mensaje: err.mensaje || "Ocurrió un error al obtener los eventos.",
+        error:err
+      });
+      return;
+    }
+
+    res.send( {mensaje: 'Se obtuvieron los eventos de todos los usuarios', codigo:200, estado:'ok', data: data} )
+
+  })
 }
 
 exports.eliminarEvento = (req, res) => {

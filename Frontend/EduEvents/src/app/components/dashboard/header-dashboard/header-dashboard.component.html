@@ -13,7 +13,7 @@
           </div>
       </div>
       <div *ngIf="(nombreItemActual != 'Mi perfil')" class="col-12 mt-3">
-        <app-buscador></app-buscador>
+        <app-buscador (filtrarBusqueda)="filtrarBusqueda($event)" [idUsuarioActual]="usuarioHeader.id" ></app-buscador>
       </div>
     </div>
 

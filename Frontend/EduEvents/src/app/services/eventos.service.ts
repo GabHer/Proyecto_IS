@@ -13,6 +13,10 @@ export class EventosService {
 
   }
 
+  obtenerEventos(){
+    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventos`);
+  }
+
   obtenerMisEventos( idUsuario:number ){
     return this.httpClient.get(`http://localhost:8888/eventos/obtenerMisEventos/${idUsuario}`);
   }
@@ -24,6 +28,5 @@ export class EventosService {
 
   crearConferencia( objConferencia:any ){
     return this.httpClient.post(`http://localhost:8888/conferencia`, objConferencia);
-
   }
 }
