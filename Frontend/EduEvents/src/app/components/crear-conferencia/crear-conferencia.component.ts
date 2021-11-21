@@ -70,6 +70,11 @@ export class CrearConferenciaComponent implements OnInit {
     }
   ]
 
+  mensajeModal = [
+    {tipo:"confirmacion", titulo1:"¿Cancelar?", titulo2:"La conferencia/taller no se creara", icono:"quiz"},
+    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"No se pudo guardar la conferencia", icono:"error"},
+  ]
+
   constructor(private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService, private usuarioService:UsuariosService ) {
 
     this.filteredEncargado = this.encargado.valueChanges.pipe(
@@ -162,6 +167,7 @@ export class CrearConferenciaComponent implements OnInit {
     this.previsualizacionImg = ""
     this.ImageChangeEvent = ""
     this.mostrarImg = true;
+    this.formularioCrearConferencia.get("inputImg").setValue("");
   }
 
   abrirModal( modal:any ){
@@ -190,13 +196,15 @@ export class CrearConferenciaComponent implements OnInit {
 
   onClickCrearConferenciaEvento( modalExito:any, modalError:any){
 
+    this.spinner.mostrarSpinner();
+
     if( this.formularioCrearConferencia.invalid ) return;
     let objConferencia = {
       Id_Evento : this.idEvento,
-      Tipo: this.formularioCrearConferencia.get("tipo").value,
+      Tipo: this.formularioCrearConferencia.get("tipo").value == 'Conferencia' ? 1 : 0 ,
       Nombre: this.formularioCrearConferencia.get("nombre").value,
       Descripcion: this.formularioCrearConferencia.get("descripcion").value,
-      Modalidad: this.formularioCrearConferencia.get("canal").value,
+      Modalidad: this.formularioCrearConferencia.get("canal").value == 'Virtual'? 1 : 0,
       Medio: this.formularioCrearConferencia.get("lugar").value,
       Correo_Encargado: this.encargado.value,
       Fecha_Inicio: this.obtenerFormatoFecha(this.formularioCrearConferencia.get("fecha").value),
@@ -209,15 +217,24 @@ export class CrearConferenciaComponent implements OnInit {
 
     this.eventoService.crearConferencia( objConferencia ).subscribe(
       (res:any) => {
-        console.log(res);
-        console.log("Desde crear conferencia")
+          if(res.codigo == 200){
+            this.abrirModal(modalExito);
+          }
+
+          if( res.codigo == 406 ){
+            this.mensajeModal[1].titulo2 = res.mensaje
+            this.abrirModal(modalError);
+          }
+          this.spinner.ocultarSpinner();
+
       },
       (err:any) => {
-        console.log(err);
+        this.mensajeModal[1].titulo2 = "Ocurrio un error, intentalo de nuevo";
+        this.spinner.ocultarSpinner();
+        this.abrirModal(modalError);
 
       }
     );
-    console.log(objConferencia);
 
   };
 

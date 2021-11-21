@@ -21,7 +21,7 @@ const Conferencia = function(objConferencia) {
 
 
 Conferencia.buscarPorNombre = ( datosConferencia , resultado ) => {
-    sql.query(`SELECT * FROM CONFERENCIA WHERE Id_Evento = ${datosConferencia.Id_Evento} AND Nombre = '${datosConferencia.Nombre}'`, (err, res) => {
+    sql.query(`SELECT * FROM Conferencia WHERE Id_Evento = ${datosConferencia.Id_Evento} AND Nombre = '${datosConferencia.Nombre}'`, (err, res) => {
         if (err){
             resultado(err, null);
             return;
