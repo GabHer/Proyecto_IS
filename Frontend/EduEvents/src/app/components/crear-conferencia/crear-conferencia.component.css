@@ -6,7 +6,7 @@
   .btn-file {
     width: 200px !important ;
   }
-  
+
   #fileUpload {
       position: absolute;
       z-index: 9;
@@ -17,42 +17,42 @@
       top: 0px;
       cursor: pointer;
   }
-  
+
   .input-archivo {
     font-size: 12px !important;
     color: black;
   }
-  
+
   .btn-2 {
     background-color: #CE4444;
     border-radius: 25px;
     color: white;
   }
-  
+
   .btn-2:focus {
     box-shadow: 0 0 0 0.2rem #d33d3d;
   }
-  
+
   .btn-2:hover{
     background-color: #501b1b;
     border-color:#501b1b ;
   }
-  
+
   .btn-2:active{
     background-color: #501b1b!important;
     border-color:#501b1b !important;
   }
-  
+
   .btn-2:active:focus{
     box-shadow: 0 0 0 0.2rem #d33d3d!important;
   }
-  
+
   .btn-3 {
     background-color: #4484ce;
     border-radius: 25px;
     color: white;
   }
-  
+
   .btn-3 {
     background-color: #4484ce;
     border-radius: 25px;
@@ -61,9 +61,13 @@
   .btn-3:active:focus{
     box-shadow: 0 0 0 0.2rem #4484ce9f!important;
   }
-  
+
   .mat-toolbar {
     background: rgba(245, 245, 245, 0);
     color: rgba(0, 0, 0, 0.87);
   }
-  
+.tabla-usuarios {
+  background-color: #d33d3d;
+  height: 10rem;
+  position: absolute;
+}

@@ -7,6 +7,21 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { EventosService } from 'src/app/services/eventos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import {map, startWith} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+
+
+export interface Encargado {
+  id:number,
+  imagen: string;
+  nombre: string;
+  apellido: string;
+  correo: string;
+  institucion:string;
+  formacionAcademica:string;
+  intereses:any;
+  descripcion:string;
+}
 @Component({
   selector: 'app-crear-conferencia',
   templateUrl: './crear-conferencia.component.html',
@@ -22,8 +37,10 @@ export class CrearConferenciaComponent implements OnInit {
   @Output() onCrearConferencia = new EventEmitter<any>();
   @Input() isCollaps: boolean;
   @Input() organizador: any;
+  @Input() idEvento: any;
 
-  labelPosition: 'taller' | 'conferencia' = 'conferencia';
+  labelPositionTipo: 'taller' | 'conferencia' = 'conferencia';
+  labelPositionCanal: 'presencial' | 'virtual' = 'virtual';
   disabled = false;
 
   mostrarImg = true;
@@ -34,21 +51,58 @@ export class CrearConferenciaComponent implements OnInit {
 
   previsualizacion:any = '';
   previsualizacionImg:any = '';
-  constructor(private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService, private usuarioService:UsuariosService ) { }
+
+  encargado = new FormControl('', [Validators.required]);
+  filteredEncargado:Observable<Encargado[]>;
+
+
+  encargados: Encargado[] = [
+    {
+      id: -1,
+      imagen: "",
+      nombre: "",
+      apellido: "",
+      correo: "",
+      institucion:"",
+      formacionAcademica:"",
+      intereses: "",
+      descripcion:""
+    }
+  ]
+
+  constructor(private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService, private usuarioService:UsuariosService ) {
+
+    this.filteredEncargado = this.encargado.valueChanges.pipe(
+      startWith(''),
+      map(encargado => (encargado ? this._filterEncargados(encargado) : this.encargados.slice())),
+    );
+
+  }
 
   ngOnInit(): void {
     this.obtenerUsuarios();
+
+
   }
+
+
+  private _filterEncargados(value:string): Encargado[] {
+    const filterValue = value.toLowerCase();
+    return this.encargados.filter( encargado => encargado.correo.toLocaleLowerCase().includes(filterValue) );
+  }
+
+
+
 
   formularioCrearConferencia = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
-    encargado: new FormControl('', [Validators.required]),
     horaInicio: new FormControl('', [Validators.required]),
     horaFinal: new FormControl('', [Validators.required]),
     fecha: new FormControl('', [Validators.required]),
     cantidadAsistentes: new FormControl('', [Validators.required]),
+    canal: new FormControl('', [Validators.required]),
     lugar: new FormControl('', [Validators.required]),
     subirImg: new FormControl('', [Validators.required]),
     inputImg: new FormControl( 'Seleccionar', [Validators.required]),
@@ -129,17 +183,55 @@ export class CrearConferenciaComponent implements OnInit {
     this.onChangePath.emit('Mis eventos');
   };
 
+  obtenerFormatoFecha( date:Date){
+
+    return date.toISOString().split('T')[0]
+  }
+
   onClickCrearConferenciaEvento( modalExito:any, modalError:any){
 
     if( this.formularioCrearConferencia.invalid ) return;
+    let objConferencia = {
+      Id_Evento : this.idEvento,
+      Nombre: this.formularioCrearConferencia.get("nombre").value,
+      Descripcion: this.formularioCrearConferencia.get("descripcion").value,
+      Tipo: this.formularioCrearConferencia.get("tipo").value,
+      Id_Encargado: this.encargado.value,
+      Hora_Inicio: this.formularioCrearConferencia.get("horaInicio").value,
+      Hora_Final: this.formularioCrearConferencia.get("horaFinal").value,
+      Fecha: this.obtenerFormatoFecha(this.formularioCrearConferencia.get("fecha").value),
+      Limite_Participantes: this.formularioCrearConferencia.get("cantidadAsistentes").value,
+      Lugar: this.formularioCrearConferencia.get("lugar").value,
+      Imagen: this.previsualizacionImg
+    }
+
+
+    console.log(objConferencia);
 
   };
+
+
 
   obtenerUsuarios(){
     this.usuarioService.obtenerUsuarios().subscribe(
       (res:any) => {
         this.usuarios = res;
 
+        for (let i = 0; i < this.usuarios.length; i++) {
+
+          let encargado:Encargado = {
+            apellido: this.usuarios[i].Apellido,
+            correo: this.usuarios[i].Correo,
+            descripcion: this.usuarios[i].Descripcion,
+            formacionAcademica: this.usuarios[i].Formacion_Academica,
+            id: this.usuarios[i].Id,
+            institucion: this.usuarios[i].Institucion,
+            imagen: this.usuarios[i].Fotografia,
+            intereses: this.usuarios[i].Intereses,
+            nombre: this.usuarios[i].Nombre
+          }
+          this.encargados.push(encargado);
+        }
       },
       (err:any) => {
         console.log(err)

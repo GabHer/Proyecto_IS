@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -116,7 +117,8 @@ import { TablaFiltroUsuariosComponent } from './components/tabla-filtro-usuarios
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatAutocompleteModule
   ],
   providers: [
 

@@ -23,7 +23,7 @@ export class EventosService {
   }
 
   crearConferencia( objConferencia:any ){
-    return this.httpClient.post(`http://localhost:8888/eventos/`, objConferencia);
+    return this.httpClient.post(`http://localhost:8888/conferencia`, objConferencia);
 
   }
 }

@@ -125,6 +125,13 @@ Persona.obtenerPersonas = ( resultado ) => {
           return;
         }
     
+        for (let index = 0; index < res.length; index++) {
+            let buff = res[index].Fotografia;
+            let srcImagen = buff.toString('ascii');
+            res[index].Fotografia = srcImagen;
+            
+        }
+
         resultado(null, res);
       });
 };

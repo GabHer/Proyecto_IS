@@ -41,7 +41,7 @@
 
     <div *ngIf="(mostrarFormularioConferencia)" class="row">
       <div class="col-12">
-        <app-crear-conferencia (onChangePath)="actualizarPath($event)" ></app-crear-conferencia>
+        <app-crear-conferencia [idEvento]="idEvento"  (onChangePath)="actualizarPath($event)" ></app-crear-conferencia>
       </div>
     </div>
 
