@@ -108,6 +108,7 @@ export class MisEventosComponent implements OnInit {
   mostrarFormularioCrearConferencia(event:any){
     this.mostrarFormularioConferencia = true;
     this.idEvento = event;
+    console.log(this.idEvento);
   }
 
 
