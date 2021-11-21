@@ -4,6 +4,4 @@ module.exports = app => {
     // Add headers
     // Crear una nueva conferencia
     app.post("/conferencia", conferencia.crear);
-  
-    
   };
