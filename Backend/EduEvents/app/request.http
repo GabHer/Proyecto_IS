@@ -111,7 +111,7 @@ POST http://localhost:8888/conferencia HTTP/1.1
 Content-Type: application/json
 
 {   
-    "Id_Evento": 2,
+    "Id_Evento": 7,
     "Tipo": 0,
     "Nombre": "La moda en nuestro siglo", 
     "Descripcion": "La influencia de la moda en nuestra era.",

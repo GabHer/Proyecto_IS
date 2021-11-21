@@ -9,6 +9,7 @@ const Crypto =  require("crypto");
 const transport = require("../models/enviarCorreo.js");
 const configCorreo = require("../config/envemail.config.js");
 const { encontrarToken } = require("./resetToken.model");
+const { Console } = require("console");
 
 // constructor del objeto persona
 const Persona = function(objPersona) {
@@ -116,6 +117,50 @@ Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
 
     });
 };
+
+Persona.buscarNombreDeCorreo = ( correoPersona, resultado ) => {
+    sql.query(`SELECT CONCAT(Nombre, ' ', Apellido) FROM Persona WHERE Correo = '${correoPersona}'`, (err, res) => {
+        
+        if (err){
+
+            resultado(err, null);
+            return;
+        }
+
+        if(res.length){
+            // Significa que encontró el nombre completo del usuario con este correo.
+            resultado(null, res[0])
+
+            return;
+        }
+
+        // En ultima instancia, no se encontro el usuario con dicho correo.
+        resultado({ estado: "no_encontrado"}, null)
+
+    });
+};
+
+Persona.buscarNombreDeId = ( idPersona, resultado ) => {
+    sql.query(`SELECT CONCAT(Nombre, ' ', Apellido) FROM Persona WHERE Id = '${idPersona}'`, (err, res) => {
+        if (err){
+
+            resultado(err, null);
+            return;
+        }
+
+        if(res.length){
+            // Significa que encontró el nombre completo del usuario con dicho Id.
+            resultado(null, res[0])
+
+            return;
+        }
+
+        // En ultima instancia, no se encontro el usuario con dicho correo.
+        resultado({ estado: "no_encontrado"}, null)
+
+    });
+};
+
 
 Persona.obtenerPersonas = ( resultado ) => {
     sql.query("SELECT * FROM Persona", (err, res) => {
