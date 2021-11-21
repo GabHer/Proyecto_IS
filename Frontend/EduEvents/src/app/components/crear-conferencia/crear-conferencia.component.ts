@@ -39,8 +39,8 @@ export class CrearConferenciaComponent implements OnInit {
   @Input() organizador: any;
   @Input() idEvento: any;
 
-  labelPositionTipo: 'taller' | 'conferencia' = 'conferencia';
-  labelPositionCanal: 'presencial' | 'virtual' = 'virtual';
+  labelPositionTipo: 'Taller' | 'Conferencia' = 'Conferencia';
+  labelPositionCanal: 'Presencial' | 'Virtual' = 'Virtual';
   disabled = false;
 
   mostrarImg = true;
@@ -193,19 +193,30 @@ export class CrearConferenciaComponent implements OnInit {
     if( this.formularioCrearConferencia.invalid ) return;
     let objConferencia = {
       Id_Evento : this.idEvento,
+      Tipo: this.formularioCrearConferencia.get("tipo").value,
       Nombre: this.formularioCrearConferencia.get("nombre").value,
       Descripcion: this.formularioCrearConferencia.get("descripcion").value,
-      Tipo: this.formularioCrearConferencia.get("tipo").value,
-      Id_Encargado: this.encargado.value,
+      Modalidad: this.formularioCrearConferencia.get("canal").value,
+      Medio: this.formularioCrearConferencia.get("lugar").value,
+      Correo_Encargado: this.encargado.value,
+      Fecha_Inicio: this.obtenerFormatoFecha(this.formularioCrearConferencia.get("fecha").value),
       Hora_Inicio: this.formularioCrearConferencia.get("horaInicio").value,
       Hora_Final: this.formularioCrearConferencia.get("horaFinal").value,
-      Fecha: this.obtenerFormatoFecha(this.formularioCrearConferencia.get("fecha").value),
+      Imagen: this.previsualizacionImg,
       Limite_Participantes: this.formularioCrearConferencia.get("cantidadAsistentes").value,
-      Lugar: this.formularioCrearConferencia.get("lugar").value,
-      Imagen: this.previsualizacionImg
     }
 
 
+    this.eventoService.crearConferencia( objConferencia ).subscribe(
+      (res:any) => {
+        console.log(res);
+        console.log("Desde crear conferencia")
+      },
+      (err:any) => {
+        console.log(err);
+
+      }
+    );
     console.log(objConferencia);
 
   };

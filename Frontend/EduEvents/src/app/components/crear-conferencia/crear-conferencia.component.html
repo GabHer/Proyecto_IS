@@ -16,8 +16,8 @@
         <!--Tipo Radio Buttom-->
         <div class="col-12 mt-2 ml-3 text-left" >
           <mat-radio-group  formControlName="tipo" [(ngModel)]="labelPositionTipo">
-            <mat-radio-button class="" value="conferencia">Conferencia</mat-radio-button>
-            <mat-radio-button class="ml-2" value="taller">Taller</mat-radio-button>
+            <mat-radio-button class="" value="Conferencia">Conferencia</mat-radio-button>
+            <mat-radio-button class="ml-2" value="Taller">Taller</mat-radio-button>
           </mat-radio-group>
         </div>
         <!--Fin Radio Buttom-->
@@ -125,8 +125,8 @@
       <!--Tipo Radio Buttom-->
       <div class="col-12 mt-2 ml-3 text-left" >
         <mat-radio-group  formControlName="canal" [(ngModel)]="labelPositionCanal">
-          <mat-radio-button class="" value="presencial">Presencial</mat-radio-button>
-          <mat-radio-button class="ml-2" value="virtual">Virtual</mat-radio-button>
+          <mat-radio-button class="" value="Presencial">Presencial</mat-radio-button>
+          <mat-radio-button class="ml-2" value="Virtual">Virtual</mat-radio-button>
         </mat-radio-group>
       </div>
       <!--Fin Radio Buttom-->
@@ -134,7 +134,7 @@
       <!--Inicio input lugar o enlace-->
       <div class="col-12">
         <mat-form-field style="width: 100%;"   appearance="outline">
-          <mat-label>{{(formularioCrearConferencia.get('canal').value == 'presencial' ? 'Escriba la ubicación' : 'Pegue el link')}}</mat-label>
+          <mat-label>{{(formularioCrearConferencia.get('canal').value == 'Presencial' ? 'Escriba la ubicación' : 'Pegue el link')}}</mat-label>
           <input placeholder="" name="lugar" formControlName="lugar" required matInput>
           <mat-error *ngIf="formularioCrearConferencia.get('nombre').invalid">Este es un campo obligatorio</mat-error>
           <mat-hint class="campo-correcto"  *ngIf="!formularioCrearConferencia.get('nombre').invalid" >Campo válido</mat-hint>

@@ -19,14 +19,14 @@
       <mat-form-field class="control-formulario" appearance="fill">
         <mat-label class="">Nombre</mat-label>
         <input formControlName="nombre" required matInput>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nombre').invalid" >El nombre ingresado es valido</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nombre').invalid" >El nombre ingresado es válido</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('nombre').invalid">{{getErrorMessage('nombre')}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="control-formulario" appearance="fill">
         <mat-label>Apellido</mat-label>
         <input formControlName="apellido" required matInput>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('apellido').invalid" >El apellido ingresado es valido</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('apellido').invalid" >El apellido ingresado es válido</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('apellido').invalid">{{getErrorMessage('apellido')}}</mat-error>
       </mat-form-field>
 
@@ -34,14 +34,14 @@
       <mat-form-field class="control-formulario" appearance="fill">
         <mat-label>Fecha Nacimiento</mat-label>
         <input matInput type="date" formControlName="nacimiento" min="1870-01-01" required>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nacimiento').invalid" >Fecha de nacimiento valida</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nacimiento').invalid" >Fecha de nacimiento válida</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('nacimiento').invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="control-formulario" appearance="fill">
         <mat-label>Correo</mat-label>
         <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
-        <mat-hint class="campo-correcto" *ngIf="!(formularioRegistro.get('email').invalid) && (mensajeError == '')" >El correo ingresado es valido</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!(formularioRegistro.get('email').invalid) && (mensajeError == '')" >El correo ingresado es válido</mat-hint>
         <mat-hint class="campo-incorrecto" *ngIf="(mensajeError != '')" >Este correo electronico ya esta en uso</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
 
@@ -54,14 +54,14 @@
           <mat-option value="Secundaria">Secundaria</mat-option>
           <mat-option value="Educación superior">Educación superior</mat-option>
         </mat-select>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('formacionAcademica').invalid" >Formación academica valida</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('formacionAcademica').invalid" >Formación academica válida</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('formacionAcademica').invalid">{{getErrorMessage('formacionAcademica')}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="control-formulario" appearance="fill">
         <mat-label>Institución</mat-label>
         <input formControlName="institucion" required matInput>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('institucion').invalid" >Nombre de institución valido</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('institucion').invalid" >Nombre de institución válido</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('institucion').invalid">{{getErrorMessage('institucion')}}</mat-error>
       </mat-form-field>
 
@@ -74,7 +74,7 @@
         <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
           <mat-icon>{{oculto ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('contrasenia').invalid" >La contraseña ingresada es valida</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('contrasenia').invalid" >La contraseña ingresada es válida</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('contrasenia').invalid">{{getErrorMessageContrasenia()}}</mat-error>
       </mat-form-field>
 
@@ -92,7 +92,7 @@
       <mat-form-field class="control-formulario"  appearance="fill">
         <mat-label>Descripción</mat-label>
         <textarea matInput rows="5" formControlName="descripcion" required></textarea>
-        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('descripcion').invalid" >La descripción es valida</mat-hint>
+        <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('descripcion').invalid" >La descripción es válida</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('descripcion').invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
 
@@ -152,7 +152,7 @@
               </mat-toolbar>
 
               <input type="file" #inputImagen (change)="fileChangeEvent($event)" id="fileUpload"  formControlName="imagen" name="fileUpload" multiple="multiple" accept='image/*' />
-              <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('imagen').invalid && !errorImagen" >Foto de perfil valida</mat-hint>
+              <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('imagen').invalid && !errorImagen" >Foto de perfil válida</mat-hint>
               <mat-error class="mt-2" *ngIf="errorImagen">{{getErrorMessage('imagen')}}</mat-error>
             </div>
 
@@ -161,7 +161,7 @@
 
 
 
-        <div class="col-12 mt-5">
+        <div class="col-12 mt-5 mb-5">
           <button *ngIf="editarPerfil" (click)="abrirModal(modalConfirmacion)" class="btn btn-primary  btn-2 ">Cancelar</button>
           <button [disabled]="formularioRegistro.invalid" (click)="onSubmitFormulario()"  class="btn btn-primary ml-2  btn-1">{{editarPerfil ? 'Editar perfil' : 'Registrarse'}}</button>
         </div>

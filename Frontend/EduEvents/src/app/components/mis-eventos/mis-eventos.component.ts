@@ -16,7 +16,7 @@ export class MisEventosComponent implements OnInit {
   idEvento = -1;
 
   mostrarFormularioEvento = false;
-  mostrarFormularioConferencia = true;
+  mostrarFormularioConferencia = false;
   misEventos:any = [];
 
 
@@ -108,6 +108,7 @@ export class MisEventosComponent implements OnInit {
   mostrarFormularioCrearConferencia(event:any){
     this.mostrarFormularioConferencia = true;
     this.idEvento = event;
+    console.log(this.idEvento);
   }
 
 
