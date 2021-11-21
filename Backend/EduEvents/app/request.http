@@ -111,15 +111,14 @@ POST http://localhost:8888/conferencia HTTP/1.1
 Content-Type: application/json
 
 {   
-    "Id_Evento": 4,
-    "Tipo": "Conferencia",
+    "Id_Evento": 2,
+    "Tipo": 0,
     "Nombre": "La moda en nuestro siglo", 
     "Descripcion": "La influencia de la moda en nuestra era.",
-    "Lugar": "Chiminike",
-    "Enlace" : "https://us04web.zoom.us/j/2993343283?pwd=VHkyak53WDRTSk9tVElPbktIVDl1dz09#success" ,
+    "Modalidad": 0,
+    "Medio" : "https://us04web.zoom.us/j/2993343283?pwd=VHkyak53WDRTSk9tVElPbktIVDl1dz09#success" ,
     "Correo_Encargado": "larissaalfaro99@gmail.com",
     "Fecha_Inicio": "2021-09-15",
-    "Fecha_Final": "2021-09-20",
     "Hora_Inicio": "23:55:13",
     "Hora_Final": "24:55:13",
     "Imagen" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAACAASURBVHhelL3nj3Vpdt13Kt3K4Q2du4cUhwRl0xJAG46SmA0lk5BhEIYtyhJJUxrLgA3BsASRgL84wUH+y/zBhi1LHFKjISd0fFPlW9Hrt9be55yq7ma4PTVv1b3nnvOEvddeOzzPs/IzP/FT9ysrK0O/7u/vh/7x+3f3w839MOh/+vduuF9dGVaGu2F15X5YX1/3taurq/pcn+n3u9u74fqO32+H9bWVYXexMRxsbQ97m4thodtt6Fq9Xa98hx9euqsedK/78zf/DgNNWNWfK/W8NT7lO3e3vo7nrOk6NWtY4bv+Ur5/r/bSh+5eP7Y+Hu7Uzlt17k7X3eh391ftu73R3yu3bgv35T5rK6vD5mJtWGyuD1tbi+HmWt/Vd6507flS1+uRd7c3w9qsf2t6EN/1uOhaxmlBW/Uvr1U3rNqo7/P3igbnXs/ucaVNq/eraetd5oH37mmXxutaz7/Wc9WE4UJNfn126b6s6RHcfV3331W7n+7vDPtq995iVe/dDCur+gIvD1WPtWZWN+ZZPGBVfeY/X1ZzpJY9mDPawWtF16qrevbtcHOb9tO9tXXdQc9YW1vTnZiLSdbuJFv83NzwnYwRLblcXmVCSyp8L/29pk4tNjaGdf3OWI2yejf7vWVJ92Je1zSeHkOPhkYb+dXfPMlzoOfTtnW1k9et2q6JHPvr77TMlaxH3jP+nhc9R0+SLNwPyxvdQ/N1Jbm8vr7Re7fVLw8S4iW9QJbWh82NYdhZux/21yVXeu9OnyE/zMe92oVs6/8tzrQ+4ycNcN8z5rrMcsjf6NX6+nyMJ9nL/KndpW+eY5r083/2z+u9DIY7W4JqNddg8DAEiiv8FQse72fgaCjvoey3msTbavzt/U06qgY1AGxZOTSRjwBgfLak6Z6Ju9MoohA1IMgCE87gMAhpr6bFnbnxe9yTv2kLbZsDgMEE5aoH5eMIX//Q7kw2IMa/AQBPM1/Uryj/zs6mBfH65qYGfxAAMNGIg8CIPlYHLSZ1j1bc9dI7C+UcAGqCrW9SznpkhNdKCcTyqkl8AAC3AoD74ULDBgAgNhr2jJmECAA42tscDna2ht2N1WFDAAMAWLHcxAkA7qVMGbuMVyvsHKQfgnbGloFvAIhABgBWNRaANtcAogHkzOEcAG5nc7GU4eBCAETfBcHGgRVY8jIovJZdp14+8m9vgbXzShM3KM3ieuZ6t5DLf8/BADYWNNsAs8IWBh0Yn9NqV5sa/8fwzz70WYw73oAAAAASUVORK5CYII=",

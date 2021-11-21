@@ -9,11 +9,10 @@ const Conferencia = function(objConferencia) {
     this.Tipo = objConferencia.Tipo;
     this.Nombre = objConferencia.Nombre;
     this.Descripcion = objConferencia.Descripcion;
-    this.Lugar = objConferencia.Lugar;
-    this.Enlace = objConferencia.Enlace;
+    this.Modalidad = objConferencia.Modalidad;
+    this.Medio = objConferencia.Medio;
     this.Correo_Encargado = objConferencia.Correo_Encargado;
     this.Fecha_Inicio = objConferencia.Fecha_Inicio;
-    this.Fecha_Final = objConferencia.Fecha_Final;
     this.Hora_Inicio = objConferencia.Hora_Inicio;
     this.Hora_Final = objConferencia.Hora_Final;
     this.Imagen = objConferencia.Imagen;
@@ -47,7 +46,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
     Conferencia.buscarPorNombre(objConferencia, (err, data) => {
         if (err) {
             // Si no se encuentra una conferencia existente con ese nombre dentro del mismo evento.
-            consulta = `INSERT INTO Conferencia (Id_Evento, Tipo, Nombre, Descripcion, Lugar, Enlace, Correo_Encargado, Fecha_Inicio, Hora_Inicio, Fecha_Final, Hora_Final, Imagen, Limite_Participantes) VALUES (${objConferencia.Id_Evento},'${objConferencia.Tipo}','${objConferencia.Nombre}','${objConferencia.Descripcion}','${objConferencia.Lugar}','${objConferencia.Enlace}','${objConferencia.Correo_Encargado}','${objConferencia.Fecha_Inicio}','${objConferencia.Hora_Inicio}','${objConferencia.Fecha_Final}','${objConferencia.Hora_Final}','${objConferencia.Imagen}','${objConferencia.Limite_Participantes}');`
+            consulta = `INSERT INTO Conferencia (Id_Evento, Tipo, Nombre, Descripcion, Modalidad, Medio, Correo_Encargado, Fecha_Inicio, Hora_Inicio, Hora_Final, Imagen, Limite_Participantes) VALUES (${objConferencia.Id_Evento},'${objConferencia.Tipo}','${objConferencia.Nombre}','${objConferencia.Descripcion}','${objConferencia.Modalidad}','${objConferencia.Medio}','${objConferencia.Correo_Encargado}','${objConferencia.Fecha_Inicio}','${objConferencia.Hora_Inicio}','${objConferencia.Hora_Final}','${objConferencia.Imagen}','${objConferencia.Limite_Participantes}');`
             if (err.estado === "no_encontrado") {
                 sql.query( consulta, (err, res) => {
                     if (err) {
@@ -752,12 +751,10 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                       //send email
                       transport.sendMail(message, function (err, info) {
                         if(err) { 
-                            console.log(err)
                           resultado(null, { estado:"No enviado"});
                         }
                     
                         else { 
-                            console.log(message);
                           resultado(null, { estado:"ok"});
                           return;
                         }
