@@ -17,6 +17,7 @@
       [nombreItemActual]="obtenerItem(indexItemActual)"
       [usuarioHeader]="usuario"
       (onClickUsuario)="actualizarItemActual(obtenerIndexItem($event))"
+      (ctrlInput)="setCtrlBusqueda($event)"
      >
     </app-header-dashboard>
 
@@ -44,6 +45,7 @@
             class="container-fluid"
             style="width: 100%;"
             [usuarioActual]="usuario"
+            [ctrlBuscar]="ctrlInput"
             [isCollaps]="!bandera" >
           </app-mis-eventos>
 
@@ -57,6 +59,8 @@
 
           <!-- Buscar evento -->
           <app-buscar-evento
+            [idUsuarioActual]="usuario.id"
+            [ctrlBuscar]="(ctrlInput)"
             *ngIf="(indexItemActual == obtenerIndexItem('Buscar'))"
             [collapsar]="bandera"
             style="width: 100%;" >

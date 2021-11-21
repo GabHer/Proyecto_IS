@@ -1,5 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { EventosService } from 'src/app/services/eventos.service';
+
+export interface Evento  {
+  Id:number,
+  Caratula:string,
+  Nombre:string,
+  Institucion:string,
+  Descripcion:string,
+  Fecha_Inicio:string,
+  Fecha_Final:string,
+  Estado_Participantes:string,
+  Estado_Evento:string,
+  Id_Organizador:number
+}
 
 @Component({
   selector: 'app-buscador',
@@ -8,7 +24,24 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class BuscadorComponent implements OnInit {
   @Output() filtrarBusqueda = new EventEmitter<any>();
+  @Input() idUsuarioActual:number = -1;
+
   filtroActual:string = "Nombre"; // Nombre | Fecha | Estado
+  eventos: Evento[] = [
+  {
+    Id:-1,
+    Caratula: "",
+    Nombre: "",
+    Institucion: "",
+    Descripcion: "",
+    Fecha_Inicio: "",
+    Fecha_Final: "",
+    Estado_Participantes: "",
+    Estado_Evento: "",
+    Id_Organizador: -1
+  }
+  ];
+  filteredEvento:Observable<Evento[]>;
 
   range = new FormGroup({
     start: new FormControl(),
@@ -17,9 +50,20 @@ export class BuscadorComponent implements OnInit {
 
   nombre = new FormControl('');
   estado = new FormControl('');
-  constructor() { }
+  constructor( private eventosService:EventosService ) {
+    this.filteredEvento = this.nombre.valueChanges.pipe(
+      startWith(''),
+      map(evento => (evento ? this._filterNombreEvento(evento) : this.eventos.slice())),
+    );
+  }
 
   ngOnInit(): void {
+    this.obtenerEventos();
+  }
+
+  private _filterNombreEvento(value:string): Evento[] {
+    const filterValue = value.toLowerCase();
+    return this.eventos.filter( evento => evento.Nombre.toLocaleLowerCase().includes(filterValue) );
   }
 
   seleccionarFiltro( strFiltro:string ){
@@ -28,21 +72,24 @@ export class BuscadorComponent implements OnInit {
   }
 
   onClickBuscar(){
+    this.filtrarBusqueda.emit(this.nombre.value);
+  }
 
-    console.log(this.nombre.value)
-    console.log(this.estado.value)
-    console.log(this.range.value)
-
-
-    // Buscar segun this.filtroActual
-    /*
-    this.eventoServicio.obtenerEventos( this.filtroActual, data )
-    */
-   let eventoEncontrado = {evento: "Evento encontrado"}
-
-    this.filtrarBusqueda.emit(eventoEncontrado);
+  onChangeInput(){
+    this.filtrarBusqueda.emit(this.nombre.value);
 
 
+  }
+
+  obtenerEventos(){
+    this.eventosService.obtenerEventos().subscribe(
+      (res:any) => {
+        this.eventos = res.data;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }

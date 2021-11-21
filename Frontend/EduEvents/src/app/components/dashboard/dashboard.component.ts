@@ -17,7 +17,7 @@ export class DashboardComponent implements AfterViewInit  {
   @Input() configComponenteUsuario = {
     mostrarFormularioEditarUsuario : false
   }
-
+  ctrlInput:string;
   @Input() usuario:any ={
     id: -1,
     nombre: "",
@@ -41,7 +41,7 @@ export class DashboardComponent implements AfterViewInit  {
     ["Cerrar sesión", "logout"],
   ]
 
-  indexItemActual = 2;
+  indexItemActual = 0;
 
   bandera = true;
 
@@ -141,6 +141,14 @@ export class DashboardComponent implements AfterViewInit  {
     )
 
   }
+
+  setCtrlBusqueda(event:any){
+
+    this.ctrlInput = event;
+  }
+
+
+
 
 
   obtenerUsuario(){
