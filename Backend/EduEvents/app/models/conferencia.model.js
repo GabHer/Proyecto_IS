@@ -45,6 +45,7 @@ Conferencia.buscarPorNombre = ( datosConferencia , resultado ) => {
 Conferencia.crear = ( objConferencia, resultado ) => {
     Conferencia.buscarPorNombre(objConferencia, (err, data) => {
         if (err) {
+            console.log("Error en conferencia.model: ", err);
             // Si no se encuentra una conferencia existente con ese nombre dentro del mismo evento.
             consulta = `INSERT INTO Conferencia (Id_Evento, Tipo, Nombre, Descripcion, Modalidad, Medio, Correo_Encargado, Fecha_Inicio, Hora_Inicio, Hora_Final, Imagen, Limite_Participantes) VALUES (${objConferencia.Id_Evento},'${objConferencia.Tipo}','${objConferencia.Nombre}','${objConferencia.Descripcion}','${objConferencia.Modalidad}','${objConferencia.Medio}','${objConferencia.Correo_Encargado}','${objConferencia.Fecha_Inicio}','${objConferencia.Hora_Inicio}','${objConferencia.Hora_Final}','${objConferencia.Imagen}','${objConferencia.Limite_Participantes}');`
             if (err.estado === "no_encontrado") {

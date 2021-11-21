@@ -24,16 +24,23 @@ exports.crear = (req, res) => {
         Imagen : req.body.Imagen,
         Limite_Participantes: req.body.Limite_Participantes
     });
+
+    console.log("La conferencia es: =>>>>>>", conf);
   
   
     // Guardar el usuario en la base de datos
     Conferencia.crear(conf, (err, data) => {
-      if (err)
+      if (err){
         res.status(500).send({
           mensaje: err.mensaje || "Ocurrió un error al guardar la conferencia o taller en la base de datos.",
           error:err
         });
+
+        console.log("Error: =>>>>", err);
+      
+      }
       else{
+        console.log("Respuesta: ", data)
         if(data.estado == 'no_permitido'){
           res.send({mensaje:'Ya existe una conferencia con ese nombre dentro del evento.', codigo:406, estado: data.estado, data:null});
           return;
