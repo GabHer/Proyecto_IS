@@ -128,7 +128,7 @@ exports.obtenerEventoId = (req, res) => {
     if (err) {
       if (err.estado === "no_encontrado") {
         res.status(404).send({
-          mensaje: `No se encontraró un evento con el id ${req.params.idEvento}`, codigo:404, data:null
+          mensaje: `No se encontró un evento con el id ${req.params.idEvento}`, codigo:404, data:null
         });
       } else {
         console.log(err);
@@ -138,7 +138,8 @@ exports.obtenerEventoId = (req, res) => {
       };
 
     } else {
-      res.send( {mensaje: `Se obtuvó el evento con el id ${req.params.idEvento}.`, codigo:200, estado:'ok', data: data} );
+      console.log("El evento a enviar >>>>>> " , data[0])
+      res.send( {mensaje: `Se obtuvó el evento con el id ${req.params.idEvento}.`, codigo:200, estado:'ok', data: data[0]} );
 
     };
 
@@ -270,6 +271,34 @@ exports.obtenerEvPorEstadoUsuario = (req, res) => {
 
     } else {
       res.send( {mensaje: `Se obtuvieron los eventos que estan en el estado ${req.params.estado} para el usuario con id ${req.params.idUsuario}.`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+
+exports.obtenerImagenes = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerImagenesEvento(req.params.idEvento, (err, data) => {
+    console.log("Se buscan las imágenes del evento con id: " + req.params.idEvento);
+    
+    if (err) {  
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al obtener las imágenes del evento con id:" + req-params.idEvento
+        });
+      }
+
+      else {
+      res.send( {mensaje: `Se obtuvieron las imágenes del evento con id: ${req.params.idEvento}`, codigo:200, estado:'ok', data: data} );
 
     };
 

@@ -21,8 +21,11 @@ module.exports = app => {
     // Obtener todos los eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
     app.get("/eventos/obtenerEventosPorFecha/:fechaInicio/:fechaFinal", eventos.obtenerEventosFecha);
 
-     // Obtener todos los eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
-     app.get("/eventos/obtenerEventosPorFechaYOrganizador/:fechaInicio/:fechaFinal/:idOrganizador", eventos.obtenerEventosFechaOrganizador);
+    // Obtener todos los eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+    app.get("/eventos/obtenerEventosPorFechaYOrganizador/:fechaInicio/:fechaFinal/:idOrganizador", eventos.obtenerEventosFechaOrganizador);
+
+    // Obtener las imágenes del evento con id
+    app.get("/eventos/obtenerImagenesEvento/:idEvento", eventos.obtenerImagenes);
 
     // Eliminar un evento
     app.delete('/eventos/eliminarEvento/:idEvento', eventos.eliminarEvento);
