@@ -29,4 +29,8 @@ export class EventosService {
   crearConferencia( objConferencia:any ){
     return this.httpClient.post(`http://localhost:8888/conferencia`, objConferencia);
   }
+
+  obtenerEventoPorId(idEvento:number){
+    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventoPorId/${idEvento}`);
+  }
 }

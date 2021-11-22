@@ -58,6 +58,8 @@ import { FormularioCrearEventoComponent } from './components/mis-eventos/formula
 import { CardEventoOrganizadorComponent } from './components/card-evento-organizador/card-evento-organizador.component';
 import { CrearConferenciaComponent } from './components/crear-conferencia/crear-conferencia.component';
 import { FormularioRegistroUsuarioComponent } from './components/formulario-registro-usuario/formulario-registro-usuario.component';
+import { DetallesEventoComponent } from './components/detalles-evento/detalles-evento.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,7 @@ import { FormularioRegistroUsuarioComponent } from './components/formulario-regi
     CardEventoOrganizadorComponent,
     CrearConferenciaComponent,
     FormularioRegistroUsuarioComponent,
+    DetallesEventoComponent,
 
 
   ],
@@ -118,7 +121,8 @@ import { FormularioRegistroUsuarioComponent } from './components/formulario-regi
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTabsModule
   ],
   providers: [
 

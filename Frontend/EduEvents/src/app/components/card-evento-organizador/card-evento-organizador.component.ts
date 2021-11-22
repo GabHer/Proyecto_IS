@@ -9,6 +9,7 @@ export class CardEventoOrganizadorComponent implements OnInit {
   @Input() evento:any;
   @Output() onClickEliminarEvento = new EventEmitter<number>();
   @Output() onClickNuevaConferencia = new EventEmitter<number>();
+  @Output() onClickDetallesEvento = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit(): void {
@@ -21,6 +22,10 @@ export class CardEventoOrganizadorComponent implements OnInit {
 
   mostrarFormularioConferencia(){
     this.onClickNuevaConferencia.emit(this.evento.Id);
+  }
+
+  mostrarDetallesEvento(){
+    this.onClickDetallesEvento.emit(this.evento.Id);
   }
 
 }
