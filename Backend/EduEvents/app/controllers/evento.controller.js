@@ -147,7 +147,7 @@ exports.obtenerEventoId = (req, res) => {
 
 
 
-exports.obtenerEventoFecha = (req, res) => {
+exports.obtenerEventosFecha = (req, res) => {
   if( !req.params ) {
     res.status(400).send({
       message: "El contenido no puede ser vacio"
@@ -155,7 +155,7 @@ exports.obtenerEventoFecha = (req, res) => {
     return;
   }
 
-  Evento.obtenerEventoPorFecha(req.params, (err, data) => {
+  Evento.obtenerEventosPorFecha(req.params, (err, data) => {
     console.log("Se buscan eventos cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal);
     
     if (err) {
@@ -166,17 +166,50 @@ exports.obtenerEventoFecha = (req, res) => {
       } else {
         console.log(err);
         res.status(500).send({
-          mensaje: "Error al intentar obtener eventos cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal
+          mensaje: "Error al intentar obtener eventos cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + "-" + req.params.fechaFinal
         });
       };
 
     } else {
-      res.send( {mensaje: se `encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:200, estado:'ok', data: data} );
+      res.send( {mensaje: ` Se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:200, estado:'ok', data: data} );
 
     };
 
   });
 };
+
+
+exports.obtenerEventosFechaOrganizador = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerEventosPorFechaYOrganizador(req.params, (err, data) => {
+    console.log("Se buscan eventos del usuario: " + req.params.idOrganizador + " cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal);
+    
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontraron eventos del usuario: ${req.params.idOrganizador} cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:404, data:null
+        });
+      } else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al intentar obtener eventos para el usuario: " + req.params.idOrganizador + " cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal
+        });
+      };
+
+    } else {
+      res.send( {mensaje: ` Se encontraron eventos del usuario: ${req.params.idOrganizador} cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
 
 
 exports.obtenerEvPorEstado = (req, res) => {

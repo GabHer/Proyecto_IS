@@ -19,7 +19,10 @@ module.exports = app => {
     app.get("/eventos/obtenerEventosPorEstadoYUsuario/:estado/:idUsuario", eventos.obtenerEvPorEstadoUsuario);
 
     // Obtener todos los eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
-    app.get("/eventos/obtenerEventosPorFecha/:fechaInicio/:fechaFinal", eventos.obtenerEventoFecha);
+    app.get("/eventos/obtenerEventosPorFecha/:fechaInicio/:fechaFinal", eventos.obtenerEventosFecha);
+
+     // Obtener todos los eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+     app.get("/eventos/obtenerEventosPorFechaYOrganizador/:fechaInicio/:fechaFinal/:idOrganizador", eventos.obtenerEventosFechaOrganizador);
 
     // Eliminar un evento
     app.delete('/eventos/eliminarEvento/:idEvento', eventos.eliminarEvento);
