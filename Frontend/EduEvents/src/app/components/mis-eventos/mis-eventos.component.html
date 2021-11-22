@@ -5,7 +5,12 @@
 
     <div *ngIf="(mostrarFormularioEvento)" class="row">
       <div class="col-12 mb-5">
-        <app-formulario-crear-evento (onCrearEvento)="obtenerMisEventos()" (onChangePath)="actualizarPath($event)" [organizador]="usuarioActual" [isCollaps]="isCollaps" ></app-formulario-crear-evento>
+        <app-formulario-crear-evento
+          (onCrearEvento)="onSussesCrearEvento()"
+          (onChangePath)="actualizarPath($event)"
+          [organizador]="usuarioActual"
+          [isCollaps]="isCollaps" >
+        </app-formulario-crear-evento>
       </div>
     </div>
 
@@ -43,7 +48,12 @@
 
     <div *ngIf="(mostrarFormularioConferencia)" class="row">
       <div class="col-12">
-        <app-crear-conferencia [idEvento]="idEvento"  (onChangePath)="actualizarPath($event)" (onCrearConferencia)="onSussesCrearConferencia()" ></app-crear-conferencia>
+        <app-crear-conferencia
+        [idEvento]="idEvento"
+        (onChangePath)="actualizarPath($event)"
+        (onCrearConferencia)="onSussesCrearConferencia()"
+      >
+      </app-crear-conferencia>
       </div>
     </div>
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -30,9 +30,12 @@ export class MisEventosComponent implements OnInit, OnChanges {
   @Input() usuarioActual:any;
   @Input() ctrlBuscar:string = '';
 
+  @Output() onCrearConferencia = new EventEmitter<any>();
+  @Output() onCrearEvento = new EventEmitter<any>();
+  @Output() onEliminarEvento = new EventEmitter<any>();
   nombre = new FormControl('');
 
-  misEventos: Evento[] = [
+  @Input() misEventos: Evento[] = [
     {
       Id:-1,
       Caratula: "",
@@ -71,8 +74,10 @@ export class MisEventosComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.obtenerMisEventos();
-
+    this.filteredEvento = this.nombre.valueChanges.pipe(
+      startWith(''),
+      map(evento => (evento ? this._filterNombreEvento(evento) : this.misEventos.slice())),
+    );
   }
   mostrarFormularioCrearEvento(b: boolean){
     this.mostrarFormularioEvento = b
@@ -84,34 +89,26 @@ export class MisEventosComponent implements OnInit, OnChanges {
     return this.misEventos.filter( evento => evento.Nombre.toLocaleLowerCase().includes(filterValue) );
   }
 
-  obtenerMisEventos(){
-    this.spinner.mostrarSpinner()
-    this.eventosService.obtenerMisEventos( this.usuarioActual.id ).subscribe(
-      (res:any)=> {
 
-        this.misEventos = res.data
-
-        this.filteredEvento = this.nombre.valueChanges.pipe(
-          startWith(''),
-          map(evento => (evento ? this._filterNombreEvento(evento) : this.misEventos.slice())),
-        );
-      },
-      (err:any) => {
-
-        this.misEventos = [];
-        this.spinner.ocultarSpinner();
-      },
-      () => {
-        this.spinner.ocultarSpinner();
-      }
-
-     );
-  }
 
   onSussesCrearConferencia(){
-    this.obtenerMisEventos();
+
     this.mostrarFormularioEvento = false;
     this.mostrarFormularioConferencia = false;
+    this.onCrearConferencia.emit(null);
+
+  }
+
+  onSussesCrearEvento(){
+
+    this.mostrarFormularioEvento = false;
+    this.mostrarFormularioConferencia = false;
+    this.onCrearEvento.emit(null);
+  }
+
+  onSussesEliminarEvento(){
+    // Emitir event
+    this.onEliminarEvento.emit(null);
   }
 
   eliminarEvento(idEvento:any){
@@ -119,14 +116,13 @@ export class MisEventosComponent implements OnInit, OnChanges {
     this.spinner.mostrarSpinner();
     this.eventosService.eliminarEvento( idEvento ).subscribe(
       (res:any) => {
-        console.log("Se ha eliminado el evento");
+        this.onSussesEliminarEvento()
       },
       (err:any) => {
         this.spinner.ocultarSpinner();
       },
       () => {
         this.spinner.ocultarSpinner();
-        this.obtenerMisEventos();
       }
     );
   }
@@ -167,7 +163,6 @@ export class MisEventosComponent implements OnInit, OnChanges {
   mostrarFormularioCrearConferencia(event:any){
     this.mostrarFormularioConferencia = true;
     this.idEvento = event;
-    console.log(this.idEvento);
   }
 
 

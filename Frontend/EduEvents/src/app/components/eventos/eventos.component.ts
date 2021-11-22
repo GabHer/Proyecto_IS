@@ -14,7 +14,7 @@ export interface Evento  {
   Fecha_Inicio:string,
   Fecha_Final:string,
   Estado_Participantes:number,
-  Estado_Evento:string,
+  Estado_Evento:number,
   Id_Organizador:number
 }
 @Component({
@@ -30,20 +30,7 @@ export class EventosComponent implements OnInit, OnChanges {
 
   nombre = new FormControl('');
 
-  eventos: Evento[] = [
-    {
-      Id:-1,
-      Caratula: "",
-      Nombre: "",
-      Institucion: "",
-      Descripcion: "",
-      Fecha_Inicio: "",
-      Fecha_Final: "",
-      Estado_Participantes: -1,
-      Estado_Evento: "",
-      Id_Organizador: -1
-    }
-    ];
+  eventos: Evento[] = [];
 
     filteredEvento:Observable<Evento[]>;
 

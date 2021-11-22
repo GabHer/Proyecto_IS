@@ -30,20 +30,7 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
 
   nombre = new FormControl('');
 
-  eventos: Evento[] = [
-    {
-      Id:-1,
-      Caratula: "",
-      Nombre: "",
-      Institucion: "",
-      Descripcion: "",
-      Fecha_Inicio: "",
-      Fecha_Final: "",
-      Estado_Participantes: -1,
-      Estado_Evento: "",
-      Id_Organizador: -1
-    }
-    ];
+  @Input() eventos: Evento[] = [];
 
     filteredEvento:Observable<Evento[]>;
   constructor( private eventosService:EventosService ) {
@@ -57,7 +44,6 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
 
   actualizarInput(value:string){
     this.nombre.setValue(value);
-    console.log(this.nombre.value);
     return value;
   }
 
@@ -68,25 +54,13 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.obtenerEventos();
-
-  }
-
-  obtenerEventos(){
-    this.eventosService.obtenerEventos().subscribe(
-      (res:any) => {
-        this.eventos = res.data;
-        this.filteredEvento = this.nombre.valueChanges.pipe(
-          startWith(''),
-          map(evento => (evento ? this._filterNombreEvento(evento) : this.eventos.slice())),
-        );
-
-      },
-      (err) => {
-        console.log(err);
-      }
+    this.filteredEvento = this.nombre.valueChanges.pipe(
+      startWith(''),
+      map(evento => (evento ? this._filterNombreEvento(evento) : this.eventos.slice())),
     );
+
   }
+
 
 
 }

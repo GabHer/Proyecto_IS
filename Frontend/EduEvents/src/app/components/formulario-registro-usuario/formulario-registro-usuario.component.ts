@@ -66,7 +66,7 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
 
 
   onSubmitFormulario(){
-
+    console.log(this.formularioRegistro.invalid)
     if( this.formularioRegistro.invalid ) return;
     if( !this.previsualizacion ){
       this.errorImagen = true;
@@ -88,7 +88,7 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
     }
 
     if( this.editarPerfil ){
-      objUsuario.Id = this.objUsuario.id;
+      objUsuario.Id = this.objUsuario.Id;
       this.formularioEditar.emit(objUsuario);
     }else {
 
@@ -106,16 +106,16 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
 
   cargarFormulario(){
 
-      this.formularioRegistro.get("nombre").setValue(this.objUsuario.nombre);
-      this.formularioRegistro.get("apellido").setValue( this.objUsuario.apellido);
-      this.formularioRegistro.get("institucion").setValue(this.objUsuario.institucion);
-      this.formularioRegistro.get("formacionAcademica").setValue(this.objUsuario.formacionAcademica);
-      this.formularioRegistro.get("descripcion").setValue(this.objUsuario.descripcion);
-      this.formularioRegistro.get("intereses").setValue(this.objUsuario.intereses);
-      this.formularioRegistro.get("nacimiento").setValue(this.objUsuario.nacimiento.split("T")[0]);
-      this.previsualizacion = this.objUsuario.imagen;
+      this.formularioRegistro.get("nombre").setValue(this.objUsuario.Nombre);
+      this.formularioRegistro.get("apellido").setValue( this.objUsuario.Apellido);
+      this.formularioRegistro.get("institucion").setValue(this.objUsuario.Institucion);
+      this.formularioRegistro.get("formacionAcademica").setValue(this.objUsuario.Formacion_Academica);
+      this.formularioRegistro.get("descripcion").setValue(this.objUsuario.Descripcion);
+      this.formularioRegistro.get("intereses").setValue(this.objUsuario.Intereses);
+      this.formularioRegistro.get("nacimiento").setValue(this.objUsuario.Fecha_Nacimiento.split("T")[0]);
+      this.previsualizacion = this.objUsuario.Fotografia;
       this.formularioRegistro.get("inputImg").setValue("Foto_De_Perfil");
-      this.formularioRegistro.get("email").setValue(this.objUsuario.email);
+      this.formularioRegistro.get("email").setValue(this.objUsuario.Correo);
       this.formularioRegistro.get("contrasenia").setValue('Pruebas1234');
       this.formularioRegistro.get("repetirContrasenia").setValue('Pruebas1234');
 
@@ -210,6 +210,7 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
     // Desactivar el boton para subir imagen
     this.formularioRegistro.get('imagen').enable();
     this.formularioRegistro.get('inputImg').enable();
+    this.formularioRegistro.get('inputImg').setValue('');
 
   }
 

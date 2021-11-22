@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="container-fluid">
       <div class="div-imagen container-fluid">
-        <img class="imagen" [src]="perfil.imagen" alt="">
+        <img class="imagen" [src]="perfil.Fotografia" alt="">
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
               </div>
               <!-- Contenido-->
               <div class="col-10">
-                <span class="ml-5 txt-spanNombreUsuario">{{perfil.nombre}}</span>
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.Nombre}}</span>
               </div>
             </div>
 
@@ -51,7 +51,7 @@
               </div>
               <!-- Contenido-->
               <div class="col-9">
-                <span class="ml-5 txt-spanNombreUsuario">{{perfil.apellido}}</span>
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.Apellido}}</span>
               </div>
             </div>
 
@@ -69,7 +69,7 @@
               </div>
               <!-- Contenido-->
               <div class="col-9">
-                <span class="ml-5 txt-spanNombreUsuario">{{perfil.email}}</span>
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.Correo}}</span>
               </div>
             </div>
 
@@ -87,7 +87,7 @@
               </div>
               <!-- Contenido-->
               <div class="col-9">
-                <span class="ml-5 txt-spanNombreUsuario">{{perfil.institucion}}</span>
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.Institucion}}</span>
               </div>
             </div>
 
@@ -105,7 +105,7 @@
               </div>
               <!-- Contenido-->
               <div class="col-9">
-                <span class="ml-5 txt-spanNombreUsuario">{{perfil.formacionAcademica}}</span>
+                <span class="ml-5 txt-spanNombreUsuario">{{perfil.Formacion_Academica}}</span>
               </div>
             </div>
 
@@ -132,7 +132,7 @@
           <!-- Contenido-->
           <div class="col-9">
             <div class="texto ml-5 border border-3">
-              <span class="ml-1 interes mt-1 mb-1" *ngFor="let tag of perfil.intereses" >{{tag}}</span>
+              <span class="ml-1 interes mt-1 mb-1" *ngFor="let tag of perfil.Intereses.split(',')" >{{tag}}</span>
             </div>
           </div>
          </div>
@@ -152,7 +152,7 @@
           <!-- Contenido-->
           <div class="col-9 mb-3">
             <div class="texto ml-5 border border-3">
-              <p class="mt-1 mb-1">{{perfil.descripcion}}</p>
+              <p class="mt-1 mb-1">{{perfil.Descripcion}}</p>
             </div>
           </div>
 

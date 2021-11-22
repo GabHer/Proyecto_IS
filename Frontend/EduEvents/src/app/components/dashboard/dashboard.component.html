@@ -16,6 +16,7 @@
       class="row"
       [nombreItemActual]="obtenerItem(indexItemActual)"
       [usuarioHeader]="usuario"
+      [eventos]="eventos"
       (onClickUsuario)="actualizarItemActual(obtenerIndexItem($event))"
       (ctrlInput)="setCtrlBusqueda($event)"
      >
@@ -46,7 +47,13 @@
             style="width: 100%;"
             [usuarioActual]="usuario"
             [ctrlBuscar]="ctrlInput"
-            [isCollaps]="!bandera" >
+            [isCollaps]="!bandera"
+            [misEventos]="misEventos"
+            (onCrearConferencia)="actualizarDashBoard()"
+            (onCrearEvento)="actualizarDashBoard()"
+            (onEliminarEvento)="obtenerUsuario()"
+
+          >
           </app-mis-eventos>
 
           <!-- Inscripciones -->
@@ -63,6 +70,7 @@
             [ctrlBuscar]="(ctrlInput)"
             *ngIf="(indexItemActual == obtenerIndexItem('Buscar'))"
             [collapsar]="bandera"
+            [eventos]="eventos"
             style="width: 100%;" >
           </app-buscar-evento>
 
