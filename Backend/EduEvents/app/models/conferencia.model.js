@@ -86,8 +86,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             subject: "Encargado De Conferencia",
                             attachments: [
                             {
-                                filename: 'logo.png',
-                                path: '../EduEvents/app/assets/img/logo.png',
+                                filename: 'Logo.png',
+                                path: '../EduEvents/app/assets/img/Logo.png',
                                 cid: 'logo' 
                             },
                             {
@@ -653,6 +653,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                         //send email
                         transport.sendMail(message, function (err, info) {
                             if(err) { 
+                                console.log("Este es el error =>>>>>", err)
                             resultado(null, { estado:"No enviado"});
                             return
                             }
