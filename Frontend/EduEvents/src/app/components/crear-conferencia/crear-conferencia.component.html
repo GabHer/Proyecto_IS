@@ -186,7 +186,7 @@
       <div class="col-12 text-right mt-2">
         <div class="container">
           <button (click)="onClickCancelar( modalConfirmacion )" class="btn btn-2" style="margin: auto; ">Cancelar</button>
-          <button (click)="onClickCrearConferenciaEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-2 " style="margin: auto;">Crear</button>
+          <button [disabled]="formularioCrearConferencia.invalid" (click)="onClickCrearConferenciaEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-2 " style="margin: auto;">Crear</button>
         </div>
       </div>
       <!-- Fin Botones-->
@@ -222,7 +222,7 @@
 
   <div class="modal-body modal-cuerpo">
       <h3>¿Cancelar?</h3>
-      <h3>?</h3>
+      <h3>{{mensajeModal[0].titulo2}}</h3>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary  btn-3" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir creando {{formularioCrearConferencia.get("tipo").value}}</button>
@@ -282,10 +282,10 @@
 
   <div class="modal-body modal-cuerpo">
       <h3>¡Error!</h3>
-      <h3>Ocurrió un error</h3>
+      <h3>{{mensajeModal[1].titulo2}}</h3>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
+      <button type="button" class="btn btn-primary  btn-3" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
   </div>
 </ng-template>
 <!-- Final modal Error -->

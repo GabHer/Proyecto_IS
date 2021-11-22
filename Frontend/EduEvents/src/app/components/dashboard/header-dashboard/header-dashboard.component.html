@@ -13,15 +13,10 @@
           </div>
       </div>
       <div *ngIf="(nombreItemActual != 'Mi perfil')" class="col-12 mt-3">
-        <app-buscador (filtrarBusqueda)="filtrarBusqueda($event)" [idUsuarioActual]="usuarioHeader.id" ></app-buscador>
+        <div class="contenedor-buscar mr-5 mb-5">
+          <app-buscador (filtrarBusqueda)="filtrarBusqueda($event)" [idUsuarioActual]="usuarioHeader.id" ></app-buscador>
+        </div>
       </div>
     </div>
-
-    <!--
-    <div class="col" style="margin-left: 80%;">
-      <h1 class="txt-perfil">{{nombreItemActual}}</h1>
-    </div>
-    -->
-
 
   </div>

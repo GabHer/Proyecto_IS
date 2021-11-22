@@ -2,7 +2,7 @@
   background-image: url("../../../assets/img/HeaderConCírculo.png");
   height: 100%;
   background-repeat: no-repeat;
-  position: absolute;
+
 
 }
 .stPos{
@@ -14,3 +14,5 @@
 .card{
   cursor: pointer;
 }
+
+

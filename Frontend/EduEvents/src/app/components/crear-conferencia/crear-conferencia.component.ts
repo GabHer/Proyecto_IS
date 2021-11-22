@@ -196,9 +196,9 @@ export class CrearConferenciaComponent implements OnInit {
 
   onClickCrearConferenciaEvento( modalExito:any, modalError:any){
 
+    if( this.formularioCrearConferencia.invalid ) return;
     this.spinner.mostrarSpinner();
 
-    if( this.formularioCrearConferencia.invalid ) return;
     let objConferencia = {
       Id_Evento : this.idEvento,
       Tipo: this.formularioCrearConferencia.get("tipo").value == 'Conferencia' ? 1 : 0 ,
@@ -222,6 +222,7 @@ export class CrearConferenciaComponent implements OnInit {
           }
 
           if( res.codigo == 406 ){
+            console.log(res);
             this.mensajeModal[1].titulo2 = res.mensaje
             this.abrirModal(modalError);
           }

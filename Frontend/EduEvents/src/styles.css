@@ -87,3 +87,9 @@ body::-webkit-scrollbar-thumb:active {
   width: 80%;
   margin-left: auto;
 }
+
+.contenedor-buscar {
+  width: 30rem;
+  margin-left: auto;
+  margin-top: 1rem;
+}
