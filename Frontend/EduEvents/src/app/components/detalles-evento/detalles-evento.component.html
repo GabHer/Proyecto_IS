@@ -1,6 +1,6 @@
 
 <ngb-carousel class="row" *ngIf="images" style="background-color: #D9D9D9;">
-  <ng-template ngbSlide *ngFor="let img of images">
+  <ng-template ngbSlide *ngFor="let img of eventoSeleccionado.imagenes">
     <div class="picsum-img-wrapper" >
       <img  height="260" [src]="img" alt="Random first slide">
     </div>

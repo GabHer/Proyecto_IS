@@ -36,6 +36,7 @@ export class DetallesEventoComponent implements OnInit {
           institucion: res.data.Institucion,
           imagenes: res.data.imagenes
         };
+        console.log(this.eventoSeleccionado.imagenes);
       },
       (err:any) => {
         console.log(err);
