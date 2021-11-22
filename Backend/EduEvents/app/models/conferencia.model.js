@@ -657,6 +657,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                         //send email
                         transport.sendMail(message, function (err, info) {
                             if(err) { 
+                                console.log("Este es el error =>>>>>", err)
                             resultado(null, { estado:"No enviado"});
                             return
                             }
