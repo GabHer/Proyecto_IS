@@ -58,8 +58,6 @@ import { FormularioCrearEventoComponent } from './components/mis-eventos/formula
 import { CardEventoOrganizadorComponent } from './components/card-evento-organizador/card-evento-organizador.component';
 import { CrearConferenciaComponent } from './components/crear-conferencia/crear-conferencia.component';
 import { FormularioRegistroUsuarioComponent } from './components/formulario-registro-usuario/formulario-registro-usuario.component';
-import { TablaFiltroUsuariosComponent } from './components/tabla-filtro-usuarios/tabla-filtro-usuarios.component';
-import { CardUsuarioNoRegistradoComponent } from './components/card-usuario-no-registrado/card-usuario-no-registrado.component';
 
 @NgModule({
   declarations: [
@@ -86,8 +84,8 @@ import { CardUsuarioNoRegistradoComponent } from './components/card-usuario-no-r
     CardEventoOrganizadorComponent,
     CrearConferenciaComponent,
     FormularioRegistroUsuarioComponent,
-    TablaFiltroUsuariosComponent,
-    CardUsuarioNoRegistradoComponent,
+
+
   ],
   imports: [
     BrowserModule,
