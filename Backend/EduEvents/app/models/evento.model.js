@@ -38,16 +38,15 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
       resultado(err, null);
       return;
     }
+
     for( let i = 0; i < res.length; i++){
       let buff = res[i].Caratula
       let srcImagen = buff.toString('ascii');
       res[i].Caratula = srcImagen;
     }  
     resultado( null, res);
-
-
-  })
-}
+  });
+};
 
 Evento.obtenerEventos = ( resultado ) => {
   let consulta = `SELECT * FROM Evento;`;
@@ -56,6 +55,7 @@ Evento.obtenerEventos = ( resultado ) => {
       resultado(err, null);
       return;
     }
+
     for( let i = 0; i < res.length; i++){
       let buff = res[i].Caratula
       let srcImagen = buff.toString('ascii');
@@ -64,8 +64,8 @@ Evento.obtenerEventos = ( resultado ) => {
     resultado( null, res);
 
 
-  })
-}
+  });
+};
 
 
 Evento.obtenerEventosEstado = ( estado, resultado ) => {
@@ -74,21 +74,24 @@ Evento.obtenerEventosEstado = ( estado, resultado ) => {
     if(err){
       resultado(err, null);
       return;
-    }
-
-
+    };
 
       if(res.length){
         // Significa que encontró eventos en este estado.
-        resultado(null, res)
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        }; 
+        resultado(null, res);
 
         return;
-    }
+    };
 
     // En ultima instancia, no se encontraron eventos en este estado
     resultado({ estado: "no_encontrado"}, null)
-  })
-}
+  });
+};
 
 
 //Obtener los evento por su estado para un usuario determinado.
@@ -98,16 +101,20 @@ Evento.obtenerEventosEstadoIdUsuario = ( parametros, resultado ) => {
     if(err){
       resultado(err, null);
       return;
-    }
-
+    };
 
 
       if(res.length){
         // Significa que encontró eventos en este estado para este usuario.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        }; 
         resultado(null, res);
 
         return;
-    }
+    };
 
     // En ultima instancia, no se encontraron eventos en este estado para este usuario.
     resultado({ estado: "no_encontrado"}, null);
@@ -126,6 +133,11 @@ Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
 
       if(res.length){
         // Significa que encontró el evento con ese id.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        } 
         resultado(null, res);
 
         return;
@@ -148,6 +160,11 @@ Evento.obtenerEventosPorFecha = ( fechas, resultado ) => {
 
       if(res.length){
         // Significa que se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        } 
         resultado(null, res);
 
         return;
@@ -171,6 +188,11 @@ Evento.obtenerEventosPorFechaYOrganizador = ( parametros, resultado ) => {
 
       if(res.length){
         // Significa que se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado para este usuario.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        }; 
         resultado(null, res);
 
         return;
