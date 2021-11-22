@@ -48,6 +48,7 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
 
   })
 }
+
 Evento.obtenerEventos = ( resultado ) => {
   let consulta = `SELECT * FROM Evento;`;
   sql.query( consulta, (err, res) => {
@@ -65,6 +66,77 @@ Evento.obtenerEventos = ( resultado ) => {
 
   })
 }
+
+
+Evento.obtenerEventosEstado = ( estado, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Estado_Evento = "${estado}";`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+
+      if(res.length){
+        // Significa que encontró eventos en este estado.
+        resultado(null, res)
+
+        return;
+    }
+
+    // En ultima instancia, no se encontraron eventos en este estado
+    resultado({ estado: "no_encontrado"}, null)
+  })
+}
+
+
+//Obtener los evento por su estado para un usuario determinado.
+Evento.obtenerEventosEstadoIdUsuario = ( parametros, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Estado_Evento = "${parametros.estado}" AND Id_Organizador = ${parametros.idUsuario}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+
+      if(res.length){
+        // Significa que encontró eventos en este estado para este usuario.
+        resultado(null, res);
+
+        return;
+    }
+
+    // En ultima instancia, no se encontraron eventos en este estado para este usuario.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
+
+Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Id = ${idEvento}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+      if(res.length){
+        // Significa que encontró el evento con ese id.
+        resultado(null, res);
+
+        return;
+    }
+
+    // En ultima instancia, no se encontraró un evento con ese id.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
+
 
 Evento.eliminarEvento = ( idEvento, resultado ) => {
   let consulta = `DELETE FROM Evento WHERE Id = ${idEvento}`;
