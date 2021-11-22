@@ -28,12 +28,13 @@ export class DetallesEventoComponent implements OnInit {
       (res:any) => {
         console.log(res.data);
         this.eventoSeleccionado = {
-          id: res.data[0].Id,
-          descripcion: res.data[0].Descripcion,
-          nombre: res.data[0].Nombre,
-          fechaInicio: res.data[0].Fecha_Inicio.substr(0,10),
-          fechaFinal: res.data[0].Fecha_Final.substr(0,10),
-          institucion: res.data[0].Institucion
+          id: res.data.Id,
+          descripcion: res.data.Descripcion,
+          nombre: res.data.Nombre,
+          fechaInicio: res.data.Fecha_Inicio.substr(0,10),
+          fechaFinal: res.data.Fecha_Final.substr(0,10),
+          institucion: res.data.Institucion,
+          imagenes: res.data.imagenes
         };
       },
       (err:any) => {
