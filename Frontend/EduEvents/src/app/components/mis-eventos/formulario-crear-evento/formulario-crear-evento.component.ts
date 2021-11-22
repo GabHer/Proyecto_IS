@@ -256,7 +256,7 @@ export class FormularioCrearEventoComponent implements OnInit {
       Fecha_Final: this.obtenerFormatoFecha(this.range.get('end').value),
       Estado_Participantes: this.formularioCrearEvento.get('tipoEvento').value == 'privado' ? 0 : 1,
       Estado_Evento: 'Inactivo',
-      Id_Organizador: this.organizador.id,
+      Id_Organizador: this.organizador.Id,
       Lista_Blanca: this.listaBlanca,
       imagenesEvento: this.imagenesEvento,
       Caratula: this.previsualizacionCaratula

@@ -1,35 +1,52 @@
-import { AfterViewInit, Component, OnInit, ViewChildren , Output, EventEmitter, Input} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChildren , Output, EventEmitter, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AutenticacionService } from '../../services/autenticacion.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { MisEventosComponent } from '../mis-eventos/mis-eventos.component';
+import { HeaderDashboardComponent } from './header-dashboard/header-dashboard.component';
+import { EventosService } from 'src/app/services/eventos.service';
+
+export interface Evento  {
+  Id:number,
+  Caratula:string,
+  Nombre:string,
+  Institucion:string,
+  Descripcion:string,
+  Fecha_Inicio:string,
+  Fecha_Final:string,
+  Estado_Participantes:number,
+  Estado_Evento:string,
+  Id_Organizador:number
+}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements AfterViewInit  {
+export class DashboardComponent implements OnInit, OnChanges  {
 
-  @ViewChildren(SidenavComponent) sidenav: SidenavComponent;
+
+
 
   @Input() configComponenteUsuario = {
     mostrarFormularioEditarUsuario : false
   }
   ctrlInput:string;
   @Input() usuario:any ={
-    id: -1,
-    nombre: "",
-    apellido: "",
-    nacimiento: "",
-    email: "",
-    contrasenia: "",
-    formacionAcademica: "",
-    descripcion: "",
-    imagen: "",
-    institucion: "",
-    intereses: []
+    Id: -1,
+    Nombre: "",
+    Apellido: "",
+    Fecha_Nacimiento: "",
+    Correo: "",
+    Contrasena: "",
+    Formacion_Academica: "",
+    Descripcion: "",
+    Fotografia: "",
+    Institucion: "",
+    Intereses: []
   };
 
   items = [
@@ -49,14 +66,18 @@ export class DashboardComponent implements AfterViewInit  {
     {tipo:"confirmacion", titulo1:"¿Cerrar sesión?", titulo2:"Se cerrará la sesión actual", icono:"quiz"}
   ]
 
-  constructor( private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService, private modalService:NgbModal, private spinner:SpinnerService) {
-  }
-  ngAfterViewInit(): void {
+  eventos:Evento[] = [];
+  misEventos:Evento[] =[];
 
+  constructor( private eventosService:EventosService, private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService, private modalService:NgbModal, private spinner:SpinnerService) {
+    this.obtenerUsuario();
+
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("Nuevos cambios")
   }
 
   ngOnInit(): void {
-    this.obtenerUsuario();
   }
 
   actualizarBandera(e:any){
@@ -65,7 +86,7 @@ export class DashboardComponent implements AfterViewInit  {
 
   actualizarItemActual(e:any){
     this.spinner.mostrarSpinner()
-
+    console.log(this.eventos);
     setTimeout(() => {
       this.indexItemActual = e;
       this.spinner.ocultarSpinner()
@@ -103,44 +124,55 @@ export class DashboardComponent implements AfterViewInit  {
   }
 
 
+  actualizarDashBoard(){
+    this.obtenerUsuario();
+  }
+  obtenerEventos(){
+    this.eventosService.obtenerEventos().subscribe(
+      (res:any) => this.eventos = res.data
+    );
+
+  }
+
+
+  obtenerMisEventos(){
+
+    this.eventosService.obtenerMisEventos( this.usuario.Id ).subscribe(
+      (res:any) => {
+        this.misEventos = res.data
+      },
+      (err:any) => {
+        this.misEventos = []
+
+      }
+    );
+  }
+
+  obtenerUsuario(){
+    let tokenUsuario = localStorage.getItem("token");
+    if( tokenUsuario ){
+
+      let correo = JSON.parse(tokenUsuario).id;
+      this.usuariosService.obtenerUsuario( correo ).subscribe(
+        (res:any) => {
+          this.usuario = res.data
+          this.obtenerMisEventos()
+          this.obtenerEventos();
+        }
+      );
+    }
+  }
+
   actualizarUsuarioActual(event:any){
 
     this.configComponenteUsuario.mostrarFormularioEditarUsuario= false;
+
     this.usuariosService.obtenerUsuario( event.Correo ).subscribe(
-
-      (res:any) => {
-
-        console.log(res);
-        //let imagen = encode( res.data.Fotografia.data );
-        let imagen = res.data.Fotografia;
-
-        this.usuario = {
-          id:res.data.Id,
-          nombre: res.data.Nombre,
-          apellido: res.data.Apellido,
-          nacimiento: res.data.Fecha_Nacimiento,
-          email: res.data.Correo,
-          contrasenia: "",
-          formacionAcademica: res.data.Formacion_Academica,
-          descripcion: res.data.Descripcion,
-          imagen: imagen,
-          institucion: res.data.Institucion,
-          intereses: res.data.Intereses.split(",")
-        };
-
-
-      },
-
-      (error:any) => {
-
-      },
-
-      ()=> {
-
-      }
-    )
+      (res:any) => this.usuario = res.data
+    );
 
   }
+
 
   setCtrlBusqueda(event:any){
 
@@ -148,52 +180,6 @@ export class DashboardComponent implements AfterViewInit  {
   }
 
 
-
-
-
-  obtenerUsuario(){
-    let tokenUsuario = localStorage.getItem("token");
-    if( tokenUsuario ){
-
-      let correo = JSON.parse(tokenUsuario).id;
-      console.log(correo);
-
-      this.usuariosService.obtenerUsuario( correo ).subscribe(
-
-        (res:any) => {
-
-          //let imagen = encode( res.data.Fotografia.data );
-          let imagen = res.data.Fotografia;
-
-          this.usuario = {
-            id:res.data.Id,
-            nombre: res.data.Nombre,
-            apellido: res.data.Apellido,
-            nacimiento: res.data.Fecha_Nacimiento,
-            email: res.data.Correo,
-            contrasenia: "",
-            formacionAcademica: res.data.Formacion_Academica,
-            descripcion: res.data.Descripcion,
-            imagen: imagen,
-            institucion: res.data.Institucion,
-            intereses: res.data.Intereses.split(",")
-          };
-
-
-        },
-
-        (error:any) => {
-
-        },
-
-        ()=> {
-
-        }
-      )
-
-
-      }
-    }
 
 
 }

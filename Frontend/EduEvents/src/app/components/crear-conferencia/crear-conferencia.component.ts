@@ -247,7 +247,7 @@ export class CrearConferenciaComponent implements OnInit {
     this.usuarioService.obtenerUsuarios().subscribe(
       (res:any) => {
         this.usuarios = res;
-
+        let encargados = []
         for (let i = 0; i < this.usuarios.length; i++) {
 
           let encargado:Encargado = {
@@ -261,8 +261,9 @@ export class CrearConferenciaComponent implements OnInit {
             intereses: this.usuarios[i].Intereses,
             nombre: this.usuarios[i].Nombre
           }
-          this.encargados.push(encargado);
+          encargados.push(encargado);
         }
+        this.encargados = encargados;
       },
       (err:any) => {
         console.log(err)

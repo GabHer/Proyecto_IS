@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChildren } from '@angular/core';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { BuscadorComponent } from '../../buscador/buscador.component';
 @Component({
   selector: 'app-header-dashboard',
   templateUrl: './header-dashboard.component.html',
@@ -8,6 +9,7 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 export class HeaderDashboardComponent implements OnInit {
   @Output() bandera = new EventEmitter<Boolean>();
   @Input() usuarioHeader:any;
+  @Input() eventos:any= [];
   @Input() nombreItemActual:string;
   @Output() onClickUsuario = new EventEmitter<string>();
   @Output() ctrlInput = new EventEmitter<any>();
@@ -29,7 +31,8 @@ export class HeaderDashboardComponent implements OnInit {
   }
 
   obtenerNombreCompleto(){
-    return `${this.usuarioHeader.nombre.split(" ")[0]} ${this.usuarioHeader.apellido.split(" ")[0]}`
+
+    return `${this.usuarioHeader.Nombre.split(" ")[0]} ${this.usuarioHeader.Apellido.split(" ")[0]}`
   }
 
   verMiPerfil(){
@@ -39,5 +42,6 @@ export class HeaderDashboardComponent implements OnInit {
   filtrarBusqueda(event:any){
     this.ctrlInput.emit(event);
   }
+
 
 }

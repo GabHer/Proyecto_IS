@@ -12,8 +12,8 @@ export interface Evento  {
   Descripcion:string,
   Fecha_Inicio:string,
   Fecha_Final:string,
-  Estado_Participantes:string,
-  Estado_Evento:string,
+  Estado_Participantes:number,
+  Estado_Evento:number,
   Id_Organizador:number
 }
 
@@ -25,22 +25,21 @@ export interface Evento  {
 export class BuscadorComponent implements OnInit {
   @Output() filtrarBusqueda = new EventEmitter<any>();
   @Input() idUsuarioActual:number = -1;
-
+  @Input() eventos: Evento[] = [
+    {
+      Id:-1,
+      Caratula: "",
+      Nombre: "",
+      Institucion: "",
+      Descripcion: "",
+      Fecha_Inicio: "",
+      Fecha_Final: "",
+      Estado_Participantes: 0,
+      Estado_Evento: 0,
+      Id_Organizador: -1
+    }
+    ];
   filtroActual:string = "Nombre"; // Nombre | Fecha | Estado
-  eventos: Evento[] = [
-  {
-    Id:-1,
-    Caratula: "",
-    Nombre: "",
-    Institucion: "",
-    Descripcion: "",
-    Fecha_Inicio: "",
-    Fecha_Final: "",
-    Estado_Participantes: "",
-    Estado_Evento: "",
-    Id_Organizador: -1
-  }
-  ];
   filteredEvento:Observable<Evento[]>;
 
   range = new FormGroup({
@@ -51,14 +50,14 @@ export class BuscadorComponent implements OnInit {
   nombre = new FormControl('');
   estado = new FormControl('');
   constructor( private eventosService:EventosService ) {
+
+  }
+
+  ngOnInit(): void {
     this.filteredEvento = this.nombre.valueChanges.pipe(
       startWith(''),
       map(evento => (evento ? this._filterNombreEvento(evento) : this.eventos.slice())),
     );
-  }
-
-  ngOnInit(): void {
-    this.obtenerEventos();
   }
 
   private _filterNombreEvento(value:string): Evento[] {
@@ -81,15 +80,5 @@ export class BuscadorComponent implements OnInit {
 
   }
 
-  obtenerEventos(){
-    this.eventosService.obtenerEventos().subscribe(
-      (res:any) => {
-        this.eventos = res.data;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
 
 }

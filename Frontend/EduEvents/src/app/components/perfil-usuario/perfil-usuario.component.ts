@@ -33,7 +33,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   obtenerNombreCompleto(){
-    return `${this.perfil.nombre} ${this.perfil.apellido}`
+    return `${this.perfil.Nombre} ${this.perfil.Apellido}`
   }
   mostrarFormularioEditar(){
     this.editando.mostrarFormularioEditarPerfil = true;

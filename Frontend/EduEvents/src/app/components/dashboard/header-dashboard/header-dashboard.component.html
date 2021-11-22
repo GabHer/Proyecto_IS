@@ -8,13 +8,17 @@
 
       <div class="col mt-3 " style="margin-left: 43%;">
         <div class="contenedor-usuario" (click)="verMiPerfil()">
-            <img class=" ml-4 mt-1 imagen-usuario" [src]="usuarioHeader.imagen" alt="">
+            <img class=" ml-4 mt-1 imagen-usuario" [src]="usuarioHeader.Fotografia" alt="">
             <span class="ml-4 txt-nombreUsuario">{{obtenerNombreCompleto()}}</span>
           </div>
       </div>
-      <div *ngIf="(nombreItemActual != 'Mi perfil')" class="col-12 mt-2">
-        <div class="contenedor-buscar mr-5 mb-4">
-          <app-buscador (filtrarBusqueda)="filtrarBusqueda($event)" [idUsuarioActual]="usuarioHeader.id" ></app-buscador>
+      <div *ngIf="(nombreItemActual != 'Mi perfil')" class="col-12 mt-3">
+        <div class="contenedor-buscar mr-5 mb-5">
+          <app-buscador
+            (filtrarBusqueda)="filtrarBusqueda($event)"
+            [idUsuarioActual]="usuarioHeader.Id"
+            [eventos]="eventos"
+            ></app-buscador>
         </div>
       </div>
     </div>
