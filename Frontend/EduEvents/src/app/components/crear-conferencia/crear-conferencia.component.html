@@ -183,7 +183,7 @@
       <!--Final input Imagen promocionar conferencia / taller-->
 
       <!--Inicio Botones-->
-      <div class="col-12 text-right mt-2">
+      <div class="col-12 text-right mt-2 mb-3">
         <div class="container">
           <button (click)="onClickCancelar( modalConfirmacion )" class="btn btn-2" style="margin: auto; ">Cancelar</button>
           <button [disabled]="formularioCrearConferencia.invalid" (click)="onClickCrearConferenciaEvento( modaDialogoExito, modalError )" class="btn btn-3 ml-2 " style="margin: auto;">Crear</button>
@@ -225,7 +225,7 @@
       <h3>{{mensajeModal[0].titulo2}}</h3>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary  btn-3" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir creando {{formularioCrearConferencia.get("tipo").value}}</button>
+      <button type="button" class="btn btn-primary  btn-3" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, seguir creando {{formularioCrearConferencia.get("tipo").value}}</button>
       <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onModalCancelar(modal)">Sí, cancelar</button>
   </div>
 </ng-template>
@@ -252,7 +252,7 @@
 
   <div class="modal-body modal-cuerpo">
       <h3>¡Excelente!</h3>
-      <h3>Su conferencia/taller se creó exitosamente</h3>
+      <h3>Se ha creado exitosamente</h3>
   </div>
   <div class="modal-footer">
       <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>

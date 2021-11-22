@@ -118,7 +118,7 @@ export class InicioSesionComponent implements OnInit {
     }
 
     if ( !this.recuperarContrasenia.usuarioEncontrado ) {
-      return 'No se encontro ninguna cuenta registrada con ese correo';
+      return 'No se encontró ninguna cuenta registrada con ese correo';
     }
 
     return "Error"
@@ -341,7 +341,7 @@ export class InicioSesionComponent implements OnInit {
         this.spinner.ocultarSpinner()
         this.estadoLogin.codigo = 400;
         this.estadoLogin.estado = "error";
-        this.estadoLogin.mensaje = "Error, No se pudo actualizar su contraseña";
+        this.estadoLogin.mensaje = "Error, no se pudo actualizar su contraseña";
 
         this.abrirModal(modalError);
         letModal.close('Close click');

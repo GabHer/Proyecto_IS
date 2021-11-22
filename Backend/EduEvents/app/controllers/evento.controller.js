@@ -72,7 +72,7 @@ exports.obtenerEventosUsuario = (req, res) => {
     });
     return;
   }
-  
+
   Evento.obtenerEventosUsuario (req.params.idUsuario, (err, data) => {
     console.log(req.body);
     if(err){
@@ -87,6 +87,7 @@ exports.obtenerEventosUsuario = (req, res) => {
 
   })
 }
+
 exports.obtenerEventos = (req, res) => {
   if( !req.params ) {
     res.status(400).send({
@@ -94,6 +95,7 @@ exports.obtenerEventos = (req, res) => {
     });
     return;
   } 
+
   Evento.obtenerEventos ((err, data) => {
 
     if(err){
@@ -109,21 +111,190 @@ exports.obtenerEventos = (req, res) => {
   })
 }
 
+
+
+
+exports.obtenerEventoId = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerEventoPorId(req.params.idEvento, (err, data) => {
+    console.log("Se busca el evento con el id: " + req.params.idEvento);
+    
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontraró un evento con el id ${req.params.idEvento}`, codigo:404, data:null
+        });
+      } else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al obtener el evento con el id: " + req.params.idEvento
+        });
+      };
+
+    } else {
+      res.send( {mensaje: `Se obtuvó el evento con el id ${req.params.idEvento}.`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+
+exports.obtenerEventosFecha = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerEventosPorFecha(req.params, (err, data) => {
+    console.log("Se buscan eventos cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal);
+    
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:404, data:null
+        });
+      } else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al intentar obtener eventos cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + "-" + req.params.fechaFinal
+        });
+      };
+
+    } else {
+      res.send( {mensaje: ` Se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+exports.obtenerEventosFechaOrganizador = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerEventosPorFechaYOrganizador(req.params, (err, data) => {
+    console.log("Se buscan eventos del usuario: " + req.params.idOrganizador + " cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal);
+    
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontraron eventos del usuario: ${req.params.idOrganizador} cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:404, data:null
+        });
+      } else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al intentar obtener eventos para el usuario: " + req.params.idOrganizador + " cuyas fechas de inicio y/o fechas de fin estan entre: " + req.params.fechaInicio + " - " + req.params.fechaFinal
+        });
+      };
+
+    } else {
+      res.send( {mensaje: ` Se encontraron eventos del usuario: ${req.params.idOrganizador} cuyas fechas de inicio y/o fechas de fin estan entre: ${req.params.fechaInicio}  -  ${req.params.fechaFinal}`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+
+exports.obtenerEvPorEstado = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerEventosEstado(req.params.estado, (err, data) => {
+    console.log("El estado que se busca: " , req.params.estado);
+    
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontraron eventos que esten en estado ${req.params.estado}.`, codigo:404, data:null
+        });
+      } else {
+        res.status(500).send({
+          mensaje: "Error al obtener eventos en el estado: " + req.params.estado
+        });
+      };
+
+    } else {
+      res.send( {mensaje: `Se obtuvieron los eventos que estan en el estado ${req.params.estado}.`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+
+
+exports.obtenerEvPorEstadoUsuario = (req, res) => {
+  if( !req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.obtenerEventosEstadoIdUsuario(req.params, (err, data) => {
+    console.log("El estado que se busca: " , req.params.estado) ," para el usuario: ", req.params.idUsuario;
+    
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontraron eventos que esten en estado ${req.params.estado} para el usuario con id: ${req.params.idUsuario}`, codigo:404, data:null
+        });
+      } else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al obtener eventos en el estado: " + req.params.estado + " para el usuario con id " + req.params.idUsuario
+        });
+      };
+
+    } else {
+      res.send( {mensaje: `Se obtuvieron los eventos que estan en el estado ${req.params.estado} para el usuario con id ${req.params.idUsuario}.`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+
+
+
 exports.eliminarEvento = (req, res) => {
   console.log("Desde el controlador")
   if( !req.params ) {
-    res.status(400).send({ mensaje: "No se pudo realizar la operación para eliminar evento, parametros no validos.", estado:"no_encontrado"});
+    res.status(400).send({ mensaje: "No se pudo realizar la operación para eliminar evento, parametros no válidos.", estado:"no_encontrado"});
     return;
   }
 
   Evento.eliminarEvento( req.params.idEvento, (err, data) => {
 
     if(err){
-      res.status(500).send( {mensaje: "Ocurrio un error al eliminar el evento, el evento no fue eliminado.", error:err});
+      res.status(500).send( {mensaje: "Ocurrió un error al eliminar el evento, el evento no fue eliminado.", error:err});
 
       return;
     }
-    res.send( {mensaje:"Se elimino el evento", codigo:200, estado:"ok", data:data} );
+    res.send( {mensaje:"Se eliminó el evento", codigo:200, estado:"ok", data:data} );
     return;
   } )
 

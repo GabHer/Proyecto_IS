@@ -238,7 +238,7 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
     }
 
 
-    return this.formularioRegistro.get('email').errors?.pattern ? 'Correo no valido' : '';
+    return this.formularioRegistro.get('email').errors?.pattern ? 'Correo no válido' : '';
   }
 
   /**

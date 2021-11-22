@@ -11,28 +11,28 @@
       <div class="row" style="padding: 0; margin: 0;">
 
         <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;"   appearance="fill">
+          <mat-form-field style="width: 100%;"   appearance="outline">
             <mat-label>Nombre</mat-label>
             <input placeholder="Escribe el nombre que mejor describa tu evento" name="nombre" formControlName="nombre" required matInput>
             <mat-error *ngIf="formularioCrearEvento.get('nombre').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('nombre').invalid" >Nombre del evento valido</mat-hint>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('nombre').invalid" >Nombre del evento válido</mat-hint>
           </mat-form-field>
         </div>
         <div class="col-12 mt-3">
-          <mat-form-field style="width: 100%;"  appearance="fill">
+          <mat-form-field style="width: 100%;"  appearance="outline">
             <mat-label>Descripción</mat-label>
 
             <textarea placeholder="Comparte una breve descripción del evento para que los demás sepan de que se trata" name="descripcion"  formControlName="descripcion" required matInput rows="8">
             </textarea>
             <mat-error *ngIf="formularioCrearEvento.get('descripcion').invalid">Este es un campo obligatorio</mat-error>
-            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Descripción valida</mat-hint>
+            <mat-hint class="campo-correcto"  *ngIf="!formularioCrearEvento.get('descripcion').invalid" >Descripción válida</mat-hint>
           </mat-form-field>
         </div>
 
       </div>
 
       <div class="col-12 mt-3">
-        <mat-form-field style="width: 100%;" appearance="fill">
+        <mat-form-field style="width: 100%;" appearance="outline">
           <mat-label>Establece una fecha de inicio y una fecha final para tu evento</mat-label>
           <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
             <input required matStartDate formControlName="start" placeholder="Fecha de inicio">
@@ -49,7 +49,7 @@
       </div>
 
       <div class="col-12 mt-3">
-        <mat-form-field style="width: 100%;"  appearance="fill">
+        <mat-form-field style="width: 100%;"  appearance="outline">
           <mat-label>Institución</mat-label>
           <input placeholder="Brinda el nombre de la institución que impartirá la conferencia" name="institucion" formControlName="institucion" required matInput>
           <mat-error *ngIf="formularioCrearEvento.get('institucion').invalid">Este es un campo obligatorio</mat-error>
@@ -324,7 +324,7 @@
       <h3>{{mensajeModal[0].titulo2}}</h3>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, segir creando el evento</button>
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, seguir creando el evento</button>
       <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onModalCancelar(modal)">Sí, cancelar</button>
   </div>
 </ng-template>

@@ -45,7 +45,7 @@ export class FormularioCrearEventoComponent implements OnInit {
 
 
   mensajeModal = [
-    {tipo:"confirmacion", titulo1:"¿Cancelar?", titulo2:"El evento no se creara", icono:"quiz"},
+    {tipo:"confirmacion", titulo1:"¿Cancelar?", titulo2:"El evento no se creará", icono:"quiz"},
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
   ]
 

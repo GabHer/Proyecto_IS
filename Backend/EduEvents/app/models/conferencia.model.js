@@ -60,7 +60,6 @@ Conferencia.crear = ( objConferencia, resultado ) => {
         });
 
         if (err) {
-            console.log("Error en conferencia.model: ", err);
             // Si no se encuentra una conferencia existente con ese nombre dentro del mismo evento.
             consulta = `INSERT INTO Conferencia (Id_Evento, Tipo, Nombre, Descripcion, Modalidad, Medio, Correo_Encargado, Fecha_Inicio, Hora_Inicio, Hora_Final, Imagen, Limite_Participantes) VALUES (${objConferencia.Id_Evento},'${objConferencia.Tipo}','${objConferencia.Nombre}','${objConferencia.Descripcion}','${objConferencia.Modalidad}','${objConferencia.Medio}','${objConferencia.Correo_Encargado}','${objConferencia.Fecha_Inicio}','${objConferencia.Hora_Inicio}','${objConferencia.Hora_Final}','${objConferencia.Imagen}','${objConferencia.Limite_Participantes}');`
             if (err.estado === "no_encontrado") {
@@ -101,7 +100,9 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                 cid: 'Banner' 
                             }
                         ],
-                            html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                            html: `
+
+                            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                             <html xmlns="http://www.w3.org/1999/xhtml">
                             <head>
                             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -123,33 +124,33 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             display: block !important;
                             outline: none !important;
                             }
-                            
+
                             p, h2{
                             margin:0;
                             }
-                            
+
                             div,p,ul,h2,h2{
                             margin:0;
                             }
-                            
+
                             h2.bigger,h2.bigger{
                             font-size: 32px;
                             font-weight: normal;
                             }
-                            
+
                             h2.big,h2.big{
                             font-size: 21px;
                             font-weight: normal;
                             }
-                            
+
                             a.link1{
                             color:#62A9D2;font-size:13px;font-weight:bold;text-decoration:none;
                             }
-                            
+
                             a.link2{
                             padding:8px;background:#62A9D2;font-size:13px;color:#ffffff;text-decoration:none;font-weight:bold;
                             }
-                            
+
                             a.link3{
                             background:#62A9D2; color:#ffffff; padding:8px 10px;text-decoration:none;font-size:13px;
                             }
@@ -159,7 +160,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             .bgItem{
                             background: #ffffff;
                             }
-                            
+
                             @media only screen and (max-width:480px)
                                     
                             {
@@ -240,7 +241,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             }
                                 
                             @media only screen and (max-width:540px) 
-                            
+
                             {
                                     
                             table[class="MainContainer"], td[class="cell"] 
@@ -322,8 +323,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                     
                                     }
                             }
-                            
-                            
+
+
                             </style>
                             <script type="colorScheme" class="swatch active">
                             {
@@ -335,9 +336,9 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                 "title":"555555"
                             }
                             </script>
-                            
+
                             </head>
-                            <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0" style="margin-left:0px; margin-right:0px;"; margin-top:0px; margin-bottom:0px;">
+                            <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0" style="margin-left:5px; margin-right:5px; margin-top:0px; margin-bottom:0px;">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableContent bgBody" align="center"  style='font-family:helvetica, sans-serif;'>
                             
                                 <!--  =========================== The header ===========================  -->   
@@ -361,7 +362,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             </tbody>
                             </table>
                             </td>
-                                <td valign="top"><table border="0" cellspacing="0" cellpadding="0" align="center" width="100%" margin-right="0px" style="margin:0px!important; border-collapse: collapse" class="MainContainer" bgcolor="#ffffff">
+                                <td valign="top" width="600"><table width="600" border="0" cellspacing="0" cellpadding="0" align="center" class="MainContainer" bgcolor="#ffffff">
                             <tbody>
                             <!--  =========================== The body ===========================  -->   
                                 <tr>
@@ -374,17 +375,19 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     <tr>
                                                     <td align='left' valign='middle' >
                                                         <div class="contentEditableContainer contentImageEditable">
-                                                        <div class="contentEditable" style="margin-left:40%">
-                                                        <img src="cid:logo">
+                                                        <div class="contentEditable" >
+                                                            <img src="cid:logo">
                                                         </div>
                                                         </div>
                                                     </td>
-                            
+
                                                     <td align='right' valign='top' >
-                                                        <div class="contentEditableContainer contentTextEditable" style='display:inline-block; margin-right:15%'>
+                                                        <div class="contentEditableContainer contentTextEditable" style='display:inline-block;'>
                                                         <div class="contentEditable" >
-                                                        <img src="cid:EduEvents">
-                                                            <p style='color:black ;font-size:13px;text-decoration:none; margin-top:10px'>La mejor plataforma para gestionar tus eventos.</p>
+                                                           
+                                                            <img src="cid:EduEvents">
+
+                                                            <p style='color:black;font-size:13px;text-decoration:none; margin-top:10px'>La mejor plataforma para gestionar tus eventos.</p>
                                                         </div>
                                                         </div>
                                                     </td>
@@ -397,17 +400,17 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                         <div class="movableContent" style="border: 0px; padding-top: 0px; position: relative;">
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                             <tr><td height='25' bgcolor='#D98F45'></td></tr>
-                            
+
                                             <tr><td height='5' style='background-color:rgb(68, 132, 206)'></td></tr>
-                            
+
                                             <tr><td height='40' class='bgItem'></td></tr>
-                            
+
                                             <tr>
                                             <td>
-                                                <table width="" border="0" cellspacing="0" cellpadding="0" align="center" valign='top' class='bgItem'>
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top' class='bgItem'>
                                                 <tr>
-                                                    <td  width=''></td>
-                                                    <td  align='center' width=''>
+                                                    <td  width='70'></td>
+                                                    <td  align='center' width='530'>
                                                     <div class='contentEditableContainer contentTextEditable'>
                                                         <div class="contentEditable" style='font-size:32px;color:#555555;font-weight:normal;'>
                                                         <h2 style='font-size:32px;'>${data.Nombre_Completo}</h2>
@@ -421,13 +424,13 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     <td  align='center' width='530'>
                                                     <div class='contentEditableContainer contentTextEditable'>
                                                         <div class="contentEditable" style='font-size:13px;color:black;line-height:19px;'>
-                                                        <p style = "margin-top:15px">Se te ha invitado a que seas encargado de <span>${Tipo}</span><span style="font-weight:bolder"> ''${objConferencia.Nombre}''</span></span></p>
+                                                        <p style = "margin-top:15px">Se te ha invitado a que seas encargado de <span> ${Tipo}</span><span style="font-weight:bolder"> "${objConferencia.Nombre}"</p>
                                                         </div>
                                                     </div>
                                                     </td>
                                                     <td  width='70'></td>
                                                 </tr>
-                            
+
                                                 </table>
                                             </td>
                                             </tr>
@@ -435,7 +438,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                         </div>
                                     
                                         <div class="movableContent" style="border: 0px; padding-top: 0px; position: relative;">
-                                            <table width="100%" border="0" style="margin-left:0; margin-right:0;"cellspacing="0" cellpadding="0" align="center" valign='top'>
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                     <tr><td height='20'></td></tr>
                                                 </table>
                                         </div>
@@ -443,35 +446,36 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                     <tr>
                                                     <td>
-                                                        <div class='contentEditableContainer contentImageEditable' margin-right:15%'  style="align:center" align="center">
-                                                        <div class="contentEditable"  style="align:center" align="center">
-                                                            <img class="banner" src="cid:Banner" alt='What we do' data-default="placeholder" height='180' >
+                                                        <div class='contentEditableContainer contentImageEditable'>
+                                                        <div class="contentEditable">
+                                                            <img class="banner" src="cid:Banner" alt='What we do' data-default="placeholder" data-max-width="600" width='600' height='180' >
                                                         </div>
                                                         </div>
                                                     </td>
                                                     </tr>
-                                                    <tr><td height='10' bgcolor='##4484CE'></td></tr>
+                                                    <tr><td height='10' bgcolor='#4484CE'></td></tr>
                                                     <tr>
-                                                    <td bgcolor='##4484CE' style='padding:8px 0;'>
+                                                    <td bgcolor='#4484CE' style='padding:8px 0;'>
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr>
+                                <td width="20" class="spechide">&nbsp;</td>
                                 <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr>
-                                <td align='left' valign='top' width='' class="specbundle3">
+                                <td align='left' valign='top' width='370' class="specbundle3">
                                                             <div class='contentEditableContainer contentTextEditable'>
                                                                 <div class="contentEditable" style='color:#ffffff;font-size:21px;line-height:19px;'>
                                                                 <p ><span class="font">${objConferencia.Nombre}</p>
                                                                 </div>
                                                             </div>
                                                             </td>
-
-                                                            <td class="specbundle2" align='center' valign='middle' width=''>
+                                                            <td width='20' class="specbundle2"></td>
+                                                            <td class="specbundle2" align='center' valign='middle' width='180'>
                                                             <div class='contentEditableContainer contentTextEditable'>
                                                                 
-                            
-                            
+
+
                                                             </div>
                                                             </td>
                                 </tr>
@@ -482,10 +486,10 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                 </tr>
                             </tbody>
                             </table>
-                            
+
                                                     </td>
                                                     </tr>
-                                                    <tr><td height='10' bgcolor='##4484CE'></td></tr>
+                                                    <tr><td height='10' bgcolor='#4484CE'></td></tr>
                                                 </table>
                                         </div>
                                         <div class="movableContent" style="border: 0px; padding-top: 0px; position: relative;">
@@ -499,7 +503,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     <td width='291' class="specbundle2" valign='top'>
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                         <tr><td height='15' colspan='3'></td></tr>
-                            
+
                                                         <tr>
                                                             <td width='20'></td>
                                                             <td width='251'>
@@ -536,17 +540,17 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                             </td>
                                                             <td width='20'></td>
                                                         </tr>
-                            
+
                                                         <tr><td height='15' colspan='3'></td></tr>
                                                         </table>
                                                     </td>
-                            
+
                                                     <td width='18' valign="top" class="specbundle2">&nbsp;</td>
                                                     
                                                     <td width='291' class="specbundle2" valign='top'>
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                         <tr><td height='15' colspan='3'></td></tr>
-                            
+
                                                         <tr>
                                                             <td width='20'></td>
                                                             <td width='251'>
@@ -555,10 +559,10 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                 <td>
                                                                     <div class="movableContent" style="border: 0px; padding-top: 0px; position: relative;">
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
-                                                                        <tr><td height='10' bgcolor='#F19F4D'></td></tr>
+                                                                        <tr><td height='10' bgcolor='#D98F45'></td></tr>
                                                                             <tr>
                                                                             <td>
-                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top' bgcolor='#F19F4D'>
+                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top' bgcolor='#D98F45'>
                                                                                 <tr>
                                                                                     <td width='25'></td>
                                                                                     <td width='475' valign='middle'>
@@ -572,7 +576,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                     <div class='contentEditableContainer contentFacebookEditable'>
                                                                                         <div class="contentEditable">
                                                                                         
-                            
+
                                                                                         </div>
                                                                                     </div>
                                                                                     </td>
@@ -581,8 +585,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                     <div class='contentEditableContainer contentTwitterEditable'>
                                                                                         <div class="contentEditable">
                                                                                         
-                            
-                            
+
+
                                                                                         </div>
                                                                                     </div>  
                                                                                     </td>
@@ -591,7 +595,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                 </table>
                                                                             </td>
                                                                             </tr>
-                                                                            <tr><td height='10' bgcolor='#F19F4D'></td></tr>
+                                                                            <tr><td height='10' bgcolor='#D98F45'></td></tr>
                                                                         </table>
                                                                     </div>
                                                                 </td>
@@ -647,7 +651,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             </tbody>
                             </table>
                             
-                        `
+                            `
                         };
                         
                         //send email

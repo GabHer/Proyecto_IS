@@ -16,14 +16,14 @@
 
     <div class="col-sm-12 col-md-6 col-xl-4 col-lg-5" >
 
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field class="control-formulario" appearance="outline">
         <mat-label class="">Nombre</mat-label>
         <input formControlName="nombre" required matInput>
         <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nombre').invalid" >El nombre ingresado es válido</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('nombre').invalid">{{getErrorMessage('nombre')}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field class="control-formulario" appearance="outline">
         <mat-label>Apellido</mat-label>
         <input formControlName="apellido" required matInput>
         <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('apellido').invalid" >El apellido ingresado es válido</mat-hint>
@@ -31,14 +31,14 @@
       </mat-form-field>
 
 
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field class="control-formulario" appearance="outline">
         <mat-label>Fecha Nacimiento</mat-label>
         <input matInput type="date" formControlName="nacimiento" min="1870-01-01" required>
         <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('nacimiento').invalid" >Fecha de nacimiento válida</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('nacimiento').invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field class="control-formulario" appearance="outline">
         <mat-label>Correo</mat-label>
         <input matInput placeholder="usuario@gmail.com" formControlName="email" required>
         <mat-hint class="campo-correcto" *ngIf="!(formularioRegistro.get('email').invalid) && (mensajeError == '')" >El correo ingresado es válido</mat-hint>
@@ -58,7 +58,7 @@
         <mat-error *ngIf="formularioRegistro.get('formacionAcademica').invalid">{{getErrorMessage('formacionAcademica')}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="control-formulario" appearance="fill">
+      <mat-form-field class="control-formulario" appearance="outline">
         <mat-label>Institución</mat-label>
         <input formControlName="institucion" required matInput>
         <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('institucion').invalid" >Nombre de institución válido</mat-hint>
@@ -68,7 +68,7 @@
     </div>
 
     <div class="col-sm-12 col-md-6 col-xl-4 col-lg-5">
-      <mat-form-field *ngIf="(!editarPerfil)" class="control-formulario" appearance="fill">
+      <mat-form-field *ngIf="(!editarPerfil)" class="control-formulario" appearance="outline">
         <mat-label>Contraseña</mat-label>
         <input matInput [type]="oculto ? 'password' : 'text'" formControlName="contrasenia" required >
         <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
@@ -78,7 +78,7 @@
         <mat-error *ngIf="formularioRegistro.get('contrasenia').invalid">{{getErrorMessageContrasenia()}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field *ngIf="(!editarPerfil)" class="control-formulario" appearance="fill">
+      <mat-form-field *ngIf="(!editarPerfil)" class="control-formulario" appearance="outline">
         <mat-label>Repetir contraseña</mat-label>
         <input matInput [type]="oculto ? 'password' : 'text'" formControlName="repetirContrasenia" required >
         <button class="stOjo" mat-icon-button matSuffix (click)="oculto = !oculto" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="oculto">
@@ -89,14 +89,14 @@
         <mat-error *ngIf="formularioRegistro.get('repetirContrasenia').invalid">{{getErrorMessageRepetirContrasenia()}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="control-formulario"  appearance="fill">
+      <mat-form-field class="control-formulario"  appearance="outline">
         <mat-label>Descripción</mat-label>
         <textarea matInput rows="5" formControlName="descripcion" required></textarea>
         <mat-hint class="campo-correcto" *ngIf="!formularioRegistro.get('descripcion').invalid" >La descripción es válida</mat-hint>
         <mat-error *ngIf="formularioRegistro.get('descripcion').invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="control-formulario"  appearance="fill">
+      <mat-form-field class="control-formulario"  appearance="outline">
         <mat-label>Intereses separados por coma</mat-label>
         <div class="row">
           <div class="col-12 mt-2">

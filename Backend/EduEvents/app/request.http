@@ -26,6 +26,10 @@ Content-Type: application/json
     "Token": "+UrzjQ5Zzj/GuY7K91Q=="
 }
 
+
+###
+GET http://localhost:8888/eventos/obtenerEventos/Inactivo HTTP/1.1
+
 ###
 DELETE http://localhost:8888/iniciarSesion/borrarTokens HTTP/1.1
 

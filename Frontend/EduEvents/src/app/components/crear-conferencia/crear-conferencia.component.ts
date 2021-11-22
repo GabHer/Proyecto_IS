@@ -71,8 +71,8 @@ export class CrearConferenciaComponent implements OnInit {
   ]
 
   mensajeModal = [
-    {tipo:"confirmacion", titulo1:"¿Cancelar?", titulo2:"La conferencia/taller no se creara", icono:"quiz"},
-    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"No se pudo guardar la conferencia", icono:"error"},
+    {tipo:"confirmacion", titulo1:"¿Cancelar?", titulo2:"¡No se guardarán los cambios!", icono:"quiz"},
+    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"No se pudo guardar.", icono:"error"},
   ]
 
   constructor(private sanitizer: DomSanitizer, private modalService:NgbModal, private eventoService:EventosService, private spinner:SpinnerService, private usuarioService:UsuariosService ) {

@@ -38,16 +38,16 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
       resultado(err, null);
       return;
     }
+
     for( let i = 0; i < res.length; i++){
       let buff = res[i].Caratula
       let srcImagen = buff.toString('ascii');
       res[i].Caratula = srcImagen;
     }  
     resultado( null, res);
+  });
+};
 
-
-  })
-}
 Evento.obtenerEventos = ( resultado ) => {
   let consulta = `SELECT * FROM Evento;`;
   sql.query( consulta, (err, res) => {
@@ -55,6 +55,7 @@ Evento.obtenerEventos = ( resultado ) => {
       resultado(err, null);
       return;
     }
+
     for( let i = 0; i < res.length; i++){
       let buff = res[i].Caratula
       let srcImagen = buff.toString('ascii');
@@ -63,8 +64,146 @@ Evento.obtenerEventos = ( resultado ) => {
     resultado( null, res);
 
 
-  })
-}
+  });
+};
+
+
+Evento.obtenerEventosEstado = ( estado, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Estado_Evento = "${estado}";`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    };
+
+      if(res.length){
+        // Significa que encontró eventos en este estado.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        }; 
+        resultado(null, res);
+
+        return;
+    };
+
+    // En ultima instancia, no se encontraron eventos en este estado
+    resultado({ estado: "no_encontrado"}, null)
+  });
+};
+
+
+//Obtener los evento por su estado para un usuario determinado.
+Evento.obtenerEventosEstadoIdUsuario = ( parametros, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Estado_Evento = "${parametros.estado}" AND Id_Organizador = ${parametros.idUsuario}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    };
+
+
+      if(res.length){
+        // Significa que encontró eventos en este estado para este usuario.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        }; 
+        resultado(null, res);
+
+        return;
+    };
+
+    // En ultima instancia, no se encontraron eventos en este estado para este usuario.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
+
+Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE Id = ${idEvento}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+      if(res.length){
+        // Significa que encontró el evento con ese id.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        } 
+        resultado(null, res);
+
+        return;
+    }
+
+    // En ultima instancia, no se encontraró un evento con ese id.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
+
+Evento.obtenerEventosPorFecha = ( fechas, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE (Fecha_Inicio BETWEEN '${fechas.fechaInicio}' AND '${fechas.fechaFinal}') OR (Fecha_Final BETWEEN '${fechas.fechaInicio}' AND '${fechas.fechaFinal}')`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+      if(res.length){
+        // Significa que se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        } 
+        resultado(null, res);
+
+        return;
+    } 
+
+    // En ultima instancia, no se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
+
+
+Evento.obtenerEventosPorFechaYOrganizador = ( parametros, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE ((Fecha_Inicio BETWEEN '${parametros.fechaInicio}' AND '${parametros.fechaFinal}') OR (Fecha_Final BETWEEN '${parametros.fechaInicio}' AND '${parametros.fechaFinal}')) AND Id_Organizador = ${parametros.idOrganizador}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+      if(res.length){
+        // Significa que se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado para este usuario.
+        for( let i = 0; i < res.length; i++){
+          let buff = res[i].Caratula
+          let srcImagen = buff.toString('ascii');
+          res[i].Caratula = srcImagen;
+        }; 
+        resultado(null, res);
+
+        return;
+    } 
+
+    // En ultima instancia, no se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado para este usuario.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
+
 
 Evento.eliminarEvento = ( idEvento, resultado ) => {
   let consulta = `DELETE FROM Evento WHERE Id = ${idEvento}`;
