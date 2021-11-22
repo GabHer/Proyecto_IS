@@ -112,18 +112,18 @@ exports.obtenerEventos = (req, res) => {
 exports.eliminarEvento = (req, res) => {
   console.log("Desde el controlador")
   if( !req.params ) {
-    res.status(400).send({ mensaje: "No se pudo realizar la operación para eliminar evento, parametros no validos.", estado:"no_encontrado"});
+    res.status(400).send({ mensaje: "No se pudo realizar la operación para eliminar evento, parametros no válidos.", estado:"no_encontrado"});
     return;
   }
 
   Evento.eliminarEvento( req.params.idEvento, (err, data) => {
 
     if(err){
-      res.status(500).send( {mensaje: "Ocurrio un error al eliminar el evento, el evento no fue eliminado.", error:err});
+      res.status(500).send( {mensaje: "Ocurrió un error al eliminar el evento, el evento no fue eliminado.", error:err});
 
       return;
     }
-    res.send( {mensaje:"Se elimino el evento", codigo:200, estado:"ok", data:data} );
+    res.send( {mensaje:"Se eliminó el evento", codigo:200, estado:"ok", data:data} );
     return;
   } )
 

@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="row">
-      <div class="input-group mb-3" >
+      <div class="input-group mb-1" >
 
-        <div style=" background-color: rgba(0, 0, 0, 0.04); height: 51px; margin-top: 0.6px;">
+        <div style=" background-color: #F19F4D; height: 51px; width: 140px; margin-left: auto;">
           <div ngbDropdown class="d-inline-block mt-1">
 
             <button class="btn" id="dropdownBasic1" ngbDropdownToggle>
@@ -42,7 +42,6 @@
           <input
                 (ngModelChange)="onChangeInput()"
                 matInput
-                required
                 aria-label="Evento"
                 [matAutocomplete]="auto"
                 [formControl]="nombre">
@@ -65,13 +64,12 @@
           <input [formControl]="nombre" *ngIf="(filtroActual == 'Nombre')" type="text" style="background-color:rgba(0, 0, 0, 0.04); height: 45px; margin-top: 1px; border-color: whitesmoke;" class="form-control" placeholder="Nombre del evento" aria-label="Text input with dropdown button">
         -->
 
-        <select [formControl]="estado" *ngIf="(filtroActual == 'Estado')"  style="background-color:rgba(0, 0, 0, 0.04); height: 51px; margin-top: 1px; border-color: whitesmoke;" class="form-control" aria-placeholder="Seleccione">
+        <select [formControl]="estado" *ngIf="(filtroActual == 'Estado')"  style="flex: 0 0 auto; background-color:rgba(0, 0, 0, 0.04);  height: 51px; width: 60%; margin-top: 1px; border: 0px solid #ced4da; color: black;"  class="form-control" >
           <option>Activo</option>
           <option>Inactivo</option>
           <option>Cerrado</option>
         </select>
 
-        <button class="btn btn-outline-secondary" (click)="onClickBuscar()" style="background-color:#F9CF00; height: 51px; padding-bottom: 0px;" type="button" id="button-addon2"><span class="material-icons">search</span></button>
       </div>
 
     </div>
