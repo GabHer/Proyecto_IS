@@ -108,6 +108,12 @@ export class MisEventosComponent implements OnInit, OnChanges {
      );
   }
 
+  onSussesCrearConferencia(){
+    this.obtenerMisEventos();
+    this.mostrarFormularioEvento = false;
+    this.mostrarFormularioConferencia = false;
+  }
+
   eliminarEvento(idEvento:any){
 
     this.spinner.mostrarSpinner();
@@ -163,6 +169,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
     this.idEvento = event;
     console.log(this.idEvento);
   }
+
 
 
 

@@ -219,6 +219,8 @@ export class CrearConferenciaComponent implements OnInit {
       (res:any) => {
           if(res.codigo == 200){
             this.abrirModal(modalExito);
+            this.onCrearConferencia.emit(null);
+
           }
 
           if( res.codigo == 406 ){

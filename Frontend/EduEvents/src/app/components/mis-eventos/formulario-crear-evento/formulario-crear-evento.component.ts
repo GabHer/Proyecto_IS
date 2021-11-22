@@ -306,6 +306,7 @@ export class FormularioCrearEventoComponent implements OnInit {
 
       },
       () => {
+
         this.spinner.ocultarSpinner();
       }
      );
