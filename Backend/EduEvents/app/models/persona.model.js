@@ -216,6 +216,7 @@ Persona.validar = (correoPersona, resultado) => {
                                     return;
                                 }
         
+        
                                 const message = {
                                     from: '"EduEvents" <edueventsmanagement@gmail.com>',
                                     to: correoPersona,
@@ -468,7 +469,7 @@ Persona.validar = (correoPersona, resultado) => {
                                     </script>
                                     
                                     </head>
-                                    <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0" style="margin-left:5px; margin-right:5px; margin-top:0px; margin-bottom:0px;">
+                                    <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0"; margin-top:0px; margin-bottom:0px;">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableContent bgBody" align="center"  style='font-family:helvetica, sans-serif;'>
                                     
                                         <!--  =========================== The header ===========================  -->   
@@ -492,7 +493,7 @@ Persona.validar = (correoPersona, resultado) => {
                                     </tbody>
                                     </table>
                                     </td>
-                                        <td valign="top"><table border="0" cellspacing="0" cellpadding="0" align="center" class="MainContainer" bgcolor="#ffffff">
+                                        <td valign="top"><table border="0" cellspacing="0" cellpadding="0" align="center" width="100%" margin-right="0px" style="margin:0px!important; border-collapse: collapse" class="MainContainer" bgcolor="#ffffff">
                                     <tbody>
                                     <!--  =========================== The body ===========================  -->   
                                         <tr>
@@ -551,7 +552,7 @@ Persona.validar = (correoPersona, resultado) => {
                                                             <td width='70'></td>
                                                             <td  align='center' width='530'>
                                                             <div class='contentEditableContainer contentTextEditable'>
-                                                                <div class="contentEditable" style='font-size:13px;color:#99A1A6;line-height:19px;'>
+                                                                <div class="contentEditable" style='font-size:13px;color: black;line-height:19px;'>
                                                                 <p style = "margin-top:15px">Hola ${data.Nombre_Completo}, has solicitado recuperar tu contraseña en nuestra plataforma. Copia el siguiente código y pegalo en el campo de "Ingrese su código": ${tok}</span></span></p>
                                                                 </div>
                                                             </div>
