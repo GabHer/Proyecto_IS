@@ -53,11 +53,10 @@ export class MisEventosComponent implements OnInit, OnChanges {
 
   mostrarFormularioEvento = false;
   mostrarFormularioConferencia = false;
-
-
+  mostrarDetallesEvento = false;
 
   mensajeModal = [
-    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"El evento se eliminara de tu lista", icono:"quiz"},
+    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"El evento se eliminará de tu lista", icono:"quiz"},
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
   ]
 
@@ -105,13 +104,14 @@ export class MisEventosComponent implements OnInit, OnChanges {
         this.spinner.ocultarSpinner();
       }
 
-     );
+    );
   }
 
   onSussesCrearConferencia(){
     this.obtenerMisEventos();
     this.mostrarFormularioEvento = false;
     this.mostrarFormularioConferencia = false;
+    this.mostrarDetallesEvento = false;
   }
 
   eliminarEvento(idEvento:any){
@@ -146,6 +146,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
       case "Mis eventos":
         this.mostrarFormularioEvento = false;
         this.mostrarFormularioConferencia = false;
+        this.mostrarDetallesEvento = false;
         break;
 
       default:
@@ -166,6 +167,12 @@ export class MisEventosComponent implements OnInit, OnChanges {
 
   mostrarFormularioCrearConferencia(event:any){
     this.mostrarFormularioConferencia = true;
+    this.idEvento = event;
+    console.log(this.idEvento);
+  }
+
+  mostrarFormularioDetallesEvento(event:any){
+    this.mostrarDetallesEvento = true;
     this.idEvento = event;
     console.log(this.idEvento);
   }

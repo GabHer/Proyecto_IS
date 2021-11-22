@@ -1,6 +1,6 @@
 
     <div class="card card-evento mb-3" >
-      <img matTooltip="Ver detalles"  style="cursor:pointer;" class="card-img-top" [src]="(evento.Caratula)" alt="Card image cap">
+      <img matTooltip="Ver detalles" (click)="mostrarDetallesEvento();" style="cursor:pointer;" class="card-img-top" [src]="(evento.Caratula)" alt="Card image cap">
       <div class="mt-1">
         <div class="container-fluid text-center">
           <span (click)="mostrarFormularioConferencia();" mat-raised-button matTooltip="Crear taller o conferencia" class="material-icons icono-footer ml-2">add_circle_outline</span>
