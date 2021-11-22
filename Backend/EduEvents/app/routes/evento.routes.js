@@ -7,16 +7,19 @@ module.exports = app => {
     app.get("/eventos/obtenerMisEventos/:idUsuario", eventos.obtenerEventosUsuario);
 
     // Obtener un evento por Id de Evento.
-    app.get("/eventos/obtenerEventos/:idEvento", eventos.obtenerEventoId);
+    app.get("/eventos/obtenerEventoPorId/:idEvento", eventos.obtenerEventoId);
 
     // Obtener todos los eventos en la plataforma
     app.get("/eventos/obtenerEventos", eventos.obtenerEventos);
 
      // Obtener todos los eventos que se encuentran en determinado estado.
-     app.get("/eventos/obtenerEventos/:estado", eventos.obtenerEvPorEstado);
+     app.get("/eventos/obtenerEventosPorEstado/:estado", eventos.obtenerEvPorEstado);
 
     // Obtener todos los eventos que se encuentran en determinado estado para un usuario específico.
-    app.get("/eventos/obtenerEventos/:estado/:idUsuario", eventos.obtenerEvPorEstadoUsuario);
+    app.get("/eventos/obtenerEventosPorEstadoYUsuario/:estado/:idUsuario", eventos.obtenerEvPorEstadoUsuario);
+
+    // Obtener todos los eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+    app.get("/eventos/obtenerEventosPorFecha/:fechaInicio/:fechaFinal", eventos.obtenerEventoFecha);
 
     // Eliminar un evento
     app.delete('/eventos/eliminarEvento/:idEvento', eventos.eliminarEvento);

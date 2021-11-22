@@ -137,6 +137,27 @@ Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
 };
 
 
+Evento.obtenerEventoPorFecha = ( fechas, resultado ) => {
+  let consulta = `SELECT * FROM Evento WHERE (Fecha_Inicio BETWEEN '${fechas.fechaInicio}' AND '${fechas.fechaFinal}') OR (Fecha_Final BETWEEN '${fechas.fechaInicio}' AND '${fechas.fechaFinal}')`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+
+      if(res.length){
+        // Significa que se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+        resultado(null, res);
+
+        return;
+    } 
+
+    // En ultima instancia, no se encontraron eventos cuyas fechas de inicio y/o fechas de fin estan entre el rango de fechas proporcionado.
+    resultado({ estado: "no_encontrado"}, null);
+  });
+};
+
 
 Evento.eliminarEvento = ( idEvento, resultado ) => {
   let consulta = `DELETE FROM Evento WHERE Id = ${idEvento}`;
