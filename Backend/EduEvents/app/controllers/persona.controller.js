@@ -66,6 +66,25 @@ exports.obtenerPersonas = (req, res) => {
       });
 };
 
+// Obtener el nombre de un usuario por correo
+exports.obtenerNombre = (req, res) => {
+  Persona.buscarNombreDeCorreo(req.params.correo, (err, data) => {
+
+    if (err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontró el usuario con correo ${req.params.correo}.`, codigo:404, data:null
+        });
+      } else {
+        res.status(500).send({
+          mensaje: "Error al obtener el nombre del usuario con el correo: " + req.params.correo
+        });
+      }
+    } else res.send({mensaje:"Usuario encontrado", codigo:200, data:data});
+
+    });
+};
+
 // Buscar un usuario por correo
 exports.obtenerPorCorreo = (req, res) => {
 

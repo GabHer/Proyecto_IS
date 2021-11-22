@@ -71,7 +71,8 @@ exports.obtenerEventosUsuario = (req, res) => {
       message: "El contenido no puede ser vacio"
     });
     return;
-  } 
+  }
+  
   Evento.obtenerEventosUsuario (req.params.idUsuario, (err, data) => {
     console.log(req.body);
     if(err){

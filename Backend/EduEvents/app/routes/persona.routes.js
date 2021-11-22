@@ -15,6 +15,9 @@ module.exports = app => {
     // actualizar un usuario por id
     app.put("/editar_perfil", personas.actualizarPersona);
 
+    //Obtener Nombre del correo de un usuario
+    app.get("/obtener_correo/:correo", personas.obtenerNombre);
+
     /*
     //obtener usuario por id
     app.get("/perfil/:id",function(req,res) {
@@ -35,8 +38,6 @@ module.exports = app => {
 
     //Método para actualizar la contraseña del usuario
     app.post("/inciarSesion/restablecer_contrasena/cambio_contrasena/:correo", personas.actualizarContra);
-    
-    
 
     
   };
