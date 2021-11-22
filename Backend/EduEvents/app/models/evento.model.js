@@ -177,12 +177,18 @@ Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
 
           else {
 
+            var ImagenesDatos = []
             imagenes = data;
+            for (var i=0; i<imagenes.length; i++ ){
+              ImagenesDatos.push(imagenes[i].Imagen);
+            };
+
+
             eventoEncontrado = {};
             eventoEncontrado = res;
             //console.log("imagenes del evento >>>>>>> ", data)
             //console.log("el evento encontrado es: >>>>>>>  ", eventoEncontrado);
-            eventoEncontrado[0]["imagenes"] = imagenes;
+            eventoEncontrado[0]["imagenes"] = ImagenesDatos;
             //console.log("evento encontrado con imágenes>>>>>>>>>", eventoEncontrado)
             //eventoEncontrado = JSON.stringify(eventoEncontrado);
             //console.log("ultima version" , eventoEncontrado)
