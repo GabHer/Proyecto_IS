@@ -86,13 +86,13 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                             subject: "Encargado De Conferencia",
                             attachments: [
                             {
-                                filename: 'logo.svg',
-                                path: '../EduEvents/app/assets/img/logo.svg',
+                                filename: 'logo.png',
+                                path: '../EduEvents/app/assets/img/logo.png',
                                 cid: 'logo' 
                             },
                             {
-                                filename: 'EduEvents.svg',
-                                path: '../EduEvents/app/assets/img/EduEvents.svg',
+                                filename: 'EduEvents.png',
+                                path: '../EduEvents/app/assets/img/EduEvents.png',
                                 cid: 'EduEvents' 
                             },
                             {
@@ -374,7 +374,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     <tr>
                                                     <td align='left' valign='middle' >
                                                         <div class="contentEditableContainer contentImageEditable">
-                                                        <div class="contentEditable" >
+                                                        <div class="contentEditable" style="margin-left:40%">
                                                         <img src="cid:logo">
                                                         </div>
                                                         </div>
@@ -456,7 +456,6 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr>
-                                <td width="20" class="spechide">&nbsp;</td>
                                 <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr>
@@ -468,7 +467,6 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                             </div>
                                                             </td>
 
-                                                            <td width='20' class="specbundle2"></td>
                                                             <td class="specbundle2" align='center' valign='middle' width=''>
                                                             <div class='contentEditableContainer contentTextEditable'>
                                                                 
