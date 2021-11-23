@@ -32,6 +32,7 @@ Evento.obtenerEventos = (resultado) => {
   });
 };
 
+
 Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
   let consulta = `SELECT * FROM Evento WHERE Id_Organizador = ${idUsuario};`;
   sql.query( consulta, (err, res) => {
@@ -53,6 +54,8 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
 
 Evento.obtenerImagenesEvento = ( idEvento, resultado ) => {
   let consulta = `SELECT Imagenes_Evento.Id, Imagenes_Evento.Imagen FROM Evento JOIN Imagenes_Evento ON Evento.Id = Imagenes_Evento.Id_Evento WHERE Evento.Id = ${idEvento}`;
+
+  var imagenes = {}
   sql.query( consulta, (err, res) => {
     if(err){
       resultado(err, null);
@@ -64,7 +67,14 @@ Evento.obtenerImagenesEvento = ( idEvento, resultado ) => {
         let srcImagen = buff.toString('ascii');
         res[i].Imagen = srcImagen;
       }  
-      resultado( null, res);
+
+      var ImagenesDatos = []
+      imagenes = res;
+      for (var i=0; i<imagenes.length; i++ ){
+        ImagenesDatos.push(imagenes[i].Imagen);
+      };
+
+      resultado( null, ImagenesDatos);
 
   });
 };
@@ -147,7 +157,6 @@ Evento.obtenerEventosEstadoIdUsuario = ( parametros, resultado ) => {
 
 Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
 
-  var imagenes = {};
   let consulta = `SELECT * FROM Evento WHERE Id = ${idEvento}`;
   sql.query( consulta, (err, res) => {
     if(err){
@@ -165,48 +174,25 @@ Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
         } 
 
 
-        var eventoEncontado = {};
-        eventoEncontado = res
-
-
+      
         Evento.obtenerImagenesEvento(idEvento, (err, data) => {    
           if (err) {
               resultado(err, null);
               return;
           }
-
-          else {
-
-            var ImagenesDatos = []
-            imagenes = data;
-            for (var i=0; i<imagenes.length; i++ ){
-              ImagenesDatos.push(imagenes[i].Imagen);
-            };
-
-
-            eventoEncontrado = {};
-            eventoEncontrado = res;
-            //console.log("imagenes del evento >>>>>>> ", data)
-            //console.log("el evento encontrado es: >>>>>>>  ", eventoEncontrado);
-            eventoEncontrado[0]["imagenes"] = ImagenesDatos;
-            //console.log("evento encontrado con imágenes>>>>>>>>>", eventoEncontrado)
-            //eventoEncontrado = JSON.stringify(eventoEncontrado);
-            //console.log("ultima version" , eventoEncontrado)
+           else {
+            var eventoEncontrado = res;
+            eventoEncontrado[0]["imagenes"] = data;
             resultado(null, eventoEncontrado);
             return;
 
-          }
+          };
     });
-
   }
-
     else {
-      console.log("holaaaaaaaaaa")
       // En ultima instancia, no se encontraró un evento con ese id.
       resultado({ estado: "no_encontrado"}, null);
-
-    }
-
+    };
   });
 };
 

@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit, OnChanges  {
     ["Cerrar sesión", "logout"],
   ]
 
-  indexItemActual = 0;
+  indexItemActual = 4;
 
   bandera = true;
 
