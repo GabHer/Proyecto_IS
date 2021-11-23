@@ -3,6 +3,7 @@
  la base de datos anterior para escribir funciones CRUD:
 */
 
+const e = require("express");
 const sql = require("./db");
 
 // Constructor del objeto Evento
@@ -47,6 +48,28 @@ Evento.obtenerEventosUsuario = ( idUsuario, resultado ) => {
     resultado( null, res);
   });
 };
+
+
+
+Evento.obtenerImagenesEvento = ( idEvento, resultado ) => {
+  let consulta = `SELECT Imagenes_Evento.Id, Imagenes_Evento.Imagen FROM Evento JOIN Imagenes_Evento ON Evento.Id = Imagenes_Evento.Id_Evento WHERE Evento.Id = ${idEvento}`;
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+      for( let i = 0; i < res.length; i++){
+        let buff = res[i].Imagen
+        let srcImagen = buff.toString('ascii');
+        res[i].Imagen = srcImagen;
+      }  
+      resultado( null, res);
+
+  });
+};
+
+
 
 Evento.obtenerEventos = ( resultado ) => {
   let consulta = `SELECT * FROM Evento;`;
@@ -123,6 +146,8 @@ Evento.obtenerEventosEstadoIdUsuario = ( parametros, resultado ) => {
 
 
 Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
+
+  var imagenes = {};
   let consulta = `SELECT * FROM Evento WHERE Id = ${idEvento}`;
   sql.query( consulta, (err, res) => {
     if(err){
@@ -138,13 +163,50 @@ Evento.obtenerEventoPorId = ( idEvento, resultado ) => {
           let srcImagen = buff.toString('ascii');
           res[i].Caratula = srcImagen;
         } 
-        resultado(null, res);
 
-        return;
+
+        var eventoEncontado = {};
+        eventoEncontado = res
+
+
+        Evento.obtenerImagenesEvento(idEvento, (err, data) => {    
+          if (err) {
+              resultado(err, null);
+              return;
+          }
+
+          else {
+
+            var ImagenesDatos = []
+            imagenes = data;
+            for (var i=0; i<imagenes.length; i++ ){
+              ImagenesDatos.push(imagenes[i].Imagen);
+            };
+
+
+            eventoEncontrado = {};
+            eventoEncontrado = res;
+            //console.log("imagenes del evento >>>>>>> ", data)
+            //console.log("el evento encontrado es: >>>>>>>  ", eventoEncontrado);
+            eventoEncontrado[0]["imagenes"] = ImagenesDatos;
+            //console.log("evento encontrado con imágenes>>>>>>>>>", eventoEncontrado)
+            //eventoEncontrado = JSON.stringify(eventoEncontrado);
+            //console.log("ultima version" , eventoEncontrado)
+            resultado(null, eventoEncontrado);
+            return;
+
+          }
+    });
+
+  }
+
+    else {
+      console.log("holaaaaaaaaaa")
+      // En ultima instancia, no se encontraró un evento con ese id.
+      resultado({ estado: "no_encontrado"}, null);
+
     }
 
-    // En ultima instancia, no se encontraró un evento con ese id.
-    resultado({ estado: "no_encontrado"}, null);
   });
 };
 

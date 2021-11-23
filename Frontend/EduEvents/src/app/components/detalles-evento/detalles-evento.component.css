@@ -1,0 +1,9 @@
+.btn-back
+{
+  cursor: pointer;
+}
+
+.btn-primary{
+  background-color: #4484CE;
+  border-radius: 30px;
+}
