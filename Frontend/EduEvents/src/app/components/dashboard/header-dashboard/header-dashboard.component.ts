@@ -13,6 +13,8 @@ export class HeaderDashboardComponent implements OnInit {
   @Input() nombreItemActual:string;
   @Output() onClickUsuario = new EventEmitter<string>();
   @Output() ctrlInput = new EventEmitter<any>();
+  @Output() ctrlInputFecha = new EventEmitter<any>();
+  @Output() ctrlInputEstado = new EventEmitter<any>();
 
 
 
@@ -41,6 +43,12 @@ export class HeaderDashboardComponent implements OnInit {
 
   filtrarBusqueda(event:any){
     this.ctrlInput.emit(event);
+  }
+  filtrarBusquedaFecha(event:any){
+    this.ctrlInputFecha.emit(event);
+  }
+  filtrarBusquedaEstado(event:any){
+    this.ctrlInputEstado.emit(event);
   }
 
 

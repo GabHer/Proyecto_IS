@@ -15,7 +15,6 @@ export class CardEventoOrganizadorComponent implements OnInit {
   }
 
   eliminarEvento(){
-    console.log(this.evento);
     this.onClickEliminarEvento.emit(this.evento.Id);
   }
 

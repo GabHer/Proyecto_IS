@@ -66,7 +66,6 @@ export class FormularioRegistroUsuarioComponent implements OnInit {
 
 
   onSubmitFormulario(){
-    console.log(this.formularioRegistro.invalid)
     if( this.formularioRegistro.invalid ) return;
     if( !this.previsualizacion ){
       this.errorImagen = true;

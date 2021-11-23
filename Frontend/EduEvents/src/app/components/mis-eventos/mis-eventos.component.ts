@@ -29,12 +29,18 @@ export class MisEventosComponent implements OnInit, OnChanges {
   @Input() isCollaps:boolean;
   @Input() usuarioActual:any;
   @Input() ctrlBuscar:string = '';
+  @Input() ctrlBuscarRangoFecha:any = '';
+  @Input() ctrlBuscarEstado:any = '';
 
   @Output() onCrearConferencia = new EventEmitter<any>();
   @Output() onCrearEvento = new EventEmitter<any>();
   @Output() onEliminarEvento = new EventEmitter<any>();
   nombre = new FormControl('');
-
+  filtroActual:any = {
+    nombre : true,
+    fecha: false,
+    tipo: false
+  }
   @Input() misEventos: Evento[] = [
     {
       Id:-1,
@@ -49,10 +55,12 @@ export class MisEventosComponent implements OnInit, OnChanges {
       Id_Organizador: -1
     }
     ];
+  eventosPorFecha: Evento[] = [];
+  eventosPorEstado: Evento[] = [];
+  filteredEvento:Observable<Evento[]>;
+  idEvento = -1;
 
-    filteredEvento:Observable<Evento[]>;
 
-    idEvento = -1;
 
   mostrarFormularioEvento = false;
   mostrarFormularioConferencia = false;
@@ -69,7 +77,27 @@ export class MisEventosComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.nombre.setValue(this.ctrlBuscar);
+
+    if( changes?.ctrlBuscar?.currentValue != '' ){
+      this.nombre.setValue(this.ctrlBuscar);
+      this.filtroActual.nombre = true;
+      this.filtroActual.fecha = false;
+      this.filtroActual.tipo = false;
+
+    }
+    if( changes?.ctrlBuscarRangoFecha?.currentValue ){
+      this.filtroActual.nombre = false;
+      this.filtroActual.fecha = true;
+      this.filtroActual.tipo = false;
+      this.obtenerMisEventosPorFecha()
+    }
+    if( changes?.ctrlBuscarEstado?.currentValue ){
+      this.filtroActual.nombre = false;
+      this.filtroActual.fecha = false;
+      this.filtroActual.tipo = true;
+      this.obtenerMisEventosPorEstado()
+    }
+
 
   }
 
@@ -109,6 +137,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
   onSussesEliminarEvento(){
     // Emitir event
     this.onEliminarEvento.emit(null);
+    this.obtenerMisEventosPorFecha()
   }
 
   eliminarEvento(idEvento:any){
@@ -165,7 +194,34 @@ export class MisEventosComponent implements OnInit, OnChanges {
     this.idEvento = event;
   }
 
-
+  obtenerMisEventosPorFecha(){
+    if(!this.ctrlBuscarRangoFecha) return;
+    this.eventosService.obtenerMisEventosPorFecha( this.ctrlBuscarRangoFecha.fechaInicio, this.ctrlBuscarRangoFecha.fechaFinal, this.usuarioActual.Id ).subscribe(
+      (res:any) => {
+        this.eventosPorFecha = res.data
+        this.ctrlBuscarRangoFecha = null;
+      },
+      (err) => {
+        this.eventosPorFecha = [];
+        this.ctrlBuscarRangoFecha = null;
+      }
+    );
+  }
+  obtenerMisEventosPorEstado(){
+    if(!this.ctrlBuscarEstado) return;
+    this.eventosService.obtenerMisEventosPorEstado( this.ctrlBuscarEstado, this.usuarioActual.Id ).subscribe(
+      (res:any) => {
+        if(res.codigo == 200 ){
+          this.eventosPorEstado = res.data
+          this.ctrlBuscarEstado = null;
+        }
+      },
+      (err) => {
+        this.eventosPorEstado = [];
+        this.ctrlBuscarEstado = null;
+      }
+    );
+  }
 
 
 }

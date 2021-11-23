@@ -224,7 +224,6 @@ export class CrearConferenciaComponent implements OnInit {
           }
 
           if( res.codigo == 406 ){
-            console.log(res);
             this.mensajeModal[1].titulo2 = res.mensaje
             this.abrirModal(modalError);
           }
@@ -266,7 +265,6 @@ export class CrearConferenciaComponent implements OnInit {
         this.encargados = encargados;
       },
       (err:any) => {
-        console.log(err)
       }
     );
   }

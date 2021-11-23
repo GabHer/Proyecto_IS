@@ -26,20 +26,49 @@ export interface Evento  {
 export class BuscarEventoComponent implements OnInit, OnChanges {
   @Input() collapsar:boolean;
   @Input() ctrlBuscar:string = '';
+  @Input() ctrlBuscarRangoFecha:any = '';
+  @Input() ctrlBuscarEstado:any = '';
   @Input() idUsuarioActual:number = -1;
 
   nombre = new FormControl('');
-
+  filtroActual:any = {
+    nombre : true,
+    fecha: false,
+    tipo: false
+  }
   @Input() eventos: Evento[] = [];
-
-    filteredEvento:Observable<Evento[]>;
+  eventosPorFecha: Evento[] = [];
+  eventosPorEstado: Evento[] = [];
+  filteredEvento:Observable<Evento[]>;
   constructor( private eventosService:EventosService ) {
 
 
    }
   ngOnChanges(changes: SimpleChanges): void {
-    this.nombre.setValue(this.ctrlBuscar);
+    if( changes?.ctrlBuscar?.currentValue != '' ){
+      this.nombre.setValue(this.ctrlBuscar);
+      this.filtroActual.nombre = true;
+      this.filtroActual.fecha = false;
+      this.filtroActual.tipo = false;
+
+    }
+    if( changes?.ctrlBuscarRangoFecha?.currentValue ){
+      this.filtroActual.nombre = false;
+      this.filtroActual.fecha = true;
+      this.filtroActual.tipo = false;
+      this.obtenerEventosPorFecha()
+    }
+    if( changes?.ctrlBuscarEstado?.currentValue ){
+      this.filtroActual.nombre = false;
+      this.filtroActual.fecha = false;
+      this.filtroActual.tipo = true;
+      this.obtenerEventosPorEstado()
+    }
+
+
   }
+
+
 
 
   actualizarInput(value:string){
@@ -59,6 +88,36 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
       map(evento => (evento ? this._filterNombreEvento(evento) : this.eventos.slice())),
     );
 
+  }
+
+  obtenerEventosPorFecha(){
+    if(!this.ctrlBuscarRangoFecha) return;
+    this.eventosService.obtenerEventosPorFecha( this.ctrlBuscarRangoFecha.fechaInicio, this.ctrlBuscarRangoFecha.fechaFinal ).subscribe(
+      (res:any) => {
+        this.eventosPorFecha = res.data
+        this.ctrlBuscarRangoFecha = {};
+      },
+      (err) => {
+        this.eventosPorFecha = [];
+        this.ctrlBuscarRangoFecha = {};
+      }
+    );
+  }
+
+  obtenerEventosPorEstado(){
+    if(!this.ctrlBuscarEstado) return;
+    this.eventosService.obtenerEventosPorEstado( this.ctrlBuscarEstado ).subscribe(
+      (res:any) => {
+        if(res.codigo == 200 ){
+          this.eventosPorEstado = res.data
+          this.ctrlBuscarEstado = null;
+        }
+      },
+      (err) => {
+        this.eventosPorEstado = [];
+        this.ctrlBuscarEstado = null;
+      }
+    );
   }
 
 

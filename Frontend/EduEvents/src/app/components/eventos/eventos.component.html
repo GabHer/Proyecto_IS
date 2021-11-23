@@ -6,7 +6,7 @@
 
     <div class="col-12 mt-5">
       <div class="contenedor-buscar mr-5 mb-5">
-        <app-buscador [eventos]="eventos"  (filtrarBusqueda)="setCtrlBuscar($event)" ></app-buscador>
+        <app-buscador [eventos]="eventos" (filtrarPorEstado)="setCtrlBuscarPorEstado($event)" (filtrarBusquedaFecha)="setCtrlBuscarPorFecha($event)"  (filtrarBusqueda)="setCtrlBuscar($event)" ></app-buscador>
       </div>
     </div>
 
@@ -14,8 +14,22 @@
   </div>
 </div>
 
-<div class="row container" style="margin-left:auto; margin-right:auto;" >
+<div *ngIf="(filtroActual.nombre)" class="row container" style="margin-left:auto; margin-right:auto;" >
   <div *ngFor="let evento of (filteredEvento) | async" class="col-4 wow animate_animated animate__backInLeft mt-4">
+    <div mat-raised-button [matTooltip]="evento.Nombre" class="card">
+      <img [src]="evento.Caratula" class="card-img-top" alt="...">
+    </div>
+  </div>
+</div>
+<div *ngIf="(filtroActual.tipo)" class="row container" style="margin-left:auto; margin-right:auto;" >
+  <div *ngFor="let evento of (eventosPorEstado)" class="col-4 wow animate_animated animate__backInLeft mt-4">
+    <div mat-raised-button [matTooltip]="evento.Nombre" class="card">
+      <img [src]="evento.Caratula" class="card-img-top" alt="...">
+    </div>
+  </div>
+</div>
+<div *ngIf="(filtroActual.fecha)" class="row container" style="margin-left:auto; margin-right:auto;" >
+  <div *ngFor="let evento of (eventosPorFecha)" class="col-4 wow animate_animated animate__backInLeft mt-4">
     <div mat-raised-button [matTooltip]="evento.Nombre" class="card">
       <img [src]="evento.Caratula" class="card-img-top" alt="...">
     </div>

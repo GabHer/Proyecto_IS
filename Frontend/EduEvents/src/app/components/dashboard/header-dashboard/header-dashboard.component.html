@@ -16,6 +16,8 @@
         <div class="contenedor-buscar mr-5 mb-5">
           <app-buscador
             (filtrarBusqueda)="filtrarBusqueda($event)"
+            (filtrarBusquedaFecha)="filtrarBusquedaFecha($event)"
+            (filtrarPorEstado)="filtrarBusquedaEstado($event)"
             [idUsuarioActual]="usuarioHeader.Id"
             [eventos]="eventos"
             ></app-buscador>

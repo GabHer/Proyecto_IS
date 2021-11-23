@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit, OnChanges  {
     mostrarFormularioEditarUsuario : false
   }
   ctrlInput:string;
+  ctrlInputRangoFecha:any;
+  ctrlInputEstado:any;
   @Input() usuario:any ={
     Id: -1,
     Nombre: "",
@@ -74,7 +76,6 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("Nuevos cambios")
   }
 
   ngOnInit(): void {
@@ -86,7 +87,6 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   actualizarItemActual(e:any){
     this.spinner.mostrarSpinner()
-    console.log(this.eventos);
     setTimeout(() => {
       this.indexItemActual = e;
       this.spinner.ocultarSpinner()
@@ -177,6 +177,14 @@ export class DashboardComponent implements OnInit, OnChanges  {
   setCtrlBusqueda(event:any){
 
     this.ctrlInput = event;
+  }
+  setCtrlBusquedaFecha(event:any){
+
+    this.ctrlInputRangoFecha = event;
+  }
+  setCtrlBusquedaEstado(event:any){
+
+    this.ctrlInputEstado = event;
   }
 
 

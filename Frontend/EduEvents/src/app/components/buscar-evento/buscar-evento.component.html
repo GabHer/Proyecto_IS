@@ -1,12 +1,22 @@
 
-<div  class="row" style="width: 95%; margin-left: auto; margin-right: auto;">
-
+<!-- Filtrar por nombre -->
+<div *ngIf="(filtroActual.nombre)"  class="row" style="width: 95%; margin-left: auto; margin-right: auto;">
   <div *ngFor="let evento of filteredEvento | async" [class]="(!collapsar ? 'col-4 mt-5' : 'col-3 mt-5')">
     <app-card-evento *ngIf="(evento.Id != -1)" [evento]="evento"  ></app-card-evento>
   </div>
+</div>
 
-
-
+<!-- Filtrar por estado -->
+<div *ngIf="(filtroActual.tipo)" class="row" style="width: 95%; margin-left: auto; margin-right: auto;">
+  <div *ngFor="let evento of eventosPorEstado" [class]="(!collapsar ? 'col-4 mt-5' : 'col-3 mt-5')">
+    <app-card-evento *ngIf="(evento.Id != -1)" [evento]="evento"  ></app-card-evento>
+  </div>
+</div>
+<!-- Filtrar por fecha -->
+<div *ngIf="(filtroActual.fecha)" class="row" style="width: 95%; margin-left: auto; margin-right: auto;">
+  <div *ngFor="let evento of eventosPorFecha" [class]="(!collapsar ? 'col-4 mt-5' : 'col-3 mt-5')">
+    <app-card-evento *ngIf="(evento.Id != -1)" [evento]="evento"  ></app-card-evento>
+  </div>
 </div>
 
 

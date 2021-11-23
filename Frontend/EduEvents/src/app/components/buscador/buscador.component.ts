@@ -24,6 +24,9 @@ export interface Evento  {
 })
 export class BuscadorComponent implements OnInit {
   @Output() filtrarBusqueda = new EventEmitter<any>();
+  @Output() filtrarBusquedaFecha = new EventEmitter<any>();
+  @Output() filtrarPorEstado = new EventEmitter<any>();
+
   @Input() idUsuarioActual:number = -1;
   @Input() eventos: Evento[] = [
     {
@@ -47,8 +50,8 @@ export class BuscadorComponent implements OnInit {
     end: new FormControl(),
   });
 
-  nombre = new FormControl('');
   estado = new FormControl('');
+  nombre = new FormControl('');
   constructor( private eventosService:EventosService ) {
 
   }
@@ -70,15 +73,28 @@ export class BuscadorComponent implements OnInit {
 
   }
 
-  onClickBuscar(){
+  obtenerFormatoFecha( date:Date){
+
+    return date.toISOString().split('T')[0]
+  }
+
+  onChangeInputNombre(){
     this.filtrarBusqueda.emit(this.nombre.value);
   }
 
-  onChangeInput(){
-    this.filtrarBusqueda.emit(this.nombre.value);
+  onChangeInputFecha(){
 
+    if (this.range.controls.start.hasError('matStartDateInvalid')) return;
+    if (this.range.controls.end.hasError('matEndDateInvalid')) return;
+    if ( !this.range.controls.start.value || ! this.range.controls.end.value ) return;
 
+    let fechaInicio = this.obtenerFormatoFecha(this.range.controls.start.value);
+    let fechaFinal = this.obtenerFormatoFecha(this.range.controls.end.value);
+
+    this.filtrarBusquedaFecha.emit({fechaInicio: fechaInicio, fechaFinal: fechaFinal});
   }
 
-
+  onChangeSelectEstado(){
+    this.filtrarPorEstado.emit(this.estado.value);
+  }
 }

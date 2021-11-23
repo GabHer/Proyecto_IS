@@ -27,8 +27,8 @@
         <mat-form-field style="width: 60%; " *ngIf="(filtroActual == 'Fecha')"  appearance="fill">
           <mat-label >Ingrese un rango de fecha</mat-label>
           <mat-date-range-input  [formGroup]="range" [rangePicker]="picker">
-            <input matStartDate formControlName="start" placeholder="Fecha Inicio">
-            <input matEndDate formControlName="end" placeholder="Fecha Final">
+            <input matStartDate formControlName="start" (ngModelChange)="onChangeInputFecha()" placeholder="Fecha Inicio">
+            <input matEndDate formControlName="end" (ngModelChange)="onChangeInputFecha()" placeholder="Fecha Final">
           </mat-date-range-input>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
@@ -40,7 +40,7 @@
         <mat-form-field style="width: 60%;" *ngIf="(filtroActual == 'Nombre')" appearance="fill">
           <mat-label>Nombre del evento</mat-label>
           <input
-                (ngModelChange)="onChangeInput()"
+                (ngModelChange)="onChangeInputNombre()"
                 matInput
                 aria-label="Evento"
                 [matAutocomplete]="auto"
@@ -64,7 +64,7 @@
           <input [formControl]="nombre" *ngIf="(filtroActual == 'Nombre')" type="text" style="background-color:rgba(0, 0, 0, 0.04); height: 45px; margin-top: 1px; border-color: whitesmoke;" class="form-control" placeholder="Nombre del evento" aria-label="Text input with dropdown button">
         -->
 
-        <select [formControl]="estado" *ngIf="(filtroActual == 'Estado')"  style="flex: 0 0 auto; background-color:rgba(0, 0, 0, 0.04);  height: 51px; width: 60%; margin-top: 1px; border: 0px solid #ced4da; color: black;"  class="form-control" >
+        <select (ngModelChange)="onChangeSelectEstado()" [formControl]="estado" *ngIf="(filtroActual == 'Estado')"  style="flex: 0 0 auto; background-color:rgba(0, 0, 0, 0.04);  height: 51px; width: 60%; margin-top: 1px; border: 0px solid #ced4da; color: black;"  class="form-control" >
           <option>Activo</option>
           <option>Inactivo</option>
           <option>Cerrado</option>
