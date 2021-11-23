@@ -1,8 +1,11 @@
 
     <div class="card card-evento" >
-      <img class="card-img-top" [src]="(evento.Caratula)" alt="Card image cap">
+      <img class="card-img-top" style="cursor: pointer;" [src]="(evento.Caratula)" alt="Card image cap">
       <div class="mt-1">
         <div class="container-fluid text-center">
+          <div>
+            <p style="font-family: Verdana; color: #4484CE;"><strong>{{evento.Nombre}}</strong></p>
+          </div>
           <span mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer">how_to_reg</span>
           <span mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
         </div>

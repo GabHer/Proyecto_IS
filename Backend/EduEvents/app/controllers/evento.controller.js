@@ -123,7 +123,6 @@ exports.obtenerEventoId = (req, res) => {
   }
 
   Evento.obtenerEventoPorId(req.params.idEvento, (err, data) => {
-    console.log("Se busca el evento con el id: " + req.params.idEvento);
     
     if (err) {
       if (err.estado === "no_encontrado") {

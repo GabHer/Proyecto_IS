@@ -23,9 +23,10 @@ export class DetallesEventoComponent implements OnInit {
   }
 
   obtenerEvento(idEvento:any){
-
+    this.spinner.mostrarSpinner();
     this.eventosService.obtenerEventoPorId( idEvento ).subscribe(
       (res:any) => {
+
         console.log(res.data);
         this.eventoSeleccionado = {
           id: res.data.Id,
@@ -36,7 +37,9 @@ export class DetallesEventoComponent implements OnInit {
           institucion: res.data.Institucion,
           imagenes: res.data.imagenes
         };
-        console.log(this.eventoSeleccionado.imagenes);
+        setTimeout(() => {
+          this.spinner.ocultarSpinner()
+        }, 200);
       },
       (err:any) => {
         console.log(err);
