@@ -21,10 +21,9 @@ const Conferencia = function(objConferencia) {
     this.Limite_Participantes = objConferencia.Limite_Participantes;
 };
 
-
 Conferencia.buscarPorNombre = ( datosConferencia , resultado ) => {
     sql.query(`SELECT * FROM Conferencia WHERE Id_Evento = ${datosConferencia.Id_Evento} AND Nombre = '${datosConferencia.Nombre}'`, (err, res) => {
-        if (err){
+        if(err) {
             resultado(err, null);
             return;
         }
@@ -32,14 +31,13 @@ Conferencia.buscarPorNombre = ( datosConferencia , resultado ) => {
         if(res.length){
             // Significa que se encontró otra conferencia creada con el mismo nombre dentro del mismo evento.
             resultado(null, res[0])
-
             return;
         }
 
-        // En ultima instancia, no se encontró otra conferencia con ese nombre dentro del mismo evento.
-
-        resultado({ estado: "no_encontrado"}, null)
-
+        else {
+            // En ultima instancia, no se encontró otra conferencia con ese nombre dentro del mismo evento.
+            resultado({ estado: "no_encontrado"}, null)
+        };
     });
 };
 
@@ -71,7 +69,6 @@ Conferencia.crear = ( objConferencia, resultado ) => {
 
                     Personas.buscarNombreDeCorreo(objConferencia.Correo_Encargado, (err,data) => {
 
-                        console.log("hola")
                         if (err) {
                             resultado(err, null);
                             return;
@@ -674,11 +671,86 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                 });
         } 
         
-    } else{
+    }else{
         // Si el usuario si fue encontrado
         resultado(null, {estado:"no_permitido"});
-        return
+        return;
     }
+    });
+};
+
+// Obtener Conferencias de manera general
+Conferencia.obtenerConferencias = (resultado) => {
+    let consulta = `SELECT * FROM Conferencia;`;
+    sql.query(consulta, (err, res) => {
+        if(err) {
+            resultado(err, null);
+            return;
+        };
+        
+        for(let i = 0; i < res.length; i++) {
+            let buff = res[i].Imagen;
+            let srcImagen = buff.toString('ascii');
+            res[i].Imagen = srcImagen;
+        };  
+        resultado(null, res);
+    });
+};
+
+// Obtener las conferencias por Id de Evento
+Conferencia.obtenerConferenciasPorIdEvento = (idEvento, resultado) => {
+    let consulta = `SELECT * FROM Conferencia WHERE Id_Evento = ${idEvento};`;
+    sql.query(consulta, (err, res) => {
+        if(err) {
+            resultado(err, null);
+            return;
+        };
+
+        //Si existen conferencias creadas para ese evento
+        if(res.length) {
+            for(let i = 0; i < res.length; i++) {
+                let buff = res[i].Imagen
+                let srcImagen = buff.toString('ascii');
+                res[i].Imagen = srcImagen;
+            };
+            resultado(null, res);
+        }
+
+        else {
+        // En ultima instancia, no se encontraron conferencias para ese evento
+        resultado({estado: "no_encontrado"}, null);
+        };
+    });
+};
+
+// Obtener las conferencias por Id de Usuario
+Conferencia.obtenerConferenciasPorIdUsuario = (idUsuario, resultado) => {
+    let consulta = `SELECT * FROM Conferencia JOIN Persona_Conferencia
+        ON Conferencia.Id = Persona_Conferencia.Id_Conferencia
+        WHERE Persona_Conferencia.Id_Persona = "${idUsuario}";`;
+
+    sql.query(consulta, (err, res) => {
+        if(err) {
+            resultado(err, null);
+            return;
+        };
+    
+        // Si el usuario se ha inscrito a conferencias 
+        if(res.length) {
+            for(let i = 0; i < res.length; i++){
+                let buff = res[i].Imagen
+                let srcImagen = buff.toString('ascii');
+                res[i].Imagen = srcImagen;
+            }; 
+            resultado(null, res);
+            return;
+        }
+
+        else {
+            // En ultima instancia, no se encontraron conferencias para ese usuario
+            resultado({estado: "no_encontrado"}, null);
+        };
+    
     });
 };
 
