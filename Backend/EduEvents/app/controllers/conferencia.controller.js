@@ -40,6 +40,10 @@ exports.crear = (req, res) => {
         res.send({mensaje:'Ya existe una conferencia con ese nombre dentro del evento.', codigo:406, estado: data.estado, data:null});
         return;
       } 
+      if(data.estado == 'fecha_no_válida'){
+        res.send({mensaje:'La fecha ingresada para la conferencia no está dentro del rango de fechas del evento.', codigo:406, estado: data.estado, data:null});
+        return;
+      } 
       else {
         res.send({mensaje:'La conferencia fue registrada en la base de datos.', codigo:200, estado: data.estado, data:null})
       };

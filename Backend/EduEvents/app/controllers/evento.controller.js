@@ -316,4 +316,32 @@ exports.eliminarEvento = (req, res) => {
 };
 
 
+exports.confirmarFechaEvento = (req, res) => {
+  if( !req.body ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.confirmarFecha(req.body, (err, data) => {
+    console.log("Se busca que la fecha " + req.body.fecha, "Este dentro del rango de fechas del Evento");
+    
+    if (err) {  
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al consultar si la fecha: " + req.body.fecha + "esta dentro del rango de las fechas del evento"
+        });
+      }
+
+      else {
+      res.send( {mensaje: `Se logró consultar si la fecha: ${req.body.fecha} esta dentro del rango de fechas del evento`, codigo:200, estado:'ok', data: data} );
+
+    };
+
+  });
+};
+
+
+
 

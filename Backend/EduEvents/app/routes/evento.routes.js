@@ -27,6 +27,9 @@ module.exports = app => {
     // Obtener las imágenes del evento con id
     app.get("/eventos/obtenerImagenesEvento/:idEvento", eventos.obtenerImagenes);
 
+    //Confirmar rango de fechas del evento
+    app.post("/eventos/obtenerFecha", eventos.confirmarFechaEvento);
+
     // Eliminar un evento
     app.delete('/eventos/eliminarEvento/:idEvento', eventos.eliminarEvento);
     
