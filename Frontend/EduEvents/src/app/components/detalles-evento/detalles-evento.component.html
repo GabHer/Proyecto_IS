@@ -1,34 +1,44 @@
+<div *ngIf="(confEvento.mostrarDetalleEvento)" class="row">
+  <div class="col-12">
+    <ngb-carousel  *ngIf="images" style="background-color: #D9D9D9;">
+      <ng-template ngbSlide *ngFor="let img of eventoSeleccionado.imagenes">
+        <div class="picsum-img-wrapper" >
+          <img  height="260" [src]="img" alt="Random first slide">
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+  <div class="col-12 mt-3" style="text-align: center;">
+    <h1>{{eventoSeleccionado.nombre}}</h1>
+  </div>
 
-<ngb-carousel class="row" *ngIf="images" style="background-color: #D9D9D9;">
-  <ng-template ngbSlide *ngFor="let img of eventoSeleccionado.imagenes">
-    <div class="picsum-img-wrapper" >
-      <img  height="260" [src]="img" alt="Random first slide">
+  <div class="col-12">
+
+    <div class="row mt-3" style="align-items: center; height: 100px;">
+      <mat-tab-group class="col-12">
+        <mat-tab label="Fecha">
+          Fecha Inicio: <b>{{eventoSeleccionado.fechaInicio}}</b> <br>Fecha Final: <b>{{eventoSeleccionado.fechaFinal}}</b>
+        </mat-tab>
+        <mat-tab label="Institución"> {{eventoSeleccionado.institucion}} </mat-tab>
+        <mat-tab label="Descripción"> {{eventoSeleccionado.descripcion}} </mat-tab>
+      </mat-tab-group>
     </div>
-  </ng-template>
-</ngb-carousel>
+
+    <div class="mt-3">
+      <button (click)="mostrarConferencias()" class="btn-primary">Ver Conferencias / Talleres</button>
+    </div>
+
+    <div class="mt-2 btn-back">
+      <span (click)="regresar()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE;">
+        arrow_back
+        </span>
+    </div>
+  </div>
 
 
-<div class="col-12 mt-3" style="text-align: center;">
-  <h1>{{eventoSeleccionado.nombre}}</h1>
 </div>
 
-<div class="row mt-3" style="align-items: center; height: 100px;">
-  <mat-tab-group class="col-12">
-    <mat-tab label="Fecha">
-      Fecha Inicio: <b>{{eventoSeleccionado.fechaInicio}}</b> <br>Fecha Final: <b>{{eventoSeleccionado.fechaFinal}}</b>
-    </mat-tab>
-    <mat-tab label="Institución"> {{eventoSeleccionado.institucion}} </mat-tab>
-    <mat-tab label="Descripción"> {{eventoSeleccionado.descripcion}} </mat-tab>
-  </mat-tab-group>
-</div>
-
-<div class="mt-3">
-  <button class="btn-primary">Ver Conferencias / Talleres</button>
-</div>
-
-<div class="mt-2 btn-back">
-  <span (click)="regresar()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE;">
-    arrow_back
-    </span>
+<div *ngIf="(confEvento.mostrarVistaConferencias)" class="row">
+  <app-vista-conferencia-talleres [isCollaps]="isCollaps" style="width: 100%;"></app-vista-conferencia-talleres>
 </div>
 

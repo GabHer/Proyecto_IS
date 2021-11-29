@@ -60,6 +60,8 @@ import { CrearConferenciaComponent } from './components/crear-conferencia/crear-
 import { FormularioRegistroUsuarioComponent } from './components/formulario-registro-usuario/formulario-registro-usuario.component';
 import { DetallesEventoComponent } from './components/detalles-evento/detalles-evento.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { VistaConferenciaTalleresComponent } from './components/vista-conferencia-talleres/vista-conferencia-talleres.component';
+import { CardConferenciaComponent } from './components/card-conferencia/card-conferencia.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     CrearConferenciaComponent,
     FormularioRegistroUsuarioComponent,
     DetallesEventoComponent,
+    VistaConferenciaTalleresComponent,
+    CardConferenciaComponent,
 
 
   ],

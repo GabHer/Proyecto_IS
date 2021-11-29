@@ -23,6 +23,11 @@ export class DetallesEventoComponent implements OnInit {
     imagenes: ""
   }
 
+  confEvento = {
+    mostrarDetalleEvento : false,
+    mostrarVistaConferencias : true,
+  }
+
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   constructor(private eventosService:EventosService,private spinner:SpinnerService) { }
 
@@ -56,6 +61,11 @@ export class DetallesEventoComponent implements OnInit {
   }
   regresar(){
     this.onChangePath.emit('Mis eventos');
+  }
+
+  mostrarConferencias(){
+    this.confEvento.mostrarVistaConferencias = true;
+    this.confEvento.mostrarDetalleEvento = false;
   }
 
 }

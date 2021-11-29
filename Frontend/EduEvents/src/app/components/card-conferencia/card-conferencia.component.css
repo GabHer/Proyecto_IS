@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@100;300&display=swap');
+
+.card-conferencia {
+  border-radius: 25px;
+}
+
+.txt-conferencia {
+  color:#6E798C;
+  font-weight: bold;
+}
+
+
+.estado-inactivo {
+  color:#F9CF00;
+  font-weight: bold;
+}
+.estado-activo {
+  color:#24FE00;
+  font-weight: bold;
+}
+.estado-cerrado {
+  color:#FE0000;
+  font-weight: bold;
+}
+
+.titulo-conferencia {
+  color:#081F32;
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.descripcion {
+  font-family: 'Montserrat', sans-serif;
+  text-align: justify;
+  color:#374A59;
+  font-size: 13px;
+}
+
+.card-radius {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.detalle {
+  border-radius: 25px;
+  width: 10rem;
+  height: 5rem;
+  background-color: white;
+  padding-top: 5px;
+  margin-left: 5px;
+
+}
+
+.lbl-1 {
+  font-size: 10px;
+  font-weight: 700;
+  color: black;
+
+  font-weight: bold;
+}
+
+.lbl-2 {
+  font-size: 10px;
+  font-weight: 700;
+  color:#4484CE;
+
+  font-weight: bold;
+}
+
+.no-padding {
+  padding:0;
+  text-align: justify;
+
+}
+.no-margin{
+  margin: 0;
+  text-align: justify;
+}
+
+.txt-footer {
+  font-size: 10px;
+}

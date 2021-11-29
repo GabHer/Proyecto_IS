@@ -61,15 +61,16 @@
         [idEvento]="idEvento"
         (onChangePath)="actualizarPath($event)"
         (onCrearConferencia)="onSussesCrearConferencia()"
+
       >
       </app-crear-conferencia>
       </div>
     </div>
 
-    <div *ngIf="(mostrarDetallesEvento)" class="row">
-      <div class="col-12">
-        <app-detalles-evento  [idEvento]="idEvento" (onChangePath)="actualizarPath($event)" ></app-detalles-evento>
-      </div>
+    <div *ngIf="(mostrarDetallesEvento)" class="row container" style="margin-left: auto; margin-right: auto;">
+
+        <app-detalles-evento  [isCollaps]="isCollaps" [idEvento]="idEvento" (onChangePath)="actualizarPath($event)" ></app-detalles-evento>
+
     </div>
 
 

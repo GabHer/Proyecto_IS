@@ -1,0 +1,50 @@
+<!--
+
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Conferencias">
+      <div class="row">
+        <div class="col-3">
+          <app-card-conferencia></app-card-conferencia>
+        </div>
+        <div class="col-3">
+          <app-card-conferencia></app-card-conferencia>
+        </div>
+        <div class="col-3">
+          <app-card-conferencia></app-card-conferencia>
+        </div>
+        <div class="col-3">
+          <app-card-conferencia></app-card-conferencia>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Talleres">Content 2</mat-tab>
+    <mat-tab label="Vista general">Content 3</mat-tab>
+  </mat-tab-group>
+-->
+
+
+
+  <div class="row">
+    <div class="col-12 mt-4">
+      <h1 style="color:#4484CE;">Talleres y conferencias</h1>
+    </div>
+    <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
+      <app-card-conferencia></app-card-conferencia>
+    </div>
+    <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
+      <app-card-conferencia></app-card-conferencia>
+    </div>
+    <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
+      <app-card-conferencia></app-card-conferencia>
+    </div>
+    <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
+      <app-card-conferencia></app-card-conferencia>
+    </div>
+    <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
+      <app-card-conferencia></app-card-conferencia>
+    </div>
+
+  </div>
+
+
+
