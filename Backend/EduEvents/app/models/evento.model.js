@@ -315,11 +315,25 @@ Evento.crear = (nuevoObjetoEvento, resultado) => {
         }
       }
     })
+};
 
 
-    
-  
-}
+//Método para saber si la fecha que se recibe esta dentro de las fechas del evento.
+Evento.confirmarFecha = ( parametros, resultado ) => {
+  let consulta = `SELECT IF('${parametros.fecha}' BETWEEN Fecha_Inicio AND Fecha_Final, 'Si', 'No') AS Fecha_Valida FROM Evento WHERE Id = ${parametros.idEvento}`;
+  console.log(consulta);
+  sql.query( consulta, (err, res) => {
+    if(err){
+      resultado(err, null);
+      return;
+    }
+
+    else {
+      resultado( null, res);
+    };
+  });
+};
+
 
 Evento.actualizar = (parametros, resultado) => {
 

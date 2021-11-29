@@ -51,20 +51,6 @@ exports.crear = (req, res) => {
     });
 };
 
-// Obtener todos los eventos de la base de datos
-exports.obtenerEventos = (req, res) => {
-  evento.obtenerEventos((err, data) => {
-    if(err){
-      res.status(500).send({
-        mensaje: "Se produjo un error al obtener los eventos de la base de datos"
-      });
-    }
-    else{
-      res.send(data);
-    }
-  });
-};
-
 exports.obtenerEventosUsuario = (req, res) => {
   if( !req.params ) {
     res.status(400).send({
@@ -83,8 +69,9 @@ exports.obtenerEventosUsuario = (req, res) => {
       return;
     }
 
-    res.send( {mensaje: 'Se obtuvieron los eventos de este usuario', codigo:200, estado:'ok', data: data} )
-
+    else {
+      res.send( {mensaje: 'Se obtuvieron los eventos de este usuario', codigo:200, estado:'ok', data: data});
+    };
   })
 }
 
@@ -106,8 +93,9 @@ exports.obtenerEventos = (req, res) => {
       return;
     }
 
-    res.send( {mensaje: 'Se obtuvieron los eventos de todos los usuarios', codigo:200, estado:'ok', data: data} )
-
+    else {
+      res.send( {mensaje: 'Se obtuvieron los eventos de todos los usuarios', codigo:200, estado:'ok', data: data});
+    };
   })
 }
 
@@ -319,56 +307,41 @@ exports.eliminarEvento = (req, res) => {
 
     if(err){
       res.status(500).send( {mensaje: "Ocurrió un error al eliminar el evento, el evento no fue eliminado.", error:err});
-
       return;
     }
-    res.send( {mensaje:"Se eliminó el evento", codigo:200, estado:"ok", data:data} );
+    res.send({mensaje:"Se eliminó el evento", codigo:200, estado:"ok", data:data} );
     return;
-  } )
-
+  });
   return;
+};
 
-}
 
-/*
-// Obtener todos los eventos de la base de datos
-exports.obtenerEventos = (req, res) => {
-  evento.obtenerEventos((err, data) => {
-    if(err){
-      res.status(500).send({
-        mensaje: "Se produjo un error al obtener los eventos de la base de datos"
-      });
-    }
-    else{
-      res.send(data);
-    }
+exports.confirmarFechaEvento = (req, res) => {
+  if( !req.body ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  }
+
+  Evento.confirmarFecha(req.body, (err, data) => {
+    console.log("Se busca que la fecha " + req.body.fecha, "Este dentro del rango de fechas del Evento");
+    
+    if (err) {  
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al consultar si la fecha: " + req.body.fecha + "esta dentro del rango de las fechas del evento"
+        });
+      }
+
+      else {
+      res.send( {mensaje: `Se logró consultar si la fecha: ${req.body.fecha} esta dentro del rango de fechas del evento`, codigo:200, estado:'ok', data: data} );
+
+    };
+
   });
 };
 
-// Buscar un evento por Nombre
-exports.obtenerPorNombre = (req, res) => {
-  evento.buscarPorNombreEvento(req.params.nombre, (err, data) => {
-    if(err) {
-      if(err.estado === "no_encontrado"){
-        res.status(404).send({
-          mensaje: `No se encontró el evento con nombre ${req.params.nombre}.`, codigo:404, data:null
-        });
-      } 
-      else{
-        res.status(500).send({
-          mensaje: "Error al obtener el evento con nombre: " + req.params.nombre
-        });
-      }
-    } 
-    else{
-      res.send({
-        mensaje:"evento encontrado", codigo:200, data:data
-      });
-    }   
-  }); 
-};
 
-
-*/
 
 
