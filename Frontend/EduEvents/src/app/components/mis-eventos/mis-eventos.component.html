@@ -67,9 +67,9 @@
       </div>
     </div>
 
-    <div *ngIf="(mostrarDetallesEvento)" class="row container" style="margin-left: auto; margin-right: auto;">
+    <div *ngIf="(mostrarDetallesEvento)" class="row contenedor" style="margin-left: auto; margin-right: auto;">
 
-        <app-detalles-evento  [isCollaps]="isCollaps" [idEvento]="idEvento" (onChangePath)="actualizarPath($event)" ></app-detalles-evento>
+        <app-detalles-evento style="margin-left: auto; margin-right: auto;" [isCollaps]="isCollaps" [idEvento]="idEvento" (onChangePath)="actualizarPath($event)" ></app-detalles-evento>
 
     </div>
 

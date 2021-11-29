@@ -47,7 +47,7 @@
   border-radius: 25px;
   width: 10rem;
   height: 5rem;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.85);
   padding-top: 5px;
   margin-left: 5px;
 
@@ -81,4 +81,19 @@
 
 .txt-footer {
   font-size: 10px;
+}
+
+.txt-participantes{
+  text-decoration: underline;
+  color: #4484CE;
+  cursor: pointer;
+}
+
+.circulo-cerrar {
+  border-radius: 100%;
+  background-color: white;
+  width: 22px;
+  margin-left: auto;
+  height: 22px;
+  cursor:pointer;
 }

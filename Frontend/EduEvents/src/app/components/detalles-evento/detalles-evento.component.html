@@ -25,7 +25,7 @@
     </div>
 
     <div class="mt-3">
-      <button (click)="mostrarConferencias()" class="btn-primary">Ver Conferencias / Talleres</button>
+      <button (click)="mostrarConferencias(true)" class="btn-primary">Ver Conferencias / Talleres</button>
     </div>
 
     <div class="mt-2 btn-back">
@@ -39,6 +39,11 @@
 </div>
 
 <div *ngIf="(confEvento.mostrarVistaConferencias)" class="row">
-  <app-vista-conferencia-talleres [isCollaps]="isCollaps" style="width: 100%;"></app-vista-conferencia-talleres>
+  <app-vista-conferencia-talleres
+    [isCollaps]="isCollaps "
+    [idEvento]="idEvento"
+    (verDetallesEvento)="mostrarConferencias(false)"
+    class="container"
+    ></app-vista-conferencia-talleres>
 </div>
 

@@ -24,8 +24,8 @@ export class DetallesEventoComponent implements OnInit {
   }
 
   confEvento = {
-    mostrarDetalleEvento : false,
-    mostrarVistaConferencias : true,
+    mostrarDetalleEvento : true,
+    mostrarVistaConferencias : false,
   }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
@@ -63,9 +63,9 @@ export class DetallesEventoComponent implements OnInit {
     this.onChangePath.emit('Mis eventos');
   }
 
-  mostrarConferencias(){
-    this.confEvento.mostrarVistaConferencias = true;
-    this.confEvento.mostrarDetalleEvento = false;
+  mostrarConferencias(b:boolean){
+    this.confEvento.mostrarVistaConferencias = b;
+    this.confEvento.mostrarDetalleEvento = !b;
   }
 
 }

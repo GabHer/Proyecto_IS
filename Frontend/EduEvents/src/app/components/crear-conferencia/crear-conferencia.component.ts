@@ -39,6 +39,8 @@ export class CrearConferenciaComponent implements OnInit {
   @Input() organizador: any;
   @Input() idEvento: any;
 
+  evento:any = {}
+
   labelPositionTipo: 'Taller' | 'Conferencia' = 'Conferencia';
   labelPositionCanal: 'Presencial' | 'Virtual' = 'Virtual';
   disabled = false;
@@ -86,7 +88,7 @@ export class CrearConferenciaComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerUsuarios();
-
+    this.obtenerEvento();
 
   }
 
@@ -189,7 +191,7 @@ export class CrearConferenciaComponent implements OnInit {
     this.onChangePath.emit('Mis eventos');
   };
 
-  obtenerFormatoFecha( date:Date){
+  obtenerFormatoFecha( date:any){
 
     return date.toISOString().split('T')[0]
   }
@@ -231,15 +233,31 @@ export class CrearConferenciaComponent implements OnInit {
 
       },
       (err:any) => {
-        this.mensajeModal[1].titulo2 = "Ocurrio un error, intentalo de nuevo";
+
+        if(err.error.error.estado == 'fecha_no_válida'){
+          console.log("fecha_no_válida")
+          this.mensajeModal[1].titulo2 = "Fecha no válida, la fecha de la conferencia o taller debe de estar dentro del rango del evento";
+          this.abrirModal(modalError);
+        }else{
+          this.mensajeModal[1].titulo2 = "Ocurrio un error, intentalo de nuevo";
+          this.abrirModal(modalError);
+        }
         this.spinner.ocultarSpinner();
-        this.abrirModal(modalError);
 
       }
     );
 
   };
 
+
+  obtenerEvento(){
+    this.eventoService.obtenerEventoPorId(this.idEvento).subscribe(
+      (res:any) => {
+        this.evento = res.data;
+      },
+      err => console.log(err)
+    );
+  }
 
 
   obtenerUsuarios(){

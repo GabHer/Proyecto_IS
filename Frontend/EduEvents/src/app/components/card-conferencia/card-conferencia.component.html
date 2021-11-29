@@ -1,43 +1,62 @@
-<div class="card card-radius mt-4" style="width: 18rem;">
+<div class="card card-radius mt-4" style="width: 100%;">
   <div class="row">
     <div class="col-12">
-      <img class="card-img-top card-radius" src="../../../assets/img/conf_1.png" alt="Card image cap">
-    </div>
-    <div style="position: absolute; margin-top: 50%;" class="col-12">
-      <div class="detalle container-fluid">
-        <div class="row no-padding no-margin">
-          <div class="col no-padding no-margin">
-            <span class="lbl-1">Fecha:</span>
-          </div>
-          <div class="col no-padding no-margin">
-            <span class="lbl-2">20/04/2022</span>
-          </div>
+      <div class="row">
+
+        <div class="col-12">
+          <img class="card-img-top card-radius" [src]="conferencia.Imagen" alt="Card image cap">
         </div>
 
-        <div class="row no-padding no-margin">
-          <div class="col no-padding no-margin">
-            <span class="lbl-1">Inicio:</span>
+        <div style="position: absolute; margin-top: 5px;" class="col-12">
+          <div class="detalle container-fluid">
+            <div class="row no-padding no-margin">
+              <div class="col no-padding no-margin">
+                <span class="lbl-1">Fecha:</span>
+              </div>
+              <div class="col no-padding no-margin">
+                <span class="lbl-2">{{obtenerFormatoFecha(conferencia.Fecha_Inicio)}}</span>
+              </div>
+            </div>
+
+            <div class="row no-padding no-margin">
+              <div class="col no-padding no-margin">
+                <span class="lbl-1">Inicio:</span>
+              </div>
+              <div class="col no-padding no-margin">
+                <span class="lbl-2">{{conferencia.Hora_Inicio}}</span>
+              </div>
+            </div>
+
+            <div class="row no-padding no-margin">
+              <div class="col no-padding no-margin">
+                <span class="lbl-1">Fin:</span>
+              </div>
+              <div class="col no-padding no-margin">
+                <span class="lbl-2">{{conferencia.Hora_Final}}</span>
+              </div>
+            </div>
           </div>
-          <div class="col no-padding no-margin">
-            <span class="lbl-2">20:00</span>
+        </div>
+        <div style="position: absolute; margin-top: 5px;" class="col-12">
+          <div class="container text-right">
+            <div (click)="eliminarConferencia()" class="circulo-cerrar">
+              <span style="color:red;" class="material-icons">
+                close
+              </span>
+            </div>
           </div>
+
         </div>
 
-        <div class="row no-padding no-margin">
-          <div class="col no-padding no-margin">
-            <span class="lbl-1">Fin:</span>
-          </div>
-          <div class="col no-padding no-margin">
-            <span class="lbl-2">22:00</span>
-          </div>
-        </div>
+
       </div>
     </div>
+
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-6">
-        <h5 class="card-title txt-conferencia text-left">Conferencia</h5>
+        <h5 class="card-title txt-conferencia text-left">{{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}</h5>
       </div>
       <div class="col-6">
         <h5 class="card-title text-right estado-activo">Activo</h5>
@@ -45,10 +64,10 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <h1 class="titulo-conferencia">Titulo de la conferencia</h1>
+        <h1 class="titulo-conferencia">{{conferencia.Nombre}}</h1>
       </div>
     </div>
-    <p class="card-text descripcion">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <p class="card-text descripcion">{{conferencia.Descripcion}}</p>
 
   </div>
   <div class="card-footer">
@@ -59,13 +78,18 @@
           </span>
       </div>
       <div class="col-5 no-padding no-margin">
-        <a href="#" class="txt-footer">Gestionar participantes</a>
+        <span class="txt-footer txt-participantes"> Gestionar participantes </span>
+
       </div>
 
       <div class="col-5 no-padding no-margin">
-        <a class="txt-footer" href="#">Ir a conferencia
+        <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
           <span class="material-icons txt-footer">arrow_right_alt</span>
         </a>
+        <p *ngIf="conferencia.Modalidad == 0" class="txt-footer">
+          {{conferencia.Medio}}
+        </p>
+
       </div>
     </div>
   </div>

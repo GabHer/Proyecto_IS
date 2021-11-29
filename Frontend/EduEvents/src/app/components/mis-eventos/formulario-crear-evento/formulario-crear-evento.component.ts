@@ -299,7 +299,7 @@ export class FormularioCrearEventoComponent implements OnInit {
         }
       },
       (err:any) => {
-
+        console.log(err)
         this.mensajeModal[1].titulo2 = 'No se pudo crear el evento, intentalo de nuevo';
         this.abrirModal(modalError)
         this.spinner.ocultarSpinner();
