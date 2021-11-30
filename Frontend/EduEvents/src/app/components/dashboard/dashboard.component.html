@@ -26,7 +26,7 @@
 
     <div class="row" style="margin-left: auto;">
 
-      <div [ngClass]="bandera? 'col-12' : 'col-12'">
+      <div [ngClass]="bandera? 'col-12' : 'col-12'" style="margin: 0; padding:0;">
         <div class="row" [ngClass]="!bandera ? 'contenedor-dashboard': null">
 
           <!-- Aquí reenderizamos los componentes del dashboard-->
@@ -70,6 +70,7 @@
 
           <!-- Buscar evento -->
           <app-buscar-evento
+            class="row text-center"
             [idUsuarioActual]="usuario.id"
             [ctrlBuscar]="(ctrlInput)"
             [ctrlBuscarRangoFecha]="(ctrlInputRangoFecha)"

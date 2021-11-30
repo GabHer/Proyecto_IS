@@ -97,3 +97,10 @@
   height: 22px;
   cursor:pointer;
 }
+
+
+.imagen {
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+}

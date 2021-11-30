@@ -40,6 +40,11 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   eventosPorFecha: Evento[] = [];
   eventosPorEstado: Evento[] = [];
   filteredEvento:Observable<Evento[]>;
+
+  idEventoSeleccionado = -1;
+
+  mostrarDetallesEvento = false;
+
   constructor( private eventosService:EventosService ) {
 
 
@@ -90,6 +95,11 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
 
   }
 
+  actualizarEventoSeleccionado(id:number){
+    this.idEventoSeleccionado = id;
+    this.actualizarVistaDetallesEvento(true);
+  }
+
   obtenerEventosPorFecha(){
     if(!this.ctrlBuscarRangoFecha) return;
     this.eventosService.obtenerEventosPorFecha( this.ctrlBuscarRangoFecha.fechaInicio, this.ctrlBuscarRangoFecha.fechaFinal ).subscribe(
@@ -120,6 +130,9 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
     );
   }
 
+  actualizarVistaDetallesEvento(b:boolean){
+    this.mostrarDetallesEvento = b;
+  }
 
 
 }

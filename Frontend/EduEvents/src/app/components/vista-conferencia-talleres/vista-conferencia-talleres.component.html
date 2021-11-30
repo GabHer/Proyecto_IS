@@ -21,7 +21,7 @@
           <h1 style="color:#4484CE;">Talleres y conferencias</h1>
         </div>
         <div *ngFor="let conferenia of conferencias" [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
-          <app-card-conferencia (onListaAsistencia)="verListaAsistencia(true)" [conferencia]="conferenia"  ></app-card-conferencia>
+          <app-card-conferencia (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador" [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)" [conferencia]="conferenia"  ></app-card-conferencia>
         </div>
       </div>
     </div>
@@ -29,6 +29,15 @@
     <div *ngIf="(vistaActual.listaAsistencia)" class="col-12">
       <app-lista-asistencia style="width:100%" class="row"></app-lista-asistencia>
     </div>
+    <div *ngIf="(vistaActual.vistaEncargado)" class="col-12">
+
+      <app-perfil-usuario [perfil]="usuarioEncargadoConferencia"  style="width:100%" class="row"></app-perfil-usuario >
+        <div class="mt-2 btn-back">
+          <span (click)="verDetalleConferencia()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE;">
+            arrow_back
+            </span>
+        </div>
+      </div>
 
   </div>
 

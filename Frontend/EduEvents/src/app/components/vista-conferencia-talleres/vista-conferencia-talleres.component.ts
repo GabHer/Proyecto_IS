@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConferenciasService } from 'src/app/services/conferencias.service'
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 
 export interface Conferencia {
@@ -24,7 +25,7 @@ export interface Conferencia {
 })
 export class VistaConferenciaTalleresComponent implements OnInit {
 
-  constructor( private serviceConferencia:ConferenciasService ) { }
+  constructor( private serviceConferencia:ConferenciasService, private usuarioService:UsuariosService ) { }
 
   ngOnInit(): void {
     this.obtenerConferencias()
@@ -36,12 +37,25 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   ]
 
   @Input() isCollaps = false;
+  @Input() isOrganizador = false;
   @Input() idEvento = -1;
-  @Output() verDetallesEvento = new EventEmitter<any>();
+  @Input() eventoSeleccionado:any = {
+    id: "",
+    descripcion: "",
+    nombre: "",
+    fechaInicio: "",
+    fechaFinal: "",
+    institucion: "",
+    imagenes: "",
+    idOrganizador:-1
 
+  }
+  @Output() verDetallesEvento = new EventEmitter<any>();
+  usuarioEncargadoConferencia:any;
   vistaActual = {
     listaAsistencia: false,
-    detalleConferencia: true
+    detalleConferencia: true,
+    vistaEncargado:false
   }
 
   conferencias:Conferencia[] = []
@@ -63,12 +77,27 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   verListaAsistencia(b:boolean){
     this.vistaActual.listaAsistencia = b,
     this.vistaActual.detalleConferencia = !b
+  }
+  verEncargado(evento:any){
+    this.vistaActual.vistaEncargado = true
+    this.vistaActual.listaAsistencia = false,
+    this.vistaActual.detalleConferencia =false
+    this.usuarioEncargadoConferencia = evento;
+
+
+  }
+  verDetalleConferencia(){
+    this.vistaActual.listaAsistencia = false,
+    this.vistaActual.detalleConferencia =true
+    this.vistaActual.vistaEncargado = false
 
   }
 
   regresar(){
     this.verDetallesEvento.emit(null);
   }
+
+
 
 
 
