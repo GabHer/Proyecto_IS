@@ -141,3 +141,22 @@ exports.obtenerConferenciasIdEvento = (req, res) => {
   });
 };
 
+
+exports.eliminarConferencia = (req, res) => {
+  console.log("Desde el controlador")
+  if( !req.params ) {
+    res.status(400).send({ mensaje: "No se pudo realizar la operación para eliminar la conferencia, parametros no válidos.", estado:"no_encontrado"});
+    return;
+  }
+
+  Conferencia.eliminarConferencias( req.params.idConferencia, (err, data) => {
+
+    if(err){
+      res.status(500).send( {mensaje: "Ocurrió un error al eliminar la conferencia, la conferencia no fué eliminada.", error:err});
+      return;
+    }
+    res.send({mensaje:"Se eliminó la conferencia.", codigo:200, estado:"ok"});
+    return;
+  });
+  return;
+};

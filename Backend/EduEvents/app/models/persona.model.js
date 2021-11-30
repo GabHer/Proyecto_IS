@@ -118,10 +118,11 @@ Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
     });
 };
 
-Persona.buscarNombreDeCorreo = ( correoPersona, resultado ) => {
-    sql.query(`SELECT CONCAT(Nombre, ' ', Apellido) AS Nombre_Completo FROM Persona WHERE Correo = '${correoPersona}'`, (err, res) => {
+Persona.buscarDatosDeCorreo = ( correoPersona, resultado ) => {
+    sql.query(`SELECT CONCAT(Nombre, ' ', Apellido) AS Nombre_Completo, Id FROM Persona WHERE Correo = '${correoPersona}'`, (err, res) => {
 
         if (err){
+            console.log("el error", err)
             return;
         }
 

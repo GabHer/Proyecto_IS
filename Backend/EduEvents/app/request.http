@@ -150,6 +150,8 @@ Content-Type: application/json
     "fecha": "2021-11-30"
 } 
 
+###
+DELETE http://localhost:8888/conferencia/eliminarConferencia/15
 
 
 

@@ -14,4 +14,7 @@ module.exports = app => {
   // Obtener todas las conferencias en las que está inscrito un usuario
   app.get("/conferencia/obtenerConferenciasPorIdUsuario/:idUsuario", conferencia.obtenerConferenciasIdUsuario);
 
+  // Eliminar una Conferencia
+  app.delete("/conferencia/eliminarConferencia/:idConferencia", conferencia.eliminarConferencia);
+
 };
