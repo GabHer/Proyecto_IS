@@ -31,6 +31,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatListModule } from '@angular/material/list';
+
 
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -62,6 +64,7 @@ import { DetallesEventoComponent } from './components/detalles-evento/detalles-e
 import {MatTabsModule} from '@angular/material/tabs';
 import { VistaConferenciaTalleresComponent } from './components/vista-conferencia-talleres/vista-conferencia-talleres.component';
 import { CardConferenciaComponent } from './components/card-conferencia/card-conferencia.component';
+import { ListaAsistenciaComponent } from './components/lista-asistencia/lista-asistencia.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +94,7 @@ import { CardConferenciaComponent } from './components/card-conferencia/card-con
     DetallesEventoComponent,
     VistaConferenciaTalleresComponent,
     CardConferenciaComponent,
+    ListaAsistenciaComponent,
 
 
   ],
@@ -126,7 +130,8 @@ import { CardConferenciaComponent } from './components/card-conferencia/card-con
     MatSortModule,
     MatTableModule,
     MatAutocompleteModule,
-    MatTabsModule
+    MatTabsModule,
+    MatListModule
   ],
   providers: [
 

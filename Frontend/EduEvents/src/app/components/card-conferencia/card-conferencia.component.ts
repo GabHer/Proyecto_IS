@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface Conferencia {
   Correo_Encargado:string
@@ -23,6 +23,7 @@ export interface Conferencia {
 export class CardConferenciaComponent implements OnInit {
 
   @Input() conferencia:Conferencia;
+  @Output() onListaAsistencia = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
@@ -36,6 +37,10 @@ export class CardConferenciaComponent implements OnInit {
   eliminarConferencia(){
     // Falta la función de eliminar conferencias en el backend
     console.log("No programado")
+  }
+
+  mostrarListaAsistencia(){
+    this.onListaAsistencia.emit(null);
   }
 
 

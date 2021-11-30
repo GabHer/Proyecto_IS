@@ -38,6 +38,12 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   @Input() isCollaps = false;
   @Input() idEvento = -1;
   @Output() verDetallesEvento = new EventEmitter<any>();
+
+  vistaActual = {
+    listaAsistencia: false,
+    detalleConferencia: true
+  }
+
   conferencias:Conferencia[] = []
 
   obtenerConferencias(){
@@ -52,6 +58,12 @@ export class VistaConferenciaTalleresComponent implements OnInit {
         }
       }
     );
+  }
+
+  verListaAsistencia(b:boolean){
+    this.vistaActual.listaAsistencia = b,
+    this.vistaActual.detalleConferencia = !b
+
   }
 
   regresar(){

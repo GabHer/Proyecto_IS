@@ -1,27 +1,37 @@
 
-  <div class="row container -fluid">
+  <div class="row container">
 
+    <!-- Vista detalles conferencia-->
 
-
-    <div class="col-12">
+    <div *ngIf="(vistaActual.detalleConferencia)" class="col-12">
       <div class="row">
-        <div class="mt-2 btn-back">
-          <span (click)="regresar()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor: pointer;">
-            arrow_back
-            </span>
+        <div class="col-12">
+          <div class="row">
+            <div class="mt-2 btn-back">
+              <span (click)="regresar()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor: pointer;">
+                arrow_back
+                </span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="(conferencias.length == 0)" style="margin-top: 16%;" class="col-12 text-center">
+          <h1 style="color:#4484CE;">¡Aún no hay conferencias/talleres creados para este evento!</h1>
+        </div>
+        <div *ngIf="(conferencias.length != 0)" class="col-12 text-center mt-4">
+          <h1 style="color:#4484CE;">Talleres y conferencias</h1>
+        </div>
+        <div *ngFor="let conferenia of conferencias" [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
+          <app-card-conferencia (onListaAsistencia)="verListaAsistencia(true)" [conferencia]="conferenia"  ></app-card-conferencia>
         </div>
       </div>
     </div>
-    <div *ngIf="(conferencias.length == 0)" style="margin-top: 16%;" class="col-12 text-center">
-      <h1 style="color:#4484CE;">¡Aún no hay conferencias/talleres creados para este evento!</h1>
+
+    <div *ngIf="(vistaActual.listaAsistencia)" class="col-12">
+      <app-lista-asistencia style="width:100%" class="row"></app-lista-asistencia>
     </div>
-    <div *ngIf="(conferencias.length != 0)" class="col-12 text-center mt-4">
-      <h1 style="color:#4484CE;">Talleres y conferencias</h1>
-    </div>
-    <div *ngFor="let conferenia of conferencias" [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
-      <app-card-conferencia [conferencia]="conferenia"  ></app-card-conferencia>
-    </div>
+
   </div>
+
 
 
 
