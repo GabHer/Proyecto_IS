@@ -68,7 +68,7 @@ exports.obtenerPersonas = (req, res) => {
 
 // Obtener el nombre de un usuario por correo
 exports.obtenerNombre = (req, res) => {
-  Persona.buscarNombreDeCorreo(req.params.correo, (err, data) => {
+  Persona.buscarDatosDeCorreo(req.params.correo, (err, data) => {
 
     if (err) {
       if (err.estado === "no_encontrado") {

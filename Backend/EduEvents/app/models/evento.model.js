@@ -263,8 +263,8 @@ Evento.eliminarEvento = ( idEvento, resultado ) => {
 
     resultado( null, res );
 
-  } )
-}
+  });
+};
 
 
 Evento.crear = (nuevoObjetoEvento, resultado) => {
@@ -335,13 +335,6 @@ Evento.confirmarFecha = ( parametros, resultado ) => {
 };
 
 
-Evento.actualizar = (parametros, resultado) => {
-
-};
-
-Evento.eliminar = (nombreEvento, resultado) => {
-
-};
 
 
 module.exports = Evento;
