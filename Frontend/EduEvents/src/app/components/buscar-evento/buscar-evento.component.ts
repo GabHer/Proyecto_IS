@@ -30,6 +30,7 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   @Input() ctrlBuscarEstado:any = '';
   @Input() idUsuarioActual:number = -1;
 
+
   @Output() onOcultarBuscador = new EventEmitter<boolean>();
   nombre = new FormControl('');
   filtroActual:any = {
@@ -132,7 +133,7 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   }
 
   actualizarVistaDetallesEvento(b:boolean){
-    this.onOcultarBuscador.emit(b)
+    this.onOcultarBuscador.emit(b);
     this.mostrarDetallesEvento = b;
   }
 

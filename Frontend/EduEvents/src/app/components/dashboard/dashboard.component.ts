@@ -37,6 +37,9 @@ export class DashboardComponent implements OnInit, OnChanges  {
   ctrlInput:string;
   ctrlInputRangoFecha:any;
   ctrlInputEstado:any;
+
+  vistaBuscar = false;
+
   @Input() usuario:any ={
     Id: -1,
     Nombre: "",
@@ -88,8 +91,10 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   actualizarItemActual(e:any){
     this.spinner.mostrarSpinner()
+    this.vistaBuscar = false;
+    this.ocultarBuscador = false;
+
     setTimeout(() => {
-      this.ocultarBuscador = false;
       this.indexItemActual = e;
       this.spinner.ocultarSpinner()
     }, 200);

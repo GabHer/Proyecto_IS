@@ -93,7 +93,7 @@ export class DetallesEventoComponent implements OnInit {
   mostrarConferencias(b:boolean){
     this.confEvento.mostrarVistaConferencias = b;
     this.confEvento.mostrarDetalleEvento = !b;
-
+    console.log(this.vistaBuscar)
 
   }
 
