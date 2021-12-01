@@ -21,7 +21,23 @@
           <h1 style="color:#4484CE;">Talleres y conferencias</h1>
         </div>
         <div *ngFor="let conferenia of conferencias" [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
-          <app-card-conferencia [vistaBuscar]="vistaBuscar" (onEliminarConferencia)="onClickAbrirModalEliminarConferencia(modalConfirmacion, $event)" (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador" [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)" [conferencia]="conferenia"  ></app-card-conferencia>
+
+          <app-card-conferencia-organizador
+            *ngIf="isOrganizador"
+            (onEliminarConferencia)="onClickAbrirModalEliminarConferencia(modalConfirmacion, $event)"
+            [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)"
+            [conferencia]="conferenia"
+          ></app-card-conferencia-organizador>
+
+
+          <app-card-conferencia
+            *ngIf="!isOrganizador"
+            (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador"
+            [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)"
+            [conferencia]="conferenia"
+          ></app-card-conferencia>
+
+
         </div>
       </div>
     </div>

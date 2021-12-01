@@ -37,6 +37,17 @@
             </div>
           </div>
         </div>
+        <div  style="position: absolute; margin-top: 5px;" class="col-12">
+          <div  class="container text-right">
+            <div (click)="eliminarConferencia()" class="circulo-cerrar">
+              <span style="color:red;" class="material-icons">
+                close
+              </span>
+            </div>
+          </div>
+
+        </div>
+
 
       </div>
     </div>
@@ -60,17 +71,17 @@
 
   </div>
   <div class="card-footer">
-
-
-    <!-- Vista desde buscar -->
+    <!-- Vista para el usuario organizador desde 'mis eventos'-->
 
     <div  class="row no-padding no-margin">
-      <span style="margin:0; padding:0" class="col-2">
-        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
-      </span>
-
+      <div class="col-2 no-padding no-margin">
+        <span class="material-icons">
+          group
+          </span>
+      </div>
       <div  class="col-5 no-padding no-margin">
-        <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} </span>
+        <span  (click)="mostrarListaAsistencia()" class="txt-footer txt-participantes"> Gestionar participantes </span>
+
       </div>
 
       <div class="col-5 no-padding no-margin">
@@ -83,6 +94,6 @@
 
       </div>
     </div>
-
   </div>
 </div>
+

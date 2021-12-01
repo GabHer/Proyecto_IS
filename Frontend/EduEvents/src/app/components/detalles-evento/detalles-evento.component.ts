@@ -50,12 +50,6 @@ export class DetallesEventoComponent implements OnInit {
       this.usuarioService.obtenerUsuario( correo ).subscribe(
         (res:any) => {
           this.usuarioActual = res.data
-          if(res.data.Id == this.eventoSeleccionado.idOrganizador){
-            this.isOrganizador = true;
-          }else{
-            this.isOrganizador = false;
-
-          }
         }
       );
     }

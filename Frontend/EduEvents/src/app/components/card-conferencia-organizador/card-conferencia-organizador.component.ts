@@ -21,18 +21,21 @@ export interface Conferencia {
 
 }
 
-
 @Component({
-  selector: 'app-card-conferencia',
-  templateUrl: './card-conferencia.component.html',
-  styleUrls: ['./card-conferencia.component.css']
+  selector: 'app-card-conferencia-organizador',
+  templateUrl: './card-conferencia-organizador.component.html',
+  styleUrls: ['./card-conferencia-organizador.component.css']
 })
-export class CardConferenciaComponent implements OnInit {
-
+export class CardConferenciaOrganizadorComponent implements OnInit {
   @Input() conferencia:Conferencia;
   @Input() isOrganizador = false;
+  @Input() vistaBuscar = false;
+  @Output() onListaAsistencia = new EventEmitter<any>();
   @Output() onVerEncargado = new EventEmitter<any>();
+  @Output() onEliminarConferencia = new EventEmitter<number>();
   constructor( private usuarioService:UsuariosService ) { }
+
+
   @Input() eventoSeleccionado:any = {
     id: "",
     descripcion: "",
@@ -50,7 +53,6 @@ export class CardConferenciaComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerUsuarioEncargado()
-
   }
 
   obtenerFormatoFecha( date:any){
@@ -58,7 +60,10 @@ export class CardConferenciaComponent implements OnInit {
     return date.split('T')[0]
   }
 
+  eliminarConferencia(){
+    this.onEliminarConferencia.emit(this.conferencia.Id)
 
+  }
 
   mostrarUsuarioEncargado(){
     this.onVerEncargado.emit(this.usuarioEncargado);
@@ -83,6 +88,11 @@ export class CardConferenciaComponent implements OnInit {
   }
 
 
+
+  mostrarListaAsistencia(){
+    this.onListaAsistencia.emit(null);
+  }
+
   obtenerUsuarioEncargado(){
 
     this.usuarioService.obtenerUsuario( this.conferencia.Correo_Encargado ).subscribe(
@@ -92,8 +102,5 @@ export class CardConferenciaComponent implements OnInit {
       }
     );
   }
-
-
-
 
 }

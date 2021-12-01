@@ -65,6 +65,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { VistaConferenciaTalleresComponent } from './components/vista-conferencia-talleres/vista-conferencia-talleres.component';
 import { CardConferenciaComponent } from './components/card-conferencia/card-conferencia.component';
 import { ListaAsistenciaComponent } from './components/lista-asistencia/lista-asistencia.component';
+import { CardConferenciaOrganizadorComponent } from './components/card-conferencia-organizador/card-conferencia-organizador.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { ListaAsistenciaComponent } from './components/lista-asistencia/lista-as
     VistaConferenciaTalleresComponent,
     CardConferenciaComponent,
     ListaAsistenciaComponent,
+    CardConferenciaOrganizadorComponent,
 
 
   ],
