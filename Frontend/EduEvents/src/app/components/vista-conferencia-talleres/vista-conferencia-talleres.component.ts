@@ -1,12 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConferenciasService } from 'src/app/services/conferencias.service'
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 
 export interface Conferencia {
   Correo_Encargado:string
   Descripcion:string
+  Emision_Diplomas:number
+  Estado_Conferencia:string
   Fecha_Inicio:Date
+  Firma_Encargado:any
+  Firma_Organizador:any
   Hora_Final:string
   Hora_Inicio:Date
   Id:number
@@ -17,6 +23,7 @@ export interface Conferencia {
   Modalidad:number
   Nombre:string
   Tipo:number
+
 }
 @Component({
   selector: 'app-vista-conferencia-talleres',
@@ -25,16 +32,18 @@ export interface Conferencia {
 })
 export class VistaConferenciaTalleresComponent implements OnInit {
 
-  constructor( private serviceConferencia:ConferenciasService, private usuarioService:UsuariosService ) { }
+  constructor( private serviceConferencia:ConferenciasService, private usuarioService:UsuariosService, private spinner:SpinnerService, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
     this.obtenerConferencias()
   }
 
   mensajeModal = [
-    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"La conferencia se eliminará de tu lista", icono:"quiz"},
+    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"La conferencia o taller se eliminaran del evento", icono:"quiz"},
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
   ]
+
+  idConferencia:number;
 
   @Input() isCollaps = false;
   @Input() isOrganizador = false;
@@ -61,15 +70,22 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   conferencias:Conferencia[] = []
 
   obtenerConferencias(){
+    this.spinner.mostrarSpinner();
     this.serviceConferencia.obtenerConferencias( this.idEvento ).subscribe(
       (res:any) => {
         this.conferencias = res.data;
-        console.log(res)
+
       },
       (err:any) => {
         if( err.error.codigo == 404 ) {
+          this.conferencias = [];
           console.log("No se encontro conferencias para este evento")
         }
+        this.spinner.ocultarSpinner()
+      },
+      () => {
+        this.spinner.ocultarSpinner()
+
       }
     );
   }
@@ -96,6 +112,46 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   regresar(){
     this.verDetallesEvento.emit(null);
   }
+
+  setIdConferencia(id:number){
+    this.idConferencia = id;
+  }
+
+  onClickAbrirModalEliminarConferencia(modal:any, idConferencia:number){
+    this.idConferencia = idConferencia;
+    this.abrirModal(modal);
+  }
+
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
+  }
+
+  onClickConfirmarEliminarConferencia(letmodal:any, modalExito:any, idConferencia:number){
+    letmodal.close('Close click')
+    this.spinner.mostrarSpinner()
+    this.serviceConferencia.eliminarConferencia( idConferencia ).subscribe(
+      (res:any) => {
+        if(res.codigo == 200){
+          
+          this.abrirModal(modalExito);
+          this.obtenerConferencias()
+        }
+
+        this.spinner.ocultarSpinner()
+      },
+      (err:any) => {
+        this.spinner.ocultarSpinner()
+      }
+
+    );
+  }
+
 
 
 

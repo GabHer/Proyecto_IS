@@ -10,15 +10,15 @@
 }
 
 
-.estado-inactivo {
+.Inactivo {
   color:#F9CF00;
   font-weight: bold;
 }
-.estado-activo {
+.Activo {
   color:#24FE00;
   font-weight: bold;
 }
-.estado-cerrado {
+.Cerrado {
   color:#FE0000;
   font-weight: bold;
 }

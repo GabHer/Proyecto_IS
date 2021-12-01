@@ -59,7 +59,7 @@
         <h5 class="card-title txt-conferencia text-left">{{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}</h5>
       </div>
       <div class="col-6">
-        <h5 class="card-title text-right estado-activo">Activo</h5>
+        <h5 class="card-title text-right" [class]="(conferencia.Estado_Conferencia)" >{{conferencia.Estado_Conferencia}}</h5>
       </div>
     </div>
     <div class="row">

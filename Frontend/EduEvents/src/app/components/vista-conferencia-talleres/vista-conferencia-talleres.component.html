@@ -21,7 +21,7 @@
           <h1 style="color:#4484CE;">Talleres y conferencias</h1>
         </div>
         <div *ngFor="let conferenia of conferencias" [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')">
-          <app-card-conferencia (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador" [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)" [conferencia]="conferenia"  ></app-card-conferencia>
+          <app-card-conferencia (onEliminarConferencia)="onClickAbrirModalEliminarConferencia(modalConfirmacion, $event)" (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador" [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)" [conferencia]="conferenia"  ></app-card-conferencia>
         </div>
       </div>
     </div>
@@ -32,8 +32,9 @@
     <div *ngIf="(vistaActual.vistaEncargado)" class="col-12">
 
       <app-perfil-usuario [perfil]="usuarioEncargadoConferencia"  style="width:100%" class="row"></app-perfil-usuario >
-        <div class="mt-2 btn-back">
-          <span (click)="verDetalleConferencia()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE;">
+        <div class="mt-2">
+
+          <span (click)="verDetalleConferencia()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer;">
             arrow_back
             </span>
         </div>
@@ -42,7 +43,62 @@
   </div>
 
 
+<!-- Modal de confirmación-->
+<ng-template #modalConfirmacion let-modal>
+  <div class="modal-encabezado modal-confirmacion">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[0].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[0].titulo1}}</h3>
+      <h3>{{mensajeModal[0].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, no eliminar este evento</button>
+      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="onClickConfirmarEliminarConferencia(modal, modaDialogoExito, idConferencia)">Sí, eliminar</button>
+  </div>
+</ng-template>
 
 
 
+<ng-template #modaDialogoExito let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>Se ha creado eliminado la conferencia</h3>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
 

@@ -3,7 +3,11 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export interface Conferencia {
   Correo_Encargado:string
   Descripcion:string
+  Emision_Diplomas:number
+  Estado_Conferencia:string
   Fecha_Inicio:Date
+  Firma_Encargado:any
+  Firma_Organizador:any
   Hora_Final:string
   Hora_Inicio:Date
   Id:number
@@ -14,6 +18,7 @@ export interface Conferencia {
   Modalidad:number
   Nombre:string
   Tipo:number
+
 }
 
 
@@ -28,6 +33,7 @@ export class CardConferenciaComponent implements OnInit {
   @Input() isOrganizador = false;
   @Output() onListaAsistencia = new EventEmitter<any>();
   @Output() onVerEncargado = new EventEmitter<any>();
+  @Output() onEliminarConferencia = new EventEmitter<number>();
   constructor( private usuarioService:UsuariosService ) { }
   @Input() eventoSeleccionado:any = {
     id: "",
@@ -55,8 +61,7 @@ export class CardConferenciaComponent implements OnInit {
   }
 
   eliminarConferencia(){
-    // Falta la función de eliminar conferencias en el backend
-    console.log("No programado")
+    this.onEliminarConferencia.emit(this.conferencia.Id)
 
   }
 
@@ -96,7 +101,9 @@ export class CardConferenciaComponent implements OnInit {
         this.usuarioEncargado = res.data
       }
     );
-    }
+  }
+
+
 
 
 }

@@ -26,7 +26,7 @@ export class DetallesEventoComponent implements OnInit {
 
   }
 
-  isOrganizador = false;
+  @Input() isOrganizador = false;
 
   confEvento = {
     mostrarDetalleEvento : true,
@@ -51,6 +51,9 @@ export class DetallesEventoComponent implements OnInit {
           this.usuarioActual = res.data
           if(res.data.Id == this.eventoSeleccionado.idOrganizador){
             this.isOrganizador = true;
+          }else{
+            this.isOrganizador = false;
+
           }
         }
       );
