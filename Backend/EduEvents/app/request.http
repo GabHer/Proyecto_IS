@@ -166,6 +166,19 @@ Content-Type: application/json
 ###
 GET http://localhost:8888/inscripcion/obtenerInscripcionesPorIdConferencia/6
 
+###
+GET http://localhost:8888/conferencia/obtenerConferencias
+
+###
+GET http://localhost:8888/conferencia/obtenerConferencia/9
+
+###
+GET http://localhost:8888/conferencia/obtenerConferenciasPorIdUsuario/2
+
+
+###
+GET http://localhost:8888/conferencia/obtenerConferenciasPorIdEvento/1
+
 
 
 

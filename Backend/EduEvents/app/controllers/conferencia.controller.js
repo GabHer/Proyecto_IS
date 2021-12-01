@@ -142,6 +142,39 @@ exports.obtenerConferenciasIdEvento = (req, res) => {
 };
 
 
+exports.obtenerConferenciaId = (req, res) => {
+    if(!req.params) {
+      res.status(400).send({
+        message: "El contenido no puede ser vacio"
+      });
+      return;
+    };
+
+  Conferencia.obtenerConferenciaPorId(req.params.id, (err, data) => {
+    console.log("Se busca la conferencia con id: " + req.params.id);
+    
+    if(err) {
+      if(err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se encontró conferencia con id: ${req.params.id}`, codigo:404, data:null
+        });
+      }
+      else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: "Error al obtener la conferencia con id: " + req.params.id
+        });
+      };
+    } 
+    else {
+      res.send({
+        mensaje: `Se obtuvo la conferencia con id: ${req.params.id}.`, codigo:200, estado:'ok', data: data
+      });
+    };
+  });
+};
+
+
 exports.eliminarConferencia = (req, res) => {
   console.log("Desde el controlador")
   if( !req.params ) {

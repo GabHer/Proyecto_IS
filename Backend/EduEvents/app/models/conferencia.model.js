@@ -716,7 +716,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
 
 // Obtener Conferencias de manera general
 Conferencia.obtenerConferencias = (resultado) => {
-    let consulta = `SELECT * FROM Conferencia;`;
+    let consulta = `SELECT * FROM Conferencia ORDER BY Fecha_Inicio ASC, Hora_Inicio ASC;`;
     sql.query(consulta, (err, res) => {
         if(err) {
             resultado(err, null);
@@ -735,7 +735,7 @@ Conferencia.obtenerConferencias = (resultado) => {
 
 // Obtener Conferencias de manera general
 Conferencia.obtenerConferenciaPorId = (idConferencia, resultado) => {
-    let consulta = `SELECT * FROM Conferencia WHERE Id = ${idConferencia};`;
+    let consulta = `SELECT * FROM Conferencia WHERE Id = ${idConferencia} ORDER BY Fecha_Inicio ASC, Hora_Inicio ASC;`;
     sql.query(consulta, (err, res) => {
         if(err) {
             resultado(err, null);
@@ -755,7 +755,7 @@ Conferencia.obtenerConferenciaPorId = (idConferencia, resultado) => {
 
 // Obtener las conferencias por Id de Evento
 Conferencia.obtenerConferenciasPorIdEvento = (idEvento, resultado) => {
-    let consulta = `SELECT * FROM Conferencia WHERE Id_Evento = ${idEvento};`;
+    let consulta = `SELECT * FROM Conferencia WHERE Id_Evento = ${idEvento} ORDER BY Fecha_Inicio ASC, Hora_Inicio ASC;`;
     sql.query(consulta, (err, res) => {
         if(err) {
             resultado(err, null);
@@ -783,7 +783,7 @@ Conferencia.obtenerConferenciasPorIdEvento = (idEvento, resultado) => {
 Conferencia.obtenerConferenciasPorIdUsuario = (idUsuario, resultado) => {
     let consulta = `SELECT * FROM Conferencia JOIN Persona_Conferencia
         ON Conferencia.Id = Persona_Conferencia.Id_Conferencia
-        WHERE Persona_Conferencia.Id_Persona = "${idUsuario}";`;
+        WHERE Persona_Conferencia.Id_Persona = "${idUsuario}" ORDER BY Fecha_Inicio ASC, Hora_Inicio ASC;`;
 
     sql.query(consulta, (err, res) => {
         if(err) {
