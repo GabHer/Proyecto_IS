@@ -1,81 +1,47 @@
-const { query } = require("express");
 const sql = require("./db.js");
-const transport = require("../models/enviarCorreo.js");
 const Personas = require("../models/persona.model");
-const Eventos = require("../models/evento.model");
+const Conferencias = require("../models/conferencia.model");
+const transport = require("../models/enviarCorreo.js");
 const configCorreo = require("../config/envemail.config.js");
 var fs = require('fs');
 
-// constructor del objeto Conferencia
-const Conferencia = function(objConferencia) {
-    this.Id_Evento = objConferencia.Id_Evento
-    this.Tipo = objConferencia.Tipo;
-    this.Nombre = objConferencia.Nombre;
-    this.Descripcion = objConferencia.Descripcion;
-    this.Modalidad = objConferencia.Modalidad;
-    this.Medio = objConferencia.Medio;
-    this.Correo_Encargado = objConferencia.Correo_Encargado;
-    this.Fecha_Inicio = objConferencia.Fecha_Inicio;
-    this.Hora_Inicio = objConferencia.Hora_Inicio;
-    this.Hora_Final = objConferencia.Hora_Final;
-    this.Estado = objConferencia.Estado;
-    this.Imagen = objConferencia.Imagen;
-    this.Limite_Participantes = objConferencia.Limite_Participantes;
+// constructor del objeto inscripcion
+const Inscripcion = function(objPersona) {
+    this.idPersona = objPersona.IdPersona;
+    this.idConferencia = objPersona.idConferencia;
+    this.fechaInscripcion = "";    
 };
 
-Conferencia.buscarPorNombre = ( datosConferencia , resultado ) => {
-    sql.query(`SELECT * FROM Conferencia WHERE Id_Evento = ${datosConferencia.Id_Evento} AND Nombre = '${datosConferencia.Nombre}'`, (err, res) => {
-        if(err) {
-            resultado(err, null);
-            return;
-        }
 
-        if(res.length){
-            // Significa que se encontró otra conferencia creada con el mismo nombre dentro del mismo evento.
-            resultado(null, res[0])
-            return;
-        }
+Inscripcion.validarInscripcion = (objNuevaInscripcion, resultado ) => {
+    
+    let consulta = `SELECT (IF (( SELECT (COUNT(*)<Conferencia.Limite_Participantes OR COUNT(*) = 0) FROM Conferencia JOIN Persona_Conferencia ON Conferencia.Id=Persona_Conferencia.Id_Conferencia WHERE Id_Conferencia = ${objNuevaInscripcion.idConferencia}), 'Si', 'No')) AS cupoValido, (IF ((SELECT Estado_Conferencia = "Inactivo" FROM Conferencia WHERE Id = ${objNuevaInscripcion.idConferencia}), 'Si', 'No')) AS estadoValido , (IF ((SELECT COUNT(*)=0 FROM Conferencia JOIN Persona_Conferencia ON Conferencia.Id = Persona_Conferencia.Id_Conferencia WHERE Persona_Conferencia.Id_Persona = ${objNuevaInscripcion.idPersona} AND Conferencia.Fecha_Inicio = (SELECT Conferencia.Fecha_Inicio FROM Conferencia WHERE Id = ${objNuevaInscripcion.idConferencia}) AND (SELECT Conferencia.Hora_Inicio FROM Conferencia WHERE Id = ${objNuevaInscripcion.idConferencia}) BETWEEN Conferencia.Hora_Inicio AND Conferencia.Hora_Final), 'Si', 'No')) AS horaYFechaValida;`;
 
-        else {
-            // En ultima instancia, no se encontró otra conferencia con ese nombre dentro del mismo evento.
-            resultado({ estado: "no_encontrado"}, null)
-        };
+    sql.query( consulta, (err, res) => {
+      if(err){
+        resultado(err, null);
+        return;
+      }
+
+      else {
+        resultado(null, res);
+        return;
+      };
     });
 };
 
 
-Conferencia.crear = ( objConferencia, resultado ) => {
-    Conferencia.buscarPorNombre(objConferencia, (err, data) => {
-
-        var Tipo = objConferencia.Tipo == 1 ? "La Conferencia" : "El Taller";
-        var Modalidad = objConferencia.Modalidad == 1 ? "Virtual" : "Presencial";  
-
-        var datosBuscarFecha = {
-            fecha : objConferencia.Fecha_Inicio,
-            idEvento : objConferencia.Id_Evento
-        }
-
-        var img = objConferencia.Imagen;
-        // strip off the data: url prefix to get just the base64-encoded bytes
-        var data = img.replace(/^data:image\/\w+;base64,/, "");
-        var buf = new Buffer.from(data, 'base64');
-        fs.writeFile('../EduEvents/app/assets/img/banner.png', buf, err => {
-            if (err) throw err;
-        });
-
+Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
+    Inscripcion.validarInscripcion(objNuevaInscripcion, (err, data) => {    
         if (err) {
-           
-            Eventos.confirmarFecha(datosBuscarFecha, (err, data) => {
+            resultado(err, null);
+            return;
+        }
+        
+        if ((data[0].cupoValido == "Si") && (data[0].estadoValido == "Si") && (data[0].horaYFechaValida == "Si")) {
 
-                if(err) {
-                    resultado(err, null);
-                    return;
-                };
 
-                if (data[0].Fecha_Valida == "Si") {
-
-                    // Si no se encuentra una conferencia existente con ese nombre dentro del mismo evento y la fecha está dentro del rango de fechas del evento.
-                    consulta = `INSERT INTO Conferencia (Id_Evento, Tipo, Nombre, Descripcion, Modalidad, Medio, Correo_Encargado, Fecha_Inicio, Hora_Inicio, Hora_Final, Imagen, Limite_Participantes) VALUES (${objConferencia.Id_Evento},'${objConferencia.Tipo}','${objConferencia.Nombre}','${objConferencia.Descripcion}','${objConferencia.Modalidad}','${objConferencia.Medio}','${objConferencia.Correo_Encargado}','${objConferencia.Fecha_Inicio}','${objConferencia.Hora_Inicio}','${objConferencia.Hora_Final}','${objConferencia.Imagen}','${objConferencia.Limite_Participantes}');`
+            consulta = `INSERT INTO Persona_Conferencia (Id_Persona, id_Conferencia, Fecha_Inscripcion) VALUES (${objNuevaInscripcion.idPersona},'${objNuevaInscripcion.idConferencia}', NOW());`
                     sql.query( consulta, (err, res) => {
                         if (err) {
                             resultado(err, null);
@@ -83,26 +49,47 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                         }
 
                         else {
-                            Personas.buscarDatosDeCorreo(objConferencia.Correo_Encargado, (err,data) => {
+
+                            Personas.buscarDatosDeId(objNuevaInscripcion.idPersona, (err,data) => {
+
+                                var nombreCompleto = data.Nombre_Completo;
+                                var correo = data.Correo;
 
                                 if (err) {
                                     resultado(err, null);
                                     return;
                                 }
-    
+                                
                                 else {
-                                    var consulta = `INSERT INTO Persona_Conferencia (Id_Persona, Id_Conferencia, Fecha_Inscripcion) VALUES (${data.Id}, (SELECT Conferencia.Id FROM Conferencia WHERE Conferencia.Nombre = '${objConferencia.Nombre}'), NOW())`;
-    
-                                    sql.query( consulta, (err, res) => {
+
+                                    Conferencias.obtenerConferenciaPorId(objNuevaInscripcion.idConferencia, (err,data) => {
+
+
+                                        var Tipo = data[0].Tipo == 1 ? "La Conferencia" : "El Taller";
+
+                                        var Modalidad = data[0].Modalidad == 1 ? "Virtual" : "Presencial";  
+        
+        
+                                        var img = data[0].Imagen;
+                                        // strip off the data: url prefix to get just the base64-encoded bytes
+                                        var imgData = img.replace(/^data:image\/\w+;base64,/, "");
+                                        var buf = new Buffer.from(imgData, 'base64');
+                                        fs.writeFile('../EduEvents/app/assets/img/banner.png', buf, err => {
+                                            if (err) throw err;
+                                        });
+        
+
                                         if (err) {
                                             resultado(err, null);
                                             return;
                                         }
-    
+
                                         else {
+
+                                            
                                             const message = {
                                                 from: '"EduEvents" <edueventsmanagement@gmail.com>',
-                                                to: objConferencia.Correo_Encargado,
+                                                to: correo,
                                                 subject: "Encargado De Conferencia",
                                                 attachments: [
                                                 {
@@ -122,7 +109,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                 }
                                             ],
                                                 html: `
-                
+                                            
                                                 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                                                 <html xmlns="http://www.w3.org/1999/xhtml">
                                                 <head>
@@ -145,33 +132,33 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                 display: block !important;
                                                 outline: none !important;
                                                 }
-                
+                                            
                                                 p, h2{
                                                 margin:0;
                                                 }
-                
+                                            
                                                 div,p,ul,h2,h2{
                                                 margin:0;
                                                 }
-                
+                                            
                                                 h2.bigger,h2.bigger{
                                                 font-size: 32px;
                                                 font-weight: normal;
                                                 }
-                
+                                            
                                                 h2.big,h2.big{
                                                 font-size: 21px;
                                                 font-weight: normal;
                                                 }
-                
+                                            
                                                 a.link1{
                                                 color:#62A9D2;font-size:13px;font-weight:bold;text-decoration:none;
                                                 }
-                
+                                            
                                                 a.link2{
                                                 padding:8px;background:#62A9D2;font-size:13px;color:#ffffff;text-decoration:none;font-weight:bold;
                                                 }
-                
+                                            
                                                 a.link3{
                                                 background:#62A9D2; color:#ffffff; padding:8px 10px;text-decoration:none;font-size:13px;
                                                 }
@@ -181,7 +168,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                 .bgItem{
                                                 background: #ffffff;
                                                 }
-                
+                                            
                                                 @media only screen and (max-width:480px)
                                                         
                                                 {
@@ -262,7 +249,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                 }
                                                     
                                                 @media only screen and (max-width:540px) 
-                
+                                            
                                                 {
                                                         
                                                 table[class="MainContainer"], td[class="cell"] 
@@ -344,8 +331,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                         
                                                         }
                                                 }
-                
-                
+                                            
+                                            
                                                 </style>
                                                 <script type="colorScheme" class="swatch active">
                                                 {
@@ -357,7 +344,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     "title":"555555"
                                                 }
                                                 </script>
-                
+                                            
                                                 </head>
                                                 <body paddingwidth="0" paddingheight="0"   style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;" offset="0" toppadding="0" leftpadding="0" style="margin-left:5px; margin-right:5px; margin-top:0px; margin-bottom:0px;">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableContent bgBody" align="center"  style='font-family:helvetica, sans-serif;'>
@@ -401,13 +388,13 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                             </div>
                                                                             </div>
                                                                         </td>
-                
+                                            
                                                                         <td align='right' valign='top' >
                                                                             <div class="contentEditableContainer contentTextEditable" style='display:inline-block;'>
                                                                             <div class="contentEditable" >
                                                                                 
                                                                                 <img src="cid:EduEvents">
-                
+                                            
                                                                                 <p style='color:black;font-size:13px;text-decoration:none; margin-top:10px'>La mejor plataforma para gestionar tus eventos.</p>
                                                                             </div>
                                                                             </div>
@@ -421,11 +408,11 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                             <div class="movableContent" style="border: 0px; padding-top: 0px; position: relative;">
                                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                                 <tr><td height='25' bgcolor='#D98F45'></td></tr>
-                
+                                            
                                                                 <tr><td height='5' style='background-color:rgb(68, 132, 206)'></td></tr>
-                
+                                            
                                                                 <tr><td height='40' class='bgItem'></td></tr>
-                
+                                            
                                                                 <tr>
                                                                 <td>
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top' class='bgItem'>
@@ -434,7 +421,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                         <td  align='center' width='530'>
                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                             <div class="contentEditable" style='font-size:32px;color:#555555;font-weight:normal;'>
-                                                                            <h2 style='font-size:32px;'>${data.Nombre_Completo}</h2>
+                                                                            <h2 style='font-size:32px;'>${nombreCompleto}</h2>
                                                                             </div>
                                                                         </div>
                                                                         </td>
@@ -445,13 +432,13 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                         <td  align='center' width='530'>
                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                             <div class="contentEditable" style='font-size:13px;color:black;line-height:19px;'>
-                                                                            <p style = "margin-top:15px">Se te ha invitado a que seas encargado de <span> ${Tipo}</span><span style="font-weight:bolder"> "${objConferencia.Nombre}"</p>
+                                                                            <p style = "margin-top:15px">Te has suscrito a <span> ${Tipo}</span><span style="font-weight:bolder"> "${data[0].Nombre}"</p>
                                                                             </div>
                                                                         </div>
                                                                         </td>
                                                                         <td  width='70'></td>
                                                                     </tr>
-                
+                                            
                                                                     </table>
                                                                 </td>
                                                                 </tr>
@@ -487,7 +474,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     <td align='left' valign='top' width='370' class="specbundle3">
                                                                                 <div class='contentEditableContainer contentTextEditable'>
                                                                                     <div class="contentEditable" style='color:#ffffff;font-size:21px;line-height:19px;'>
-                                                                                    <p ><span class="font">${objConferencia.Nombre}</p>
+                                                                                    <p ><span class="font">${data[0].Nombre}</p>
                                                                                     </div>
                                                                                 </div>
                                                                                 </td>
@@ -495,8 +482,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                 <td class="specbundle2" align='center' valign='middle' width='180'>
                                                                                 <div class='contentEditableContainer contentTextEditable'>
                                                                                     
-                
-                
+                                            
+                                            
                                                                                 </div>
                                                                                 </td>
                                                     </tr>
@@ -507,7 +494,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                     </tr>
                                                 </tbody>
                                                 </table>
-                
+                                            
                                                                         </td>
                                                                         </tr>
                                                                         <tr><td height='10' bgcolor='#4484CE'></td></tr>
@@ -524,7 +511,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                         <td width='291' class="specbundle2" valign='top'>
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                                             <tr><td height='15' colspan='3'></td></tr>
-                
+                                            
                                                                             <tr>
                                                                                 <td width='20'></td>
                                                                                 <td width='251'>
@@ -543,7 +530,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                     <td>
                                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                                         <div class='contentEditable' style='color:#999999;font-size:13px;line-height:19px;'>
-                                                                                            <p>${objConferencia.Descripcion}</p>
+                                                                                            <p>${data[0].Descripcion}</p>
                                                                                         </div>
                                                                                         </div>
                                                                                     </td>
@@ -561,17 +548,17 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                 </td>
                                                                                 <td width='20'></td>
                                                                             </tr>
-                
+                                            
                                                                             <tr><td height='15' colspan='3'></td></tr>
                                                                             </table>
                                                                         </td>
-                
+                                            
                                                                         <td width='18' valign="top" class="specbundle2">&nbsp;</td>
                                                                         
                                                                         <td width='291' class="specbundle2" valign='top'>
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" valign='top'>
                                                                             <tr><td height='15' colspan='3'></td></tr>
-                
+                                            
                                                                             <tr>
                                                                                 <td width='20'></td>
                                                                                 <td width='251'>
@@ -597,7 +584,7 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                                         <div class='contentEditableContainer contentFacebookEditable'>
                                                                                                             <div class="contentEditable">
                                                                                                             
-                
+                                            
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         </td>
@@ -606,8 +593,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                                         <div class='contentEditableContainer contentTwitterEditable'>
                                                                                                             <div class="contentEditable">
                                                                                                             
-                
-                
+                                            
+                                            
                                                                                                             </div>
                                                                                                         </div>  
                                                                                                         </td>
@@ -626,10 +613,10 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                                                     <td>
                                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                                         <div class='contentEditable' style='color:#999999;font-size:13px;line-height:19px;'>
-                                                                                            <p><span style="font-weight: bolder;">Fecha: </span>${objConferencia.Fecha_Inicio}</p>
-                                                                                            <p><span style="font-weight: bolder;">Hora: </span><span>${objConferencia.Hora_Inicio}</span><span> - ${objConferencia.Hora_Final}</span></p>
+                                                                                            <p><span style="font-weight: bolder;">Fecha: </span>${data[0].Fecha_Inicio}</p>
+                                                                                            <p><span style="font-weight: bolder;">Hora: </span><span>${data[0].Hora_Inicio}</span><span> - ${data[0].Hora_Final}</span></p>
                                                                                             <p><span style="font-weight: bolder;">Modalidad: </span><span>${Modalidad}</span></p>
-                                                                                            <p><span style="font-weight: bolder;">Acceso: </span><span>${objConferencia.Medio}</span></p>
+                                                                                            <p><span style="font-weight: bolder;">Acceso: </span><span>${data[0].Medio}</span></p>
                                                                                             
                                                                                         </div>
                                                                                         </div>
@@ -679,8 +666,8 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                             transport.sendMail(message, function (err, info) {
                                                 if(err) { 
                                                     console.log("Este es el error =>>>>>", err)
-                                                resultado(null, { estado:"No enviado"});
-                                                return
+                                                resultado(null, { estado:"No_enviado"});
+                                                return;
                                                 }
                                             
                                                 else { 
@@ -689,141 +676,66 @@ Conferencia.crear = ( objConferencia, resultado ) => {
                                                 return;
                                                 };
                                             });
-    
-                                        };
-    
+
+
+
+                                        }
+
                                     });
                                 };
-    
                             });
                         };
                                     
                     });
                 }
 
+                if ((data[0].cupoValido == "No") && (data[0].estadoValido == "Si") && (data[0].horaYFechaValida == "Si")) {
+
+                    resultado(null, { estado:"limite_alcanzado"});
+                    return;
+
+                }
+
+                if ((data[0].cupoValido == "Si") && (data[0].estadoValido == "No") && (data[0].horaYFechaValida == "Si")) {
+
+                    resultado(null, { estado:"estado_no_valido"});
+                    return;
+                    
+                }
+
+                if ((data[0].cupoValido == "Si") && (data[0].estadoValido == "Si") && (data[0].horaYFechaValida == "No")) {
+
+                    resultado(null, { estado:"traslape"});
+                    return;
+                    
+                }
+
+                if ((data[0].cupoValido == "Si") && (data[0].estadoValido == "Si") && (data[0].horaYFechaValida == "Si")) {
+
+                    resultado(null, { estado:"ok"});
+                    return;
+                    
+                }
+
                 else {
-                    resultado({ estado: "fecha_no_válida"}, null)
+                    resultado(null, { estado: "no_permitido"});
+                    return;
                 };
-            });
-    
-    }else{
-        // Si el nombre de la conferencia está repetido.
-        resultado(null, {estado:"no_permitido"});
-        return;
-    }
-    });
-};
-
-// Obtener Conferencias de manera general
-Conferencia.obtenerConferencias = (resultado) => {
-    let consulta = `SELECT * FROM Conferencia;`;
-    sql.query(consulta, (err, res) => {
-        if(err) {
-            resultado(err, null);
-            return;
-        };
-        
-        for(let i = 0; i < res.length; i++) {
-            let buff = res[i].Imagen;
-            let srcImagen = buff.toString('ascii');
-            res[i].Imagen = srcImagen;
-        };  
-        resultado(null, res);
     });
 };
 
 
-// Obtener Conferencias de manera general
-Conferencia.obtenerConferenciaPorId = (idConferencia, resultado) => {
-    let consulta = `SELECT * FROM Conferencia WHERE Id = ${idConferencia};`;
-    sql.query(consulta, (err, res) => {
-        if(err) {
-            resultado(err, null);
-            return;
-        };
-        
-        for(let i = 0; i < res.length; i++) {
-            let buff = res[i].Imagen;
-            let srcImagen = buff.toString('ascii');
-            res[i].Imagen = srcImagen;
-        };  
-        
-        resultado(null, res);
-    });
-};
 
 
-// Obtener las conferencias por Id de Evento
-Conferencia.obtenerConferenciasPorIdEvento = (idEvento, resultado) => {
-    let consulta = `SELECT * FROM Conferencia WHERE Id_Evento = ${idEvento};`;
-    sql.query(consulta, (err, res) => {
-        if(err) {
-            resultado(err, null);
-            return;
-        };
-
-        //Si existen conferencias creadas para ese evento
-        if(res.length) {
-            for(let i = 0; i < res.length; i++) {
-                let buff = res[i].Imagen
-                let srcImagen = buff.toString('ascii');
-                res[i].Imagen = srcImagen;
-            };
-            resultado(null, res);
-        }
-
-        else {
-        // En ultima instancia, no se encontraron conferencias para ese evento
-        resultado({estado: "no_encontrado"}, null);
-        };
-    });
-};
-
-// Obtener las conferencias por Id de Usuario
-Conferencia.obtenerConferenciasPorIdUsuario = (idUsuario, resultado) => {
-    let consulta = `SELECT * FROM Conferencia JOIN Persona_Conferencia
-        ON Conferencia.Id = Persona_Conferencia.Id_Conferencia
-        WHERE Persona_Conferencia.Id_Persona = "${idUsuario}";`;
-
-    sql.query(consulta, (err, res) => {
-        if(err) {
-            resultado(err, null);
-            return;
-        };
-    
-        // Si el usuario se ha inscrito a conferencias 
-        if(res.length) {
-            for(let i = 0; i < res.length; i++){
-                let buff = res[i].Imagen
-                let srcImagen = buff.toString('ascii');
-                res[i].Imagen = srcImagen;
-            }; 
-            resultado(null, res);
-            return;
-        }
-
-        else {
-            // En ultima instancia, no se encontraron conferencias para ese usuario
-            resultado({estado: "no_encontrado"}, null);
-        };
-    
-    });
-};
 
 
-//Eliminar Conferencias
-Conferencia.eliminarConferencias = ( idConferencia, resultado ) => {
-    let consulta = `DELETE FROM Conferencia WHERE Id = ${idConferencia}`;
-    sql.query( consulta, (err, res) => {
-      if(err){
-        resultado(err, null);
-        return;
-      }
-      resultado( null, res );
-    });
-};
+module.exports = Inscripcion;
 
-module.exports = Conferencia;
+
+
+
+
+
 
 
 
