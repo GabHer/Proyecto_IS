@@ -8,6 +8,9 @@ module.exports = app => {
   // Obtener todas las conferencias en la plataforma
   app.get("/conferencia/obtenerConferencias", conferencia.obtenerConferencias);
 
+   // Obtener la conferencia con un determinado Id
+   app.get("/conferencia/obtenerConferencia/:id", conferencia.obtenerConferenciaId);
+
   // Obtener todas las conferencias por Id de Evento
   app.get("/conferencia/obtenerConferenciasPorIdEvento/:idEvento", conferencia.obtenerConferenciasIdEvento);
 
@@ -16,9 +19,6 @@ module.exports = app => {
 
   // Eliminar una Conferencia
   app.delete("/conferencia/eliminarConferencia/:idConferencia", conferencia.eliminarConferencia);
-
-  // Obtener los participantes inscritos a una conferencia
-  app.get("/conferencia/obtenerParticipantesPorIdConferencia/:idConferencia", conferencia.obtenerParticipantesIdConferencia);
 
 };
 

@@ -31,6 +31,7 @@ require("./app/routes/persona.routes.js")(app);
 require("./app/routes/login.routes.js")(app);
 require("./app/routes/evento.routes.js")(app);
 require("./app/routes/conferencia.routes.js")(app);
+require("./app/routes/inscripcion.routes.js")(app);
 
 
 // set port, listen for requests

@@ -7,7 +7,7 @@
             <p style="font-family: Verdana; color: #4484CE;"><strong>{{evento.Nombre}}</strong></p>
           </div>
           <span mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer">how_to_reg</span>
-          <span mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
+          <span (click)="obtenerConferencias()" mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
         </div>
       </div>
     </div>

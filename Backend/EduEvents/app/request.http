@@ -128,7 +128,7 @@ Content-Type: application/json
 {   
     "Id_Evento": 1,
     "Tipo": 0,
-    "Nombre": "Es moda mimbre 9", 
+    "Nombre": "Es moda mimbre 6", 
     "Descripcion": "La influencia de la moda 2 en nuestra era.",
     "Modalidad": 1,
     "Medio" : "https://us04web.zoom.us/j/2993343283?pwd=VHkyak53WDRTSk9tVElPbktIVDl1dz09#success" ,
@@ -152,6 +152,33 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8888/conferencia/eliminarConferencia/15
+
+
+###
+POST http://localhost:8888/inscripcion/NuevaInscripcion HTTP/1.1
+Content-Type: application/json
+
+{   
+    "idPersona": 1,
+    "idConferencia": 4
+}
+
+###
+GET http://localhost:8888/inscripcion/obtenerInscripcionesPorIdConferencia/6
+
+###
+GET http://localhost:8888/conferencia/obtenerConferencias
+
+###
+GET http://localhost:8888/conferencia/obtenerConferencia/9
+
+###
+GET http://localhost:8888/conferencia/obtenerConferenciasPorIdUsuario/2
+
+
+###
+GET http://localhost:8888/conferencia/obtenerConferenciasPorIdEvento/1
+
 
 
 

@@ -139,8 +139,8 @@ Persona.buscarDatosDeCorreo = ( correoPersona, resultado ) => {
     });
 };
 
-Persona.buscarNombreDeId = ( idPersona, resultado ) => {
-    sql.query(`SELECT CONCAT(Nombre, ' ', Apellido) FROM Persona WHERE Id = '${idPersona}'`, (err, res) => {
+Persona.buscarDatosDeId = ( idPersona, resultado ) => {
+    sql.query(`SELECT CONCAT(Nombre, ' ', Apellido) AS Nombre_Completo, Correo FROM Persona WHERE Id = ${idPersona}`, (err, res) => {
         if (err){
 
             resultado(err, null);
@@ -154,9 +154,10 @@ Persona.buscarNombreDeId = ( idPersona, resultado ) => {
             return;
         }
 
-        // En ultima instancia, no se encontro el usuario con dicho correo.
-        resultado({ estado: "no_encontrado"}, null)
-
+        else {
+            // En ultima instancia, no se encontro el usuario con dicho correo.
+            resultado({ estado: "no_encontrado"}, null)
+        };
     });
 };
 
