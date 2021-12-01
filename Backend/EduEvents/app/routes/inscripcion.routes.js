@@ -4,4 +4,7 @@ module.exports = app => {
     //Método para inscribir a un usuario en una determinada conferencia.
     app.post("/inscripcion/NuevaInscripcion", inscripciones.crearNuevaInscripcion);
 
-  };
+    // Obtener los participantes inscritos a una conferencia
+    app.get("/inscripcion/obtenerInscripcionesPorIdConferencia/:idConferencia", inscripciones.obtenerInscritosIdConferencia);
+
+};

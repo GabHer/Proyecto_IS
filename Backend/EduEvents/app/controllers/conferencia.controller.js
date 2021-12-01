@@ -161,36 +161,3 @@ exports.eliminarConferencia = (req, res) => {
   return;
 };
 
-// Obtener los participantes inscritos a una conferencia
-exports.obtenerParticipantesIdConferencia = (req, res) => {
-  if(!req.params) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacio"
-    });
-    return;
-  };
-
-  Conferencia.obtenerParticipantesPorIdConferencia(req.params.idConferencia, (err, data) => {
-    console.log("Se buscan los usuarios inscritos a la conferencia con id: " + req.params.idConferencia);
-    
-    if(err) {
-      if(err.estado === "no_encontrado") {
-        res.status(404).send({
-          mensaje: `No se encontraron usuarios inscritos a la conferencia con id: ${req.params.idConferencia}`, codigo:404, data:null
-        });
-      }
-      else {
-        console.log(err);
-        res.status(500).send({
-          mensaje: "Error al obtener los usuarios inscritos a la conferencia con id: " + req.params.idConferencia
-        });
-      };
-    } 
-    else {
-      res.send({
-        mensaje: `Se obtuvieron los  usuarios inscritos a la conferencia con id: ${req.params.idConferencia}.`, codigo:200, estado:'ok', data: data
-      });
-    };
-  });
-};
-

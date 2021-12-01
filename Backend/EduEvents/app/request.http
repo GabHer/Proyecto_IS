@@ -160,8 +160,11 @@ Content-Type: application/json
 
 {   
     "idPersona": 1,
-    "idConferencia": 5
-} 
+    "idConferencia": 4
+}
+
+###
+GET http://localhost:8888/inscripcion/obtenerInscripcionesPorIdConferencia/6
 
 
 

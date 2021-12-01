@@ -17,8 +17,5 @@ module.exports = app => {
   // Eliminar una Conferencia
   app.delete("/conferencia/eliminarConferencia/:idConferencia", conferencia.eliminarConferencia);
 
-  // Obtener los participantes inscritos a una conferencia
-  app.get("/conferencia/obtenerParticipantesPorIdConferencia/:idConferencia", conferencia.obtenerParticipantesIdConferencia);
-
 };
 
