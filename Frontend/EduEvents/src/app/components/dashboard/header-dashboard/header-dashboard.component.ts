@@ -11,6 +11,7 @@ export class HeaderDashboardComponent implements OnInit {
   @Input() usuarioHeader:any;
   @Input() eventos:any= [];
   @Input() nombreItemActual:string;
+  @Input() desactivarBuscador:boolean;
   @Output() onClickUsuario = new EventEmitter<string>();
   @Output() ctrlInput = new EventEmitter<any>();
   @Output() ctrlInputFecha = new EventEmitter<any>();

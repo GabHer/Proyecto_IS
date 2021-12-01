@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -30,6 +30,7 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   @Input() ctrlBuscarEstado:any = '';
   @Input() idUsuarioActual:number = -1;
 
+  @Output() onOcultarBuscador = new EventEmitter<boolean>();
   nombre = new FormControl('');
   filtroActual:any = {
     nombre : true,
@@ -131,6 +132,7 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   }
 
   actualizarVistaDetallesEvento(b:boolean){
+    this.onOcultarBuscador.emit(b)
     this.mostrarDetallesEvento = b;
   }
 

@@ -13,7 +13,7 @@
           </div>
       </div>
       <div *ngIf="(nombreItemActual != 'Mi perfil')" class="col-12 mt-3">
-        <div class="contenedor-buscar mr-5 mb-5">
+        <div *ngIf="(!desactivarBuscador)" class="contenedor-buscar mr-5 mb-5">
           <app-buscador
             (filtrarBusqueda)="filtrarBusqueda($event)"
             (filtrarBusquedaFecha)="filtrarBusquedaFecha($event)"

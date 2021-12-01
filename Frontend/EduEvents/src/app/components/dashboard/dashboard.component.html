@@ -21,6 +21,7 @@
       (ctrlInput)="setCtrlBusqueda($event)"
       (ctrlInputFecha)="setCtrlBusquedaFecha($event)"
       (ctrlInputEstado)="setCtrlBusquedaEstado($event)"
+      [desactivarBuscador]="ocultarBuscador"
      >
     </app-header-dashboard>
 
@@ -56,6 +57,7 @@
             (onCrearConferencia)="actualizarDashBoard()"
             (onCrearEvento)="actualizarDashBoard()"
             (onEliminarEvento)="obtenerUsuario()"
+            (onOcultarBuscador)="setOcultarBuscador($event)"
 
           >
           </app-mis-eventos>
@@ -78,7 +80,9 @@
             *ngIf="(indexItemActual == obtenerIndexItem('Buscar'))"
             [collapsar]="bandera"
             [eventos]="eventos"
-            style="width: 100%;" >
+            style="width: 100%;"
+            (onOcultarBuscador)="setOcultarBuscador($event)"
+            >
           </app-buscar-evento>
 
 
