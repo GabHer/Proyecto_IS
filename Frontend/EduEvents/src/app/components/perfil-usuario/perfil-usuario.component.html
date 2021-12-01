@@ -156,7 +156,7 @@
             </div>
           </div>
 
-          <div class="row col-12">
+          <div *ngIf="!vistaUsuario" class="row col-12">
             <fa-icon matTooltip="Editar mi perfil" (click)="mostrarFormularioEditar()" class=" mr-4" style="cursor:pointer; font-size: 30px; margin-left: auto; color: #4484ce;" [icon]="faEdit"></fa-icon>
           </div>
         </div>
