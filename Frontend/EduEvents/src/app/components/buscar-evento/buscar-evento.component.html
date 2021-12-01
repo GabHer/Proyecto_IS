@@ -36,7 +36,7 @@
 
 <div *ngIf="(mostrarDetallesEvento)" class="row" style="margin-left: auto; margin-right: auto; width:100%">
 
-  <app-detalles-evento style="margin-left: auto; margin-right: auto; width:100%" [isCollaps]="!collapsar" [idEvento]="idEventoSeleccionado" (onChangePath)="actualizarVistaDetallesEvento(false)" ></app-detalles-evento>
+  <app-detalles-evento class="contenedor" [vistaBuscar]="true" style="margin-left: auto; margin-right: auto; width:100%" [isCollaps]="!collapsar" [idEvento]="idEventoSeleccionado" (onChangePath)="actualizarVistaDetallesEvento(false)" ></app-detalles-evento>
 
 </div>
 

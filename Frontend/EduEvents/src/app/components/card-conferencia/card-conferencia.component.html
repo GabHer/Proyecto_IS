@@ -38,7 +38,7 @@
           </div>
         </div>
         <div *ngIf="isOrganizador" style="position: absolute; margin-top: 5px;" class="col-12">
-          <div class="container text-right">
+          <div *ngIf="!vistaBuscar" class="container text-right">
             <div (click)="eliminarConferencia()" class="circulo-cerrar">
               <span style="color:red;" class="material-icons">
                 close
@@ -71,8 +71,10 @@
 
   </div>
   <div class="card-footer">
-    <div *ngIf="isOrganizador" class="row no-padding no-margin">
-      <div  class="col-2 no-padding no-margin">
+    <!-- Vista para el usuario organizador desde 'mis eventos'-->
+
+    <div *ngIf="isOrganizador && !vistaBuscar" class="row no-padding no-margin">
+      <div class="col-2 no-padding no-margin">
         <span class="material-icons">
           group
           </span>
@@ -92,6 +94,30 @@
 
       </div>
     </div>
+
+    <!-- Vista usuario organizador desde 'Buscar' -->
+
+    <div *ngIf="isOrganizador && vistaBuscar" class="row no-padding no-margin">
+      <span style="margin:0; padding:0" class="col-2">
+        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
+      </span>
+
+      <div  class="col-5 no-padding no-margin">
+        <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} </span>
+      </div>
+
+      <div class="col-5 no-padding no-margin">
+        <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
+          <span class="material-icons txt-footer">arrow_right_alt</span>
+        </a>
+        <p *ngIf="conferencia.Modalidad == 0" class="txt-footer">
+          {{conferencia.Medio}}
+        </p>
+
+      </div>
+    </div>
+
+    <!-- Vista usuario no organizador -->
 
     <div *ngIf="!isOrganizador" class="row no-padding no-margin">
       <span style="margin:0; padding:0" class="col-2">

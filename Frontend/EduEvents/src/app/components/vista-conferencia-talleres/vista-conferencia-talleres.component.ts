@@ -46,6 +46,7 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   idConferencia:number;
 
   @Input() isCollaps = false;
+  @Input() vistaBuscar = false;
   @Input() isOrganizador = false;
   @Input() idEvento = -1;
   @Input() eventoSeleccionado:any = {
@@ -138,7 +139,7 @@ export class VistaConferenciaTalleresComponent implements OnInit {
     this.serviceConferencia.eliminarConferencia( idConferencia ).subscribe(
       (res:any) => {
         if(res.codigo == 200){
-          
+
           this.abrirModal(modalExito);
           this.obtenerConferencias()
         }

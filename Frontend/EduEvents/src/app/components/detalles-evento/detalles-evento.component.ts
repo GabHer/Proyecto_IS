@@ -27,6 +27,7 @@ export class DetallesEventoComponent implements OnInit {
   }
 
   @Input() isOrganizador = false;
+  @Input() vistaBuscar = false;
 
   confEvento = {
     mostrarDetalleEvento : true,

@@ -31,6 +31,7 @@ export class CardConferenciaComponent implements OnInit {
 
   @Input() conferencia:Conferencia;
   @Input() isOrganizador = false;
+  @Input() vistaBuscar = false;
   @Output() onListaAsistencia = new EventEmitter<any>();
   @Output() onVerEncargado = new EventEmitter<any>();
   @Output() onEliminarConferencia = new EventEmitter<number>();
