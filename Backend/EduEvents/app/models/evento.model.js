@@ -334,7 +334,27 @@ Evento.confirmarFecha = ( parametros, resultado ) => {
   });
 };
 
+// Obtener lista blanca de los eventos privados
+Evento.obtenerListaBlancaPorIdEvento = (idEvento, resultado) => {
+  let consulta = `SELECT * FROM lista_blanca WHERE Id_Evento = "${idEvento}";`;
+  
+  sql.query(consulta, (err, res) => {
+    if(err) {
+      resultado(err, null);
+      return;
+    };
 
+    // Si existe lista blanca para ese evento
+    if(res.length) {
+      resultado(null, res);
+      return;
+    }
+    else {
+      // En ultima instancia, no se encontró lista blanca para ese evento
+      resultado({estado: "no_encontrado"}, null);
+    }
+  });
+};
 
 
 module.exports = Evento;
