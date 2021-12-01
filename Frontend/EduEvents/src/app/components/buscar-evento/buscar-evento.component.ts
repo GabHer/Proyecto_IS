@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -30,6 +30,8 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   @Input() ctrlBuscarEstado:any = '';
   @Input() idUsuarioActual:number = -1;
 
+
+  @Output() onOcultarBuscador = new EventEmitter<boolean>();
   nombre = new FormControl('');
   filtroActual:any = {
     nombre : true,
@@ -40,6 +42,11 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
   eventosPorFecha: Evento[] = [];
   eventosPorEstado: Evento[] = [];
   filteredEvento:Observable<Evento[]>;
+
+  idEventoSeleccionado = -1;
+
+  mostrarDetallesEvento = false;
+
   constructor( private eventosService:EventosService ) {
 
 
@@ -90,6 +97,11 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
 
   }
 
+  actualizarEventoSeleccionado(id:number){
+    this.idEventoSeleccionado = id;
+    this.actualizarVistaDetallesEvento(true);
+  }
+
   obtenerEventosPorFecha(){
     if(!this.ctrlBuscarRangoFecha) return;
     this.eventosService.obtenerEventosPorFecha( this.ctrlBuscarRangoFecha.fechaInicio, this.ctrlBuscarRangoFecha.fechaFinal ).subscribe(
@@ -120,6 +132,10 @@ export class BuscarEventoComponent implements OnInit, OnChanges {
     );
   }
 
+  actualizarVistaDetallesEvento(b:boolean){
+    this.onOcultarBuscador.emit(b);
+    this.mostrarDetallesEvento = b;
+  }
 
 
 }

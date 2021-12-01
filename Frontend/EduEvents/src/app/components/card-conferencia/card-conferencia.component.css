@@ -10,15 +10,15 @@
 }
 
 
-.estado-inactivo {
+.Inactivo {
   color:#F9CF00;
   font-weight: bold;
 }
-.estado-activo {
+.Activo {
   color:#24FE00;
   font-weight: bold;
 }
-.estado-cerrado {
+.Cerrado {
   color:#FE0000;
   font-weight: bold;
 }
@@ -96,4 +96,11 @@
   margin-left: auto;
   height: 22px;
   cursor:pointer;
+}
+
+
+.imagen {
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
 }

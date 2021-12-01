@@ -31,10 +31,14 @@ export class MisEventosComponent implements OnInit, OnChanges {
   @Input() ctrlBuscar:string = '';
   @Input() ctrlBuscarRangoFecha:any = '';
   @Input() ctrlBuscarEstado:any = '';
+  @Input() vistaBuscar = false;
 
   @Output() onCrearConferencia = new EventEmitter<any>();
   @Output() onCrearEvento = new EventEmitter<any>();
   @Output() onEliminarEvento = new EventEmitter<any>();
+  @Output() onOcultarBuscador = new EventEmitter<boolean>();
+
+
   nombre = new FormControl('');
   filtroActual:any = {
     nombre : true,
@@ -168,8 +172,12 @@ export class MisEventosComponent implements OnInit, OnChanges {
   }
 
   actualizarPath( path:string ){
+
+    this.vistaBuscar = false;
+
     switch (path) {
       case "Mis eventos":
+        this.onOcultarBuscador.emit(false)
         this.mostrarFormularioEvento = false;
         this.mostrarFormularioConferencia = false;
         this.mostrarDetallesEvento = false;
@@ -193,6 +201,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
 
   mostrarFormularioCrearConferencia(event:any){
     this.mostrarFormularioConferencia = true;
+    this.onOcultarBuscador.emit(true)
     this.idEvento = event;
   }
 
@@ -225,6 +234,8 @@ export class MisEventosComponent implements OnInit, OnChanges {
     );
   }
   mostrarFormularioDetallesEvento(event:any){
+
+    this.onOcultarBuscador.emit(true)
     this.mostrarDetallesEvento = true;
     this.idEvento = event;
     console.log(this.idEvento);

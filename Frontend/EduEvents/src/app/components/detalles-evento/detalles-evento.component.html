@@ -41,8 +41,11 @@
 <div *ngIf="(confEvento.mostrarVistaConferencias)" class="row">
   <app-vista-conferencia-talleres
     [isCollaps]="isCollaps "
+    [isOrganizador]="isOrganizador"
     [idEvento]="idEvento"
+    [eventoSeleccionado]="eventoSeleccionado"
     (verDetallesEvento)="mostrarConferencias(false)"
+    [vistaBuscar]="vistaBuscar"
     class="container"
     ></app-vista-conferencia-talleres>
 </div>

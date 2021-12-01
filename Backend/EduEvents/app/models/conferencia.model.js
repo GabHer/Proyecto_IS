@@ -823,6 +823,36 @@ Conferencia.eliminarConferencias = ( idConferencia, resultado ) => {
     });
 };
 
+// Obtener Participantes inscritos a una Conferencia
+Conferencia.obtenerParticipantesPorIdConferencia = (idConferencia, resultado) => {
+    let consulta = `SELECT persona.Nombre, persona.Apellido, persona.Fotografia FROM persona JOIN persona_conferencia
+        ON persona.Id = persona_conferencia.Id_Persona JOIN conferencia
+        ON conferencia.Id = persona_conferencia.Id_Conferencia
+        WHERE persona.Correo <> conferencia.Correo_Encargado AND persona_conferencia.Id_Conferencia = "${idConferencia}";`;
+    
+    sql.query(consulta, (err, res) => {
+        if(err) {
+            resultado(err, null);
+            return;
+        };
+    
+        // Si hay usuarios inscritos a la conferencia 
+        if(res.length) {
+            for(let i = 0; i < res.length; i++){
+                let buff = res[i].Fotografia
+                let srcImagen = buff.toString('ascii');
+                res[i].Fotografia = srcImagen;
+            }; 
+            resultado(null, res);
+            return;
+        }
+        else {
+            // En ultima instancia, no se encontraron usuarios inscritos a la conferencia
+            resultado({estado: "no_encontrado"}, null);
+        }
+    });
+};
+
 module.exports = Conferencia;
 
 

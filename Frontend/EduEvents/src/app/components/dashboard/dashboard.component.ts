@@ -37,6 +37,9 @@ export class DashboardComponent implements OnInit, OnChanges  {
   ctrlInput:string;
   ctrlInputRangoFecha:any;
   ctrlInputEstado:any;
+
+  vistaBuscar = false;
+
   @Input() usuario:any ={
     Id: -1,
     Nombre: "",
@@ -70,6 +73,7 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   eventos:Evento[] = [];
   misEventos:Evento[] =[];
+  ocultarBuscador=false;
 
   constructor( private eventosService:EventosService, private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService, private modalService:NgbModal, private spinner:SpinnerService) {
     this.obtenerUsuario();
@@ -87,6 +91,9 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   actualizarItemActual(e:any){
     this.spinner.mostrarSpinner()
+    this.vistaBuscar = false;
+    this.ocultarBuscador = false;
+
     setTimeout(() => {
       this.indexItemActual = e;
       this.spinner.ocultarSpinner()
@@ -184,9 +191,14 @@ export class DashboardComponent implements OnInit, OnChanges  {
   }
   setCtrlBusquedaEstado(event:any){
 
+
     this.ctrlInputEstado = event;
   }
 
+  setOcultarBuscador(b:boolean){
+    this.ocultarBuscador = b;
+    console.log("Se mostrara el buscador ", b)
+  }
 
 
 

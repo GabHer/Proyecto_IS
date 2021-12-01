@@ -11,7 +11,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class PerfilUsuarioComponent implements OnInit {
   @Output() onClickMostrarFormularioEditarPerfil = new EventEmitter<Boolean>();
   @Output() actualizarUsuarioActual = new EventEmitter<any>();
-
+  @Input() vistaUsuario = false;
   faEdit = faEdit;
 
   editando = {

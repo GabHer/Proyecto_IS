@@ -30,6 +30,9 @@ module.exports = app => {
     //Confirmar rango de fechas del evento
     app.post("/eventos/obtenerFecha", eventos.confirmarFechaEvento);
 
+    // Obtener la lista blanca para los eventos privados.
+    app.get("/eventos/obtenerListaBlancaPorIdEvento/:idEvento", eventos.obtenerListaBlancaIdEvento);
+    
     // Eliminar un evento
     app.delete('/eventos/eliminarEvento/:idEvento', eventos.eliminarEvento);
     

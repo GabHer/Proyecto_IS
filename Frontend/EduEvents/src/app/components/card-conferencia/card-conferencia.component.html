@@ -1,4 +1,4 @@
-<div class="card card-radius mt-4" style="width: 100%;">
+<div *ngIf="usuarioEncargado" class="card card-radius mt-4" style="width: 100%;">
   <div class="row">
     <div class="col-12">
       <div class="row">
@@ -37,8 +37,8 @@
             </div>
           </div>
         </div>
-        <div style="position: absolute; margin-top: 5px;" class="col-12">
-          <div class="container text-right">
+        <div *ngIf="isOrganizador" style="position: absolute; margin-top: 5px;" class="col-12">
+          <div *ngIf="!vistaBuscar" class="container text-right">
             <div (click)="eliminarConferencia()" class="circulo-cerrar">
               <span style="color:red;" class="material-icons">
                 close
@@ -59,7 +59,7 @@
         <h5 class="card-title txt-conferencia text-left">{{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}</h5>
       </div>
       <div class="col-6">
-        <h5 class="card-title text-right estado-activo">Activo</h5>
+        <h5 class="card-title text-right" [class]="(conferencia.Estado_Conferencia)" >{{conferencia.Estado_Conferencia}}</h5>
       </div>
     </div>
     <div class="row">
@@ -71,15 +71,61 @@
 
   </div>
   <div class="card-footer">
-    <div class="row no-padding no-margin">
+    <!-- Vista para el usuario organizador desde 'mis eventos'-->
+
+    <div *ngIf="isOrganizador && !vistaBuscar" class="row no-padding no-margin">
       <div class="col-2 no-padding no-margin">
         <span class="material-icons">
           group
           </span>
       </div>
-      <div class="col-5 no-padding no-margin">
-        <span (click)="mostrarListaAsistencia()" class="txt-footer txt-participantes"> Gestionar participantes </span>
+      <div  class="col-5 no-padding no-margin">
+        <span  (click)="mostrarListaAsistencia()" class="txt-footer txt-participantes"> Gestionar participantes </span>
 
+      </div>
+
+      <div class="col-5 no-padding no-margin">
+        <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
+          <span class="material-icons txt-footer">arrow_right_alt</span>
+        </a>
+        <p *ngIf="conferencia.Modalidad == 0" class="txt-footer">
+          {{conferencia.Medio}}
+        </p>
+
+      </div>
+    </div>
+
+    <!-- Vista usuario organizador desde 'Buscar' -->
+
+    <div *ngIf="isOrganizador && vistaBuscar" class="row no-padding no-margin">
+      <span style="margin:0; padding:0" class="col-2">
+        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
+      </span>
+
+      <div  class="col-5 no-padding no-margin">
+        <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} </span>
+      </div>
+
+      <div class="col-5 no-padding no-margin">
+        <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
+          <span class="material-icons txt-footer">arrow_right_alt</span>
+        </a>
+        <p *ngIf="conferencia.Modalidad == 0" class="txt-footer">
+          {{conferencia.Medio}}
+        </p>
+
+      </div>
+    </div>
+
+    <!-- Vista usuario no organizador -->
+
+    <div *ngIf="!isOrganizador" class="row no-padding no-margin">
+      <span style="margin:0; padding:0" class="col-2">
+        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
+      </span>
+
+      <div  class="col-5 no-padding no-margin">
+        <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} </span>
       </div>
 
       <div class="col-5 no-padding no-margin">

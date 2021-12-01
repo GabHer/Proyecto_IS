@@ -12,6 +12,11 @@ export class ConferenciasService {
     return this.httpClient.get(`http://localhost:8888/conferencia/obtenerConferenciasPorIdEvento/${idEvento}`);
   }
 
+  eliminarConferencia( idConferencia:number ){
+    return this.httpClient.delete(`http://localhost:8888/conferencia/eliminarConferencia/${idConferencia}`);
+
+  }
+
 
 
 }
