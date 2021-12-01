@@ -41,6 +41,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["pdfmake/build/pdfmake"],
             "outputPath": "dist/EduEvents",
             "index": "src/index.html",
             "main": "src/main.ts",
