@@ -1,6 +1,6 @@
 
 <!-- Filtrar por nombre -->
-<div *ngIf="(filtroActual.nombre && !mostrarDetallesEvento)"  class="row" style="width: 95%; margin-left: auto; margin-right: auto;">
+<div *ngIf="(filtroActual.nombre && !mostrarDetallesEvento)"  class="row" style="width: 95%; margin-left: auto; padding-left: 0%; margin-left: 0%;">
   <div *ngFor="let evento of filteredEvento | async" [class]="(!collapsar ? 'col-4 mt-5' : 'col-3 mt-5')">
     <app-card-evento
 
