@@ -16,6 +16,11 @@
     </div>
 
     <div *ngIf="(vistaActual.vistaMisInscripciones)" class="row">
+      <div class="col-12">
+        <div class="col-12 text-center mt-4">
+          <h1 style="color:#4484CE;">Mis inscripciones</h1>
+        </div>
+      </div>
       <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')" *ngFor="let conferencia of conferencias">
         <app-card-conferencia
 

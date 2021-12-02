@@ -6,17 +6,21 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 
 
 export interface Conferencia {
+  Asistencia: null
   Correo_Encargado:string
   Descripcion:string
   Emision_Diplomas:number
   Estado_Conferencia:string
   Fecha_Inicio:Date
+  Fecha_Inscripcion:Date
   Firma_Encargado:any
   Firma_Organizador:any
   Hora_Final:string
   Hora_Inicio:Date
   Id:number
+  Id_Conferencia:number
   Id_Evento:number
+  Id_Persona:number
   Imagen:string
   Limite_Participantes:number
   Medio:string
@@ -24,7 +28,6 @@ export interface Conferencia {
   Nombre:string
   Tipo:number,
   Lista_Participantes:any
-
 }
 @Component({
   selector: 'app-vista-conferencia-talleres',
@@ -36,7 +39,7 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   constructor( private serviceConferencia:ConferenciasService, private usuarioService:UsuariosService, private spinner:SpinnerService, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
-    this.obtenerConferencias()
+    this.obtenerUsuarioActual()
   }
 
   mensajeModal = [
@@ -70,6 +73,81 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   }
 
   conferencias:Conferencia[] = []
+  misInscripciones:Conferencia[] = []
+  usuarioActual:any;
+
+  obtenerUsuarioActual(){
+    let correo = this.obtenerCorreoUsuarioActual()
+    this.usuarioService.obtenerUsuario( correo ).subscribe(
+      (res:any) => {
+
+        this.usuarioActual = res.data
+        this.obtenerMisInscripciones()
+
+      },
+      (err:any) => {
+
+      },
+      () => {
+
+      }
+    );
+
+  }
+
+  obtenerCorreoUsuarioActual(){
+    let tokenUsuario = localStorage.getItem("token");
+
+    if( tokenUsuario ){
+
+       return JSON.parse(tokenUsuario).id;
+
+    }
+    return ""
+  }
+
+  obtenerMisInscripciones(){
+
+    this.serviceConferencia.obtenerConferenciasUsuario( this.usuarioActual.Id ).subscribe(
+      (res:any) => {
+
+
+        this.misInscripciones = res.data;
+
+        for(let i = 0; i< this.conferencias.length; i++){
+
+          let participante = {
+            Id: this.usuarioActual.Id ,
+            Nombre: this.usuarioActual.Nombre,
+            Apellido: this.usuarioActual.Apellido,
+            Fotografia: this.usuarioActual.Fotografia
+          }
+          this.misInscripciones[i].Lista_Participantes = [participante]
+        }
+        this.obtenerConferencias();
+      },
+      (err:any) => {
+        if( err.error.codigo == 404 ) {
+          this.misInscripciones = [];
+        }
+
+      },
+      () => {
+
+
+      }
+    );
+  }
+
+  buscarMiInscripcion( id:number ){
+
+    for( let i = 0; i < this.misInscripciones.length; i++ ){
+      if( this.misInscripciones[i].Id_Conferencia == id ){
+        return true;
+      }
+    }
+    return false;
+  }
 
   obtenerConferencias(){
     this.spinner.mostrarSpinner();
@@ -79,21 +157,19 @@ export class VistaConferenciaTalleresComponent implements OnInit {
 
         for(let i = 0; i< this.conferencias.length; i++){
 
-          // Obtener la lista de participantes de una conferencia.
-
-          this.serviceConferencia.obtenerParticipantesConferencia(this.conferencias[i].Id).subscribe(
-            (resultado:any) => {
-              this.conferencias[i].Lista_Participantes = resultado.data;
-            },
-            (error:any) => {
-              this.conferencias[i].Lista_Participantes = []
+          if( this.buscarMiInscripcion(this.conferencias[i].Id) ){
+            let participante = {
+              Id: this.usuarioActual.Id ,
+              Nombre: this.usuarioActual.Nombre,
+              Apellido: this.usuarioActual.Apellido,
+              Fotografia: this.usuarioActual.Fotografia
             }
-          )
+            this.conferencias[i].Lista_Participantes = [participante]
+          }else {
+            this.conferencias[i].Lista_Participantes = []
 
+          }
         }
-
-
-
       },
       (err:any) => {
         if( err.error.codigo == 404 ) {
@@ -103,7 +179,6 @@ export class VistaConferenciaTalleresComponent implements OnInit {
       },
       () => {
         this.spinner.ocultarSpinner()
-
       }
     );
   }
@@ -123,7 +198,6 @@ export class VistaConferenciaTalleresComponent implements OnInit {
     this.vistaActual.listaAsistencia = false,
     this.vistaActual.detalleConferencia =true
     this.vistaActual.vistaEncargado = false
-
   }
 
   regresar(){

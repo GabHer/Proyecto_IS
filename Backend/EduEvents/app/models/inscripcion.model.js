@@ -724,12 +724,15 @@ Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
     });
 };
 
-
 Inscripcion.obtenerInscritosPorIdConferencia = (idConferencia, resultado) => {
     let consulta = `SELECT Persona.Id, Persona.Nombre, Persona.Apellido, Persona.Fotografia FROM Persona JOIN Persona_Conferencia
         ON Persona.Id = Persona_Conferencia.Id_Persona JOIN Conferencia
         ON Conferencia.Id = Persona_Conferencia.Id_Conferencia
-        WHERE Persona.Correo <> Conferencia.Correo_Encargado AND Persona_Conferencia.Id_Conferencia = "${idConferencia}";`;
+        WHERE Persona.Correo <> Conferencia.Correo_Encargado AND Persona_Conferencia.Id_Conferencia = ${idConferencia};`;
+
+
+    console.log("La consulta es =>>>")
+    console.log(consulta)
 
     sql.query(consulta, (err, res) => {
         if(err) {

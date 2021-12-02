@@ -26,7 +26,7 @@ export class ConferenciasService {
     return this.httpClient.post(`http://localhost:8888/inscripcion/NuevaInscripcion`,objInscripcion);
   }
   obtenerParticipantesConferencia( idConferencia:number ){
-  console.log()
+
     return this.httpClient.get(`http://localhost:8888/inscripcion/obtenerInscripcionesPorIdConferencia/${idConferencia}`);
   }
 

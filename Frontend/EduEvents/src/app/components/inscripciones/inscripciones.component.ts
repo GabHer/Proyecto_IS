@@ -4,17 +4,21 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 export interface Conferencia {
+  Asistencia: null
   Correo_Encargado:string
   Descripcion:string
   Emision_Diplomas:number
   Estado_Conferencia:string
   Fecha_Inicio:Date
+  Fecha_Inscripcion:Date
   Firma_Encargado:any
   Firma_Organizador:any
   Hora_Final:string
   Hora_Inicio:Date
   Id:number
+  Id_Conferencia:number
   Id_Evento:number
+  Id_Persona:number
   Imagen:string
   Limite_Participantes:number
   Medio:string
@@ -22,8 +26,8 @@ export interface Conferencia {
   Nombre:string
   Tipo:number,
   Lista_Participantes:any
-
 }
+
 @Component({
   selector: 'app-inscripciones',
   templateUrl: './inscripciones.component.html',
@@ -96,17 +100,13 @@ export class InscripcionesComponent implements OnInit {
 
         for(let i = 0; i< this.conferencias.length; i++){
 
-          // Obtener la lista de participantes de una conferencia.
-
-          this.serviceConferencia.obtenerParticipantesConferencia(this.conferencias[i].Id).subscribe(
-            (resultado:any) => {
-              this.conferencias[i].Lista_Participantes = resultado.data;
-            },
-            (error:any) => {
-              this.conferencias[i].Lista_Participantes = []
-            }
-          )
-
+          let participante = {
+            Id: this.usuarioActual.Id ,
+            Nombre: this.usuarioActual.Nombre,
+            Apellido: this.usuarioActual.Apellido,
+            Fotografia: this.usuarioActual.Fotografia
+          }
+          this.conferencias[i].Lista_Participantes = [participante]
         }
       },
       (err:any) => {

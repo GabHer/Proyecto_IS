@@ -65,7 +65,6 @@ export class DetallesEventoComponent implements OnInit {
     this.eventosService.obtenerEventoPorId( idEvento ).subscribe(
       (res:any) => {
 
-        console.log(res.data);
         this.eventoSeleccionado = {
           id: res.data.Id,
           descripcion: res.data.Descripcion,
@@ -92,7 +91,6 @@ export class DetallesEventoComponent implements OnInit {
   mostrarConferencias(b:boolean){
     this.confEvento.mostrarVistaConferencias = b;
     this.confEvento.mostrarDetalleEvento = !b;
-    console.log(this.vistaBuscar)
 
   }
 
