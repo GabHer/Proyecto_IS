@@ -22,7 +22,8 @@ export interface Conferencia {
   Medio:string
   Modalidad:number
   Nombre:string
-  Tipo:number
+  Tipo:number,
+  Lista_Participantes:any
 
 }
 @Component({
@@ -76,11 +77,27 @@ export class VistaConferenciaTalleresComponent implements OnInit {
       (res:any) => {
         this.conferencias = res.data;
 
+        for(let i = 0; i< this.conferencias.length; i++){
+
+          // Obtener la lista de participantes de una conferencia.
+
+          this.serviceConferencia.obtenerParticipantesConferencia(this.conferencias[i].Id).subscribe(
+            (resultado:any) => {
+              this.conferencias[i].Lista_Participantes = resultado.data;
+            },
+            (error:any) => {
+              this.conferencias[i].Lista_Participantes = []
+            }
+          )
+
+        }
+
+
+
       },
       (err:any) => {
         if( err.error.codigo == 404 ) {
           this.conferencias = [];
-          console.log("No se encontro conferencias para este evento")
         }
         this.spinner.ocultarSpinner()
       },
@@ -100,7 +117,6 @@ export class VistaConferenciaTalleresComponent implements OnInit {
     this.vistaActual.listaAsistencia = false,
     this.vistaActual.detalleConferencia =false
     this.usuarioEncargadoConferencia = evento;
-
 
   }
   verDetalleConferencia(){

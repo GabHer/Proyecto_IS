@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ConferenciasService } from 'src/app/services/conferencias.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from 'src/app/services/spinner.service';
 export interface Conferencia {
   Correo_Encargado:string
   Descripcion:string
@@ -17,7 +20,8 @@ export interface Conferencia {
   Medio:string
   Modalidad:number
   Nombre:string
-  Tipo:number
+  Tipo:number,
+  Lista_Participantes:any
 
 }
 
@@ -32,7 +36,8 @@ export class CardConferenciaComponent implements OnInit {
   @Input() conferencia:Conferencia;
   @Input() isOrganizador = false;
   @Output() onVerEncargado = new EventEmitter<any>();
-  constructor( private usuarioService:UsuariosService ) { }
+  @Output() onRegistrarConferencia = new EventEmitter<any>();
+  constructor( private usuarioService:UsuariosService, private conferenciaService:ConferenciasService, private spinner:SpinnerService, private modalService:NgbModal  ) { }
   @Input() eventoSeleccionado:any = {
     id: "",
     descripcion: "",
@@ -47,15 +52,32 @@ export class CardConferenciaComponent implements OnInit {
 
   usuarioActual:any;
   usuarioEncargado:any;
-
+  isParticipante = false;
+  mensajeModal = [
+    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"La conferencia o taller se eliminaran del evento", icono:"quiz"},
+    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
+  ]
   ngOnInit(): void {
     this.obtenerUsuarioEncargado()
+    this.obtenerUsuarioActual()
+
 
   }
 
   obtenerFormatoFecha( date:any){
 
     return date.split('T')[0]
+  }
+
+
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
   }
 
 
@@ -82,6 +104,26 @@ export class CardConferenciaComponent implements OnInit {
     return false;
   }
 
+  obtenerUsuarioActual(){
+    let correo = this.obtenerCorreoUsuarioActual()
+    this.usuarioService.obtenerUsuario( correo ).subscribe(
+      (res:any) => {
+
+        this.usuarioActual = res.data
+      },
+      (err:any) => {
+
+      },
+      () => {
+
+        this.isParticipante = this.validarSiEsParticipante()
+        console.log(this.isParticipante)
+
+      }
+    );
+
+  }
+
 
   obtenerUsuarioEncargado(){
 
@@ -91,6 +133,61 @@ export class CardConferenciaComponent implements OnInit {
         this.usuarioEncargado = res.data
       }
     );
+  }
+
+
+  validarSiEsParticipante(){
+
+    console.log(this.conferencia.Lista_Participantes)
+    for( let i = 0; i < this.conferencia.Lista_Participantes.length; i++ ){
+
+      if( this.conferencia.Lista_Participantes[i].Id = this.usuarioActual.Id ){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  desInscribirme(modalExito:any, modalError:any){
+    console.log("No programado...")
+  }
+
+  inscribirme(modlExito:any, modalError:any){
+
+    let objInscripcion =  {
+     idPersona: this.usuarioActual.Id ,
+     idConferencia: this.conferencia.Id
+    };
+
+    this.spinner.mostrarSpinner();
+    this.conferenciaService.registrarEnConferencia( objInscripcion ).subscribe(
+
+      (res:any) => {
+        if(res.codigo == 200){
+          this.abrirModal(modlExito);
+          this.isParticipante = this.validarSiEsParticipante()
+        }
+
+        if(res.codigo == 400){
+          this.mensajeModal[1].titulo1 = res.estado;
+          this.mensajeModal[1].titulo2 = res.mensaje;
+          this.abrirModal(modalError);
+        }
+
+      },
+
+      (err:any) => {
+        this.mensajeModal[1].titulo1 = `Error: ${err.error.codigo}_${err.error.estado}`;
+        this.mensajeModal[1].titulo2 = err.error.mensaje;
+        this.abrirModal(modalError);
+        this.spinner.ocultarSpinner();
+      },
+      () => {
+        this.spinner.ocultarSpinner();
+      }
+
+    );
+
   }
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter,Output } from '@angular/core';
 import { EventosService } from 'src/app/services/eventos.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ConferenciasService } from 'src/app/services/conferencias.service';
 
 @Component({
   selector: 'app-detalles-evento',
@@ -26,6 +27,7 @@ export class DetallesEventoComponent implements OnInit {
 
   }
 
+
   @Input() isOrganizador = false;
   @Input() vistaBuscar = false;
 
@@ -35,12 +37,15 @@ export class DetallesEventoComponent implements OnInit {
   }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-  constructor(private eventosService:EventosService,private spinner:SpinnerService, private usuarioService:UsuariosService) { }
+  constructor(private eventosService:EventosService,private spinner:SpinnerService, private usuarioService:UsuariosService, private conferenciaService:ConferenciasService) { }
 
   ngOnInit(): void {
     this.obtenerEvento(this.idEvento);
     this.obtenerUsuario()
+
   }
+
+
 
   obtenerUsuario(){
     let tokenUsuario = localStorage.getItem("token");

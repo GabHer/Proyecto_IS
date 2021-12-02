@@ -65,15 +65,18 @@
     <!-- Vista desde buscar -->
 
     <div  class="row no-padding no-margin">
-      <span style="margin:0; padding:0" class="col-2">
+      <span style="margin:0; padding:0" class="col-1">
         <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
       </span>
 
-      <div  class="col-5 no-padding no-margin">
-        <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} </span>
-      </div>
+      <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} </span>
 
-      <div class="col-5 no-padding no-margin">
+
+      <span *ngIf="(!isParticipante)" (click)="inscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer col-1">how_to_reg</span>
+      <span *ngIf="(isParticipante)" (click)="desInscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Desinscribirme" class="material-icons icono-footer col-1">do_not_disturb_on</span>
+
+
+      <div class="col-5">
         <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
           <span class="material-icons txt-footer">arrow_right_alt</span>
         </a>
@@ -86,3 +89,60 @@
 
   </div>
 </div>
+
+<!-- Modal Dialogo Éxito -->
+<ng-template #modaDialogoExito let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>Se ha registrado en esta conferencia</h3>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Modal Error -->
+<ng-template #modalError let-modal>
+  <div class="modal-encabezado modal-error">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[0].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[1].titulo1}}</h3>
+      <h3>{{mensajeModal[1].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
+  </div>
+</ng-template>
