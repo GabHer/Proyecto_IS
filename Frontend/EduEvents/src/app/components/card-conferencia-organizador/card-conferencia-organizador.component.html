@@ -1,10 +1,10 @@
-<div *ngIf="usuarioEncargado" class="card card-radius mt-4" style="width: 100%;">
+<div *ngIf="usuarioEncargado" class="card card-radius mt-4 mb-2" style="width: 100%;">
   <div class="row">
     <div class="col-12">
       <div class="row">
 
         <div class="col-12">
-          <img class="card-img-top card-radius" [src]="conferencia.Imagen" alt="Card image cap">
+          <img class="card-img-top" [src]="conferencia.Imagen" alt="Card image cap">
         </div>
 
         <div style="position: absolute; margin-top: 5px;" class="col-12">
@@ -40,7 +40,7 @@
         <div  style="position: absolute; margin-top: 5px;" class="col-12">
           <div  class="container text-right">
             <div (click)="eliminarConferencia()" class="circulo-cerrar">
-              <span style="color:red;" class="material-icons">
+              <span style="color:red; font-size: 25px;" class="material-icons">
                 close
               </span>
             </div>
@@ -69,6 +69,13 @@
     </div>
     <p class="card-text descripcion">{{conferencia.Descripcion}}</p>
 
+    <a style="color: #4484CE;" *ngIf="conferencia.Modalidad == 1"  [href]="conferencia.Medio">Ir a {{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}
+    </a>
+    <p class="descripcion" *ngIf="conferencia.Modalidad == 0" >
+      <strong>Lugar:</strong> {{conferencia.Medio}}
+    </p>
+
+
   </div>
   <div class="card-footer">
     <!-- Vista para el usuario organizador desde 'mis eventos'-->
@@ -79,20 +86,12 @@
           group
           </span>
       </div>
-      <div  class="col-5 no-padding no-margin">
-        <span  (click)="mostrarListaAsistencia()" class="txt-footer txt-participantes"> Gestionar participantes </span>
+      <div  class=" no-padding no-margin ">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarListaAsistencia()" class="txt-footer txt-participantes"> Gestionar participantes </span>
 
       </div>
 
-      <div class="col-5 no-padding no-margin">
-        <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
-          <span class="material-icons txt-footer">arrow_right_alt</span>
-        </a>
-        <p *ngIf="conferencia.Modalidad == 0" class="txt-footer">
-          {{conferencia.Medio}}
-        </p>
 
-      </div>
     </div>
   </div>
 </div>
