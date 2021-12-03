@@ -8,7 +8,7 @@
         <div class="container-fluid text-center">
           <span (click)="mostrarFormularioConferencia();" mat-raised-button matTooltip="Crear taller o conferencia" class="material-icons icono-footer ml-2">add_circle_outline</span>
           <span mat-raised-button matTooltip="Estadisticas" class="material-icons icono-footer ml-2">analytics</span>
-          <span mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
+          <span (click)="obtenerConferencias()" mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
           <span (click)="eliminarEvento()" mat-raised-button matTooltip="Eliminar evento" class="material-icons icono-footer ml-2">delete</span>
         </div>
       </div>

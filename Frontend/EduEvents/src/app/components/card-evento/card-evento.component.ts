@@ -47,43 +47,96 @@ export class CardEventoComponent implements OnInit {
   }
 
   async createPDF(data){
-        console.log(this.evento);
 
         PdfMakeWrapper.setFonts(pdfFonts);
 
         /* Definición elementos */
         const tabla= new Table([
-          [ 'Fecha', 'Hora Inicio', 'Hora Final', 'Nombre', 'Descripción'],
+          [ 'Fecha', 'Hora Inicio', 'Hora Final', 'Nombre', 'Medio'],
           ...this.extraerDatos(data)
         ])
         .layout('lightHorizontalLines')
-        .widths(['*', '*' ,'*',100,100])
+        .widths([70, 60 ,60,'*','*'])
         .end;
+
+        const tablaEvento= new Table([
+          [ 'Descripción', `${this.evento.Descripcion}` ],
+          [ 'Fecha', `${this.evento.Fecha_Inicio.substr(0,10)} al ${this.evento.Fecha_Final.substr(0,10)}`],
+          [ 'Institución', `${this.evento.Institucion}`],
+          [ 'Estado', `${this.evento.Estado_Evento}`]
+
+
+        ])
+        .layout('lightHorizontalLines')
+        .widths(['*', '*' ])
+        .alignment('center')
+        .end;
+
         const pdf = new PdfMakeWrapper();
-        const textTitulo = new Txt(this.evento.Nombre).alignment('center').bold().end;
-        const textDescripcion = new Txt(this.evento.Descripcion).alignment('justify').bold().end;
+        pdf.background(await new Img(`../../../assets/img/BackgroundPdf.png`).alignment('center').build());
+
+        const textTitulo = new Txt(this.evento.Nombre).alignment('center').bold().color('#4484CE').fontSize(20).end;
+        const textConferencias = new Txt('Conferencias o talleres').bold().color('#F19F4D').fontSize(15).end;
 
         /*Colocación elementos en el pdf*/
+        pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
+        pdf.add('\n');
         pdf.add(textTitulo);
         pdf.add('\n');
-        pdf.add(textDescripcion);
+        pdf.add( await new Img(`${this.evento.Caratula}`).alignment('center').build() );
         pdf.add('\n');
-        pdf.add(`Institución: ${this.evento.Institucion}`);
-        pdf.add('\n');
-        pdf.add(`Fechas: ${this.evento.Fecha_Inicio.substr(0,10)} al ${this.evento.Fecha_Final.substr(0,10)}`);
-        pdf.add('\n');
-        pdf.add(`Estado: ${this.evento.Estado_Evento}`);
-        pdf.add('\n');
-        pdf.add( await new Img(`${this.evento.Caratula}`).build() );
+        pdf.add(tablaEvento);
         pdf.add('\n');
         pdf.add('\n');
-        pdf.add('Conferencias:');
+        pdf.add('\n');
+        pdf.add(textConferencias);
+        pdf.add('\n');
         pdf.add(tabla);
         pdf.create().download();
   }
 
   extraerDatos(datos): TableRow[]{
-    return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre,  row.Descripcion])
+    console.log(datos);
+    return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre,  row.Medio])
+  }
+
+
+  async createPDFSinConferencias(){
+
+    PdfMakeWrapper.setFonts(pdfFonts);
+
+    const tablaEvento= new Table([
+      [ 'Descripción', `${this.evento.Descripcion}` ],
+      [ 'Fecha', `${this.evento.Fecha_Inicio.substr(0,10)} al ${this.evento.Fecha_Final.substr(0,10)}`],
+      [ 'Institución', `${this.evento.Institucion}`],
+      [ 'Estado', `${this.evento.Estado_Evento}`]
+      ])
+      .layout('lightHorizontalLines')
+      .widths(['*', '*' ])
+      .alignment('center')
+      .end;
+
+      const pdf = new PdfMakeWrapper();
+      pdf.background(await new Img(`../../../assets/img/BackgroundPdf.png`).alignment('center').build());
+
+      const textTitulo = new Txt(this.evento.Nombre).alignment('center').bold().color('#4484CE').fontSize(20).end;
+      const textConferencias = new Txt('¡Aún no hay conferencias o talleres!').bold().alignment('center').color('#F19F4D').fontSize(15).end;
+
+      /*Colocación elementos en el pdf*/
+      pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
+      pdf.add('\n');
+      pdf.add(textTitulo);
+      pdf.add('\n');
+      pdf.add( await new Img(`${this.evento.Caratula}`).alignment('center').build() );
+      pdf.add('\n');
+      pdf.add(tablaEvento);
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textConferencias);
+      pdf.add('\n');
+      pdf.create().download();
   }
 
   obtenerConferencias(){
@@ -93,14 +146,10 @@ export class CardEventoComponent implements OnInit {
       },
       (err:any) => {
         if( err.error.codigo == 404 ) {
+          this.createPDFSinConferencias();
           this.conferencias = [];
-          console.log("No se encontro conferencias para este evento")
+          console.log("No se encontró conferencias para este evento");
         }
-        this.spinner.ocultarSpinner()
-      },
-      () => {
-        this.spinner.ocultarSpinner()
-
       }
     );
   }
