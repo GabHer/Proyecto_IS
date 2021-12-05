@@ -183,9 +183,10 @@ export class VistaConferenciaTalleresComponent implements OnInit {
     );
   }
 
-  verListaAsistencia(b:boolean){
+  verListaAsistencia(idConferencia, b:boolean){
     this.vistaActual.listaAsistencia = b,
     this.vistaActual.detalleConferencia = !b
+    this.idConferencia = idConferencia;
   }
   verEncargado(evento:any){
     this.vistaActual.vistaEncargado = true

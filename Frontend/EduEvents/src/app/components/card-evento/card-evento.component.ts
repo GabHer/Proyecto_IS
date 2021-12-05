@@ -92,7 +92,7 @@ export class CardEventoComponent implements OnInit {
         pdf.add(textConferencias);
         pdf.add('\n');
         pdf.add(tabla);
-        pdf.create().download();
+        pdf.create().open();
   }
 
   extraerDatos(datos): TableRow[]{
@@ -136,7 +136,7 @@ export class CardEventoComponent implements OnInit {
       pdf.add('\n');
       pdf.add(textConferencias);
       pdf.add('\n');
-      pdf.create().download();
+      pdf.create().open();
   }
 
   obtenerConferencias(){
