@@ -84,3 +84,37 @@ exports.obtenerInscritosIdConferencia = (req, res) => {
     });
   };
   
+// Eliminar inscripción a una conferencia
+exports.eliminarInscripcion = (req, res) => {
+  if(!req.params) {
+    res.status(400).send({ mensaje: "No se pudo realizar la operación para eliminar la inscripción, parametros no válidos.", estado:"no_encontrado"});
+    return;
+  };
+  
+  Inscripcion.eliminarInscripcion(req.params, (err, data) => {
+    console.log(`Se desea eliminar la inscripción de la persona con id: ${req.params.idPersona} a la conferencia con id: ${req.params.idConferencia}`);
+    
+    if(err) {
+      if (err.estado === "no_encontrado") {
+        res.status(404).send({
+          mensaje: `No se puede eliminar la inscripción de la persona con id: ${req.params.idPersona} a la conferencia con id: ${req.params.idConferencia} porque esta conferencia ya finalizó`, codigo:404, data:null
+        });
+      } 
+      else {
+        console.log(err);
+        res.status(500).send({
+          mensaje: `Ocurrió un error al eliminar la inscripción de la persona con id: ${req.params.idPersona} a la conferencia con id: ${req.params.idConferencia}`
+        });
+      };
+    }
+    else {
+      res.send({
+        mensaje:`Se eliminó la inscripción de la persona con id: ${req.params.idPersona} a la conferencia con id: ${req.params.idConferencia}`, codigo:200, estado:"ok", data:data
+      });
+    };
+  });
+
+  return;
+};
+
+
