@@ -90,7 +90,7 @@ Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
                                             const message = {
                                                 from: '"EduEvents" <edueventsmanagement@gmail.com>',
                                                 to: correo,
-                                                subject: "Encargado De Conferencia",
+                                                subject: "Suscripción a Conferencia",
                                                 attachments: [
                                                 {
                                                     filename: 'Logo.png',
