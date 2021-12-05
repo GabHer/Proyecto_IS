@@ -64,6 +64,7 @@
 
           <!-- Inscripciones -->
           <app-inscripciones
+            [isCollaps]="!bandera"
             *ngIf="(indexItemActual == obtenerIndexItem('Inscripciones'))"
             class="container-fluid"
             style="width: 100%;"  >

@@ -1,0 +1,30 @@
+.mat-form-field {
+  width: 100%;
+}
+.mat-toolbar-single-row {
+  height: auto !important;
+  background: transparent;
+
+}
+
+.btn-file {
+  width: 10px !important ;
+  background-color: #4484CE;
+  color: white;
+}
+
+#fileUpload {
+    position: absolute;
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+
+.input-archivo {
+  font-size: 12px !important;
+  color: black;
+}

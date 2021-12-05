@@ -1,14 +1,57 @@
-<div class="row">
-  <div style="margin-top: 16%;" class="col-12 text-center">
-      <h1 style="color:#4484CE;">¡Aún no te haz inscrito en eventos!</h1>
+<div class="row container" style="margin-left: auto; margin-right: auto;">
+  <div class="col-12">
+
+    <div *ngIf="(conferencias.length == 0)" class="row">
+      <div style="margin-top: 16%;" class="col-12 text-center">
+          <h1 style="color:#4484CE;">¡Aún no te haz inscrito en eventos!</h1>
+      </div>
+    </div>
+    <div *ngIf="(conferencias.length == 0)" class="row">
+      <div class="col-12 text-center">
+        <span mat-raised-button matTooltip="Buscar eventos"
+        class="material-icons btn-search">
+          search
+          </span>
+      </div>
+    </div>
+
+    <div *ngIf="(vistaActual.vistaMisInscripciones)" class="row">
+      <div class="col-12">
+        <div class="col-12 text-center mt-4">
+          <h1 style="color:#4484CE;">Mis inscripciones</h1>
+        </div>
+      </div>
+      <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')" *ngFor="let conferencia of conferencias">
+        <app-card-conferencia
+
+          (onVerEncargado)="verEncargado($event)"
+          [isOrganizador]="false"
+          [conferencia]="conferencia"
+      ></app-card-conferencia>
+      </div>
+    </div>
+
+    <div *ngIf="vistaActual.vistaEncargado" class="row">
+      <div class="col-12">
+        <app-perfil-usuario
+          [vistaUsuario]="true"
+          [perfil]="usuarioEncargadoConferencia"
+          style="width:100%; text-align: initial;"
+          class="row"
+        >
+        </app-perfil-usuario >
+
+        <div class="mt-2">
+
+          <span (click)="verDetalleConferencia()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer;">
+            arrow_back
+            </span>
+        </div>
+
+      </div>
+    </div>
+
   </div>
-</div>
-<div class="row">
-  <div class="col-12 text-center">
-    <span mat-raised-button matTooltip="Buscar eventos"
-    class="material-icons btn-search">
-      search
-      </span>
-  </div>
+
 </div>
 

@@ -1,14 +1,14 @@
-<div *ngIf="usuarioEncargado" class="card card-radius mt-4" style="width: 100%;">
+<div *ngIf="usuarioEncargado" class="card card-radius mt-4 mb-2" style="width: 100%;">
   <div class="row">
     <div class="col-12">
       <div class="row">
 
         <div class="col-12">
-          <img class="card-img-top card-radius" [src]="conferencia.Imagen" alt="Card image cap">
+          <img class="card-img-top" [src]="conferencia.Imagen" alt="Card image cap">
         </div>
 
-        <div style="position: absolute; margin-top: 5px;" class="col-12">
-          <div class="detalle container-fluid">
+        <div style="position: absolute; margin-top: 5px; " class="col-12">
+          <div class="detalle container-fluid ">
             <div class="row no-padding no-margin">
               <div class="col no-padding no-margin">
                 <span class="lbl-1">Fecha:</span>
@@ -36,13 +36,15 @@
               </div>
             </div>
           </div>
+
+
         </div>
 
       </div>
     </div>
 
   </div>
-  <div class="card-body">
+  <div class="card-body" >
     <div class="row">
       <div class="col-6">
         <h5 class="card-title txt-conferencia text-left">{{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}</h5>
@@ -55,34 +57,90 @@
       <div class="col-12">
         <h1 class="titulo-conferencia">{{conferencia.Nombre}}</h1>
       </div>
+
     </div>
     <p class="card-text descripcion">{{conferencia.Descripcion}}</p>
 
+    <a style="color: #4484CE; font-size: 12px;" *ngIf="conferencia.Modalidad == 1"  [href]="conferencia.Medio">Ir a {{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}
+    </a>
+    <p class="descripcion" style="font-size: 12px;" *ngIf="conferencia.Modalidad == 0" >
+      <strong>Lugar:</strong> {{conferencia.Medio}}
+    </p>
+
   </div>
-  <div class="card-footer">
-
-
+  <div class="card-footer " >
     <!-- Vista desde buscar -->
 
-    <div  class="row no-padding no-margin">
-      <span style="margin:0; padding:0" class="col-2">
+    <div  class="row no-padding no-margin" >
+      <span style="margin:0; padding:0" class="col-1">
         <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
       </span>
 
-      <div  class="col-5 no-padding no-margin">
-        <span  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} </span>
+      <div class="col-9 mt-1">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
       </div>
 
-      <div class="col-5 no-padding no-margin">
-        <a *ngIf="conferencia.Modalidad == 1" class="txt-footer" [href]="conferencia.Medio">Ir a conferencia
-          <span class="material-icons txt-footer">arrow_right_alt</span>
-        </a>
-        <p *ngIf="conferencia.Modalidad == 0" class="txt-footer">
-          {{conferencia.Medio}}
-        </p>
+        <span style="font-size: 32px;" *ngIf="(!isParticipante)" (click)="inscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer col-1">how_to_reg</span>
+        <span style="font-size: 32px;" *ngIf="(isParticipante)" (click)="desInscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Desinscribirme" class="material-icons icono-footer col-1">do_not_disturb_on</span>
 
-      </div>
     </div>
 
   </div>
 </div>
+
+<!-- Modal Dialogo Éxito -->
+<ng-template #modaDialogoExito let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>Se ha registrado en esta conferencia</h3>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Modal Error -->
+<ng-template #modalError let-modal>
+  <div class="modal-encabezado modal-error">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[0].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[1].titulo1}}</h3>
+      <h3>{{mensajeModal[1].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
+  </div>
+</ng-template>

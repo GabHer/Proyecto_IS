@@ -87,10 +87,8 @@ export class CardConferenciaOrganizadorComponent implements OnInit {
     return false;
   }
 
-
-
-  mostrarListaAsistencia(){
-    this.onListaAsistencia.emit(null);
+  mostrarListaAsistencia(idConferencia:number){
+    this.onListaAsistencia.emit(idConferencia);
   }
 
   obtenerUsuarioEncargado(){

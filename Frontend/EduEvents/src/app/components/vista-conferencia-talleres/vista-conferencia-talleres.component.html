@@ -25,7 +25,7 @@
           <app-card-conferencia-organizador
             *ngIf="isOrganizador"
             (onEliminarConferencia)="onClickAbrirModalEliminarConferencia(modalConfirmacion, $event)"
-            [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)"
+            [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia($event,true)"
             [conferencia]="conferenia"
           ></app-card-conferencia-organizador>
 
@@ -33,7 +33,7 @@
           <app-card-conferencia
             *ngIf="!isOrganizador"
             (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador"
-            [eventoSeleccionado]="eventoSeleccionado" (onListaAsistencia)="verListaAsistencia(true)"
+            [eventoSeleccionado]="eventoSeleccionado"
             [conferencia]="conferenia"
           ></app-card-conferencia>
 
@@ -43,7 +43,7 @@
     </div>
 
     <div *ngIf="(vistaActual.listaAsistencia)" class="col-12">
-      <app-lista-asistencia style="width:100%" class="row"></app-lista-asistencia>
+      <app-lista-asistencia [idConferencia]="idConferencia" (verConferencias)="verDetalleConferencia()" style="width:100%"></app-lista-asistencia>
     </div>
     <div *ngIf="(vistaActual.vistaEncargado)" class="col-12">
 
@@ -54,7 +54,7 @@
             arrow_back
             </span>
         </div>
-      </div>
+    </div>
 
   </div>
 
