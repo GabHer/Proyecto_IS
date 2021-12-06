@@ -55,20 +55,32 @@ export class CardConferenciaComponent implements OnInit {
 
   }
 
+  @Input() todoDetalles = false;
+  @Input() subscribeEventoSeleccionado:any;
   
   srcListaBlanca:any = null;
   listaBlanca:any = null;
   usuarioActual:any;
   usuarioEncargado:any;
+  usuarioOrganizador:any;
   isParticipante = false;
   mensajeModal = [
     {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"La conferencia o taller se eliminaran del evento", icono:"quiz"},
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
+    {tipo:"confirmacion", titulo1:"¿Desinscribirse?", titulo2:"Se eliminara su inscripción de este evento", icono:"quiz"},
   ]
   ngOnInit(): void {
-    this.obtenerUsuarioEncargado()
-    this.obtenerUsuarioActual()
-    this.obtenerArchivoListaBlanca()
+
+    if( this.todoDetalles ){
+      this.obtenerEventoActual()
+    }else {
+      this.obtenerUsuarioEncargado()
+      this.obtenerUsuarioOrganizador()
+      this.obtenerUsuarioActual()
+      this.obtenerArchivoListaBlanca()
+
+    }
+
 
 
   }
@@ -94,6 +106,11 @@ export class CardConferenciaComponent implements OnInit {
   mostrarUsuarioEncargado(){
     this.onVerEncargado.emit(this.usuarioEncargado);
   }
+
+  mostrarUsuarioOrganizador(){
+    this.onVerEncargado.emit(this.usuarioOrganizador);
+  }
+
   obtenerCorreoUsuarioActual(){
     let tokenUsuario = localStorage.getItem("token");
 
@@ -145,6 +162,22 @@ export class CardConferenciaComponent implements OnInit {
     );
   }
 
+  obtenerUsuarioOrganizador(){
+ 
+    this.spinner.mostrarSpinner()
+    this.usuarioService.obtenerUsuarioPorId( this.eventoSeleccionado.idOrganizador ).subscribe(
+      (res:any) => {
+
+        this.usuarioOrganizador = res.data
+        this.spinner.ocultarSpinner()
+      },
+      (err:any) => {
+        console.log(err)
+        this.spinner.ocultarSpinner()
+      }
+    );
+  }
+
 
   validarSiEsParticipante(){
 
@@ -163,8 +196,10 @@ export class CardConferenciaComponent implements OnInit {
 
   }
 
-  desInscribirme(modalExito:any, modalError:any){
-    console.log("No programado...")
+  desInscribirme(modalExito:any, modalError:any, letmodal:any){
+    letmodal.close('Close click')
+    
+
   }
 
   obtenerArchivoListaBlanca(){
@@ -270,6 +305,34 @@ export class CardConferenciaComponent implements OnInit {
 
     );
 
+  }
+
+  obtenerEventoActual(){
+    this.subscribeEventoSeleccionado.subscribe(
+      (res:any) => {
+        
+        this.eventoSeleccionado = {
+          caratula: res.data.Caratula,
+          descripcion: res.data.Descripcion,
+          estadoEvento: res.data.Estado_Evento,
+          estadoParticipantes: res.data.Estado_Participantes,
+          fechaFinal: res.data.Fecha_Final,
+          fechaInicio: res.data.Fecha_Final,
+          id: res.data.Id,
+          idOrganizador: res.data.Id_Organizador,
+          institucion: res.data.Institucion,
+          nombre: res.data.Nombre,
+          imagenes: res.data.Imagenes
+        }
+        this.obtenerUsuarioEncargado()
+        this.obtenerUsuarioOrganizador()
+        this.obtenerUsuarioActual()
+        this.obtenerArchivoListaBlanca()
+      },
+      (err:any) => {
+        console.log(err)
+      }
+    );
   }
 
 

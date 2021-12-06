@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { ConferenciasService } from 'src/app/services/conferencias.service'
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { EventosService } from 'src/app/services/eventos.service';
 
 export interface Conferencia {
   Asistencia: null
@@ -35,7 +36,7 @@ export interface Conferencia {
 })
 export class InscripcionesComponent implements OnInit {
 
-  constructor( private serviceConferencia:ConferenciasService, private spinner:SpinnerService, private usuarioService:UsuariosService ) { }
+  constructor( private serviceConferencia:ConferenciasService, private eventoService:EventosService, private spinner:SpinnerService, private usuarioService:UsuariosService ) { }
 
   ngOnInit(): void {
     this.obtenerUsuarioActual();
@@ -92,6 +93,11 @@ export class InscripcionesComponent implements OnInit {
     );
 
   }
+
+  obtenerEvento( idEvento:number ){
+    return this.eventoService.obtenerEventoPorId(idEvento)
+  }
+
   obtenerMisInscripciones(){
     this.spinner.mostrarSpinner();
     this.serviceConferencia.obtenerConferenciasUsuario( this.usuarioActual.Id ).subscribe(

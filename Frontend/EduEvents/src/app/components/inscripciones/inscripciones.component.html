@@ -23,10 +23,11 @@
       </div>
       <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')" *ngFor="let conferencia of conferencias">
         <app-card-conferencia
-
           (onVerEncargado)="verEncargado($event)"
           [isOrganizador]="false"
           [conferencia]="conferencia"
+          [todoDetalles]="true"
+          [subscribeEventoSeleccionado]="obtenerEvento(conferencia.Id_Evento)"
       ></app-card-conferencia>
       </div>
     </div>
