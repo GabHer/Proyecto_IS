@@ -1,3 +1,4 @@
+USE EduEvents;
 SET GLOBAL event_scheduler = ON;
 
 DELIMITER //

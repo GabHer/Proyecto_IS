@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormControlName} from '@angular/forms';
 import { ConferenciasService } from 'src/app/services/conferencias.service';
+import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { MatListOption } from '@angular/material/list';
 import { FlowAssignment } from 'typescript';
 
@@ -12,12 +13,13 @@ import { FlowAssignment } from 'typescript';
 })
 export class ListaAsistenciaComponent implements OnInit {
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   organizador = false;
   encargado = false;
   inscritos : any;
   mensajeNoInscritos = false;
   idUsuarioSeleccionado: any;
+  asistencias: any;
+  listaAsistencia:any;
 
   @Output() verConferencias = new EventEmitter<any>();
   @Input() idConferencia:number;
@@ -26,14 +28,18 @@ export class ListaAsistenciaComponent implements OnInit {
     vistaLista: true
   }
 
-  constructor( private serviceConferencia:ConferenciasService ) { }
+  constructor( private serviceConferencia:ConferenciasService, private serviceAsistencia:AsistenciaService) { }
 
   ngOnInit(  ): void {
     this.obtenerInscripcionesConferencias();
   };
 
   onGroupsChange(options: MatListOption[]) {
-    console.log(options.map(o => o.value));
+    this.listaAsistencia = options.map(o => o.value);
+
+    if(this.listaAsistencia.length == 0){
+      this.listaAsistencia = null;
+    }
   }
 
   obtenerInscripcionesConferencias(){
@@ -49,6 +55,33 @@ export class ListaAsistenciaComponent implements OnInit {
         }
       }
     );
+  }
+
+  enviarAsistencias(){
+    this.asistencias = {
+      "idConferencia": this.idConferencia,
+      "listaAsistencia": this.listaAsistencia
+    }
+
+
+    this.serviceAsistencia.enviarAsistencias( this.asistencias ).subscribe(
+
+      (res:any) => {
+
+        console.log(res.mensaje);
+      },
+
+      (err:any) => {
+        if( err.error.codigo == 404 ) {
+          console.log("No se pudo guardar asistencias");
+        }
+      }
+
+    );
+  }
+
+  obtenerAsistencias(){
+
   }
 
   verUsuario(idUsuario){
