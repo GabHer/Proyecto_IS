@@ -10,8 +10,8 @@ ENDS '2021-12-31'
 ON COMPLETION PRESERVE ENABLE
 DO 
 BEGIN
-	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio <= NOW() AND Hora_Inicio = NOW();
-	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE Hora_Final < NOW();
+	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio = NOW() AND Hora_Inicio <= CURRENT_TIME();
+	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE Fecha_Inicio < NOW() AND Hora_Final < CURRENT_TIME();
 END //
 DELIMITER ;
 

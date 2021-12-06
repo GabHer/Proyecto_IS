@@ -17,9 +17,15 @@ export class ListaAsistenciaComponent implements OnInit {
   encargado = false;
   inscritos : any;
   mensajeNoInscritos = false;
+  idUsuarioSeleccionado: any;
 
   @Output() verConferencias = new EventEmitter<any>();
   @Input() idConferencia:number;
+  vistaActual = {
+    vistaUsuario:false,
+    vistaLista: true
+  }
+
   constructor( private serviceConferencia:ConferenciasService ) { }
 
   ngOnInit(  ): void {
@@ -43,6 +49,18 @@ export class ListaAsistenciaComponent implements OnInit {
         }
       }
     );
+  }
+
+  verUsuario(idUsuario){
+    console.log(idUsuario);
+    this.vistaActual.vistaUsuario = !this.vistaActual.vistaUsuario
+    this.vistaActual.vistaLista = !this.vistaActual.vistaLista
+    this.idUsuarioSeleccionado = idUsuario;
+  }
+
+  verGestionarAsistentes(){
+    this.vistaActual.vistaUsuario = !this.vistaActual.vistaUsuario
+    this.vistaActual.vistaLista = !this.vistaActual.vistaLista
   }
 
   regresar(){

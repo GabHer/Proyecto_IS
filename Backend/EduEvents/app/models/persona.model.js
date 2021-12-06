@@ -93,6 +93,31 @@ Persona.eliminar = ( correoPersona, resultado ) => {
 }
 
 
+Persona.buscarPorId = ( idPersona, resultado ) => {
+    sql.query(`SELECT * FROM Persona WHERE Id = '${idPersona}'`, (err, res) => {
+        if (err){
+
+            resultado(err, null);
+            return;
+        }
+
+        if(res.length){
+            // Significa que encontro un usuario registrado con este correo
+            let buff = res[0].Fotografia
+            let srcImagen = buff.toString('ascii');
+            res[0].Fotografia = srcImagen;
+            resultado(null, res[0])
+
+            return;
+        }
+
+        // En ultima instancia, no se encontro el usuario con ese correo
+
+        resultado({ estado: "no_encontrado"}, null)
+
+    });
+};
+
 Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
     sql.query(`SELECT * FROM Persona WHERE correo = '${correoPersona}'`, (err, res) => {
         if (err){

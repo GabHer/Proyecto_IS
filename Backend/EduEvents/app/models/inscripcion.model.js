@@ -725,7 +725,10 @@ Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
 };
 
 Inscripcion.obtenerInscritosPorIdConferencia = (idConferencia, resultado) => {
-    let consulta = `SELECT Persona.Id, Persona.Nombre, Persona.Apellido, Persona.Fotografia FROM Persona JOIN Persona_Conferencia
+    let consulta = `SELECT Persona.Id, Persona.Nombre, Persona.Apellido, Persona.Institucion, 
+        Persona.Formacion_Academica, Persona.Descripcion, Persona.Intereses, Persona.Fecha_Nacimiento, 
+        Persona.Fotografia, Persona.Correo, Persona.Contrasena, Persona.Firma 
+        FROM Persona JOIN Persona_Conferencia
         ON Persona.Id = Persona_Conferencia.Id_Persona JOIN Conferencia
         ON Conferencia.Id = Persona_Conferencia.Id_Conferencia
         WHERE Persona.Correo <> Conferencia.Correo_Encargado AND Persona_Conferencia.Id_Conferencia = ${idConferencia};`;
@@ -757,14 +760,37 @@ Inscripcion.obtenerInscritosPorIdConferencia = (idConferencia, resultado) => {
     });
 };
 
+// Eliminar inscripción a una determinada conferencia
+Inscripcion.eliminarInscripcion = (datosInscripcion, resultado ) => {
+    let consultaVerificarEstadoConferencia = `SELECT Id FROM Conferencia WHERE Id = ${datosInscripcion.idConferencia} AND Estado_Conferencia = 'Finalizado';`;
+    
+    let consultaEliminar = `DELETE FROM Persona_Conferencia WHERE Id_Persona = ${datosInscripcion.idPersona} AND Id_Conferencia = ${datosInscripcion.idConferencia};`;
+    
+    sql.query(consultaVerificarEstadoConferencia, (err, res) => {
+        if(err) {
+            resultado(err, null);
+            return;
+        };
+        
+        // De lo contrario
+        if(res.length) {
+            // Significa que la conferencia ya finalizó y no se puede eliminar la inscripción
+            resultado({estado: "no_encontrado"}, null);
+            return;
+        }  
+        // En última instancia, se puede eliminar la inscripción
+        else {
+            sql.query(consultaEliminar, (err, res) => {
+                if(err) {
+                    resultado(err, null);
+                    return;
+                };
+                resultado(null, res);
+            });
+        };
+    });
+};
 
 module.exports = Inscripcion;
-
-
-
-
-
-
-
 
 

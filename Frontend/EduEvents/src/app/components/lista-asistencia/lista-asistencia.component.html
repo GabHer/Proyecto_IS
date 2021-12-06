@@ -1,53 +1,68 @@
-<div class="mt-4" style="width:100%">
+<div *ngIf="vistaActual.vistaLista" class="row col-12 mt-3" style="width:100%">
     <span (click)="regresar()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor: pointer;">
       arrow_back
     </span>
   <div class="col-12 mt-2">
-    <h1 style="color:#4484CE;">Gestionar participantes</h1>
+    <h1 style="color:#4484CE;">Gestionar participantes inscritos</h1>
   </div>
 
-  <div class="col-12 row mt-4" style="margin:0%">
-  <!--Inicio columna izquierda Nombres asistentes-->
-  <div class="col-6">
-    <div class="col-12">
-      <h3 style="color:#4484CE;"> Inscritos </h3>
-    </div>
+  <div class="col-12 row mt-1" style="margin:0%">
 
     <div *ngIf="mensajeNoInscritos" class="col-12" >
       <h3 style="color:#4484CE;"> ¡Aún no hay inscritos! </h3>
     </div>
 
+    <div class="col-12">
     <mat-selection-list #personas (selectionChange)="onGroupsChange(personas.selectedOptions.selected)">
       <mat-list-option *ngFor="let persona of inscritos" [value]="persona.Id">
-        <a href="">{{persona.Nombre + " " + persona.Apellido}}</a>
+        <a (click)="verUsuario(persona)">{{persona.Nombre + " " + persona.Apellido}}</a>
       <mat-divider></mat-divider>
       </mat-list-option>
     </mat-selection-list>
-    <p>
+    <p class="mt-1">
       Options selected: {{personas.selectedOptions.selected.length}}
     </p>
+    </div>
 
-  </div>
-  <!--Final columna izquierda Nombres asistentes-->
+  <div >
 
-  <!--Inicio columna derecha opciones de diploma-->
-  <div class="col-6">
-      <div class="col-12" >
-        <h3 style="color:#4484CE;"> Opciones generar diploma </h3>
+  <div class="col-12 row" style="margin: 0%;">
+    <div class="col-12 mt-4">
+      <button disabled  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+        <span class="material-icons">
+          send
+          </span> Enviar Lista </button>
       </div>
+
+    <div class="col-12 mt-2">
+      <button  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+        <span class="material-icons">
+          download
+          </span> Lista asistencia </button>
+    </div>
+
+    <div class="col-12">
+    <mat-expansion-panel hideToggle class="mt-4 mb-2">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="col-12" >
+            <h3 ><strong>Opciones generar diploma </strong> </h3>
+          </div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="col-12">Firmas</div>
       <div class="col-12 row" style="margin:0%">
-        <div class="col-8 mt-1">
+        <div class="col-7 mt-1">
           <mat-selection-list >
-            <mat-list-option >
+            <mat-list-option [value]="0">
               Organizador
             </mat-list-option>
-            <mat-list-option >
+            <mat-list-option [value]="1">
               Encargado
             </mat-list-option>
           </mat-selection-list>
         </div>
-        <div class="col-4">
+        <div class="col-2">
 
           <mat-form-field style="width: 100%;" matTooltip="Subir firma">
             <div class="myfilebrowser">
@@ -66,19 +81,36 @@
 
         <div class="col-12 mt-4">
         <button disabled  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
-          <span class="material-icons">
-            send
-            </span> Generar diplomas </button>
+          Generar diplomas </button>
         </div>
-
-        <div class="col-12 mt-2">
-        <button  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
-          <span class="material-icons">
-            download
-            </span> Lista asistencia </button>
-        </div>
+    </mat-expansion-panel>
+  </div>
+  </div>
 
   </div>
-  <!--Final columna derecha opciones de diploma-->
   </div>
 </div>
+
+
+<div *ngIf="vistaActual.vistaUsuario" class="row container" style="margin-left: auto; margin-right: auto;">
+  <div  class="row">
+    <div class="col-12">
+      <app-perfil-usuario
+        [vistaUsuario]="true"
+        [perfil]="idUsuarioSeleccionado"
+        style="width:100%; text-align: initial;"
+        class="row"
+      >
+      </app-perfil-usuario >
+
+      <div class="mt-2">
+
+        <span (click)="verGestionarAsistentes()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer;">
+          arrow_back
+          </span>
+      </div>
+
+    </div>
+  </div>
+</div>
+

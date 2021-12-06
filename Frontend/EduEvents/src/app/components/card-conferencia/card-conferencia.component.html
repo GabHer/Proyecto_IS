@@ -67,21 +67,42 @@
       <strong>Lugar:</strong> {{conferencia.Medio}}
     </p>
 
-  </div>
-  <div class="card-footer " >
-    <!-- Vista desde buscar -->
+    <div *ngIf="usuarioOrganizador && todoDetalles"  class="row container" >
 
-    <div  class="row no-padding no-margin" >
+      <span style="margin:0; padding:0" class="col-1 mt-2">
+        <img class="imagen" [src]="usuarioOrganizador.Fotografia" alt="">
+      </span>
+
+      <div class="col-9 mt-2">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes col-4"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
+        <span class="ml-2" style="font-size: 10px; color: #464444;">(Organizador)</span>
+      </div>
+      <hr>
+    </div>
+
+    <div *ngIf="usuarioEncargado && todoDetalles"  class="row container mt-1" >
       <span style="margin:0; padding:0" class="col-1">
         <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
       </span>
 
       <div class="col-9 mt-1">
         <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
+        <span class="ml-2" style="font-size: 10px; color: #464444;">(Encargado)</span>
       </div>
 
-        <span style="font-size: 32px;" *ngIf="(!isParticipante)" (click)="inscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer col-1">how_to_reg</span>
-        <span style="font-size: 32px;" *ngIf="(isParticipante)" (click)="desInscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Desinscribirme" class="material-icons icono-footer col-1">do_not_disturb_on</span>
+    </div>
+
+  </div>
+  <div class="card-footer " >
+    <!-- Vista desde buscar -->
+
+    
+    <div *ngIf="usuarioEncargado"  class="row mt-1 no-padding no-margin" >
+
+        <div class="col-12 text-right">
+          <span style="font-size: 32px;" *ngIf="(!isParticipante)" (click)="inscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer">how_to_reg</span>
+          <span style="font-size: 32px;" *ngIf="(isParticipante)" (click)="abrirModal(modalConfirmacion)" mat-raised-button matTooltip="Desinscribirme" class="material-icons icono-footer-2">do_not_disturb_on</span>
+        </div>
 
     </div>
 
@@ -109,7 +130,7 @@
 
   <div class="modal-body modal-cuerpo">
       <h3>¡Excelente!</h3>
-      <h3>Se ha registrado en esta conferencia</h3>
+      <h3>Operación realizada con éxito</h3>
   </div>
   <div class="modal-footer">
       <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
@@ -142,5 +163,35 @@
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
+  </div>
+</ng-template>
+
+<!-- Modal de confirmación-->
+<ng-template #modalConfirmacion let-modal>
+  <div class="modal-encabezado modal-confirmacion">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[2].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[2].titulo1}}</h3>
+      <h3>{{mensajeModal[2].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">No, No eliminar mi subscripción</button>
+      <button type="button" class="btn btn-primary  btn-2 " style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; border-color: rgba(0, 0, 0, 0);" (click)="desInscribirme(modaDialogoExito, modalError, modal)">Sí, eliminar mi subscripción</button>
   </div>
 </ng-template>
