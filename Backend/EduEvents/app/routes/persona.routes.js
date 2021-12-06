@@ -10,6 +10,8 @@ module.exports = app => {
   
     // obtener un usuario por correo
     app.get("/registro/:correo", personas.obtenerPorCorreo);
+    // obtener un usuario por id
+    app.get("/registro/buscarPorId/:id", personas.obtenerPorId);
   
 
     // actualizar un usuario por id

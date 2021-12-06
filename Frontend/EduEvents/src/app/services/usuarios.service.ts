@@ -22,6 +22,10 @@ export class UsuariosService {
     return this.httpClient.get(`http://localhost:8888/registro/${correo}`);
 
   }
+  obtenerUsuarioPorId(id:number){
+    return this.httpClient.get(`http://localhost:8888/registro/buscarPorId/${id}`);
+
+  }
   editarUsuario(objUsuario:any){
     return this.httpClient.put(`http://localhost:8888/editar_perfil`,objUsuario );
 

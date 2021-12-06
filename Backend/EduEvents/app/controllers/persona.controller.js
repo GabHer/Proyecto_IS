@@ -85,6 +85,24 @@ exports.obtenerNombre = (req, res) => {
     });
 };
 
+// Buscar un usuario por id
+exports.obtenerPorId = (req, res) => {
+
+    Persona.buscarPorId(req.params.id, (err, data) => {
+        if (err) {
+          if (err.estado === "no_encontrado") {
+            res.status(404).send({
+              mensaje: `No se encontró el usuario con id ${req.params.id}.`, codigo:404, data:null
+            });
+          } else {
+            res.status(500).send({
+              mensaje: "Error al obtener el usuario con el id: " + req.params.id
+            });
+          }
+        } else res.send({mensaje:"Usuario encontrado", codigo:200, data:data});
+      });
+  
+};
 // Buscar un usuario por correo
 exports.obtenerPorCorreo = (req, res) => {
 
