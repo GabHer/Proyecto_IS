@@ -130,6 +130,7 @@ export class VistaConferenciaTalleresComponent implements OnInit {
         if( err.error.codigo == 404 ) {
           this.misInscripciones = [];
         }
+        this.obtenerConferencias();
 
       },
       () => {
@@ -172,6 +173,7 @@ export class VistaConferenciaTalleresComponent implements OnInit {
         }
       },
       (err:any) => {
+        console.log(err)
         if( err.error.codigo == 404 ) {
           this.conferencias = [];
         }

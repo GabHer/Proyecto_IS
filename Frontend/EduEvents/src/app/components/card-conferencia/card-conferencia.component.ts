@@ -142,9 +142,11 @@ export class CardConferenciaComponent implements OnInit {
       if( this.conferencia.Lista_Participantes[i].Id == this.usuarioActual.Id ){
 
         this.isParticipante = true;
+
         return;
       }
     }
+
     this.isParticipante = false;
 
   }
@@ -166,7 +168,8 @@ export class CardConferenciaComponent implements OnInit {
       (res:any) => {
         if(res.codigo == 200){
           this.abrirModal(modlExito);
-          this.validarSiEsParticipante();
+          this.isParticipante = true;
+          //this.validarSiEsParticipante();
         }
 
         if(res.codigo == 400){
