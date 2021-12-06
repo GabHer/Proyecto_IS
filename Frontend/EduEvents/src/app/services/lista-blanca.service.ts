@@ -12,7 +12,7 @@ export class ListaBlancaService {
 
 
   getInfo( archivo:any ) {
-    return this.httpClient.get(archivo.Lista_Blanca, { responseType: 'text' });
+    return this.httpClient.get(archivo, { responseType: 'text' });
     //return this.httpClient.post(`http://localhost:8888/leerArchivo`,archivo);
 
     // Para leer el csv a partir de un archivo ccdificado en base 64

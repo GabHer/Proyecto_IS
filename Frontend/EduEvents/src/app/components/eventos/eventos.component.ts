@@ -17,6 +17,8 @@ export interface Evento  {
   Estado_Evento:number,
   Id_Organizador:number
 }
+
+
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',

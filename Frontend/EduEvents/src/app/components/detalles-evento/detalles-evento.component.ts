@@ -23,7 +23,9 @@ export class DetallesEventoComponent implements OnInit {
     fechaFinal: "",
     institucion: "",
     imagenes: "",
-    idOrganizador:-1
+    idOrganizador:-1,
+    estadoEvento: -1,
+    estadoParticipantes: -1
 
   }
 
@@ -73,8 +75,11 @@ export class DetallesEventoComponent implements OnInit {
           fechaFinal: res.data.Fecha_Final.substr(0,10),
           institucion: res.data.Institucion,
           imagenes: res.data.imagenes,
-          idOrganizador: res.data.Id_Organizador
+          idOrganizador: res.data.Id_Organizador,
+          estadoEvento: res.data.Estado_Evento,
+          estadoParticipantes: res.data.Estado_Participantes
         };
+
         setTimeout(() => {
           this.spinner.ocultarSpinner()
         }, 200);

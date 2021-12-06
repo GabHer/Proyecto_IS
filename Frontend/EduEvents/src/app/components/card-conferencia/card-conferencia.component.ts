@@ -3,6 +3,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ConferenciasService } from 'src/app/services/conferencias.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { EventosService } from 'src/app/services/eventos.service';
+import { ListaBlancaService } from 'src/app/services/lista-blanca.service';
 export interface Conferencia {
   Asistencia: null
   Correo_Encargado:string
@@ -40,7 +42,7 @@ export class CardConferenciaComponent implements OnInit {
   @Input() isOrganizador = false;
   @Output() onVerEncargado = new EventEmitter<any>();
   @Output() onRegistrarConferencia = new EventEmitter<any>();
-  constructor( private usuarioService:UsuariosService, private conferenciaService:ConferenciasService, private spinner:SpinnerService, private modalService:NgbModal  ) { }
+  constructor( private usuarioService:UsuariosService, private listaBlancaService:ListaBlancaService, private eventoService:EventosService, private conferenciaService:ConferenciasService, private spinner:SpinnerService, private modalService:NgbModal  ) { }
   @Input() eventoSeleccionado:any = {
     id: "",
     descripcion: "",
@@ -53,6 +55,9 @@ export class CardConferenciaComponent implements OnInit {
 
   }
 
+  
+  srcListaBlanca:any = null;
+  listaBlanca:any = null;
   usuarioActual:any;
   usuarioEncargado:any;
   isParticipante = false;
@@ -63,6 +68,7 @@ export class CardConferenciaComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerUsuarioEncargado()
     this.obtenerUsuarioActual()
+    this.obtenerArchivoListaBlanca()
 
 
   }
@@ -108,27 +114,33 @@ export class CardConferenciaComponent implements OnInit {
   }
 
   obtenerUsuarioActual(){
+    this.spinner.mostrarSpinner();
     let correo = this.obtenerCorreoUsuarioActual()
     this.usuarioService.obtenerUsuario( correo ).subscribe(
       (res:any) => {
 
         this.usuarioActual = res.data
         this.validarSiEsParticipante()
+        this.spinner.ocultarSpinner()
       },
       (err:any) => {
-
-      }
+        this.spinner.ocultarSpinner()
+      } 
     );
 
   }
 
 
   obtenerUsuarioEncargado(){
-
+    this.spinner.mostrarSpinner()
     this.usuarioService.obtenerUsuario( this.conferencia.Correo_Encargado ).subscribe(
       (res:any) => {
 
         this.usuarioEncargado = res.data
+        this.spinner.ocultarSpinner()
+      },
+      (err:any) => {
+        this.spinner.ocultarSpinner()
       }
     );
   }
@@ -155,21 +167,87 @@ export class CardConferenciaComponent implements OnInit {
     console.log("No programado...")
   }
 
+  obtenerArchivoListaBlanca(){
+
+    this.spinner.mostrarSpinner();
+    if( this.eventoSeleccionado.estadoParticipantes == 0 ){
+
+      this.eventoService.obtenerListaBlanca( this.eventoSeleccionado.id ).subscribe(
+        (res:any) => {
+          if(res.codigo == 200 ) {
+            this.srcListaBlanca = res.data[0].Lista_Blanca;
+            
+            this.obtenerListaBlancaDesdeArchivo()
+          }
+          this.spinner.ocultarSpinner()
+        },
+        (err:any) => {
+          this.spinner.ocultarSpinner()
+        }
+      );
+    }
+  }
+
+  obtenerListaBlancaDesdeArchivo(){
+    if( this.srcListaBlanca ) {
+      this.listaBlancaService.getInfo( this.srcListaBlanca ).subscribe(
+        (res:any) => {
+          let csvToRowArray = res.split("\n");
+          let header = csvToRowArray[0];
+          let body = csvToRowArray.slice(1)
+
+          let arrayLista = [];
+          for(let index=0; index < body.length -1 ; index++){
+            let row = body[index].split(',');
+            arrayLista.push({nombre: row[0].trim(), correo: row[1].trim()});
+          }
+          this.listaBlanca = arrayLista;
+        },
+        (err:any) => {
+          this.listaBlanca = null;
+        }
+      );
+    }
+  }
+
+  buscarEnListaBlanca(){
+    let correoUsuario = this.usuarioActual.Correo;
+
+    for( let i = 0; i < this.listaBlanca.length; i++ ){
+      if( this.listaBlanca[i].correo == correoUsuario ){
+        return true;
+      }
+    }
+
+    return false;
+  
+  }
+
   inscribirme(modlExito:any, modalError:any){
+
+    this.spinner.mostrarSpinner();
 
     let objInscripcion =  {
      idPersona: this.usuarioActual.Id ,
      idConferencia: this.conferencia.Id
     };
 
-    this.spinner.mostrarSpinner();
+    if( this.eventoSeleccionado.estadoParticipantes == 0 ){
+      if( !this.buscarEnListaBlanca() ) {
+        this.mensajeModal[1].titulo1 = `No permitido`;
+        this.mensajeModal[1].titulo2 = 'Este es un evento privado, no tienes permitido inscribirte en sus conferencias o talleres';
+        this.abrirModal(modalError);
+        this.spinner.ocultarSpinner()
+        return;
+      }
+    }
+
     this.conferenciaService.registrarEnConferencia( objInscripcion ).subscribe(
 
       (res:any) => {
         if(res.codigo == 200){
           this.abrirModal(modlExito);
           this.isParticipante = true;
-          //this.validarSiEsParticipante();
         }
 
         if(res.codigo == 400){

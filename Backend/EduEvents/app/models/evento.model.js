@@ -346,6 +346,9 @@ Evento.obtenerListaBlancaPorIdEvento = (idEvento, resultado) => {
 
     // Si existe lista blanca para ese evento
     if(res.length) {
+      let buff = res[0].Lista_Blanca
+      let srcListaBlanca = buff.toString('ascii');
+      res[0].Lista_Blanca = srcListaBlanca;
       resultado(null, res);
       return;
     }

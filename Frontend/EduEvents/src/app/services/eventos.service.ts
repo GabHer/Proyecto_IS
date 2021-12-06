@@ -49,4 +49,9 @@ export class EventosService {
   obtenerEventoPorId(idEvento:number){
     return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventoPorId/${idEvento}`);
   }
+  
+  obtenerListaBlanca( idEvento:number ){
+
+    return this.httpClient.get(`http://localhost:8888/eventos/obtenerListaBlancaPorIdEvento/${idEvento}`);
+  }
 }

@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConferenciasService } from 'src/app/services/conferencias.service'
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { EventosService } from 'src/app/services/eventos.service';
 
 
 export interface Conferencia {
@@ -36,7 +37,7 @@ export interface Conferencia {
 })
 export class VistaConferenciaTalleresComponent implements OnInit {
 
-  constructor( private serviceConferencia:ConferenciasService, private usuarioService:UsuariosService, private spinner:SpinnerService, private modalService:NgbModal ) { }
+  constructor( private serviceConferencia:ConferenciasService, private eventosService:EventosService, private usuarioService:UsuariosService, private spinner:SpinnerService, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
     this.obtenerUsuarioActual()
@@ -61,7 +62,9 @@ export class VistaConferenciaTalleresComponent implements OnInit {
     fechaFinal: "",
     institucion: "",
     imagenes: "",
-    idOrganizador:-1
+    idOrganizador:-1,
+    estadoEvento: -1,
+    estadoParticipantes: -1
 
   }
   @Output() verDetallesEvento = new EventEmitter<any>();
@@ -94,6 +97,7 @@ export class VistaConferenciaTalleresComponent implements OnInit {
     );
 
   }
+
 
   obtenerCorreoUsuarioActual(){
     let tokenUsuario = localStorage.getItem("token");
