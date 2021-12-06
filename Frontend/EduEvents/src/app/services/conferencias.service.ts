@@ -25,6 +25,10 @@ export class ConferenciasService {
   registrarEnConferencia( objInscripcion:any ){
     return this.httpClient.post(`http://localhost:8888/inscripcion/NuevaInscripcion`,objInscripcion);
   }
+  
+  eliminarInscripcion( idParticipante:number, idConferencia:number ){
+    return this.httpClient.delete(`http://localhost:8888/inscripcion/eliminarInscripcion/${idParticipante}/${idConferencia}`);
+  }
   obtenerParticipantesConferencia( idConferencia:number ){
 
     return this.httpClient.get(`http://localhost:8888/inscripcion/obtenerInscripcionesPorIdConferencia/${idConferencia}`);

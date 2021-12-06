@@ -199,6 +199,25 @@ export class CardConferenciaComponent implements OnInit {
   desInscribirme(modalExito:any, modalError:any, letmodal:any){
     letmodal.close('Close click')
     
+    this.conferenciaService.eliminarInscripcion( this.usuarioActual.Id, this.conferencia.Id).subscribe(
+      (res:any) => {
+        if( res.codigo == 200 ){
+          this.abrirModal(modalExito);
+          this.ngOnInit();
+        }else {
+          this.mensajeModal[1].titulo2 = "No se pudo eliminar su subscripción"
+          this.abrirModal(modalError);
+        }
+        
+      },
+      (err:any) => {
+        if(err.error.codigo == 404){
+          this.mensajeModal[1].titulo2 = err.error.mensaje
+        }
+        this.abrirModal(modalError);
+      }
+    );
+
 
   }
 
