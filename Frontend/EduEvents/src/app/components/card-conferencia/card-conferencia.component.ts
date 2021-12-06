@@ -203,7 +203,7 @@ export class CardConferenciaComponent implements OnInit {
       (res:any) => {
         if( res.codigo == 200 ){
           this.abrirModal(modalExito);
-          this.ngOnInit();
+          this.isParticipante = false;
         }else {
           this.mensajeModal[1].titulo2 = "No se pudo eliminar su subscripción"
           this.abrirModal(modalError);

@@ -67,31 +67,42 @@
       <strong>Lugar:</strong> {{conferencia.Medio}}
     </p>
 
+    <div *ngIf="usuarioOrganizador && todoDetalles"  class="row container" >
+
+      <span style="margin:0; padding:0" class="col-1 mt-2">
+        <img class="imagen" [src]="usuarioOrganizador.Fotografia" alt="">
+      </span>
+
+      <div class="col-9 mt-2">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes col-4"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
+        <span class="ml-2" style="font-size: 10px; color: #464444;">(Organizador)</span>
+      </div>
+      <hr>
+    </div>
+
+    <div *ngIf="usuarioEncargado && todoDetalles"  class="row container mt-1" >
+      <span style="margin:0; padding:0" class="col-1">
+        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
+      </span>
+
+      <div class="col-9 mt-1">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
+        <span class="ml-2" style="font-size: 10px; color: #464444;">(Encargado)</span>
+      </div>
+
+    </div>
+
   </div>
   <div class="card-footer " >
     <!-- Vista desde buscar -->
 
-    <div *ngIf="usuarioOrganizador && todoDetalles"  class="row no-padding no-margin" >
-      <span style="margin:0; padding:0" class="col-1">
-        <img class="imagen" [src]="usuarioOrganizador.Fotografia" alt="">
-      </span>
-
-      <div class="col-9 mt-1">
-        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes col-4"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
-      </div>
-
-    </div>
+    
     <div *ngIf="usuarioEncargado"  class="row mt-1 no-padding no-margin" >
-      <span *ngIf="todoDetalles" style="margin:0; padding:0" class="col-1">
-        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
-      </span>
 
-      <div *ngIf="todoDetalles" class="col-9 mt-1">
-        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
-      </div>
-
-        <span style="font-size: 32px;" *ngIf="(!isParticipante)" (click)="inscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer col-1">how_to_reg</span>
-        <span style="font-size: 32px;" *ngIf="(isParticipante)" (click)="abrirModal(modalConfirmacion)" mat-raised-button matTooltip="Desinscribirme" class="material-icons icono-footer-2 col-1">do_not_disturb_on</span>
+        <div class="col-12 text-right">
+          <span style="font-size: 32px;" *ngIf="(!isParticipante)" (click)="inscribirme(modaDialogoExito, modalError)" mat-raised-button matTooltip="Inscribirme" class="material-icons icono-footer">how_to_reg</span>
+          <span style="font-size: 32px;" *ngIf="(isParticipante)" (click)="abrirModal(modalConfirmacion)" mat-raised-button matTooltip="Desinscribirme" class="material-icons icono-footer-2">do_not_disturb_on</span>
+        </div>
 
     </div>
 
