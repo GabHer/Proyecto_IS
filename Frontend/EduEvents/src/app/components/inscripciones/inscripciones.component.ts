@@ -43,25 +43,66 @@ export class InscripcionesComponent implements OnInit {
   }
   usuarioActual:any;
   usuarioEncargadoConferencia:any;
+  usuarioOrganizador:any;
+
   conferencias = []
   @Input() isCollaps = false;
   @Output() verDetallesEvento = new EventEmitter<any>();
+  idConferencia:any;
 
   vistaActual = {
     vistaEncargado:false,
-    vistaMisInscripciones: true
+    vistaOrganizador:false,
+    vistaMisInscripciones: true,
+    vistaListaAsistencia: false
   }
 
 
   verEncargado(evento:any){
-    this.vistaActual.vistaEncargado = !this.vistaActual.vistaEncargado
-    this.vistaActual.vistaMisInscripciones = !this.vistaActual.vistaMisInscripciones
+    this.vistaActual.vistaEncargado = true;
+    this.vistaActual.vistaOrganizador = false;
+    this.vistaActual.vistaMisInscripciones = false;
+    this.vistaActual.vistaListaAsistencia = false;
     this.usuarioEncargadoConferencia = evento;
+  }
+  verOrganizador(evento:any){
+
+
+    this.vistaActual.vistaEncargado = false;
+    this.vistaActual.vistaOrganizador = true;
+    this.vistaActual.vistaMisInscripciones = false;
+    this.vistaActual.vistaListaAsistencia = false;
+    this.usuarioOrganizador = evento;
+  }
+
+
+  verListaAsistencia( evento:any ){
+    this.vistaActual.vistaListaAsistencia = this.vistaActual.vistaListaAsistencia = true
+    this.vistaActual.vistaOrganizador = false;
+    this.vistaActual.vistaEncargado = false
+    this.vistaActual.vistaMisInscripciones =false
+    this.idConferencia = evento;
   }
 
   verDetalleConferencia(){
     this.vistaActual.vistaEncargado = !this.vistaActual.vistaEncargado
+    this.vistaActual.vistaOrganizador = !this.vistaActual.vistaEncargado
     this.vistaActual.vistaMisInscripciones = !this.vistaActual.vistaMisInscripciones
+    this.vistaActual.vistaListaAsistencia = !this.vistaActual.vistaListaAsistencia
+  }
+
+  reset(){
+    this.vistaActual.vistaEncargado = false;
+    this.vistaActual.vistaOrganizador = false;
+    this.vistaActual.vistaMisInscripciones = true;
+    this.vistaActual.vistaListaAsistencia = false;
+  }
+
+  verInscripciones(){
+    this.vistaActual.vistaEncargado = false;
+    this.vistaActual.vistaEncargado= false;
+    this.vistaActual.vistaMisInscripciones = true;
+    this.vistaActual.vistaListaAsistencia = false;
   }
 
   obtenerCorreoUsuarioActual(){

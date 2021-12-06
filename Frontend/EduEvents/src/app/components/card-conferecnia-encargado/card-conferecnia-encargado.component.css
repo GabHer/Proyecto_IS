@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@100;300&display=swap');
+
+.card-conferencia {
+  border-radius: 25px;
+}
+
+.txt-conferencia {
+  color:#6E798C;
+  font-weight: bold;
+}
+
+
+.Inactivo {
+  color:#F9CF00;
+  font-weight: bold;
+}
+.Activo {
+  color:#24FE00;
+  font-weight: bold;
+}
+.Finalizado {
+  color:#FE0000;
+  font-weight: bold;
+}
+
+.titulo-conferencia {
+  color:#081F32;
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.descripcion {
+  font-family: 'Montserrat', sans-serif;
+  text-align: justify;
+  color:#374A59;
+  font-size: 13px;
+}
+
+.card-radius {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.detalle {
+  border-radius: 15px;
+  width: 10rem;
+  height: 5rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding-top: 5px;
+  margin-left: 5px;
+
+}
+
+.lbl-1 {
+  font-size: 10px;
+  font-weight: 700;
+  color: black;
+
+  font-weight: bold;
+}
+
+.lbl-2 {
+  font-size: 10px;
+  font-weight: 700;
+  color:#4484CE;
+
+  font-weight: bold;
+}
+
+.no-padding {
+  padding:0;
+  text-align: justify;
+
+}
+.no-margin{
+  margin: 0;
+  text-align: justify;
+}
+
+.txt-footer {
+  font-size: 10px;
+}
+
+.txt-participantes{
+  text-decoration: underline;
+  color: #4484CE;
+  cursor: pointer;
+}
+
+.circulo-cerrar {
+  border-radius: 100%;
+  background-color: white;
+  width: 25px;
+  margin-left: auto;
+  height: 24px;
+  cursor:pointer;
+}
+
+
+.imagen {
+  border-radius: 100%;
+  width: 36px;
+  height: 36px;
+}

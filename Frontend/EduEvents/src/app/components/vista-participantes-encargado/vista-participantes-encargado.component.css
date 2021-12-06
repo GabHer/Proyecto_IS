@@ -1,0 +1,12 @@
+
+.txt-usuario{
+  color: #4484CE;
+  cursor: pointer;
+
+}
+
+.txt-usuario:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 700;
+}
