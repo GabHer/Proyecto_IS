@@ -73,7 +73,8 @@ CREATE TABLE Conferencia (
     Limite_Participantes INTEGER,
     Firma_Encargado BOOL DEFAULT NULL,
     Firma_Organizador BOOL DEFAULT NULL,
-    Emision_Diplomas BOOL DEFAULT 0,
+    Emision_Asistencia BOOL DEFAULT 0,
+    Emision_Firmas BOOL DEFAULT 0,
     FOREIGN KEY(Id_Evento) REFERENCES Evento(Id)
         ON DELETE CASCADE
         ON UPDATE CASCADE

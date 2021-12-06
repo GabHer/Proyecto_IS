@@ -19,24 +19,55 @@ Asistencia.actualizar = (objetoAsistencia, resultado) => {
               resultado(err, null);
               return;
             };
+
+            //Solo si se actualizaron filas.
+            if(res.affectedRows!=0){
+                //Consulta que actualizara el campo de Asitencia a 0 para aquellos usuarios que no asistieron a la conferencia.
+                var consultaNoAsistencia = `UPDATE Persona_Conferencia SET Asistencia = 0 WHERE Asistencia IS NULL AND Id_Conferencia = ${objetoAsistencia.idConferencia}`;
+
+                sql.query(consultaNoAsistencia, (err, res) => {
+                    if(err){
+                    // Si ocurre un error con la consulta
+                    resultado(err, null);
+                    return;
+                    };
+
+                    resultado(null, res)
+                });
+            }
+
+            else{
+                resultado(null, {estado: "no_encontrado"})
+            };
         });
     };
-
-        //Consulta que actualizara el campo de Asitencia a 0 para aquellos usuarios que no asistieron a la conferencia.
-        var consultaNoAsistencia = `UPDATE Persona_Conferencia SET Asistencia = 0 WHERE Asistencia IS NULL AND Id_Conferencia = ${objetoAsistencia.idConferencia}`;
-
-        sql.query(consultaNoAsistencia, (err, res) => {
-            if(err){
-              // Si ocurre un error con la consulta
-              resultado(err, null);
-              return;
-            };
-
-            resultado(null, res)
-        });
-
 };
 
+
+Asistencia.emicion = (objetoAsistencia, resultado) => {
+
+    //Consulta que obtedrá si la lista de asistencia ya fué emitida
+    
+    var consultaEmicion = `SELECT Emision_Asistencia FROM Conferencia WHERE Id = ${objetoAsistencia.IdConferencia}`;
+
+    sql.query(consultaEmicion, (err, res) => {
+        if(err){
+            // Si ocurre un error con la consulta
+            resultado(err, null);
+            return;
+        }
+
+
+        if(res.fieldCount!=0){
+            resultado(null, res) 
+        }
+
+
+        else {
+            resultado(null, {estado: "no_encontrado"})
+        }; 
+    });
+};
 
 
 module.exports = Asistencia;
