@@ -147,18 +147,18 @@ async createPDFSinConferencias(){
 }
 
 obtenerConferencias(){
-this.serviceConferencia.obtenerConferencias( this.evento.Id ).subscribe(
-  (res:any) => {
-    this.createPDF(res.data);
-  },
-  (err:any) => {
-    if( err.error.codigo == 404 ) {
-      this.createPDFSinConferencias();
-      this.conferencias = [];
-      console.log("No se encontro conferencias para este evento")
+  this.serviceConferencia.obtenerConferencias( this.evento.Id ).subscribe(
+    (res:any) => {
+      this.createPDF(res.data);
+    },
+    (err:any) => {
+      if( err.error.codigo == 404 ) {
+        this.createPDFSinConferencias();
+        this.conferencias = [];
+        console.log("No se encontro conferencias para este evento")
+      }
     }
-  }
-);
+  );
 }
 
 }

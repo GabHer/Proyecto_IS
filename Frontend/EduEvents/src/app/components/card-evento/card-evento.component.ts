@@ -52,7 +52,7 @@ export class CardEventoComponent implements OnInit {
 
         /* Definición elementos */
         const tabla= new Table([
-          [ 'Fecha', 'Hora Inicio', 'Hora Final', 'Nombre', 'Medio'],
+          [ 'Fecha', 'Hora Inicio', 'Hora Final', 'Nombre', 'Modalidad'],
           ...this.extraerDatos(data)
         ])
         .layout('lightHorizontalLines')
@@ -97,9 +97,17 @@ export class CardEventoComponent implements OnInit {
 
   extraerDatos(datos): TableRow[]{
     console.log(datos);
-    return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre,  row.Medio])
+
+    return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre, this.extraerModalidad(row.Modalidad)])
   }
 
+  extraerModalidad(bool){
+    if (bool == 1){
+      return "Virtual"
+    }else{
+      return "Presencial"
+    }
+  }
 
   async createPDFSinConferencias(){
 
