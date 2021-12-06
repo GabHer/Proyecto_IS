@@ -78,7 +78,7 @@ exports.obtenerInscritosIdConferencia = (req, res) => {
       } 
       else {
         res.send({
-          mensaje: `Se obtuvieron los  usuarios inscritos a la conferencia con id: ${req.params.idConferencia}.`, codigo:200, estado:'ok', data: data
+          mensaje: `Se obtuvieron los  usuarios inscritos a la conferencia con id: ${req.params.idConferencia}.`, codigo:200, estado:'ok', data:data
         });
       };
     });
@@ -116,5 +116,4 @@ exports.eliminarInscripcion = (req, res) => {
 
   return;
 };
-
 

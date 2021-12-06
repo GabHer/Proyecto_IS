@@ -28,7 +28,7 @@
 
   <div class="col-12 row" style="margin: 0%;">
     <div class="col-12 mt-4">
-      <button disabled  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+      <button [disabled]="listaAsistencia == null" (click)="enviarAsistencias()" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
         <span class="material-icons">
           send
           </span> Enviar Lista </button>
