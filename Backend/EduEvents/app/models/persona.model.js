@@ -211,7 +211,7 @@ Persona.validar = (correoPersona, resultado) => {
                         }
                         else{
 
-                              Persona.buscarNombreDeCorreo(correoPersona, (err,data) => {
+                              Persona.buscarDatosDeCorreo(correoPersona, (err,data) => {
 
                                 if (err) {
                                     resultado(err, null);
