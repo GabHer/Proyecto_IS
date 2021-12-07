@@ -90,7 +90,7 @@ Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
                                             const message = {
                                                 from: '"EduEvents" <edueventsmanagement@gmail.com>',
                                                 to: correo,
-                                                subject: "Suscripción a Conferencia",
+                                                subject: "Inscripción a Conferencia",
                                                 attachments: [
                                                 {
                                                     filename: 'Logo.png',
@@ -432,7 +432,7 @@ Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
                                                                         <td  align='center' width='530'>
                                                                         <div class='contentEditableContainer contentTextEditable'>
                                                                             <div class="contentEditable" style='font-size:13px;color:black;line-height:19px;'>
-                                                                            <p style = "margin-top:15px">Te has suscrito a <span> ${Tipo}</span><span style="font-weight:bolder"> "${data[0].Nombre}"</p>
+                                                                            <p style = "margin-top:15px">Te has inscrito a <span> ${Tipo}</span><span style="font-weight:bolder"> "${data[0].Nombre}"</p>
                                                                             </div>
                                                                         </div>
                                                                         </td>
