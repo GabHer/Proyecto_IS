@@ -57,7 +57,7 @@ export class CardConferenciaComponent implements OnInit {
 
   @Input() todoDetalles = false;
   @Input() subscribeEventoSeleccionado:any;
-  
+
   srcListaBlanca:any = null;
   listaBlanca:any = null;
   usuarioActual:any;
@@ -142,7 +142,7 @@ export class CardConferenciaComponent implements OnInit {
       },
       (err:any) => {
         this.spinner.ocultarSpinner()
-      } 
+      }
     );
 
   }
@@ -163,7 +163,7 @@ export class CardConferenciaComponent implements OnInit {
   }
 
   obtenerUsuarioOrganizador(){
- 
+
     this.spinner.mostrarSpinner()
     this.usuarioService.obtenerUsuarioPorId( this.eventoSeleccionado.idOrganizador ).subscribe(
       (res:any) => {
@@ -198,7 +198,13 @@ export class CardConferenciaComponent implements OnInit {
 
   desInscribirme(modalExito:any, modalError:any, letmodal:any){
     letmodal.close('Close click')
-    
+
+    if( this.usuarioActual.Correo == this.conferencia.Correo_Encargado ){
+      this.mensajeModal[1].titulo2 = "No se puede eliminar la inscripción en el evento porque usted es el encargado de dicho evento."
+      this.abrirModal(modalError)
+      return;
+    }
+
     this.conferenciaService.eliminarInscripcion( this.usuarioActual.Id, this.conferencia.Id).subscribe(
       (res:any) => {
         if( res.codigo == 200 ){
@@ -208,7 +214,7 @@ export class CardConferenciaComponent implements OnInit {
           this.mensajeModal[1].titulo2 = "No se pudo eliminar su subscripción"
           this.abrirModal(modalError);
         }
-        
+
       },
       (err:any) => {
         if(err.error.codigo == 404){
@@ -230,7 +236,7 @@ export class CardConferenciaComponent implements OnInit {
         (res:any) => {
           if(res.codigo == 200 ) {
             this.srcListaBlanca = res.data[0].Lista_Blanca;
-            
+
             this.obtenerListaBlancaDesdeArchivo()
           }
           this.spinner.ocultarSpinner()
@@ -274,7 +280,7 @@ export class CardConferenciaComponent implements OnInit {
     }
 
     return false;
-  
+
   }
 
   inscribirme(modlExito:any, modalError:any){
@@ -329,7 +335,7 @@ export class CardConferenciaComponent implements OnInit {
   obtenerEventoActual(){
     this.subscribeEventoSeleccionado.subscribe(
       (res:any) => {
-        
+
         this.eventoSeleccionado = {
           caratula: res.data.Caratula,
           descripcion: res.data.Descripcion,
