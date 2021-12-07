@@ -101,6 +101,35 @@
 
 .imagen {
   border-radius: 100%;
-  width: 36px;
-  height: 36px;
+  width: 18px;
+  height: 18px;
 }
+
+
+.btn-descargarDiploma {
+  font-size: 36px;
+  color: #4484CE;
+}
+
+.txt-btnDetalleEvento {
+  color:#777777;
+  font-weight: 500;
+
+}
+.txt-btnDetalleEvento:hover {
+  color:#4484CE;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.iconoEncargado{
+  color:#F9CF00;
+  font-size: 36px;
+}
+.imagen {
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+}
+

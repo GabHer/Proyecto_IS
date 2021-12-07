@@ -42,6 +42,7 @@ export class CardConferenciaComponent implements OnInit {
   @Input() isOrganizador = false;
   @Output() onVerEncargado = new EventEmitter<any>();
   @Output() onRegistrarConferencia = new EventEmitter<any>();
+  @Output() onVerDetalleEvento = new EventEmitter<any>();
   constructor( private usuarioService:UsuariosService, private listaBlancaService:ListaBlancaService, private eventoService:EventosService, private conferenciaService:ConferenciasService, private spinner:SpinnerService, private modalService:NgbModal  ) { }
   @Input() eventoSeleccionado:any = {
     id: "",
@@ -360,7 +361,13 @@ export class CardConferenciaComponent implements OnInit {
     );
   }
 
+  verEvento(){
+    this.onVerDetalleEvento.emit(this.conferencia.Id_Evento);
+  }
 
+  descargarDiploma(){
+    console.log("No programado")
+  }
 
 
 }

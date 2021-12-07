@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   eventos:Evento[] = [];
   misEventos:Evento[] =[];
-  ocultarBuscador=false;
+  ocultarBuscador=true;
 
   constructor( private eventosService:EventosService, private sanitizer: DomSanitizer, private auth:AutenticacionService, private usuariosService:UsuariosService, private modalService:NgbModal, private spinner:SpinnerService) {
     this.obtenerUsuario();
@@ -164,14 +164,16 @@ export class DashboardComponent implements OnInit, OnChanges  {
   obtenerUsuario(){
     let tokenUsuario = localStorage.getItem("token");
     if( tokenUsuario ){
-
+      this.spinner.mostrarSpinner();
       let correo = JSON.parse(tokenUsuario).id;
       this.usuariosService.obtenerUsuario( correo ).subscribe(
         (res:any) => {
           this.usuario = res.data
           this.obtenerMisEventos()
           this.obtenerEventos();
-        }
+          this.spinner.ocultarSpinner()
+        },
+        err => this.spinner.ocultarSpinner()
       );
     }
   }

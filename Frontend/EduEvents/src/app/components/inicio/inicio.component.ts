@@ -35,7 +35,6 @@ export class InicioComponent implements OnInit {
 
   @Input() perfil:any;
   conferencias: any;
-  hayConferencias = false;
   constructor( private serviceConferencia:ConferenciasService ) { }
 
   ngOnInit(): void {
@@ -56,8 +55,6 @@ export class InicioComponent implements OnInit {
     this.serviceConferencia.obtenerConferenciasUsuario( this.perfil.Id ).subscribe(
       (res:any) => {
         this.conferencias = res.data;
-        this.hayConferencias = true;
-
       },
       (err:any) => {
         if( err.error.codigo == 404 ) {

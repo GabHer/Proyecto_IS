@@ -35,6 +35,7 @@
             (onVerEncargado)="verEncargado($event)" [isOrganizador]="isOrganizador"
             [eventoSeleccionado]="eventoSeleccionado"
             [conferencia]="conferenia"
+            (onVerDetalleEvento)="regresar()"
           ></app-card-conferencia>
 
 
@@ -54,6 +55,18 @@
             arrow_back
             </span>
         </div>
+    </div>
+
+    <div *ngIf="(vistaActual.detalleEvento)" class="col-12">
+      <app-detalles-evento
+      class="contenedor"
+      [isOrganizador]="false"
+      [vistaBuscar]="false"
+      style="margin-left: auto; margin-right: auto; width:100%"
+      [isCollaps]="false"
+      [idEvento]="idDetalleEvento"
+
+      ></app-detalles-evento>
     </div>
 
   </div>

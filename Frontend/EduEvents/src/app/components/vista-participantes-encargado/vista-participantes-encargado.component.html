@@ -24,17 +24,14 @@
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
               <th scope="col">Correo</th>
-              <th scope="col">Institución</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let persona of inscritos">
               <td><img style="width: 36px; border-radius: 100%;" [src]="persona.Fotografia"></td>
-              <td (click)="verPerfilUsuario(persona)"><span class="txt-usuario">{{persona.Nombre}}</span></td>
+              <td><span>{{persona.Nombre}}</span></td>
               <td><span>{{persona.Apellido}}</span></td>
               <td><span>{{persona.Correo}}</span></td>
-              <td><span>{{persona.Institucion}}</span></td>
-
             </tr>
 
           </tbody>

@@ -30,6 +30,7 @@
           [conferencia]="conferencia"
           [todoDetalles]="true"
           [subscribeEventoSeleccionado]="obtenerEvento(conferencia.Id_Evento)"
+          (onVerDetalleEvento)="verDetalleEvento($event)"
       ></app-card-conferencia>
 
       <app-card-conferecnia-encargado
@@ -39,6 +40,7 @@
         (onListaAsistencia)="verListaAsistencia($event)"
         (onVerEncargado)="verEncargado($event)"
         (onVerOrganizador)="verOrganizador($event)"
+        (onVerDetalleEvento)="verDetalleEvento($event)"
       ></app-card-conferecnia-encargado>
 
       </div>
@@ -94,7 +96,21 @@
       </div>
     </div>
 
+
   </div>
 
+</div>
+
+<div *ngIf="(vistaActual.vistaDetalleEvento)" class="row text-center">
+  <div class="col-12">
+    <app-detalles-evento
+      [isOrganizador]="false"
+      [vistaBuscar]="false"
+      style="margin-left: auto; margin-right: auto; width:100%"
+      [isCollaps]="isCollaps"
+      [idEvento]="idEventoSeleccionado"
+      (onChangePath)="reset()"
+    ></app-detalles-evento>
+  </div>
 </div>
 
