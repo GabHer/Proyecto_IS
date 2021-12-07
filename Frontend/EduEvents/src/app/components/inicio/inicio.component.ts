@@ -57,7 +57,6 @@ export class InicioComponent implements OnInit {
       (res:any) => {
         this.conferencias = res.data;
         this.hayConferencias = true;
-
       },
       (err:any) => {
         if( err.error.codigo == 404 ) {
