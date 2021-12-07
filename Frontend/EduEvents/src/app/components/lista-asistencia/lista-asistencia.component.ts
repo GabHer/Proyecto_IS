@@ -21,6 +21,9 @@ export class ListaAsistenciaComponent implements OnInit {
   idUsuarioSeleccionado: any;
   asistencias: any;
   listaAsistencia:any;
+  boolOrganizador: any;
+  boolEncargado: any;
+  jsonGenerarDiplomas: any;
 
   @Output() verConferencias = new EventEmitter<any>();
   @Input() idConferencia:number;
@@ -41,6 +44,16 @@ export class ListaAsistenciaComponent implements OnInit {
     if(this.listaAsistencia.length == 0){
       this.listaAsistencia = null;
     }
+  }
+
+  onOrganizador(options: MatListOption[]){
+    this.boolOrganizador = options.map(o => o.value);
+    this.boolOrganizador.push(0);
+  }
+
+  onEncargado(options: MatListOption[]){
+    this.boolEncargado = options.map(o => o.value);
+    this.boolEncargado.push(0);
   }
 
   obtenerInscripcionesConferencias(){
@@ -92,8 +105,31 @@ export class ListaAsistenciaComponent implements OnInit {
     );
   }
 
-  guardarFirmas(){
-    
+  generarDiplomas(){
+    if(this.boolEncargado == undefined){
+      this.jsonGenerarDiplomas ={
+        "idConferencia" : this.idConferencia,
+        "firmaOrganizador" : this.boolOrganizador[0],
+        "firmaEncargado": this.boolOrganizador[1],
+        "imagenFirma": "Blob"
+      }
+    }else if(this.boolOrganizador == undefined){
+      this.jsonGenerarDiplomas ={
+        "idConferencia" : this.idConferencia,
+        "firmaEncargado": this.boolEncargado[0],
+        "firmaOrganizador": this.boolEncargado[1],
+        "imagenFirma": "Blob"
+      }
+    }else{
+      this.jsonGenerarDiplomas ={
+        "idConferencia" : this.idConferencia,
+        "firmaOrganizador" : this.boolOrganizador[0],
+        "firmaEncargado": this.boolEncargado[0],
+        "imagenFirma": "Blob"
+      }
+    }
+
+    console.log(this.jsonGenerarDiplomas);
   }
 
   obtenerAsistencias(){

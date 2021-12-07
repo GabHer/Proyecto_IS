@@ -22,13 +22,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let conferencia of conferencias">
-                <td >{{extraerTipo(conferencia.Tipo)}}</td>
-                <td >{{conferencia.Nombre}}</td>
-                <td><span>{{conferencia.Fecha_Inicio.substr(0,10)}}</span></td>
-                <td><span>{{conferencia.Hora_Inicio + " a " +conferencia.Hora_Final}}</span></td>
-                <td><span>{{conferencia.Medio}}</span></td>
-              </tr>
+                <tr *ngFor="let conferencia of conferencias" >
+                  <td *ngIf="conferencia.Estado_Conferencia != 'Finalizado'"  >{{extraerTipo(conferencia.Tipo)}}</td>
+                  <td *ngIf="conferencia.Estado_Conferencia != 'Finalizado'" >{{conferencia.Nombre}}</td>
+                  <td *ngIf="conferencia.Estado_Conferencia != 'Finalizado'" ><span>{{conferencia.Fecha_Inicio.substr(0,10)}}</span></td>
+                  <td *ngIf="conferencia.Estado_Conferencia != 'Finalizado'" ><span>{{conferencia.Hora_Inicio + " a " +conferencia.Hora_Final}}</span></td>
+                  <td *ngIf="conferencia.Estado_Conferencia != 'Finalizado'" ><span>{{conferencia.Medio}}</span></td>
+                </tr>
             </tbody>
           </table>
 

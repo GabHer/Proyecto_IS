@@ -53,10 +53,14 @@
       <div class="col-12">Firmas</div>
       <div class="col-12 row" style="margin:0%">
         <div class="col-7 mt-1">
-          <mat-selection-list >
-            <mat-list-option [value]="0">
+          <!--Selection list Organizador-->
+          <mat-selection-list #boolOrganizador (selectionChange)="onOrganizador(boolOrganizador.selectedOptions.selected)">
+            <mat-list-option [value]="1">
               Organizador
             </mat-list-option>
+          </mat-selection-list>
+          <!--Selection list Encargado-->
+          <mat-selection-list #boolEncargado (selectionChange)="onEncargado(boolEncargado.selectedOptions.selected)">
             <mat-list-option [value]="1">
               Encargado
             </mat-list-option>
@@ -80,7 +84,7 @@
       </div>
 
         <div class="col-12 mt-4">
-        <button disabled  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+        <button (click)="generarDiplomas()" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
           Generar diplomas </button>
         </div>
     </mat-expansion-panel>
