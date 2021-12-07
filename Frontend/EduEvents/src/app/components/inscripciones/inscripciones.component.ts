@@ -49,12 +49,13 @@ export class InscripcionesComponent implements OnInit {
   @Input() isCollaps = false;
   @Output() verDetallesEvento = new EventEmitter<any>();
   idConferencia:any;
-
+  idEventoSeleccionado:number;
   vistaActual = {
     vistaEncargado:false,
     vistaOrganizador:false,
     vistaMisInscripciones: true,
-    vistaListaAsistencia: false
+    vistaListaAsistencia: false,
+    vistaDetalleEvento:false
   }
 
 
@@ -63,6 +64,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaOrganizador = false;
     this.vistaActual.vistaMisInscripciones = false;
     this.vistaActual.vistaListaAsistencia = false;
+    this.vistaActual.vistaDetalleEvento = false;
     this.usuarioEncargadoConferencia = evento;
   }
   verOrganizador(evento:any){
@@ -72,6 +74,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaOrganizador = true;
     this.vistaActual.vistaMisInscripciones = false;
     this.vistaActual.vistaListaAsistencia = false;
+    this.vistaActual.vistaDetalleEvento = false;
     this.usuarioOrganizador = evento;
   }
 
@@ -81,6 +84,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaOrganizador = false;
     this.vistaActual.vistaEncargado = false
     this.vistaActual.vistaMisInscripciones =false
+    this.vistaActual.vistaDetalleEvento = false;
     this.idConferencia = evento;
   }
 
@@ -89,6 +93,16 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaOrganizador = !this.vistaActual.vistaEncargado
     this.vistaActual.vistaMisInscripciones = !this.vistaActual.vistaMisInscripciones
     this.vistaActual.vistaListaAsistencia = !this.vistaActual.vistaListaAsistencia
+    this.vistaActual.vistaDetalleEvento = false;
+  }
+  verDetalleEvento(evento:number){
+    this.vistaActual.vistaEncargado = false;
+    this.vistaActual.vistaOrganizador = false;
+    this.vistaActual.vistaMisInscripciones = false;
+    this.vistaActual.vistaListaAsistencia = false;
+
+    this.idEventoSeleccionado = evento;
+    this.vistaActual.vistaDetalleEvento = true;
   }
 
   reset(){
@@ -96,13 +110,15 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaOrganizador = false;
     this.vistaActual.vistaMisInscripciones = true;
     this.vistaActual.vistaListaAsistencia = false;
+    this.vistaActual.vistaDetalleEvento = false;
   }
 
   verInscripciones(){
     this.vistaActual.vistaEncargado = false;
     this.vistaActual.vistaEncargado= false;
-    this.vistaActual.vistaMisInscripciones = true;
     this.vistaActual.vistaListaAsistencia = false;
+    this.vistaActual.vistaMisInscripciones = true;
+
   }
 
   obtenerCorreoUsuarioActual(){

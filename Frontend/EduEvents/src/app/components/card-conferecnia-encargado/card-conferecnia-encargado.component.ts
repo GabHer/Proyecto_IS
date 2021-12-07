@@ -36,6 +36,7 @@ export class CardConferecniaEncargadoComponent implements OnInit {
   @Output() onVerEncargado = new EventEmitter<any>();
   @Output() onVerOrganizador = new EventEmitter<any>();
   @Output() onEliminarConferencia = new EventEmitter<number>();
+  @Output() onVerDetalleEvento = new EventEmitter<number>();
 
   eventoSeleccionado:any = {
     id: "",
@@ -138,6 +139,10 @@ export class CardConferecniaEncargadoComponent implements OnInit {
 
     );
 
+  }
+
+  verEvento(){
+    this.onVerDetalleEvento.emit(this.conferencia.Id_Evento)
   }
 
 }

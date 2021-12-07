@@ -72,8 +72,11 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   vistaActual = {
     listaAsistencia: false,
     detalleConferencia: true,
+    detalleEvento:false,
     vistaEncargado:false
   }
+
+  idDetalleEvento:number; // Id del evento obtenido desde una card de conferencia
 
   conferencias:Conferencia[] = []
   misInscripciones:Conferencia[] = []
@@ -192,22 +195,27 @@ export class VistaConferenciaTalleresComponent implements OnInit {
   verListaAsistencia(idConferencia, b:boolean){
     this.vistaActual.listaAsistencia = b,
     this.vistaActual.detalleConferencia = !b
+    this.vistaActual.detalleEvento = false;
     this.idConferencia = idConferencia;
   }
   verEncargado(evento:any){
     this.vistaActual.vistaEncargado = true
     this.vistaActual.listaAsistencia = false,
     this.vistaActual.detalleConferencia =false
+    this.vistaActual.detalleEvento = false;
     this.usuarioEncargadoConferencia = evento;
 
   }
   verDetalleConferencia(){
     this.vistaActual.listaAsistencia = false,
     this.vistaActual.detalleConferencia =true
+    this.vistaActual.detalleEvento = false;
     this.vistaActual.vistaEncargado = false
   }
 
+
   regresar(){
+
     this.verDetallesEvento.emit(null);
   }
 

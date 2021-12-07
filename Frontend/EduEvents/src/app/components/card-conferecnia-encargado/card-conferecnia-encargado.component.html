@@ -38,6 +38,24 @@
           </div>
         </div>
 
+        <div style="position: absolute; margin-top: 5px;" class="col-12">
+          <div class="row">
+            <div class="col-12">
+
+              <div style="width:36px; height: 36px; background-color: #2a2a2b8c; margin-left: auto;" mat-raised-button matTooltip="Usted es el encargado de esta conferencia">
+                <span  class="material-icons iconoEncargado">manage_accounts</span>
+              </div>
+
+            </div>
+
+            <div class="col-12">
+              <div style="width:36px; height: 36px; background-color: #2a2a2b8c; margin-left: auto;" mat-raised-button matTooltip="Subir archivo de firma">
+                <span style="cursor: pointer;"  class="material-icons iconoEncargado">file_upload</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -69,8 +87,10 @@
         <img class="imagen" [src]="usuarioOrganizador.Fotografia" alt="">
       </span>
 
-      <div class="col-9 mt-2">
-        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes col-4"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
+      <div class="col-7 mt-2">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
+      </div>
+      <div style="margin: 0; padding: 0;" class="col-4 mt-1">
         <span class="ml-2" style="font-size: 10px; color: #464444;">(Organizador)</span>
       </div>
       <hr>
@@ -81,11 +101,22 @@
         <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
       </span>
 
-      <div class="col-9 mt-1">
-        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
+      <div class="col-7 mt-1">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
+      </div>
+      <div style="margin: 0; padding: 0;" class="col-4 mt-1">
         <span class="ml-2" style="font-size: 10px; color: #464444;">(Encargado)</span>
       </div>
 
+    </div>
+
+    <div class="row">
+      <div class="col-12 mt-2">
+        <div class="row mt-1">
+            <span style="color: #4484CE; font-size:18px" class="material-icons col-1">event</span>
+            <span (click)="(verEvento())" class="col  ml-1 txt-btnDetalleEvento">Ver detalles del evento</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="card-footer">
