@@ -6,5 +6,7 @@ module.exports = app => {
 
     // Obtener los datos del diploma
     app.get('/asistencia/obtenerDatosDiploma/:idConferencia/:idPersona', asistencia.obtenerDatosDiploma);
+
+    app.get('/asistencia/asistenciaEmision/:idConferencia', asistencia.asistenciaEmision);
   
   };

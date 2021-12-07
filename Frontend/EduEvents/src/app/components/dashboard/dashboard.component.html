@@ -32,6 +32,15 @@
 
           <!-- Aquí reenderizamos los componentes del dashboard-->
 
+          <!-- Inicio -->
+          <app-inicio
+            *ngIf="(indexItemActual == obtenerIndexItem('Inicio'))"
+
+            style="width:100%;"
+            [perfil]="usuario">
+
+          </app-inicio>
+
           <!-- Mi Perfil -->
           <app-perfil-usuario
             *ngIf="(indexItemActual == obtenerIndexItem('Mi perfil'))"
