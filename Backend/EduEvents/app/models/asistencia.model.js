@@ -64,10 +64,9 @@ Asistencia.actualizar = (objetoAsistencia, resultado) => {
     });
 
 };
-  
+
 
 Asistencia.emision = (objetoAsistencia, resultado) => {
-
     //Consulta que obtedrá si la lista de asistencia ya fué emitida
     
     var consultaEmicion = `SELECT Emision_Asistencia FROM Conferencia WHERE Id = ${objetoAsistencia.idConferencia}`;

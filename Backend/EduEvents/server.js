@@ -33,6 +33,8 @@ require("./app/routes/evento.routes.js")(app);
 require("./app/routes/conferencia.routes.js")(app);
 require("./app/routes/inscripcion.routes.js")(app);
 require("./app/routes/asistencia.routes.js")(app);
+require("./app/routes/diploma.routes.js")(app);
+
 
 
 // set port, listen for requests

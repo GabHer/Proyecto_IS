@@ -235,4 +235,29 @@ exports.actualizarContra = (req, res) => {
    
   });
 };
+
+
+exports.actFirma = (req, res) => {
+
+  if(!req.body) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio", codigo:400
+    });
+    return;
+  };
+
+  Persona.actualizarFirma(req.body, (err,data) => {
+
+    if(err){
+      res.status(500).send({mensaje: `Ocurrió un error al actualizar el campo firma para el usuario con id ${req.body.idPersona}`, error:err, codigo:500});
+      return;
+    }
+
+    else {
+      res.status(200).send({mensaje:`Se actualizó la firma para el usuario con id: ${req.body.idPersona}`, codigo:200, estado:"ok"});
+      return;
+    };
+   
+  });
+};
   

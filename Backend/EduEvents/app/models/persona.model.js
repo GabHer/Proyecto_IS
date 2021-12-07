@@ -677,6 +677,22 @@ Persona.validarToken = (objetoResetToken, resultado ) => {
 };
 
 
+Persona.actualizarFirma = (objetoFirma, resultado ) => {
+    var consulta = `UPDATE Persona SET Firma = '${objetoFirma.imagenFirma}' WHERE Id = ${objetoFirma.idPersona}`;
+    
+    sql.query(consulta, (err, res) => {
+        
+        if (err) {
+            resultado(err, null);
+            return;
+        };  
+
+        resultado(null, { estado:"ok"});
+        return;
+    });
+};
+  
+
 Persona.cambioContrasena = (objetoNuevaContra, resultado ) => {
     Token.actualizarPorCorreo (objetoNuevaContra.Correo, (err,data) => {
       if (err) {

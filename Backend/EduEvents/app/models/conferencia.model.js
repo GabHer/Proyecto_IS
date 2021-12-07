@@ -823,6 +823,19 @@ Conferencia.eliminarConferencias = ( idConferencia, resultado ) => {
     });
 };
 
+
+Conferencia.actualizarFirmasAIncluir = ( objetoFirmas, resultado ) => {
+
+    var consulta = `UPDATE Conferencia SET Firma_Organizador = ${objetoFirmas.firmaOrganizador}, Firma_Encargado = ${objetoFirmas.firmaEncargado} WHERE Id = ${objetoFirmas.idConferencia}`;
+    sql.query( consulta, (err, res) => {
+      if(err){
+        resultado(err, null);
+        return;
+      }
+      resultado( null, res );
+    });
+};
+
 module.exports = Conferencia;
 
 

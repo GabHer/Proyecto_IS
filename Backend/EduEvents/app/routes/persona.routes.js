@@ -41,5 +41,7 @@ module.exports = app => {
     //Método para actualizar la contraseña del usuario
     app.post("/inciarSesion/restablecer_contrasena/cambio_contrasena/:correo", personas.actualizarContra);
 
+    //Método para actualizar la contraseña del usuario
+    app.put("/persona/actualizarFirma", personas.actFirma);
     
   };

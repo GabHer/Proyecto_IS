@@ -194,3 +194,30 @@ exports.eliminarConferencia = (req, res) => {
   return;
 };
 
+
+exports.actualizarInclusionFirmas = (req, res) => {
+  
+  if(!req.body) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  };
+
+  Conferencia.actualizarFirmasAIncluir( req.body, (err, data) => {
+
+    if(err){
+      res.status(500).send({mensaje: "Ocurrió un error al actualizar que firmas se incluiran en los diplomas de esta conferencia", error:err});
+      return;
+    }
+
+    else {
+      res.status(200).send({mensaje:`Se actualizó que firmas se incluiran en los diplomas de la conferencia con id: ${req.body.idConferencia}`, codigo:200, estado:"ok"});
+      return;
+    };
+  });
+};
+
+
+
+
