@@ -184,6 +184,20 @@ GET http://localhost:8888/conferencia/obtenerConferenciasPorIdEvento/1
 POST http://localhost:8888/asistencia HTTP/1.1
 Content-Type: application/json
 
-{   "idConferencia": 10,
-    "listaAsistencia": [1]
+{   "idConferencia": 5,
+    "listaAsistencia": [4]
 }
+
+
+###
+GET http://localhost:8888/asistencia/asistenciaEmision/2
+
+
+
+
+
+
+
+
+
+
