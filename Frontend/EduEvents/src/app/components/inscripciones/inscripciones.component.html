@@ -22,13 +22,25 @@
         </div>
       </div>
       <div [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')" *ngFor="let conferencia of conferencias">
+
         <app-card-conferencia
+          *ngIf="(conferencia.Correo_Encargado != usuarioActual.Correo)"
           (onVerEncargado)="verEncargado($event)"
           [isOrganizador]="false"
           [conferencia]="conferencia"
           [todoDetalles]="true"
           [subscribeEventoSeleccionado]="obtenerEvento(conferencia.Id_Evento)"
       ></app-card-conferencia>
+
+      <app-card-conferecnia-encargado
+        *ngIf="(conferencia.Correo_Encargado == usuarioActual.Correo)"
+        [conferencia]="conferencia"
+        [observableEventoSeleccionado]="obtenerEvento(conferencia.Id_Evento)"
+        (onListaAsistencia)="verListaAsistencia($event)"
+        (onVerEncargado)="verEncargado($event)"
+        (onVerOrganizador)="verOrganizador($event)"
+      ></app-card-conferecnia-encargado>
+
       </div>
     </div>
 
@@ -44,11 +56,41 @@
 
         <div class="mt-2">
 
-          <span (click)="verDetalleConferencia()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer;">
+          <span (click)="reset()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer;">
             arrow_back
             </span>
         </div>
 
+      </div>
+    </div>
+    <div *ngIf="vistaActual.vistaOrganizador" class="row">
+      <div class="col-12">
+        <app-perfil-usuario
+          [vistaUsuario]="true"
+          [perfil]="usuarioOrganizador"
+          style="width:100%; text-align: initial;"
+          class="row"
+        >
+        </app-perfil-usuario >
+
+        <div class="mt-2">
+
+          <span (click)="reset()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer;">
+            arrow_back
+            </span>
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="(vistaActual.vistaListaAsistencia)" class="row">
+      <div class="col-12">
+        <app-vista-participantes-encargado
+          [idConferencia]="idConferencia"
+          (verDetallesEvento)="(verInscripciones())"
+        >
+
+        </app-vista-participantes-encargado>
       </div>
     </div>
 

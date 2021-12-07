@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="verParticipantes" class="row">
+      <div class="col-12 mt-3" style="width:100%">
+        <span  matTooltip="Regresar" (click)="regresar()" class="material-icons" style="font-size: 30px; color: #4484CE; cursor: pointer;">
+          arrow_back
+        </span>
+      </div>
+      <div class="col-12 mt-2">
+        <h1 style="color:#4484CE;">Lista de participantes</h1>
+      </div>
+      <div *ngIf="(inscritos.length == 0)" class="col-12" >
+        <h3 style="color:#4484CE;"> ¡Aún no hay inscritos! </h3>
+      </div>
+
+    </div>
+
+    <div *ngIf="verParticipantes" class="row">
+      <div  class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Fotografía</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Institución</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let persona of inscritos">
+              <td><img style="width: 36px; border-radius: 100%;" [src]="persona.Fotografia"></td>
+              <td (click)="verPerfilUsuario(persona)"><span class="txt-usuario">{{persona.Nombre}}</span></td>
+              <td><span>{{persona.Apellido}}</span></td>
+              <td><span>{{persona.Correo}}</span></td>
+              <td><span>{{persona.Institucion}}</span></td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!verParticipantes" class="col-12">
+    <app-perfil-usuario
+      [perfil]="usuarioSeleccionado"
+      [vistaUsuario]="true"
+    >
+    </app-perfil-usuario>
+  </div>
+
+  <div  *ngIf="!verParticipantes" class="col-12 mt-3" style="width:100%">
+    <span  matTooltip="Regresar" (click)="verParticipantes=true" class="material-icons" style="font-size: 30px; color: #4484CE; cursor: pointer;">
+      arrow_back
+    </span>
+
+</div>
+
+
+
+

@@ -96,6 +96,12 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
     setTimeout(() => {
       this.indexItemActual = e;
+      if(this.indexItemActual == 0){
+        this.ocultarBuscador = true;
+      }
+      if(this.indexItemActual == 3){
+        this.ocultarBuscador = true;
+      }
       this.spinner.ocultarSpinner()
     }, 200);
   }

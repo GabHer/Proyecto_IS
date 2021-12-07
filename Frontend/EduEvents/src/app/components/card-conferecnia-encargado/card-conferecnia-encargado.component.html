@@ -1,0 +1,108 @@
+<div *ngIf="usuarioEncargado" class="card card-radius mt-4 mb-2" style="width: 100%;">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+
+        <div class="col-12">
+          <img class="card-img-top" [src]="conferencia.Imagen" alt="Card image cap">
+        </div>
+
+        <div style="position: absolute; margin-top: 5px;" class="col-12">
+          <div class="detalle container-fluid">
+            <div class="row no-padding no-margin">
+              <div class="col no-padding no-margin">
+                <span class="lbl-1">Fecha:</span>
+              </div>
+              <div class="col no-padding no-margin">
+                <span class="lbl-2">{{obtenerFormatoFecha(conferencia.Fecha_Inicio)}}</span>
+              </div>
+            </div>
+
+            <div class="row no-padding no-margin">
+              <div class="col no-padding no-margin">
+                <span class="lbl-1">Inicio:</span>
+              </div>
+              <div class="col no-padding no-margin">
+                <span class="lbl-2">{{conferencia.Hora_Inicio}}</span>
+              </div>
+            </div>
+
+            <div class="row no-padding no-margin">
+              <div class="col no-padding no-margin">
+                <span class="lbl-1">Fin:</span>
+              </div>
+              <div class="col no-padding no-margin">
+                <span class="lbl-2">{{conferencia.Hora_Final}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <h5 class="card-title txt-conferencia text-left">{{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}</h5>
+      </div>
+      <div class="col-6">
+        <h5 class="card-title text-right" [class]="(conferencia.Estado_Conferencia)" >{{conferencia.Estado_Conferencia}}</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="titulo-conferencia">{{conferencia.Nombre}}</h1>
+      </div>
+    </div>
+    <p class="card-text descripcion">{{conferencia.Descripcion}}</p>
+
+    <a style="color: #4484CE;" *ngIf="conferencia.Modalidad == 1"  [href]="conferencia.Medio">Ir a {{conferencia.Tipo == 0 ? 'Taller' : 'Conferencia' }}
+    </a>
+    <p class="descripcion" *ngIf="conferencia.Modalidad == 0" >
+      <strong>Lugar:</strong> {{conferencia.Medio}}
+    </p>
+    <div *ngIf="usuarioOrganizador" class="row container" >
+
+      <span style="margin:0; padding:0" class="col-1 mt-2">
+        <img class="imagen" [src]="usuarioOrganizador.Fotografia" alt="">
+      </span>
+
+      <div class="col-9 mt-2">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes col-4"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
+        <span class="ml-2" style="font-size: 10px; color: #464444;">(Organizador)</span>
+      </div>
+      <hr>
+    </div>
+
+    <div *ngIf="usuarioEncargado"  class="row container mt-1" >
+      <span style="margin:0; padding:0" class="col-1">
+        <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
+      </span>
+
+      <div class="col-9 mt-1">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes col-4"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
+        <span class="ml-2" style="font-size: 10px; color: #464444;">(Encargado)</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="card-footer">
+    <!-- Vista para el usuario Encargado desde 'mis eventos'-->
+
+    <div  class="row no-padding no-margin">
+      <div class="col-2 no-padding no-margin">
+        <span class="material-icons">
+          group
+          </span>
+      </div>
+      <div  class=" no-padding no-margin ">
+        <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarListaAsistencia(conferencia.Id)" class="txt-footer txt-participantes"> Mostrar participantes </span>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
