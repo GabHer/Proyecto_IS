@@ -1,0 +1,43 @@
+<div class="row container mt-5" style="margin-left: auto; margin-right: auto;">
+  <div class="col-12">
+
+    <div class="container-fluid">
+
+      <h1 style="color: #4484CE ;">¡Hola {{perfil.Nombre + " "+ perfil.Apellido}}! <br> Estos son tus compromisos próximos <span class="material-icons" style="color: #F9CF00;">
+        push_pin </span> </h1>
+
+      <div class="row col-12" style="margin: 0%;">
+        <div class="col-4 mt-3">
+          <img src="../../../assets/img/imgInicio.png" alt="">
+        </div>
+        <div class="col-8 mt-2">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Tipo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col" [width]="110">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Medio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let conferencia of conferencias">
+                <td >{{extraerTipo(conferencia.Tipo)}}</td>
+                <td >{{conferencia.Nombre}}</td>
+                <td><span>{{conferencia.Fecha_Inicio.substr(0,10)}}</span></td>
+                <td><span>{{conferencia.Hora_Inicio + " a " +conferencia.Hora_Final}}</span></td>
+                <td><span>{{conferencia.Medio}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+

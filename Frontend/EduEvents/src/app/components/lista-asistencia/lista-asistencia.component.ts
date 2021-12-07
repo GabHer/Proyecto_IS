@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormControlName} from '@angular/forms';
 import { ConferenciasService } from 'src/app/services/conferencias.service';
 import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { MatListOption } from '@angular/material/list';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlowAssignment } from 'typescript';
 
 
@@ -28,7 +29,7 @@ export class ListaAsistenciaComponent implements OnInit {
     vistaLista: true
   }
 
-  constructor( private serviceConferencia:ConferenciasService, private serviceAsistencia:AsistenciaService) { }
+  constructor( private serviceConferencia:ConferenciasService, private serviceAsistencia:AsistenciaService, private modalService:NgbModal ) { }
 
   ngOnInit(  ): void {
     this.obtenerInscripcionesConferencias();
@@ -57,7 +58,7 @@ export class ListaAsistenciaComponent implements OnInit {
     );
   }
 
-  enviarAsistencias(){
+  enviarAsistencias(modalDialogoExito){
     this.asistencias = {
       "idConferencia": this.idConferencia,
       "listaAsistencia": this.listaAsistencia
@@ -67,7 +68,8 @@ export class ListaAsistenciaComponent implements OnInit {
     this.serviceAsistencia.enviarAsistencias( this.asistencias ).subscribe(
 
       (res:any) => {
-
+        this.abrirModal(modalDialogoExito);
+        this.listaAsistencia = null;
         console.log(res.mensaje);
       },
 
@@ -78,6 +80,20 @@ export class ListaAsistenciaComponent implements OnInit {
       }
 
     );
+  }
+
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
+  }
+
+  guardarFirmas(){
+    
   }
 
   obtenerAsistencias(){
