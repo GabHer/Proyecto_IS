@@ -5,16 +5,12 @@ DELIMITER //
 DROP EVENT IF EXISTS actualizarEstadoConferencia;
 
 CREATE EVENT IF NOT EXISTS actualizarEstadoConferencia
-ON SCHEDULE EVERY 1 SECOND STARTS '2021-11-01'
-ENDS '2021-12-31'
+ON SCHEDULE EVERY 1 SECOND STARTS NOW()
 ON COMPLETION PRESERVE ENABLE
 DO 
 BEGIN
-	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio <= NOW() AND Hora_Inicio = NOW();
-	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE Hora_Final < NOW();
+	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio = CURDATE() AND Hora_Inicio <= CURTIME();
+	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE CURDATE() >= Fecha_Inicio AND CURTIME() > Hora_FINAL;
+
 END //
 DELIMITER ;
-
-SHOW events;
-
-SELECT NOW();
