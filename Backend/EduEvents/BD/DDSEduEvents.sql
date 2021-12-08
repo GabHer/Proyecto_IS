@@ -105,3 +105,10 @@ CREATE TABLE Reset_Token (
     Actualizado DATETIME NULL,
     Usado INT NOT NULL DEFAULT '0'
 );
+
+
+
+USE EduEvents;
+ALTER TABLE Persona MODIFY Firma LONGBLOB;
+ALTER TABLE Conferencia MODIFY Medio TEXT;
+ALTER TABLE Persona MODIFY Intereses TEXT;
