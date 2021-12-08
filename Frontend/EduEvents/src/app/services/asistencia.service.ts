@@ -10,4 +10,8 @@ export class AsistenciaService{
   enviarAsistencias(objAsistencia:any){
     return this.httpClient.post(`http://localhost:8888/asistencia`, objAsistencia);
   }
+
+  emisionAsistencias(idConferencia:number){
+    return this.httpClient.get(`http://localhost:8888/asistencia/asistenciaEmision/${idConferencia}`);
+  }
 }

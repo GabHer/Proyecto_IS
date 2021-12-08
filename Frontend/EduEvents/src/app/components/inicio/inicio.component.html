@@ -1,4 +1,4 @@
-<div *ngIf="(conferencias)" class="row container mt-5" style="margin-left: auto; margin-right: auto;">
+<div *ngIf="(hayConferencias)" class="row container mt-5" style="margin-left: auto; margin-right: auto;">
   <div class="col-12">
 
     <div class="container-fluid">
@@ -39,5 +39,16 @@
 
   </div>
 
+</div>
+
+<div *ngIf="!hayConferencias" class="row container mt-5" style="margin-left: auto; margin-right: auto;">
+  <div class="col-12">
+    <div class="container-fluid" style="text-align: center;">
+
+      <h1 style="color: #4484CE ;">¡Hola {{perfil.Nombre + " "+ perfil.Apellido}}! <br> Aún no tienes inscripciones <span class="material-icons">
+        sentiment_very_dissatisfied
+        </span> </h1>
+  </div>
+  </div>
 </div>
 
