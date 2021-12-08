@@ -5,5 +5,7 @@ module.exports = app => {
     app.post("/diplomas/gestionFirmas", diploma.gestionFirmas);
 
     app.get("/diplomas/seleccionFirmas/:idConferencia", diploma.seleccionadoFirmas);
+
+    app.put("/diplomas/guardarFirmaEncargado", diploma.guardarFirmaEncargado);
   
   };

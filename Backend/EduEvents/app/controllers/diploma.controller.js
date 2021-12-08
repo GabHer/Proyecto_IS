@@ -36,7 +36,6 @@ exports.seleccionadoFirmas = (req, res) => {
   Diploma.seleccionFirmas(req.params.idConferencia, (err, data) => {
 
     if(err) {
-        console.log(err);
         res.status(500).send({
         mensaje: "Error al obtener si se han seleccionado que firmas se incluirán en los diplomas para la conferencia con id : " + req.params.idConferencia
         });
@@ -55,3 +54,35 @@ exports.seleccionadoFirmas = (req, res) => {
       };
     });
   };
+
+
+  exports.guardarFirmaEncargado = (req, res) => {
+
+    if(!req.body) {
+        res.status(400).send({
+        message: "El contenido no puede ser vacío"
+        });
+      return;
+    };
+  
+    Diploma.guardarFirmaEncargado(req.body, (err, data) => {
+      
+      if(err) {
+          res.status(500).send({
+          mensaje: "Error al intentar guardar la firma del encargado para la conferencia con id : " + req.body.idConferencia
+          });
+      } 
+  
+      if (data.estado == "no_permitido") {
+          res.status(404).send({
+              mensaje: `No se han seleccionado las firmas a incluir en los diplomas para esta conferencia o no es requerida la firma del encargado para los diplomas de esta conferencia o el encargado ya subió su firma.`, codigo:404, data:null
+          });
+        }
+  
+      else {
+          res.status(200).send({
+              mensaje: `Se ha guardado la firma del encargado para la conferencia con id: ${req.body.idConferencia}.`, codigo:200, estado:'ok', data: null
+          });
+        };
+      });
+    };
