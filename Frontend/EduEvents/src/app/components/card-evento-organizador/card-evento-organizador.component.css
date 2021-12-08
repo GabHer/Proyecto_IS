@@ -9,3 +9,26 @@
   background-color: #C4C4C4;
 
 }
+
+
+.Inactivo {
+  color:white;
+  background-color:#F9CF00;
+  border-radius: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.Finalizado {
+  color:white;
+  background-color:#FE0000;
+  border-radius: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.Activo {
+  color:white;
+  background-color:#17DA1D;
+  border-radius: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+}

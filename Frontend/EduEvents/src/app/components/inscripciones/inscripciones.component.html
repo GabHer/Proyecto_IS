@@ -41,6 +41,7 @@
         (onVerEncargado)="verEncargado($event)"
         (onVerOrganizador)="verOrganizador($event)"
         (onVerDetalleEvento)="verDetalleEvento($event)"
+        (onSubirFirma)="verSubirFirmaEncargado($event)"
       ></app-card-conferecnia-encargado>
 
       </div>
@@ -102,6 +103,7 @@
 </div>
 
 <div *ngIf="(vistaActual.vistaDetalleEvento)" class="row text-center">
+
   <div class="col-12">
     <app-detalles-evento
       [isOrganizador]="false"
@@ -111,6 +113,24 @@
       [idEvento]="idEventoSeleccionado"
       (onChangePath)="reset()"
     ></app-detalles-evento>
+  </div>
+</div>
+
+<div *ngIf="(vistaActual.vistaFirmaEncargado)" class="row">
+
+  <div class="col-12">
+    <div class="mt-2 btn-back">
+      <span (click)="reset()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer">
+        arrow_back
+        </span>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <app-firma-encargado
+      [conferencia]="conferenciaSeleccionada"
+
+    ></app-firma-encargado>
   </div>
 </div>
 

@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-12 mt-2 text-center">
+    <h1 style="color:#4484CE;">Subir mi firma de encargado</h1>
+  </div>
+
+  <div *ngIf="previsualizacion== '' && croppedImage == ''" class="col-12 text-center">
+    <span style="font-size: 10rem; color: #4484CE;" class="material-icons">
+      drive_file_rename_outline
+      </span>
+  </div>
+
+  <div class="col-lg-12 text-center"  >
+
+    <img style="width: 10rem; margin-left: auto; margin-right: auto;"  (click)="previsualizacion = '' " class="img-usuario" *ngIf="previsualizacion != '' " [src]="previsualizacion" alt="">
+
+    <div *ngIf="(previsualizacion == '')" style="width: 256px; margin-left: auto; margin-right: auto;">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="false"
+        [aspectRatio]="4 / 4"
+        [resizeToWidth]="256"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        >
+      </image-cropper>
+    </div>
+
+
+  </div>
+  <div  class="col-lg-12 text-center mt-1"  >
+    <button   *ngIf="croppedImage !=''" type="button" (click)="onGuardarRecorte()"  class="btn btn-primary btn-1 ml-3">Guardar</button>
+    <button  *ngIf="(previsualizacion !='' || croppedImage != '') "  type="button"  (click)="onEliminarRecorte() " class="btn btn-primary btn-2 ml-3">Eliminar</button>
+
+  </div>
+
+
+  <form [formGroup]="formularioFirma" class="col-12 text-center">
+    <mat-form-field style="width: 50%; margin-left: auto; margin-right: auto;" matTooltip="Subir firma">
+      <div class="myfilebrowser">
+        <mat-toolbar >
+          <input  matInput class="input-archivo"  readonly formControlName="inputFirma"  />
+          <button style="width:10rem !important"  mat-flat-button class="btn-file " ><span class="material-icons">file_upload</span> Subir Firma</button>
+        </mat-toolbar>
+        <input type="file" #inputImagen (change)="fileChangeEvent($event)" id="fileUpload"  formControlName="firma" name="fileUpload" multiple="multiple" accept='image/*' />
+      </div>
+
+    </mat-form-field>
+  </form>
+  <div class="col-12 text-center mt-2">
+    <button [disabled]="previsualizacion == ''" type="button" (click)="subirFirma()"  class="btn btn-primary btn-1">Subir firma</button>
+  </div>
+
+
+
+</div>

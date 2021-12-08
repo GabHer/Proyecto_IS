@@ -55,8 +55,11 @@ export class InscripcionesComponent implements OnInit {
     vistaOrganizador:false,
     vistaMisInscripciones: true,
     vistaListaAsistencia: false,
-    vistaDetalleEvento:false
+    vistaDetalleEvento:false,
+    vistaFirmaEncargado:false
   }
+
+  conferenciaSeleccionada:any;
 
 
   verEncargado(evento:any){
@@ -66,6 +69,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaListaAsistencia = false;
     this.vistaActual.vistaDetalleEvento = false;
     this.usuarioEncargadoConferencia = evento;
+    this.vistaActual.vistaFirmaEncargado = false;
   }
   verOrganizador(evento:any){
 
@@ -75,6 +79,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaMisInscripciones = false;
     this.vistaActual.vistaListaAsistencia = false;
     this.vistaActual.vistaDetalleEvento = false;
+    this.vistaActual.vistaFirmaEncargado = false;
     this.usuarioOrganizador = evento;
   }
 
@@ -85,6 +90,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaEncargado = false
     this.vistaActual.vistaMisInscripciones =false
     this.vistaActual.vistaDetalleEvento = false;
+    this.vistaActual.vistaFirmaEncargado = false;
     this.idConferencia = evento;
   }
 
@@ -94,19 +100,31 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaMisInscripciones = !this.vistaActual.vistaMisInscripciones
     this.vistaActual.vistaListaAsistencia = !this.vistaActual.vistaListaAsistencia
     this.vistaActual.vistaDetalleEvento = false;
+    this.vistaActual.vistaFirmaEncargado = false;
   }
   verDetalleEvento(evento:number){
     this.vistaActual.vistaEncargado = false;
     this.vistaActual.vistaOrganizador = false;
     this.vistaActual.vistaMisInscripciones = false;
     this.vistaActual.vistaListaAsistencia = false;
-
     this.idEventoSeleccionado = evento;
     this.vistaActual.vistaDetalleEvento = true;
+    this.vistaActual.vistaFirmaEncargado = false;
+  }
+
+  verSubirFirmaEncargado(evento:any){
+    this.vistaActual.vistaEncargado = false;
+    this.vistaActual.vistaOrganizador = false;
+    this.vistaActual.vistaMisInscripciones = false;
+    this.vistaActual.vistaListaAsistencia = false;
+    this.vistaActual.vistaDetalleEvento = false;
+    this.vistaActual.vistaFirmaEncargado = true;
+    this.conferenciaSeleccionada = evento;
   }
 
   reset(){
     this.vistaActual.vistaEncargado = false;
+    this.vistaActual.vistaFirmaEncargado = false;
     this.vistaActual.vistaOrganizador = false;
     this.vistaActual.vistaMisInscripciones = true;
     this.vistaActual.vistaListaAsistencia = false;
@@ -118,6 +136,7 @@ export class InscripcionesComponent implements OnInit {
     this.vistaActual.vistaEncargado= false;
     this.vistaActual.vistaListaAsistencia = false;
     this.vistaActual.vistaMisInscripciones = true;
+    this.vistaActual.vistaFirmaEncargado = false;
 
   }
 

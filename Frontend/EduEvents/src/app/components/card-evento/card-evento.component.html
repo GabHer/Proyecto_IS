@@ -2,11 +2,18 @@
     <div class="card card-evento" >
       <img (click)="seleccionarEvento(evento.Id)" class="card-img-top" style="cursor: pointer;" [src]="(evento.Caratula)" alt="Card image cap">
       <div class="mt-1">
-        <div class="container-fluid text-center">
-          <div>
+        <div class="row text-center">
+
+          <div class="col-12 text-right">
+            <span class="mr-1" [class]="evento.Estado_Evento">{{evento.Estado_Evento}}</span>
+          </div>
+
+          <div class="col-12">
             <p style="font-family: Verdana; color: #4484CE;"><strong>{{evento.Nombre}}</strong></p>
           </div>
-          <span (click)="obtenerConferencias()" mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
+          <div clas="col-12">
+            <span (click)="obtenerConferencias()" mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>
+          </div>
         </div>
       </div>
     </div>

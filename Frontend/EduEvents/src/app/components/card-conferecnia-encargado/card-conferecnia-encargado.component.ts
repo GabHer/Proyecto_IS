@@ -2,20 +2,26 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 export interface Conferencia {
+  Asistencia:any
   Correo_Encargado:string
   Descripcion:string
-  Emision_Diplomas:number
-  Estado_Conferencia:string
+  Emision_Asistencia:number
+  Emision_Firmas:number
+  Estado_Conferencia:number
   Fecha_Inicio:Date
+  Fecha_Inscripcion:Date
   Firma_Encargado:any
   Firma_Organizador:any
   Hora_Final:string
-  Hora_Inicio:Date
+  Hora_Inicio:string
   Id:number
+  Id_Conferencia:number
   Id_Evento:number
-  Imagen:string
+  Id_Persona:number
+  Imagen:any
   Limite_Participantes:number
-  Medio:string
+  Lista_Participantes:any
+  Medio:any
   Modalidad:number
   Nombre:string
   Tipo:number
@@ -37,6 +43,7 @@ export class CardConferecniaEncargadoComponent implements OnInit {
   @Output() onVerOrganizador = new EventEmitter<any>();
   @Output() onEliminarConferencia = new EventEmitter<number>();
   @Output() onVerDetalleEvento = new EventEmitter<number>();
+  @Output() onSubirFirma = new EventEmitter<any>();
 
   eventoSeleccionado:any = {
     id: "",
@@ -143,6 +150,10 @@ export class CardConferecniaEncargadoComponent implements OnInit {
 
   verEvento(){
     this.onVerDetalleEvento.emit(this.conferencia.Id_Evento)
+  }
+
+  subirFirma(){
+    this.onSubirFirma.emit(this.conferencia)
   }
 
 }

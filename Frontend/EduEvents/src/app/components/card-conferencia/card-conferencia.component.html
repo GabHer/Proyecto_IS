@@ -40,7 +40,7 @@
 
         </div>
 
-        <div *ngIf="(conferencia.Emision_Diplomas == 0 && (usuarioActual.Correo != usuarioEncargado.Correo) &&( todoDetalles))" style="position: absolute; margin-top: 5px;" class="col-12">
+        <div *ngIf="(conferencia.Emision_Diplomas == 1 && (usuarioActual.Correo != usuarioEncargado.Correo) &&( todoDetalles))" style="position: absolute; margin-top: 5px;" class="col-12">
           <div (click)="descargarDiploma()" style="width:36px; height: 36px; background-color: #2a2a2b8c; margin-left: auto; cursor: pointer;" mat-raised-button matTooltip="Descargar Diploma">
             <span  class="material-icons btn-descargarDiploma">file_download</span>
           </div>

@@ -69,6 +69,7 @@ import { CardConferenciaOrganizadorComponent } from './components/card-conferenc
 import { CardConferecniaEncargadoComponent } from './components/card-conferecnia-encargado/card-conferecnia-encargado.component';
 import { VistaParticipantesEncargadoComponent } from './components/vista-participantes-encargado/vista-participantes-encargado.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { FirmaEncargadoComponent } from './components/firma-encargado/firma-encargado.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
     CardConferecniaEncargadoComponent,
     VistaParticipantesEncargadoComponent,
     InicioComponent,
+    FirmaEncargadoComponent,
 
 
   ],
