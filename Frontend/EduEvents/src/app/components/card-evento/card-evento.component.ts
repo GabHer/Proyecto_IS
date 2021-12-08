@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output , EventEmitter } from '@angular/core';
-import pdfMake from 'pdfmake/build/pdfmake';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import pdfMake from 'pdfmake/build/pdfmake';
 import { PdfMakeWrapper, Table, Img, Txt } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;

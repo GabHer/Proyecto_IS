@@ -6,9 +6,7 @@
         <div class=" row text-center">
 
           <div class="col-6 text-left">
-            <span class="tipoEvento ml-2">
-              <span [ngClass]="(evento.Estado_Participantes == 0 ? 'privado' : 'publico')">{{evento.Estado_Participantes == 0 ? 'Evento privado' : 'Evento público' }}</span>
-            </span>
+
           </div>
 
           <div class="col-6 text-right">
@@ -16,7 +14,10 @@
           </div>
 
           <div class="col-12">
-            <p style="font-family: Verdana; color: #4484CE;"><strong>{{evento.Nombre}}</strong></p>
+            <p style="font-family: Verdana; color: #4484CE; margin: 0%;"><strong>{{evento.Nombre}}</strong></p>
+            <span class="">
+              <span [ngClass]="(evento.Estado_Participantes == 0 ? 'privado' : 'publico')">{{evento.Estado_Participantes == 0 ? 'Evento privado' : 'Evento público' }}</span>
+            </span>
           </div>
 
           <div class="col-12">

@@ -7,6 +7,11 @@ import { MatListOption } from '@angular/material/list';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlowAssignment } from 'typescript';
 import { DomSanitizer } from '@angular/platform-browser';
+import pdfMake from 'pdfmake/build/pdfmake';
+import { PdfMakeWrapper, Table, Img, Txt } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+type TableRow = [string, string];
 
 @Component({
   selector: 'app-lista-asistencia',
@@ -82,6 +87,21 @@ export class ListaAsistenciaComponent implements OnInit {
     if(this.boolEmisionAsistencia==true && this.archivoFirma != null){
       this.deshabilitar = false;
     }
+    if(this.boolEncargado[0]==0 && this.boolOrganizador[0]==0){
+      this.deshabilitar = true;
+    }
+    if(this.boolOrganizador[0]!=null && this.archivoFirma == null){
+      this.deshabilitar = true;
+    }
+    if(this.boolOrganizador[0]==0 && this.archivoFirma != null){
+      this.deshabilitar = true;
+    }
+    if(this.boolEmisionAsistencia==true && this.boolOrganizador[0]==0 && this.boolEncargado[0] != 0){
+      this.deshabilitar = false;
+    }
+    if(this.boolOrganizador[0]==0 && this.boolEncargado[0]==0){
+      this.deshabilitar = true;
+    }
   }
 
   onEncargado(options: MatListOption[]){
@@ -91,6 +111,17 @@ export class ListaAsistenciaComponent implements OnInit {
       this.deshabilitar = false;
     }
     if(this.boolEmisionAsistencia==true && this.boolOrganizador!=null && this.archivoFirma != null){
+      this.deshabilitar = false;
+    }else if(this.boolEmisionAsistencia==true && this.boolEncargado!=null &&  this.boolOrganizador[0]==0 && this.archivoFirma == null){
+      this.deshabilitar = false;
+    }
+    if(this.boolEmisionAsistencia==true &&  this.boolOrganizador[0]==0 && this.boolEncargado[0]!=0){
+      this.deshabilitar = false;
+    }
+    if(this.boolOrganizador[0]==0 && this.boolEncargado[0]==0){
+      this.deshabilitar = true;
+    }
+    if(this.boolEmisionAsistencia==true && this.boolEncargado[0]==0 && this.boolOrganizador[0]!=0 && this.archivoFirma != null){
       this.deshabilitar = false;
     }
   }
@@ -256,4 +287,56 @@ export class ListaAsistenciaComponent implements OnInit {
   regresar(){
     this.verConferencias.emit(null);
   }
+
+  async createPDF(data){
+
+    PdfMakeWrapper.setFonts(pdfFonts);
+
+    /* Definición elementos */
+    const tabla= new Table([
+      [ 'Fecha', 'Hora Inicio', 'Hora Final', 'Nombre', 'Modalidad'],
+      ...this.extraerDatos(data)
+    ])
+    .layout('lightHorizontalLines')
+    .widths([70, 60 ,60,'*','*'])
+    .end;
+
+    const tablaEvento= new Table([
+      [ 'Descripción', `` ],
+      [ 'Fecha', ``],
+      [ 'Institución', ``],
+      [ 'Estado', ``]
+
+
+    ])
+    .layout('lightHorizontalLines')
+    .widths(['*', '*' ])
+    .alignment('center')
+    .end;
+
+    const pdf = new PdfMakeWrapper();
+    pdf.background(await new Img(`../../../assets/img/BackgroundPdf.png`).alignment('center').build());
+
+    const textConferencias = new Txt('Conferencias o talleres').bold().color('#F19F4D').fontSize(15).end;
+
+    /*Colocación elementos en el pdf*/
+    pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add(tablaEvento);
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add(textConferencias);
+    pdf.add('\n');
+    pdf.add(tabla);
+    pdf.create().open();
+    }
+
+    extraerDatos(datos): TableRow[]{
+    console.log(datos);
+
+    return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre])
+    }
 }
