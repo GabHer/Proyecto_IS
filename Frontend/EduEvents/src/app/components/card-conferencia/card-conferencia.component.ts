@@ -199,7 +199,7 @@ export class CardConferenciaComponent implements OnInit {
 
   desInscribirme(modalExito:any, modalError:any, letmodal:any){
     letmodal.close('Close click')
-
+    this.spinner.mostrarSpinner()
     if( this.usuarioActual.Correo == this.conferencia.Correo_Encargado ){
       this.mensajeModal[1].titulo2 = "No se puede eliminar la inscripción en el evento porque usted es el encargado de dicho evento."
       this.abrirModal(modalError)
@@ -215,6 +215,7 @@ export class CardConferenciaComponent implements OnInit {
           this.mensajeModal[1].titulo2 = "No se pudo eliminar su subscripción"
           this.abrirModal(modalError);
         }
+        this.spinner.ocultarSpinner()
 
       },
       (err:any) => {
@@ -222,6 +223,7 @@ export class CardConferenciaComponent implements OnInit {
           this.mensajeModal[1].titulo2 = err.error.mensaje
         }
         this.abrirModal(modalError);
+        this.spinner.ocultarSpinner();
       }
     );
 
