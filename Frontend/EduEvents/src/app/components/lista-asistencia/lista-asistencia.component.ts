@@ -34,6 +34,7 @@ export class ListaAsistenciaComponent implements OnInit {
   boolEmisionFirmas = false;
   deshabilitar=true;
   archivoFirma:any;
+  jsonAsistencias: any;
   formularioFirma = new FormGroup(
     {
       inputFirma:new FormControl("", [Validators.required]),
@@ -230,6 +231,7 @@ export class ListaAsistenciaComponent implements OnInit {
         console.log(res.mensaje);
         this.abrirModal(modal);
         this.deshabilitar = true;
+        this.boolEmisionFirmas = true;
 
       },
       (err:any) => {
@@ -244,7 +246,14 @@ export class ListaAsistenciaComponent implements OnInit {
   }
 
   obtenerAsistencias(){
+    this.serviceAsistencia.obtenerLista(this.idConferencia).subscribe(
+      (res:any) => {
+        this.jsonAsistencias = res.data;
+        this.createPDF(res.data);
 
+      },
+      err => console.log(err)
+    );
   }
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
@@ -289,54 +298,63 @@ export class ListaAsistenciaComponent implements OnInit {
   }
 
   async createPDF(data){
-
+    console.log(data);
     PdfMakeWrapper.setFonts(pdfFonts);
 
     /* Definición elementos */
     const tabla= new Table([
-      [ 'Fecha', 'Hora Inicio', 'Hora Final', 'Nombre', 'Modalidad'],
-      ...this.extraerDatos(data)
+      [ 'Nombre', 'Apellido', 'Correo'],
+      ...this.extraerDatos(data.listaAsistencia)
     ])
     .layout('lightHorizontalLines')
-    .widths([70, 60 ,60,'*','*'])
+    .widths([130,130,205])
     .end;
 
     const tablaEvento= new Table([
-      [ 'Descripción', `` ],
-      [ 'Fecha', ``],
-      [ 'Institución', ``],
-      [ 'Estado', ``]
-
-
+      [ 'Evento:', `${data.datosEvento.Nombre}`],
+      [ 'Descripción:', `${data.datosConferencia.Descripcion}` ],
+      [ 'Fecha:', `${data.datosConferencia.Fecha_Inicio.substr(0,10)}`],
+      [ 'Hora:', `${data.datosConferencia.Hora_Inicio + " a " + data.datosConferencia.Hora_Final}`],
+      [ 'Nombre Organizador:', `${data.datosOrganizador.Nombre + " " + data.datosOrganizador.Apellido}`],
+      [ 'Nombre Encargado:', `${data.datosEncargado.Nombre + " " + data.datosEncargado.Apellido}`]
     ])
     .layout('lightHorizontalLines')
-    .widths(['*', '*' ])
+    .widths(['*','*'])
     .alignment('center')
     .end;
 
     const pdf = new PdfMakeWrapper();
     pdf.background(await new Img(`../../../assets/img/BackgroundPdf.png`).alignment('center').build());
 
-    const textConferencias = new Txt('Conferencias o talleres').bold().color('#F19F4D').fontSize(15).end;
+    const  textTitulo= new Txt("Lista de asistencia" + " " + this.obtenerTipo(data.datosConferencia.Tipo) + " " + "'" + data.datosConferencia.Nombre + "'").bold().color('#4484CE').alignment('center').fontSize(15).end;
+    const  textTitulo2= new Txt("Asistentes").bold().color('#F19F4D').alignment('center').fontSize(15).end;
 
     /*Colocación elementos en el pdf*/
     pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
     pdf.add('\n');
+    pdf.add(textTitulo);
     pdf.add('\n');
+    pdf.add( await new Img(`${data.datosConferencia.Imagen}`).alignment('center').width(150).height(150).build() );
     pdf.add('\n');
     pdf.add(tablaEvento);
     pdf.add('\n');
     pdf.add('\n');
     pdf.add('\n');
-    pdf.add(textConferencias);
+    pdf.add(textTitulo2);
     pdf.add('\n');
     pdf.add(tabla);
-    pdf.create().open();
+    pdf.create().download();
     }
 
     extraerDatos(datos): TableRow[]{
-    console.log(datos);
+    return datos.map(row => [row.Nombre, row.Apellido, row.Correo])
+    }
 
-    return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre])
+    obtenerTipo(tipo){
+      if(tipo ==1){
+        return "conferencia"
+      }else{
+        return "taller"
+      }
     }
 }

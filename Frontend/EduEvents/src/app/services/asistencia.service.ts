@@ -14,4 +14,8 @@ export class AsistenciaService{
   emisionAsistencias(idConferencia:number){
     return this.httpClient.get(`http://localhost:8888/asistencia/asistenciaEmision/${idConferencia}`);
   }
+
+  obtenerLista(idConferencia:number){
+    return this.httpClient.get(`http://localhost:8888/asistencia/obtenerListaAsistenciaPorIdConferencia/${idConferencia}`);
+  }
 }
