@@ -5,7 +5,13 @@
 
         <div class=" row text-center">
 
-          <div class="col-12 text-right">
+          <div class="col-6 text-left">
+            <span class="tipoEvento ml-2">
+              <span [ngClass]="(evento.Estado_Participantes == 0 ? 'privado' : 'publico')">{{evento.Estado_Participantes == 0 ? 'Evento privado' : 'Evento público' }}</span>
+            </span>
+          </div>
+
+          <div class="col-6 text-right">
             <span class="mr-1" [class]="evento.Estado_Evento">{{evento.Estado_Evento}}</span>
           </div>
 

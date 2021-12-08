@@ -139,9 +139,9 @@ export class CrearConferenciaComponent implements OnInit {
   * @return {null} Esta función no retorna.
   */
     imgFileChangeEvent(event: any=""): void {
+      
       this.ImageChangeEvent = event;
       this.mostrarImg = false;
-
   }
 
   /**
@@ -170,6 +170,7 @@ export class CrearConferenciaComponent implements OnInit {
     this.ImageChangeEvent = ""
     this.mostrarImg = true;
     this.formularioCrearConferencia.get("inputImg").setValue("");
+    this.formularioCrearConferencia.get("subirImg").setValue("");
   }
 
   abrirModal( modal:any ){
@@ -235,7 +236,6 @@ export class CrearConferenciaComponent implements OnInit {
       (err:any) => {
 
         if(err.error.error.estado == 'fecha_no_válida'){
-          console.log("fecha_no_válida")
           this.mensajeModal[1].titulo2 = "Fecha no válida, la fecha de la conferencia o taller debe de estar dentro del rango del evento";
           this.abrirModal(modalError);
         }else{
