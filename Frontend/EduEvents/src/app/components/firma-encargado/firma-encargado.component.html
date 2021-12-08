@@ -47,9 +47,66 @@
     </mat-form-field>
   </form>
   <div class="col-12 text-center mt-2">
-    <button [disabled]="previsualizacion == ''" type="button" (click)="subirFirma()"  class="btn btn-primary btn-1">Subir firma</button>
+    <button [disabled]="previsualizacion == ''" type="button" (click)="subirFirma(modaDialogoExito, modalError)"  class="btn btn-primary btn-1">Subir firma</button>
   </div>
 
-
-
 </div>
+
+
+<!-- Modal Dialogo Éxito -->
+<ng-template #modaDialogoExito let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>Operación realizada con éxito</h3>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Modal Error -->
+<ng-template #modalError let-modal>
+  <div class="modal-encabezado modal-error">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          {{mensajeModal[0].icono}}
+        </span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>{{mensajeModal[1].titulo1}}</h3>
+      <h3>{{mensajeModal[1].titulo2}}</h3>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary  btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">Aceptar</button>
+  </div>
+</ng-template>
+

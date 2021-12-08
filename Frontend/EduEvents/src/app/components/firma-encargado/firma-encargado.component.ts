@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { SpinnerService } from 'src/app/services/spinner.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-firma-encargado',
@@ -11,10 +13,15 @@ export class FirmaEncargadoComponent implements OnInit {
 
   @ViewChild('inputImagen')
   inputImagenPerfil: ElementRef;
+  mensajeModal = [
+    {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"La conferencia o taller se eliminaran del evento", icono:"quiz"},
+    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
+    {tipo:"confirmacion", titulo1:"¿Desinscribirse?", titulo2:"Se eliminara su inscripción de este evento", icono:"quiz"},
+  ]
 
   @Input() conferencia;
 
-  constructor() { }
+  constructor(  private spinner:SpinnerService, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
     console.log(this.conferencia)
@@ -33,8 +40,21 @@ export class FirmaEncargadoComponent implements OnInit {
   );
 
 
-  subirFirma(){
+  subirFirma(modalExito:any, modalError:any){
+
+    this.abrirModal(modalExito);
+    this.abrirModal(modalError);
     console.log(this.previsualizacion)
+  }
+
+  abrirModal( modal:any ){
+    this.modalService.open(
+      modal,
+      {
+        size: 'xs',
+        centered: true
+      }
+    );
   }
 
     /**
