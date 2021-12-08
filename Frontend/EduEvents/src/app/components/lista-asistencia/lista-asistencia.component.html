@@ -19,23 +19,27 @@
       <mat-divider></mat-divider>
       </mat-list-option>
     </mat-selection-list>
-    <p class="mt-1">
-      Options selected: {{personas.selectedOptions.selected.length}}
+    <p class="mt-1" style="text-align: center;">
+      Opciones Seleccionadas: {{personas.selectedOptions.selected.length}}
     </p>
     </div>
 
   <div >
 
   <div class="col-12 row" style="margin: 0%;">
-    <div class="col-12 mt-4">
+    <div *ngIf="!boolEmisionAsistencia" class="col-12 mt-4">
       <button [disabled]="listaAsistencia == null" (click)="enviarAsistencias(modalDialogoExito)" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
         <span class="material-icons">
           send
           </span> Enviar Lista </button>
-      </div>
+    </div>
+
+    <div *ngIf="boolEmisionAsistencia" class="col-12 mt-4">
+        <p style="color: #4484CE; font-size: 20px;">¡La lista de asistencia ya fue enviada!</p>
+    </div>
 
     <div class="col-12 mt-2">
-      <button  mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+      <button [disabled]="!boolEmisionAsistencia" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
         <span class="material-icons">
           download
           </span> Lista asistencia </button>
@@ -66,25 +70,27 @@
             </mat-list-option>
           </mat-selection-list>
         </div>
-        <div class="col-2">
 
+        <form [formGroup]="formularioFirma" class="col-2">
           <mat-form-field style="width: 100%;" matTooltip="Subir firma">
             <div class="myfilebrowser">
               <mat-toolbar >
-                <input  matInput class="input-archivo"  readonly  />
+                <input formControlName="inputReadOnly" matInput class="input-archivo"  readonly  />
                 <button  mat-flat-button class="btn-file " ><span class="material-icons">
                   file_upload
                   </span></button>
               </mat-toolbar>
-              <input type="file" #inputImagen id="fileUpload"  name="fileUpload" accept='.png' />
+              <input formControlName="inputFirma" (change)="onChangeArchivo($event)" type="file" #inputImagen id="fileUpload"  name="fileUpload" accept='.jpg, .png' />
             </div>
 
           </mat-form-field>
-        </div>
+        </form>
+
+
       </div>
 
-        <div class="col-12 mt-4">
-        <button (click)="generarDiplomas()" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+        <div *ngIf="boolEmisionAsistencia" class="col-12 mt-4">
+        <button [disabled]="deshabilitar" (click)="generarDiplomas(modalDialogoExitoDiplomas)" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
           Generar diplomas </button>
         </div>
     </mat-expansion-panel>
@@ -140,6 +146,34 @@
   <div class="modal-body modal-cuerpo">
       <h3>¡Excelente!</h3>
       <h3>Se ha enviado la lista de asistencia con éxito.</h3>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<!-- Modal Dialogo Éxito Generar Diplomas-->
+<ng-template #modalDialogoExitoDiplomas let-modal>
+  <div class="modal-encabezado modal-exito">
+    <div class="row">
+
+      <div class="col-12">
+        <button type="button" class="close mr-2 mt-2" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color: white;" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <span class="material-icons" style="color: white; font-size: 121px;">
+          check_circle_outline
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body modal-cuerpo">
+      <h3>¡Excelente!</h3>
+      <h3>Se ha realizado con éxito.</h3>
   </div>
   <div class="modal-footer">
       <button class="btn btn-primary centrar btn-1" style="margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem;" (click)="modal.close('Close click')">OK</button>
