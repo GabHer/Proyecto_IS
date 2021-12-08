@@ -26,6 +26,7 @@ export class ListaAsistenciaComponent implements OnInit {
   boolEncargado: any;
   jsonGenerarDiplomas: any;
   boolEmisionAsistencia = false;
+  boolEmisionFirmas = false;
   deshabilitar=true;
   archivoFirma:any;
   formularioFirma = new FormGroup(
@@ -47,7 +48,25 @@ export class ListaAsistenciaComponent implements OnInit {
   ngOnInit(  ): void {
     this.obtenerInscripcionesConferencias();
     this.emisionAsistencias();
+    this.emisionFirmas();
   };
+
+  emisionFirmas(){
+    this.serviceDiploma.seleccionFirmas(this.idConferencia).subscribe(
+      (res:any) => {
+        if(res.data[0]['Seleccionado_Firmas']==1){
+          this.boolEmisionFirmas = true;
+        }
+
+      },
+      (err:any) => {
+        if( err.error.codigo == 404 ) {
+          console.log("No se pudo obtener");
+        }
+      }
+
+    );
+  }
 
   onGroupsChange(options: MatListOption[]) {
     this.listaAsistencia = options.map(o => o.value);
@@ -68,7 +87,10 @@ export class ListaAsistenciaComponent implements OnInit {
   onEncargado(options: MatListOption[]){
     this.boolEncargado = options.map(o => o.value);
     this.boolEncargado.push(0);
-    if(this.boolEmisionAsistencia==true){
+    if(this.boolEmisionAsistencia==true && this.boolOrganizador==null){
+      this.deshabilitar = false;
+    }
+    if(this.boolEmisionAsistencia==true && this.boolOrganizador!=null && this.archivoFirma != null){
       this.deshabilitar = false;
     }
   }
@@ -125,6 +147,7 @@ export class ListaAsistenciaComponent implements OnInit {
       (res:any) => {
         this.abrirModal(modalDialogoExito);
         this.listaAsistencia = null;
+        this.boolEmisionAsistencia= true;
         console.log(res.mensaje);
       },
 

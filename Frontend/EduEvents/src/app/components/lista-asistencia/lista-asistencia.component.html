@@ -46,7 +46,7 @@
     </div>
 
     <div class="col-12">
-    <mat-expansion-panel hideToggle class="mt-4 mb-2">
+    <mat-expansion-panel [disabled]="boolEmisionFirmas" hideToggle class="mt-4 mb-2">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="col-12" >
@@ -72,7 +72,7 @@
         </div>
 
         <form [formGroup]="formularioFirma" class="col-2">
-          <mat-form-field style="width: 100%;" matTooltip="Subir firma">
+          <mat-form-field style="width: 100%;" matTooltip="Subir firma organizador">
             <div class="myfilebrowser">
               <mat-toolbar >
                 <input formControlName="inputReadOnly" matInput class="input-archivo"  readonly  />
@@ -89,7 +89,7 @@
 
       </div>
 
-        <div *ngIf="boolEmisionAsistencia" class="col-12 mt-4">
+        <div class="col-12 mt-4">
         <button [disabled]="deshabilitar" (click)="generarDiplomas(modalDialogoExitoDiplomas)" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
           Generar diplomas </button>
         </div>
