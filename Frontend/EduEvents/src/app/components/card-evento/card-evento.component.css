@@ -32,12 +32,6 @@
   padding-right: 5px;
 }
 
-.tipoEvento {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 25px;
-}
 
 .txtEvento {
   color:white;
@@ -45,9 +39,9 @@
 }
 
 .privado {
-  color: rgb(219, 167, 34);
+  color: black;
 }
 
 .publico {
-  color: rgb(0, 255, 110)
+  color: #4484CE;
 }

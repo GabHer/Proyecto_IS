@@ -1,12 +1,15 @@
 module.exports = app => {
-    const asistencia = require("../controllers/asistencia.controller.js");
+  const asistencia = require("../controllers/asistencia.controller.js");
   
-    // Actualizar campo Asistencia para los asistentes y no asistentes.
-    app.post("/asistencia", asistencia.actualizarAsistencia);
+  // Actualizar campo Asistencia para los asistentes y no asistentes.
+  app.post("/asistencia", asistencia.actualizarAsistencia);
 
-    // Obtener los datos del diploma
-    app.get('/asistencia/obtenerDatosDiploma/:idConferencia/:idPersona', asistencia.obtenerDatosDiploma);
+  // Obtener los datos del diploma
+  app.get('/asistencia/obtenerDatosDiploma/:idConferencia/:idPersona', asistencia.obtenerDatosDiploma);
 
-    app.get('/asistencia/asistenciaEmision/:idConferencia', asistencia.asistenciaEmision);
+  app.get('/asistencia/asistenciaEmision/:idConferencia', asistencia.asistenciaEmision);
+
+  // Obtener lista de asistencia para una conferencia
+  app.get('/asistencia/obtenerListaAsistenciaPorIdConferencia/:idConferencia', asistencia.obtenerListaAsistencia)
   
-  };
+};
