@@ -71,6 +71,9 @@ import { VistaParticipantesEncargadoComponent } from './components/vista-partici
 import { InicioComponent } from './components/inicio/inicio.component';
 import { FirmaEncargadoComponent } from './components/firma-encargado/firma-encargado.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { BarChartComponent } from './components/estadisticas/bar-chart/bar-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/estadisticas/pie-chart/pie-chart.component'
 
 @NgModule({
   declarations: [
@@ -107,6 +110,8 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
     InicioComponent,
     FirmaEncargadoComponent,
     EstadisticasComponent,
+    BarChartComponent,
+    PieChartComponent,
 
 
   ],
@@ -143,7 +148,8 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
     MatTableModule,
     MatAutocompleteModule,
     MatTabsModule,
-    MatListModule
+    MatListModule,
+    NgxChartsModule
   ],
   providers: [
 

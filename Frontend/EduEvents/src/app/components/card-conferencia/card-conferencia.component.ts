@@ -5,30 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { EventosService } from 'src/app/services/eventos.service';
 import { ListaBlancaService } from 'src/app/services/lista-blanca.service';
-export interface Conferencia {
-  Asistencia: null
-  Correo_Encargado:string
-  Descripcion:string
-  Emision_Diplomas:number
-  Estado_Conferencia:string
-  Fecha_Inicio:Date
-  Fecha_Inscripcion:Date
-  Firma_Encargado:any
-  Firma_Organizador:any
-  Hora_Final:string
-  Hora_Inicio:Date
-  Id:number
-  Id_Conferencia:number
-  Id_Evento:number
-  Id_Persona:number
-  Imagen:string
-  Limite_Participantes:number
-  Medio:string
-  Modalidad:number
-  Nombre:string
-  Tipo:number,
-  Lista_Participantes:any
-}
+import { Conferencia } from 'src/app/models/conferencia.interface'
 
 
 @Component({
@@ -71,7 +48,7 @@ export class CardConferenciaComponent implements OnInit {
     {tipo:"confirmacion", titulo1:"¿Desinscribirse?", titulo2:"Se eliminara su inscripción de este evento", icono:"quiz"},
   ]
   ngOnInit(): void {
-
+    console.log(this.conferencia)
     if( this.todoDetalles ){
       this.obtenerEventoActual()
     }else {
@@ -318,6 +295,7 @@ export class CardConferenciaComponent implements OnInit {
           this.mensajeModal[1].titulo2 = res.mensaje;
           this.abrirModal(modalError);
         }
+        this.spinner.ocultarSpinner()
 
       },
 

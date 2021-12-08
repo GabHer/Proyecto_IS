@@ -69,6 +69,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
   mostrarFormularioEvento = false;
   mostrarFormularioConferencia = false;
   mostrarDetallesEvento = false;
+  mostrarEstadisticas = false;
 
   mensajeModal = [
     {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"El evento se eliminará de tu lista", icono:"quiz"},
@@ -78,6 +79,13 @@ export class MisEventosComponent implements OnInit, OnChanges {
   constructor( private eventosService:EventosService,private spinner:SpinnerService, private modalService:NgbModal ) {
 
 
+  }
+
+  reset(){
+    this.mostrarFormularioEvento = false;
+    this.mostrarFormularioConferencia = false;
+    this.mostrarDetallesEvento = false;
+    this.mostrarEstadisticas = false;
   }
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -112,6 +120,10 @@ export class MisEventosComponent implements OnInit, OnChanges {
   }
   mostrarFormularioCrearEvento(b: boolean){
     this.mostrarFormularioEvento = b
+  }
+  onMostrarEstadisticas(evento:any){
+    this.reset()
+    this.mostrarEstadisticas = true;
   }
 
   private _filterNombreEvento(value:any): Evento[] {

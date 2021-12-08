@@ -38,20 +38,20 @@
     <!-- Filtrar mis eventos por nombre -->
     <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && filtroActual.nombre ) " class="row container" style="margin-left: auto; margin-right: auto;">
       <div  [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of filteredEvento | async">
-        <app-card-evento-organizador *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" (onClickDetallesEvento)="mostrarFormularioDetallesEvento($event)" [evento]="evento"></app-card-evento-organizador>
+        <app-card-evento-organizador (onClickMostrarEstadisticas)="onMostrarEstadisticas($event)" *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" (onClickDetallesEvento)="mostrarFormularioDetallesEvento($event)" [evento]="evento"></app-card-evento-organizador>
       </div>
     </div>
     <!-- Filtrar mis eventos por estado -->
     <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && filtroActual.tipo ) " class="row container" style="margin-left: auto; margin-right: auto;">
       <div  [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of (eventosPorEstado)">
-        <app-card-evento-organizador *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" [evento]="evento"></app-card-evento-organizador>
+        <app-card-evento-organizador (onClickMostrarEstadisticas)="onMostrarEstadisticas($event)" *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" [evento]="evento"></app-card-evento-organizador>
       </div>
     </div>
 
     <!-- Filtrar mis eventos por fecha -->
     <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && filtroActual.fecha ) " class="row container" style="margin-left: auto; margin-right: auto;">
       <div  [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of (eventosPorFecha)">
-        <app-card-evento-organizador *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" [evento]="evento"></app-card-evento-organizador>
+        <app-card-evento-organizador (onClickMostrarEstadisticas)="onMostrarEstadisticas($event)" *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" [evento]="evento"></app-card-evento-organizador>
       </div>
     </div>
 
@@ -75,6 +75,12 @@
           [isCollaps]="isCollaps" [idEvento]="idEvento"
           (onChangePath)="actualizarPath($event)"
         ></app-detalles-evento>
+
+    </div>
+
+    <div *ngIf="(mostrarEstadisticas)" class="row contenedor" style="margin-left: auto; margin-right: auto;">
+
+      <app-estadisticas></app-estadisticas>
 
     </div>
 

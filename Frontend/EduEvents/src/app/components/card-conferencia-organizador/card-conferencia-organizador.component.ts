@@ -1,25 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-export interface Conferencia {
-  Correo_Encargado:string
-  Descripcion:string
-  Emision_Diplomas:number
-  Estado_Conferencia:string
-  Fecha_Inicio:Date
-  Firma_Encargado:any
-  Firma_Organizador:any
-  Hora_Final:string
-  Hora_Inicio:Date
-  Id:number
-  Id_Evento:number
-  Imagen:string
-  Limite_Participantes:number
-  Medio:string
-  Modalidad:number
-  Nombre:string
-  Tipo:number
-
-}
+import { Conferencia } from 'src/app/models/conferencia.interface'
 
 @Component({
   selector: 'app-card-conferencia-organizador',

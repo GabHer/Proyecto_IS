@@ -5,10 +5,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EventosService } from 'src/app/services/eventos.service';
 
 export interface Conferencia {
-  Asistencia: null
   Correo_Encargado:string
   Descripcion:string
-  Emision_Diplomas:number
   Estado_Conferencia:string
   Fecha_Inicio:Date
   Fecha_Inscripcion:Date
@@ -179,6 +177,7 @@ export class InscripcionesComponent implements OnInit {
     this.serviceConferencia.obtenerConferenciasUsuario( this.usuarioActual.Id ).subscribe(
       (res:any) => {
         this.conferencias = res.data;
+        console.log(this.conferencias);
 
         for(let i = 0; i< this.conferencias.length; i++){
 

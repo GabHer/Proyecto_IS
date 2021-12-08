@@ -37,6 +37,7 @@ export class CardEventoOrganizadorComponent implements OnInit {
   @Output() onClickEliminarEvento = new EventEmitter<number>();
   @Output() onClickNuevaConferencia = new EventEmitter<number>();
   @Output() onClickDetallesEvento = new EventEmitter<number>();
+  @Output() onClickMostrarEstadisticas = new EventEmitter<any>();
   conferencias:Conferencia[] = []
   constructor(private serviceConferencia:ConferenciasService, private spinner:SpinnerService) { }
 
@@ -159,6 +160,10 @@ obtenerConferencias(){
       }
     }
   );
+}
+
+mostrarEstadisticas(){
+  this.onClickMostrarEstadisticas.emit(this.evento);
 }
 
 }
