@@ -39,7 +39,7 @@
       <div class="myfilebrowser">
         <mat-toolbar >
           <input  matInput class="input-archivo"  readonly formControlName="inputFirma"  />
-          <button style="width:10rem !important"  mat-flat-button class="btn-file " ><span class="material-icons">file_upload</span> Subir Firma</button>
+          <button [disabled]="previsualizacion != ''" style="width:10rem !important"  mat-flat-button class="btn-file " ><span class="material-icons">file_upload</span> Subir Firma</button>
         </mat-toolbar>
         <input type="file" #inputImagen (change)="fileChangeEvent($event)" id="fileUpload"  formControlName="firma" name="fileUpload" multiple="multiple" accept='image/*' />
       </div>

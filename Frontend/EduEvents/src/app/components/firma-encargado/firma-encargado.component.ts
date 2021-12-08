@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { SpinnerService } from 'src/app/services/spinner.service';
@@ -22,6 +22,7 @@ export class FirmaEncargadoComponent implements OnInit {
   ]
 
   @Input() conferencia;
+  @Output() onRegresar = new EventEmitter<any>();
   usuarioEncargado:any
   constructor( private usuarioService:UsuariosService, private diplomaService:DiplomaService, private spinner:SpinnerService, private modalService:NgbModal ) { }
 
@@ -57,6 +58,7 @@ export class FirmaEncargadoComponent implements OnInit {
       (res:any) => {
         if(res.codigo == 200){
           this.abrirModal(modalExito);
+          this.onRegresar.emit(null);
         }else{
           this.abrirModal(modalError);
         }
