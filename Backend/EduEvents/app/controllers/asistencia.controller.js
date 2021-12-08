@@ -65,7 +65,6 @@ exports.asistenciaEmision = (req, res) => {
         res.status(400).send({
         message: "El contenido no puede ser vacío"
         });
-        console.log("entra1")
         return;
     };
 
@@ -92,4 +91,3 @@ exports.asistenciaEmision = (req, res) => {
         };
     });
 };
-  
