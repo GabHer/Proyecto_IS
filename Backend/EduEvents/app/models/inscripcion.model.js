@@ -685,6 +685,8 @@ Inscripcion.crearInscripcion = ( objNuevaInscripcion, resultado ) => {
                                 };
                             });
                         };
+
+                        resultado(null, res);
                                     
                     });
                 }
