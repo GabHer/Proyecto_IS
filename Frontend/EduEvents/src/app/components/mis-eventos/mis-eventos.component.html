@@ -16,7 +16,7 @@
     </div>
 
     <!-- Mostrar la pantalla principal cuando no hay eventos creados-->
-    <div  *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento)" class="row" [style]="(misEventos.length == 0 ? 'margin-top: 9rem;': 'margin-top: 1rem;' )">
+    <div  *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && !mostrarEstadisticas)" class="row" [style]="(misEventos.length == 0 ? 'margin-top: 9rem;': 'margin-top: 1rem;' )">
       <div class="col-12">
           <h1 style="color:#4484CE;">{{misEventos.length == 0 ? '¡Aún no hay eventos creados!': 'Agregar nuevo evento'}}</h1>
       </div>
@@ -24,7 +24,7 @@
 
 
     <!-- Mostrar un boton para agregar nuevos eventos -->
-    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento)" class="row">
+    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && !mostrarEstadisticas)" class="row">
       <div class="col-12">
         <span
           mat-raised-button matTooltip="Agregar un nuevo evento"
@@ -36,20 +36,20 @@
     </div>
 
     <!-- Filtrar mis eventos por nombre -->
-    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && filtroActual.nombre ) " class="row container" style="margin-left: auto; margin-right: auto;">
+    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && !mostrarEstadisticas && filtroActual.nombre ) " class="row container" style="margin-left: auto; margin-right: auto;">
       <div  [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of filteredEvento | async">
         <app-card-evento-organizador (onClickMostrarEstadisticas)="onMostrarEstadisticas($event)" *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" (onClickDetallesEvento)="mostrarFormularioDetallesEvento($event)" [evento]="evento"></app-card-evento-organizador>
       </div>
     </div>
     <!-- Filtrar mis eventos por estado -->
-    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && filtroActual.tipo ) " class="row container" style="margin-left: auto; margin-right: auto;">
+    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && !mostrarEstadisticas && filtroActual.tipo ) " class="row container" style="margin-left: auto; margin-right: auto;">
       <div  [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of (eventosPorEstado)">
         <app-card-evento-organizador (onClickMostrarEstadisticas)="onMostrarEstadisticas($event)" *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" [evento]="evento"></app-card-evento-organizador>
       </div>
     </div>
 
     <!-- Filtrar mis eventos por fecha -->
-    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && filtroActual.fecha ) " class="row container" style="margin-left: auto; margin-right: auto;">
+    <div *ngIf="(!mostrarFormularioEvento && !mostrarFormularioConferencia && !mostrarDetallesEvento && !mostrarEstadisticas && filtroActual.fecha ) " class="row container" style="margin-left: auto; margin-right: auto;">
       <div  [class]="(isCollaps ? 'col-4 mt-4': 'col-3 mt-4')"  *ngFor="let evento of (eventosPorFecha)">
         <app-card-evento-organizador (onClickMostrarEstadisticas)="onMostrarEstadisticas($event)" *ngIf="evento.Id != -1" (onClickEliminarEvento)="onClickAbrirModalEliminarEvento(modalConfirmacion, $event)" (onClickNuevaConferencia)="mostrarFormularioCrearConferencia($event)" [evento]="evento"></app-card-evento-organizador>
       </div>
@@ -78,9 +78,15 @@
 
     </div>
 
-    <div *ngIf="(mostrarEstadisticas)" class="row contenedor" style="margin-left: auto; margin-right: auto;">
-
-      <app-estadisticas></app-estadisticas>
+    <div *ngIf="(mostrarEstadisticas)" class="row contenedor">
+      <div class="col-12 btn-back text-left">
+        <span (click)="reset()" matTooltip="Regresar" class="material-icons" style="font-size: 30px; color: #4484CE; cursor:pointer">
+          arrow_back
+          </span>
+      </div>
+      <app-estadisticas
+        [evento]="eventoSeleccionado"
+      ></app-estadisticas>
 
     </div>
 

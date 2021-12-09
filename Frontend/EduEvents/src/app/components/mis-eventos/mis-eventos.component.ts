@@ -38,7 +38,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
   @Output() onEliminarEvento = new EventEmitter<any>();
   @Output() onOcultarBuscador = new EventEmitter<boolean>();
 
-
+  eventoSeleccionado:any;
   nombre = new FormControl('');
   filtroActual:any = {
     nombre : true,
@@ -123,7 +123,9 @@ export class MisEventosComponent implements OnInit, OnChanges {
   }
   onMostrarEstadisticas(evento:any){
     this.reset()
+    this.eventoSeleccionado = evento;
     this.mostrarEstadisticas = true;
+    console.log(evento);
   }
 
   private _filterNombreEvento(value:any): Evento[] {

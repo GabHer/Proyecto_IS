@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Data_BAR_CHAR } from 'src/app/models/barChar';
 import { IBarChart } from 'src/app/models/charts.interface';
@@ -9,6 +9,7 @@ import { IBarChart } from 'src/app/models/charts.interface';
 })
 export class BarChartComponent implements OnInit {
 
+  @Input() evento:any;
   data: IBarChart[] = [];
   view: [number,number] = [700, 400];
 
@@ -18,12 +19,12 @@ export class BarChartComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = 'Conferencia';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
+  yAxisLabel = 'Asistentes';
 
   colorScheme:any = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#4484CE', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
   constructor() {
@@ -35,7 +36,12 @@ export class BarChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data = Data_BAR_CHAR;
+    this.obtenerData()
   }
 
+  obtenerData(){
+    setTimeout(() => {
+      this.data = Data_BAR_CHAR;
+    }, 300);
+  }
 }

@@ -17,7 +17,9 @@ export class DiplomaService{
 
   guardarFirmaEncargado(objFirmaEncargado:any){
     return this.httpClient.put(`http://localhost:8888/diplomas/guardarFirmaEncargado`, objFirmaEncargado);
-
   }
 
+  obtenerDatosDiploma(idConferencia, idPersona){
+    return this.httpClient.get(`http://localhost:8888/diplomas/obtenerDatosDiploma/${idConferencia}/${idPersona}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Data_BAR_CHAR } from 'src/app/models/barChar';
 import { IBarChart } from 'src/app/models/charts.interface';
 
@@ -9,6 +9,7 @@ import { IBarChart } from 'src/app/models/charts.interface';
 })
 export class PieChartComponent implements OnInit {
 
+  @Input() evento:any;
   data: IBarChart[] = [];
   view: [number,number] = [700, 400];
 
@@ -20,13 +21,20 @@ export class PieChartComponent implements OnInit {
   legendPosition:any = 'below';
 
   colorScheme:any = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#4484CE', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
   constructor() { }
 
   ngOnInit(): void {
-    this.data = Data_BAR_CHAR;
+    this.obtenerData();
+  }
+
+  obtenerData(){
+    setTimeout(() => {
+      this.data = Data_BAR_CHAR;
+    }, 300);
+
   }
 
   onSelect(data): void {
