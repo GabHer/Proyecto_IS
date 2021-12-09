@@ -25,40 +25,6 @@ exports.actualizarAsistencia = (req, res) => {
   });
 };
 
-// Obtener datos para renderizar diplomas
-exports.obtenerDatosDiploma = (req, res) => {
-  if(!req.params) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacio"
-    });
-    return;
-  };
-
-  Asistencia.obtenerDatosDiploma(req.params, (err, data) => {
-    console.log(`Se desea obtener el diploma del usuario con id: ${req.params.idPersona} como participante en la conferencia con id: ${req.params.idConferencia}`);
-  
-    if(err) {
-      if(err.estado === "no_encontrado") {
-        res.status(404).send({
-          mensaje: `No se encontró el diploma del usuario con id: ${req.params.idPersona} como participante en la conferencia con id: ${req.params.idConferencia}`, codigo:404, data:null
-        });
-    }
-    else {
-      console.log(err);
-      res.status(500).send({
-        mensaje: `Error al obtener el diploma del usuario con id: ${req.params.idPersona} como participante en la conferencia con id: ${req.params.idConferencia}`
-      });
-    };
-  } 
-  else {
-    res.send({
-      mensaje: `Se obtuvo el diploma del usuario con id: ${req.params.idPersona} como participante en la conferencia con id: ${req.params.idConferencia}`, codigo:200, estado:'ok', data:data
-    });
-  };
-});
-};
-
-
 
 exports.asistenciaEmision = (req, res) => {
     if(!req.params) {

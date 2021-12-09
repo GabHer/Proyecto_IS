@@ -106,14 +106,21 @@ Persona.buscarPorId = ( idPersona, resultado ) => {
             let buff = res[0].Fotografia
             let srcImagen = buff.toString('ascii');
             res[0].Fotografia = srcImagen;
+        
+            //Convirtiendo Firma
+            let buff2 = res[0].Firma
+            let srcImagen2 = buff2.toString('ascii');
+            res[0].Firma = srcImagen2;
             resultado(null, res[0])
-
             return;
         }
 
         // En ultima instancia, no se encontro el usuario con ese correo
-
-        resultado({ estado: "no_encontrado"}, null)
+        else{
+            resultado({ estado: "no_encontrado"}, null)
+            return;
+        }
+        
 
     });
 };
@@ -131,8 +138,12 @@ Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
             let buff = res[0].Fotografia
             let srcImagen = buff.toString('ascii');
             res[0].Fotografia = srcImagen;
-            resultado(null, res[0])
 
+            //Convirtiendo Firma
+            let buff2 = res[0].Firma
+            let srcImagen2 = buff2.toString('ascii');
+            res[0].Firma = srcImagen2;
+            resultado(null, res[0])
             return;
         }
 
@@ -199,7 +210,12 @@ Persona.obtenerPersonas = ( resultado ) => {
             let buff = res[index].Fotografia;
             let srcImagen = buff.toString('ascii');
             res[index].Fotografia = srcImagen;
-            
+
+
+            //Convirtiendo Firmas
+            let buff2 = res[index].Firma
+            let srcImagen2 = buff2.toString('ascii');
+            res[index].Firma = srcImagen2;
         }
 
         resultado(null, res);

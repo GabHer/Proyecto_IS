@@ -92,31 +92,4 @@ Asistencia.emision = (objetoAsistencia, resultado) => {
 
 
 
-// Obtener los datos para renderizar diplomas
-Asistencia.obtenerDatosDiploma = (datosDiploma, resultado) => {
-    let consulta = `SELECT * FROM Persona JOIN Persona_Conferencia
-                    ON Persona.Id = Persona_Conferencia.Id_Persona
-                    JOIN Conferencia ON Persona_Conferencia.Id_Conferencia = Conferencia.Id
-                    JOIN Evento ON Conferencia.Id_Evento = Evento.Id
-                    WHERE Persona.Id = ${datosDiploma.idPersona} AND Conferencia.Id = ${datosDiploma.idConferencia};`;
-    
-    sql.query(consulta, (err, res) => {
-      if(err) {
-        resultado(err, null);
-        return;
-      };
-  
-      // Si existe respuesta a la consulta
-      if(res.length) {
-        resultado(null, res);
-        return;
-      }
-      else {
-        // En ultima instancia, no hubo respuesta a la consulta
-        resultado({estado: "no_encontrado"}, null);
-      };
-    });
-  };
-
-
-  module.exports = Asistencia;
+module.exports = Asistencia;
