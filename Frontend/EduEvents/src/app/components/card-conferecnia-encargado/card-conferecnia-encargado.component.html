@@ -81,13 +81,15 @@
     <p class="descripcion" *ngIf="conferencia.Modalidad == 0" >
       <strong>Lugar:</strong> {{conferencia.Medio}}
     </p>
+
+
     <div *ngIf="usuarioOrganizador" class="row container" >
 
       <span style="margin:0; padding:0" class="col-1 mt-2">
         <img class="imagen" [src]="usuarioOrganizador.Fotografia" alt="">
       </span>
 
-      <div class="col-7 mt-2">
+      <div style="margin: 0 ; padding: 0;" class="col-7 mt-2">
         <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioOrganizador()" class="txt-footer txt-participantes"> {{(usuarioOrganizador.Nombre)}} {{(usuarioOrganizador.Apellido)}} </span>
       </div>
       <div style="margin: 0; padding: 0;" class="col-4 mt-1">
@@ -96,12 +98,12 @@
       <hr>
     </div>
 
-    <div *ngIf="usuarioEncargado"  class="row container mt-1" >
+    <div  *ngIf="usuarioEncargado"  class="row container mt-1" >
       <span style="margin:0; padding:0" class="col-1">
         <img class="imagen" [src]="usuarioEncargado.Fotografia" alt="">
       </span>
 
-      <div class="col-7 mt-1">
+      <div style="margin: 0 ; padding: 0;" class="col-7 mt-1">
         <span style="font-size: 12px; color: #4484CE;"  (click)="mostrarUsuarioEncargado()" class="txt-footer txt-participantes"> {{(usuarioEncargado.Nombre)}} {{(usuarioEncargado.Apellido)}} </span>
       </div>
       <div style="margin: 0; padding: 0;" class="col-4 mt-1">

@@ -103,14 +103,18 @@ Persona.buscarPorId = ( idPersona, resultado ) => {
 
         if(res.length){
             // Significa que encontro un usuario registrado con este correo
+
             let buff = res[0].Fotografia
             let srcImagen = buff.toString('ascii');
             res[0].Fotografia = srcImagen;
         
             //Convirtiendo Firma
+            
             let buff2 = res[0].Firma
-            let srcImagen2 = buff2.toString('ascii');
-            res[0].Firma = srcImagen2;
+            if(buff2){
+                let srcImagen2 = buff2.toString('ascii');
+                res[0].Firma = srcImagen2;
+            }
             resultado(null, res[0])
             return;
         }
@@ -142,8 +146,10 @@ Persona.buscarPorCorreo = ( correoPersona, resultado ) => {
 
             //Convirtiendo Firma
             let buff2 = res[0].Firma
-            let srcImagen2 = buff2.toString('ascii');
-            res[0].Firma = srcImagen2;
+            if(buff2){
+                let srcImagen2 = buff2.toString('ascii');
+                res[0].Firma = srcImagen2;
+            }
             resultado(null, res[0])
             return;
         }
