@@ -9,9 +9,8 @@ ON SCHEDULE EVERY 1 SECOND STARTS NOW()
 ON COMPLETION PRESERVE ENABLE
 DO 
 BEGIN
-	UPDATE Evento SET Estado_Evento = 'Activo' WHERE Fecha_Inicio = CURDATE();
+	UPDATE Evento SET Estado_Evento = 'Activo' WHERE CURDATE() BETWEEN Fecha_Inicio AND Fecha_Final;
 	UPDATE Evento SET Estado_Evento = 'Cerrado' WHERE Fecha_Final < CURDATE();
 END //
 DELIMITER ;
 
-SHOW events;
