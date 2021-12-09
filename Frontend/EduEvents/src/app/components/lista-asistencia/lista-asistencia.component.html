@@ -55,6 +55,12 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
+      <div *ngIf="archivoFirma== '' && croppedImage == ''" class="col-12 text-center">
+        <span style="font-size: 10rem; color: #4484CE;" class="material-icons">
+          drive_file_rename_outline
+          </span>
+      </div>
+
       <div class="col-lg-12 text-center"  >
 
         <img style="width: 10rem; margin-left: auto; margin-right: auto;"  (click)="archivoFirma = '' " class="img-usuario" *ngIf="archivoFirma != '' " [src]="archivoFirma" alt="">

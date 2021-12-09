@@ -28,3 +28,14 @@
   font-size: 12px !important;
   color: black;
 }
+.btn-1 {
+  border-radius: 25px;
+  background-color: #4484CE;
+  color: white;
+}
+
+.btn-2 {
+  border-radius: 25px;
+  background-color: #ce4444;
+  color: white;
+}
