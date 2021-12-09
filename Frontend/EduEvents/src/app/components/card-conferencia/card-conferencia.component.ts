@@ -6,7 +6,12 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 import { EventosService } from 'src/app/services/eventos.service';
 import { ListaBlancaService } from 'src/app/services/lista-blanca.service';
 import { Conferencia } from 'src/app/models/conferencia.interface'
-
+import { DiplomaService } from 'src/app/services/diploma.service';
+import pdfMake from 'pdfmake/build/pdfmake';
+import { PdfMakeWrapper, Table, Img, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+type TableRow = [string, string];
 
 @Component({
   selector: 'app-card-conferencia',
@@ -20,7 +25,7 @@ export class CardConferenciaComponent implements OnInit {
   @Output() onVerEncargado = new EventEmitter<any>();
   @Output() onRegistrarConferencia = new EventEmitter<any>();
   @Output() onVerDetalleEvento = new EventEmitter<any>();
-  constructor( private usuarioService:UsuariosService, private listaBlancaService:ListaBlancaService, private eventoService:EventosService, private conferenciaService:ConferenciasService, private spinner:SpinnerService, private modalService:NgbModal  ) { }
+  constructor(private serviceDiploma:DiplomaService, private usuarioService:UsuariosService, private listaBlancaService:ListaBlancaService, private eventoService:EventosService, private conferenciaService:ConferenciasService, private spinner:SpinnerService, private modalService:NgbModal  ) { }
   @Input() eventoSeleccionado:any = {
     id: "",
     descripcion: "",
@@ -42,6 +47,7 @@ export class CardConferenciaComponent implements OnInit {
   usuarioEncargado:any;
   usuarioOrganizador:any;
   isParticipante = false;
+  fecha: any;
   mensajeModal = [
     {tipo:"confirmacion", titulo1:"¿Eliminar?", titulo2:"La conferencia o taller se eliminaran del evento", icono:"quiz"},
     {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
@@ -347,8 +353,120 @@ export class CardConferenciaComponent implements OnInit {
   }
 
   descargarDiploma(){
-    console.log("No programado")
+    this.serviceDiploma.obtenerDatosDiploma(this.conferencia.Id, this.usuarioActual.Id).subscribe(
+      (res:any) => {
+        console.log(res.data);
+        this.createPDF(res.data);
+
+      },
+      (err:any) => {
+        if( err.error.codigo == 404 ) {
+          console.log("No se pudo obtener");
+        }
+      }
+
+    );
   }
 
+  async createPDF(data){
+    console.log(data.Firmas);
+    PdfMakeWrapper.setFonts(pdfFonts);
+    this.fecha = new Date();
+    this.fecha = this.fecha.toISOString().split("T")[0]
+
+    if(data.Firmas.length == 1){
+
+      const pdf = new PdfMakeWrapper();
+      pdf.pageOrientation('landscape');
+
+      const  textTitulo1= new Txt("Diploma de asistencia").bold().color('#4484CE').alignment('center').fontSize(25).end;
+      const  textTitulo2= new Txt("a " + this.obtenerTipo(data.Conferencia.Tipo) + " " + data.Conferencia.Nombre).bold().color('#4484CE').alignment('center').fontSize(25).end;
+      const  textTitulo3= new Txt("Otorgado a:").bold().color('#F19F4D').alignment('center').fontSize(15).end;
+      const  textNombre= new Txt(`${data.Asistente.Nombre} ${data.Asistente.Apellido}`).bold().color('black').alignment('center').fontSize(25).end;
+      const  fecha = new Txt(`entregado en ${this.fecha}`).bold().color('#4484CE').alignment('center').fontSize(13).end;
+      const  textNombreOrganizador= new Txt(`${data.Firmas[0].Nombre_Completo}`).bold().color('#4484CE').alignment('center').fontSize(10).end;
+      const  textRol= new Txt(`${data.Firmas[0].Rol}`).bold().color('black').alignment('center').fontSize(10).end;
+
+      /*Colocación elementos en el pdf*/
+      pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textTitulo1);
+      pdf.add(textTitulo2);
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textTitulo3);
+      //pdf.add( await new Img(`${data.firmas[0].Imagen}`).alignment('center').width(150).height(150).build() );
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textNombre);
+      pdf.add('\n');
+      pdf.add(fecha);
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add( await new Img(`${data.Firmas[0].Firma}`).alignment('center').width(180).height(120).build() );
+
+      pdf.add(textNombreOrganizador);
+      pdf.add(textRol);
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.create().download();
+    }else{
+
+
+      const pdf = new PdfMakeWrapper();
+      pdf.pageOrientation('landscape');
+
+      const  textTitulo1= new Txt("Diploma de asistencia").bold().color('#4484CE').alignment('center').fontSize(25).end;
+      const  textTitulo2= new Txt("a " + this.obtenerTipo(data.Conferencia.Tipo) + " " + data.Conferencia.Nombre).bold().color('#4484CE').alignment('center').fontSize(25).end;
+      const  textTitulo3= new Txt("Otorgado a:").bold().color('#F19F4D').alignment('center').fontSize(15).end;
+      const  textNombre= new Txt(`${data.Asistente.Nombre} ${data.Asistente.Apellido}`).bold().color('black').alignment('center').fontSize(25).end;
+      const  fecha = new Txt(`entregado en ${this.fecha}`).bold().color('#4484CE').alignment('center').fontSize(13).end;
+      const  textNombreOrganizador= new Txt(`${data.Firmas[0].Nombre_Completo}`).bold().color('#4484CE').alignment('center').fontSize(10).end;
+      const  textRol= new Txt(`${data.Firmas[0].Rol}`).bold().color('black').alignment('center').fontSize(10).end;
+
+      const tabla= new Table([
+        [await new Img(`${data.Firmas[0].Firma}`).alignment('center').width(180).height(120).build() ,await new Img(`${data.Firmas[1].Firma}`).alignment('center').width(180).height(120).build() ],
+        [`${data.Firmas[0].Nombre_Completo}` ,`${data.Firmas[1].Nombre_Completo}`],
+        [`${data.Firmas[0].Rol}` ,`${data.Firmas[1].Rol}`],
+      ])
+      .layout('lightHorizontalLines')
+      .widths(['*','*'])
+      .alignment('center')
+      .end;
+
+      /*Colocación elementos en el pdf*/
+      pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textTitulo1);
+      pdf.add(textTitulo2);
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textTitulo3);
+      //pdf.add( await new Img(`${data.firmas[0].Imagen}`).alignment('center').width(150).height(150).build() );
+      pdf.add('\n');
+      pdf.add('\n');
+      pdf.add(textNombre);
+      pdf.add('\n');
+      pdf.add(fecha);
+      pdf.add('\n');
+      pdf.add('\n');
+
+      pdf.add(tabla);
+      pdf.create().download();
+    }
+
+    }
+
+
+    obtenerTipo(tipo){
+      if(tipo ==1){
+        return "conferencia"
+      }else{
+        return "taller"
+      }
+    }
 
 }
