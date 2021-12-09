@@ -7,6 +7,11 @@ import { MatListOption } from '@angular/material/list';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlowAssignment } from 'typescript';
 import { DomSanitizer } from '@angular/platform-browser';
+import pdfMake from 'pdfmake/build/pdfmake';
+import { PdfMakeWrapper, Table, Img, Txt } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+type TableRow = [string, string];
 
 @Component({
   selector: 'app-lista-asistencia',
@@ -29,6 +34,7 @@ export class ListaAsistenciaComponent implements OnInit {
   boolEmisionFirmas = false;
   deshabilitar=true;
   archivoFirma:any;
+  jsonAsistencias: any;
   formularioFirma = new FormGroup(
     {
       inputFirma:new FormControl("", [Validators.required]),
@@ -82,6 +88,21 @@ export class ListaAsistenciaComponent implements OnInit {
     if(this.boolEmisionAsistencia==true && this.archivoFirma != null){
       this.deshabilitar = false;
     }
+    if(this.boolEncargado[0]==0 && this.boolOrganizador[0]==0){
+      this.deshabilitar = true;
+    }
+    if(this.boolOrganizador[0]!=null && this.archivoFirma == null){
+      this.deshabilitar = true;
+    }
+    if(this.boolOrganizador[0]==0 && this.archivoFirma != null){
+      this.deshabilitar = true;
+    }
+    if(this.boolEmisionAsistencia==true && this.boolOrganizador[0]==0 && this.boolEncargado[0] != 0){
+      this.deshabilitar = false;
+    }
+    if(this.boolOrganizador[0]==0 && this.boolEncargado[0]==0){
+      this.deshabilitar = true;
+    }
   }
 
   onEncargado(options: MatListOption[]){
@@ -91,6 +112,17 @@ export class ListaAsistenciaComponent implements OnInit {
       this.deshabilitar = false;
     }
     if(this.boolEmisionAsistencia==true && this.boolOrganizador!=null && this.archivoFirma != null){
+      this.deshabilitar = false;
+    }else if(this.boolEmisionAsistencia==true && this.boolEncargado!=null &&  this.boolOrganizador[0]==0 && this.archivoFirma == null){
+      this.deshabilitar = false;
+    }
+    if(this.boolEmisionAsistencia==true &&  this.boolOrganizador[0]==0 && this.boolEncargado[0]!=0){
+      this.deshabilitar = false;
+    }
+    if(this.boolOrganizador[0]==0 && this.boolEncargado[0]==0){
+      this.deshabilitar = true;
+    }
+    if(this.boolEmisionAsistencia==true && this.boolEncargado[0]==0 && this.boolOrganizador[0]!=0 && this.archivoFirma != null){
       this.deshabilitar = false;
     }
   }
@@ -199,6 +231,7 @@ export class ListaAsistenciaComponent implements OnInit {
         console.log(res.mensaje);
         this.abrirModal(modal);
         this.deshabilitar = true;
+        this.boolEmisionFirmas = true;
 
       },
       (err:any) => {
@@ -213,7 +246,14 @@ export class ListaAsistenciaComponent implements OnInit {
   }
 
   obtenerAsistencias(){
+    this.serviceAsistencia.obtenerLista(this.idConferencia).subscribe(
+      (res:any) => {
+        this.jsonAsistencias = res.data;
+        this.createPDF(res.data);
 
+      },
+      err => console.log(err)
+    );
   }
 
   extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
@@ -256,4 +296,65 @@ export class ListaAsistenciaComponent implements OnInit {
   regresar(){
     this.verConferencias.emit(null);
   }
+
+  async createPDF(data){
+    console.log(data);
+    PdfMakeWrapper.setFonts(pdfFonts);
+
+    /* Definición elementos */
+    const tabla= new Table([
+      [ 'Nombre', 'Apellido', 'Correo'],
+      ...this.extraerDatos(data.listaAsistencia)
+    ])
+    .layout('lightHorizontalLines')
+    .widths([130,130,205])
+    .end;
+
+    const tablaEvento= new Table([
+      [ 'Evento:', `${data.datosEvento.Nombre}`],
+      [ 'Descripción:', `${data.datosConferencia.Descripcion}` ],
+      [ 'Fecha:', `${data.datosConferencia.Fecha_Inicio.substr(0,10)}`],
+      [ 'Hora:', `${data.datosConferencia.Hora_Inicio + " a " + data.datosConferencia.Hora_Final}`],
+      [ 'Nombre Organizador:', `${data.datosOrganizador.Nombre + " " + data.datosOrganizador.Apellido}`],
+      [ 'Nombre Encargado:', `${data.datosEncargado.Nombre + " " + data.datosEncargado.Apellido}`]
+    ])
+    .layout('lightHorizontalLines')
+    .widths(['*','*'])
+    .alignment('center')
+    .end;
+
+    const pdf = new PdfMakeWrapper();
+    pdf.background(await new Img(`../../../assets/img/BackgroundPdf.png`).alignment('center').build());
+
+    const  textTitulo= new Txt("Lista de asistencia" + " " + this.obtenerTipo(data.datosConferencia.Tipo) + " " + "'" + data.datosConferencia.Nombre + "'").bold().color('#4484CE').alignment('center').fontSize(15).end;
+    const  textTitulo2= new Txt("Asistentes").bold().color('#F19F4D').alignment('center').fontSize(15).end;
+
+    /*Colocación elementos en el pdf*/
+    pdf.add( await new Img(`../../../assets/img/EncabezadoPdf.jpg`).alignment('center').width(50).height(50).build() );
+    pdf.add('\n');
+    pdf.add(textTitulo);
+    pdf.add('\n');
+    pdf.add( await new Img(`${data.datosConferencia.Imagen}`).alignment('center').width(150).height(150).build() );
+    pdf.add('\n');
+    pdf.add(tablaEvento);
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add('\n');
+    pdf.add(textTitulo2);
+    pdf.add('\n');
+    pdf.add(tabla);
+    pdf.create().download();
+    }
+
+    extraerDatos(datos): TableRow[]{
+    return datos.map(row => [row.Nombre, row.Apellido, row.Correo])
+    }
+
+    obtenerTipo(tipo){
+      if(tipo ==1){
+        return "conferencia"
+      }else{
+        return "taller"
+      }
+    }
 }

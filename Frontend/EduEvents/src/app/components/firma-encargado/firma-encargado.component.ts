@@ -1,7 +1,9 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { DiplomaService } from 'src/app/services/diploma.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -20,11 +22,13 @@ export class FirmaEncargadoComponent implements OnInit {
   ]
 
   @Input() conferencia;
-
-  constructor(  private spinner:SpinnerService, private modalService:NgbModal ) { }
+  @Output() onRegresar = new EventEmitter<any>();
+  usuarioEncargado:any
+  constructor( private usuarioService:UsuariosService, private diplomaService:DiplomaService, private spinner:SpinnerService, private modalService:NgbModal ) { }
 
   ngOnInit(): void {
-    console.log(this.conferencia)
+    this.obtenerEncargado();
+
   }
 
 
@@ -42,9 +46,44 @@ export class FirmaEncargadoComponent implements OnInit {
 
   subirFirma(modalExito:any, modalError:any){
 
-    this.abrirModal(modalExito);
-    this.abrirModal(modalError);
-    console.log(this.previsualizacion)
+    this.spinner.mostrarSpinner();
+
+    let objFirma = {
+      idConferencia : this.conferencia.Id,
+      idEncargado: this.usuarioEncargado.Id,
+      imagenFirma: this.previsualizacion
+    }
+
+    this.diplomaService.guardarFirmaEncargado(objFirma).subscribe(
+      (res:any) => {
+        if(res.codigo == 200){
+          this.abrirModal(modalExito);
+          this.onRegresar.emit(null);
+        }else{
+          this.abrirModal(modalError);
+        }
+        this.spinner.ocultarSpinner();
+      },
+      (err:any) => {
+        console.log(err);
+        this.mensajeModal[1].titulo2 = err.error.mensaje;
+        this.abrirModal(modalError);
+        this.spinner.ocultarSpinner();
+      }
+    );
+  }
+
+  obtenerEncargado(){
+    this.usuarioService.obtenerUsuario(this.conferencia.Correo_Encargado).subscribe(
+      (res:any) => {
+        this.usuarioEncargado = res.data;
+        console.log(this.usuarioEncargado);
+      },
+      (err:any) => {
+        console.log(err)
+        this.usuarioEncargado = null;
+      }
+    );
   }
 
   abrirModal( modal:any ){

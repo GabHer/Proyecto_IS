@@ -15,4 +15,9 @@ export class DiplomaService{
     return this.httpClient.get(`http://localhost:8888/diplomas/seleccionFirmas/${idConferencia}`);
   }
 
+  guardarFirmaEncargado(objFirmaEncargado:any){
+    return this.httpClient.put(`http://localhost:8888/diplomas/guardarFirmaEncargado`, objFirmaEncargado);
+
+  }
+
 }

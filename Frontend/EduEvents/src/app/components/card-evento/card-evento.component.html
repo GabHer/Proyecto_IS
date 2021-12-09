@@ -3,13 +3,18 @@
       <img (click)="seleccionarEvento(evento.Id)" class="card-img-top" style="cursor: pointer;" [src]="(evento.Caratula)" alt="Card image cap">
       <div class="mt-1">
         <div class="row">
+          <div class="col-6 text-left">
 
-          <div class="col-12 text-right">
+          </div>
+          <div class="col-6 text-right">
             <span class="mr-1" [class]="evento.Estado_Evento">{{evento.Estado_Evento}}</span>
           </div>
 
           <div class="col-12 text-center">
-            <p style="font-family: Verdana; color: #4484CE;"><strong>{{evento.Nombre}}</strong></p>
+            <p style="font-family: Verdana; color: #4484CE; margin: 0%;"><strong>{{evento.Nombre}}</strong></p>
+            <span class="">
+              <span style="font-family: Verdana;" [ngClass]="(evento.Estado_Participantes == 0 ? 'privado' : 'publico')">{{evento.Estado_Participantes == 0 ? 'Evento privado' : 'Evento público' }}</span>
+            </span>
           </div>
           <div clas="col-12" style="margin-left:auto; margin-right: auto;">
             <span (click)="obtenerConferencias()" mat-raised-button matTooltip="Descargar PDF" class="material-icons icono-footer ml-2">picture_as_pdf</span>

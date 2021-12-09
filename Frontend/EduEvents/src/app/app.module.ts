@@ -70,6 +70,10 @@ import { CardConferecniaEncargadoComponent } from './components/card-conferecnia
 import { VistaParticipantesEncargadoComponent } from './components/vista-participantes-encargado/vista-participantes-encargado.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { FirmaEncargadoComponent } from './components/firma-encargado/firma-encargado.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { BarChartComponent } from './components/estadisticas/bar-chart/bar-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/estadisticas/pie-chart/pie-chart.component'
 
 @NgModule({
   declarations: [
@@ -105,6 +109,9 @@ import { FirmaEncargadoComponent } from './components/firma-encargado/firma-enca
     VistaParticipantesEncargadoComponent,
     InicioComponent,
     FirmaEncargadoComponent,
+    EstadisticasComponent,
+    BarChartComponent,
+    PieChartComponent,
 
 
   ],
@@ -141,7 +148,8 @@ import { FirmaEncargadoComponent } from './components/firma-encargado/firma-enca
     MatTableModule,
     MatAutocompleteModule,
     MatTabsModule,
-    MatListModule
+    MatListModule,
+    NgxChartsModule
   ],
   providers: [
 

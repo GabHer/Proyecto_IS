@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-12 mt-2">
-      <button [disabled]="!boolEmisionAsistencia" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
+      <button (click)="obtenerAsistencias()" [disabled]="!boolEmisionAsistencia" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
         <span class="material-icons">
           download
           </span> Lista asistencia </button>
@@ -89,7 +89,7 @@
 
       </div>
 
-        <div class="col-12 mt-4">
+        <div *ngIf="!boolEmisionFirmas" class="col-12 mt-4">
         <button [disabled]="deshabilitar" (click)="generarDiplomas(modalDialogoExitoDiplomas)" mat-flat-button style="border-radius: 15px; background-color: #4484CE; color: white; margin-left: auto; margin-right: auto;">
           Generar diplomas </button>
         </div>
