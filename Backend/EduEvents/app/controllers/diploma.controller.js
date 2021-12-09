@@ -86,3 +86,35 @@ exports.seleccionadoFirmas = (req, res) => {
         };
       });
     };
+
+
+exports.obtenerDatosDiploma = (req, res) => {
+
+if(!req.params) {
+    res.status(400).send({
+    message: "El contenido no puede ser vacío"
+    });
+  return;
+};
+
+Diploma.obtDatosDiploma(req.params, (err, data) => {
+  
+  if(err) {
+      res.status(500).send({
+      mensaje: "Error al intentar obtener los datos necesarios para generar el diploma de la conferencia con id : " + req.params.idConferencia + " para la persona con id: " + req.params.idPersona
+      });
+  } 
+
+  if (data.estado == "no_permitido") {
+      res.status(404).send({
+          mensaje: `Usted no asistió a esta conferencia.`, codigo:404, data:null
+      });
+    }
+
+  else {
+      res.status(200).send({
+          mensaje: `Se han obtenido los datos necesarios para generar el diploma para la conferencia con id: ${req.params.idConferencia} para la persona con id: ${req.params.idPersona}`, codigo:200, estado:'ok', data: data
+      });
+    };
+  });
+};
