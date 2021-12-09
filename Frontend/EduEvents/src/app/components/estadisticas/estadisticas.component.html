@@ -1,9 +1,25 @@
 <div class="row">
-  <div class="col-12">
-    <app-bar-chart></app-bar-chart>
+  <div  class="col-12 text-center">
+    <h1 style="color:#4484CE;">Asistencias por conferencia</h1>
+  </div>
+  <form [formGroup]="seleccionReporte" class="col-12 mt-2 ml-3 text-left" >
+    <mat-radio-group  formControlName="tipo" [(ngModel)]="labelPositionReporte">
+      <mat-radio-button class="" value="Barras">Barras</mat-radio-button>
+      <mat-radio-button class="ml-2" value="Pastel">Pastel</mat-radio-button>
+    </mat-radio-group>
+  </form>
+
+
+
+  <div *ngIf="seleccionReporte.get('tipo').value == 'Barras'" class="col-12 text-center">
+    <app-bar-chart
+      [evento]="evento"
+    ></app-bar-chart>
   </div>
 
-  <div class="col-12">
-    <app-pie-chart></app-pie-chart>
+  <div *ngIf="seleccionReporte.get('tipo').value == 'Pastel'" class="col-12 text-center">
+    <app-pie-chart
+      [evento]="evento"
+    ></app-pie-chart>
   </div>
 </div>
