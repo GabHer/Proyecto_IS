@@ -254,6 +254,9 @@ Content-Type: application/json
 GET http://localhost:8888/diplomas/obtenerDatosDiploma/4/3
 
 
+###
+GET http://localhost:8888/asistencia/datosGraficos/1
+
 
 
 

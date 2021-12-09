@@ -276,4 +276,38 @@ Asistencia.obtenerListaAsistenciaPorIdConferencia = (idConferencia, resultado ) 
     });  
 };
 
+
+
+
+Asistencia.obtenerDatosGraficos = (idEvento, resultado ) => {
+    let consulta = `SELECT Conferencias_Evento.Nombre AS name, Conferencias_Evento.Id AS code, COUNT(*)-1 value FROM (SELECT Conferencia.Id, Conferencia.Nombre FROM Evento JOIN Conferencia ON Evento.Id = Conferencia.Id_Evento WHERE Evento.Id = ${idEvento}) AS Conferencias_Evento JOIN Persona_Conferencia ON Conferencias_Evento.Id = Persona_Conferencia.Id_Conferencia WHERE Asistencia = 1 GROUP BY Conferencias_Evento.Id HAVING value >= 0;
+    `;
+
+    arregloRespuesta = new Array();
+
+    sql.query( consulta, (err, res) => {
+        if(err) {
+            resultado(err, null);
+            return;
+        }
+      
+        else {
+            for (let i = 0; i < res.length ; i++){
+                jsonRespuesta1 = {}
+                code = {}
+                jsonRespuesta1["name"] = res[i]["name"];
+                jsonRespuesta1["value"] = res[i]["value"];
+                jsonRespuesta1["code"] = res[i]["code"];
+
+                arregloRespuesta.push(jsonRespuesta1)
+
+            }
+
+            resultado(null, res);
+        }        
+    });
+};
+
+
+
 module.exports = Asistencia;

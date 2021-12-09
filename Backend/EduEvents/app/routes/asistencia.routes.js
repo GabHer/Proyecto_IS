@@ -8,5 +8,8 @@ module.exports = app => {
 
   // Obtener lista de asistencia para una conferencia
   app.get('/asistencia/obtenerListaAsistenciaPorIdConferencia/:idConferencia', asistencia.obtenerListaAsistencia)
+
+  //Obtener los datos de las asistencias de las conferencias de un Evento con determinado id
+  app.get('/asistencia/datosGraficos/:idEvento', asistencia.obtDatosGrafico);
   
 };

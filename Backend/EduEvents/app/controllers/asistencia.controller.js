@@ -127,3 +127,31 @@ exports.obtenerListaAsistencia = (req, res) => {
 };
 
 
+// Obtener los datos necesarios para generar las estadísticas para un evento
+exports.obtDatosGrafico= (req, res) => {
+  if(!req.params ) {
+    res.status(400).send({
+      message: "El contenido no puede ser vacio"
+    });
+    return;
+  };
+
+  Asistencia.obtenerDatosGraficos(req.params.idEvento, (err, data) => {
+    console.log(`Se desea obtener los datos de las asistencias de las conferencias para generar los gráficos del evento con id: ${req.params.idEvento}`);
+
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+      mensaje: `Error al obtener los datos de las asistencias de las conferencias para generar los gráficos del evento con id: ${req.params.idEvento}`
+    });
+
+    } 
+    else {
+      res.status(200).send({
+        mensaje: `Se obtuvieron los datos de las asistencias de las conferencias para generar los gráficos del evento con id: ${req.params.idEvento}`, codigo:200, estado:'ok', data:data
+      });
+    };
+  });
+};
+
+
