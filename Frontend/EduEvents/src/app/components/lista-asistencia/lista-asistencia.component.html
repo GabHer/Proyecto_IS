@@ -54,6 +54,31 @@
           </div>
         </mat-panel-title>
       </mat-expansion-panel-header>
+
+      <div class="col-lg-12 text-center"  >
+
+        <img style="width: 10rem; margin-left: auto; margin-right: auto;"  (click)="archivoFirma = '' " class="img-usuario" *ngIf="archivoFirma != '' " [src]="archivoFirma" alt="">
+
+        <div *ngIf="(archivoFirma == '')" style="width: 256px; margin-left: auto; margin-right: auto;">
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="false"
+            [aspectRatio]="4 / 4"
+            [resizeToWidth]="256"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            >
+          </image-cropper>
+        </div>
+
+
+      </div>
+      <div  class="col-lg-12 text-center mt-1"  >
+        <button   *ngIf="croppedImage !=''" type="button" (click)="onGuardarRecorte()"  class="btn btn-primary btn-1 ml-3">Guardar</button>
+        <button  *ngIf="(archivoFirma !='' || croppedImage != '') "  type="button"  (click)="onEliminarRecorte() " class="btn btn-primary btn-2 ml-3">Eliminar</button>
+
+      </div>
+
       <div class="col-12">Firmas</div>
       <div class="col-12 row" style="margin:0%">
         <div class="col-7 mt-1">
@@ -80,7 +105,7 @@
                   file_upload
                   </span></button>
               </mat-toolbar>
-              <input formControlName="inputFirma" (change)="onChangeArchivo($event)" type="file" #inputImagen id="fileUpload"  name="fileUpload" accept='.jpg, .png' />
+              <input formControlName="inputFirma" (change)="fileChangeEvent($event)" type="file" #inputImagen id="fileUpload"  name="fileUpload" accept='.jpg, .png' />
             </div>
 
           </mat-form-field>

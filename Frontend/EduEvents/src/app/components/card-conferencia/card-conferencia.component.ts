@@ -180,6 +180,7 @@ export class CardConferenciaComponent implements OnInit {
     if( this.usuarioActual.Correo == this.conferencia.Correo_Encargado ){
       this.mensajeModal[1].titulo2 = "No se puede eliminar la inscripción en el evento porque usted es el encargado de dicho evento."
       this.abrirModal(modalError)
+      this.spinner.ocultarSpinner()
       return;
     }
 

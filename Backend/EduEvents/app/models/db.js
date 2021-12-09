@@ -8,7 +8,6 @@ const coneccion = mysql.createConnection({
   password: dbConfig.PASSWORD,
   database: dbConfig.DB
 });
-
 // open the MySQL connection
 coneccion.connect(error => {
     if (error) throw error;

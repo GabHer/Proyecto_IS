@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, FormGroup, FormControlName, Validators, FormControl} from '@angular/forms';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ConferenciasService } from 'src/app/services/conferencias.service';
 import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { DiplomaService } from 'src/app/services/diploma.service';
@@ -20,6 +21,16 @@ type TableRow = [string, string];
 })
 export class ListaAsistenciaComponent implements OnInit {
 
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  archivoFirma:any = "";
+
+  mensajeModal = [
+    {tipo:"", titulo1:"", titulo2:"", icono:"quiz"},
+    {tipo:"error", titulo1:"Ocurrió un error", titulo2:"", icono:"error"},
+    {tipo:"", titulo1:"", titulo2:"", icono:"quiz"},
+  ]
+
   organizador = false;
   encargado = false;
   inscritos : any;
@@ -33,7 +44,7 @@ export class ListaAsistenciaComponent implements OnInit {
   boolEmisionAsistencia = false;
   boolEmisionFirmas = false;
   deshabilitar=true;
-  archivoFirma:any;
+
   jsonAsistencias: any;
   formularioFirma = new FormGroup(
     {
@@ -57,6 +68,65 @@ export class ListaAsistenciaComponent implements OnInit {
     this.emisionFirmas();
   };
 
+    /**
+  * @name fileChangeEvent
+  * @summary Esta función actualiza la referencia al evento de un `<input type="file">`.
+  * @param {any} event - Evento que se desencadena al cambiar el estado de un `<input type="file">`.
+  * @return {null} Esta función no retorna.
+  */
+     fileChangeEvent(event:any): void {
+      if(event.target.files.length != 0){
+        this.formularioFirma.get("inputReadOnly").setValue(event.target.files[0].name)
+      }
+      this.imageChangedEvent = event;
+
+  }
+
+   /**
+  * @name imageCropped
+  * @summary Esta función actualiza la referencia al BLOB de la imagen una vez que ha sido recortada y elegida por el usuario.
+  * @param {ParamDataTypeHere} parameterNameHere - Brief description of the parameter here. Note: For other notations of data types, please refer to JSDocs: DataTypes command.
+  * @return {ReturnValueDataTypeHere} Brief description of the returning value here.
+  */
+    imageCropped(event: ImageCroppedEvent) {
+
+      this.croppedImage = event.base64;
+
+    }
+
+
+    /**
+    * @name onGuardarRecorte
+    * @summary Esta función guarda la imagen recortada por el usuario y actualiza la referencia a la previsualización de la misma.
+    * @param {}  - Esta función no recibe parametros.
+    * @return {} - Esta función no retorna.
+    */
+    onGuardarRecorte(){
+      this.archivoFirma = this.croppedImage;
+      this.croppedImage = '';
+      this.formularioFirma.get('inputFirma').disable();
+      this.formularioFirma.get('inputReadOnly').disable();
+    }
+      /**
+    * @name onEliminarRecorte
+    * @summary Esta función elimina la referencia a la imagen cargada y recortada.
+    * @param {} - Esta función no recibe parametros.
+    * @return {} - Esta función no retorna.
+    */
+    onEliminarRecorte(){
+
+      this.croppedImage = ""
+      this.archivoFirma = ""
+      this.imageChangedEvent = ""
+
+
+      // Desactivar el boton para subir imagen
+      this.formularioFirma.get('inputFirma').enable();
+      this.formularioFirma.get('inputReadOnly').enable();
+      this.formularioFirma.get('inputReadOnly').setValue('');
+
+
+    }
   emisionFirmas(){
     this.serviceDiploma.seleccionFirmas(this.idConferencia).subscribe(
       (res:any) => {
@@ -84,6 +154,7 @@ export class ListaAsistenciaComponent implements OnInit {
 
   onOrganizador(options: MatListOption[]){
     this.boolOrganizador = options.map(o => o.value);
+
     this.boolOrganizador.push(0);
     if(this.boolEmisionAsistencia==true && this.archivoFirma != null){
       this.deshabilitar = false;
@@ -103,6 +174,7 @@ export class ListaAsistenciaComponent implements OnInit {
     if(this.boolOrganizador[0]==0 && this.boolEncargado[0]==0){
       this.deshabilitar = true;
     }
+
   }
 
   onEncargado(options: MatListOption[]){
