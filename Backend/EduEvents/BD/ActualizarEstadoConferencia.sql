@@ -13,4 +13,3 @@ BEGIN
 	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE CURDATE() >= Fecha_Inicio AND CURTIME() > Hora_Final;
 END //
 DELIMITER ;
-
