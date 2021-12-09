@@ -9,8 +9,8 @@ ON SCHEDULE EVERY 1 SECOND STARTS NOW()
 ON COMPLETION PRESERVE ENABLE
 DO 
 BEGIN
-	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio = CURDATE() AND Hora_Inicio <= CURTIME();
-	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE CURDATE() >= Fecha_Inicio AND CURTIME() >= Hora_FINAL;
-
+	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio = CURDATE() AND CURTIME() BETWEEN Hora_Inicio AND Hora_Final;
+	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE CURDATE() >= Fecha_Inicio AND CURTIME() > Hora_Final;
 END //
 DELIMITER ;
+
