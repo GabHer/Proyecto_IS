@@ -10,6 +10,6 @@ ON COMPLETION PRESERVE ENABLE
 DO 
 BEGIN
 	UPDATE Conferencia SET Estado_Conferencia = 'Activo' WHERE Fecha_Inicio = CURDATE() AND CURTIME() BETWEEN Hora_Inicio AND Hora_Final;
-	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE CURDATE() >= Fecha_Inicio AND CURTIME() > Hora_Final;
+	UPDATE Conferencia SET Estado_Conferencia = 'Finalizado' WHERE NOW() > CONCAT(Fecha_Inicio, ' ', Hora_Final);
 END //
 DELIMITER ;
