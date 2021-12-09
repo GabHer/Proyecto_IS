@@ -277,4 +277,3 @@ Asistencia.obtenerListaAsistenciaPorIdConferencia = (idConferencia, resultado ) 
 };
 
 module.exports = Asistencia;
-
