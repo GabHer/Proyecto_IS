@@ -1,9 +1,9 @@
 module.exports = {
-    host: "smtp.gmail.com",
-    port: 465,
+    host: process.env.HOST_EMAIL,
+    port: process.env.PORT_EMAIL,
     secure: true,
-    user: "edueventsmanagement@gmail.com",
-    pass: "cjhtwlhcuvmsgyox"
+    user: process.env.USER_EMAIL,
+    pass: process.env.PASSWORD_EMAIL
 };
 
 

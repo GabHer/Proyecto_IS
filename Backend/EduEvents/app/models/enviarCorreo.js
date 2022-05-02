@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const envCorreoConfig = require("../config/envemail.config.js");
 
-
 const transport = nodemailer.createTransport({
     host: envCorreoConfig.host,
     port: envCorreoConfig.host,
