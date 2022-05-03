@@ -125,7 +125,7 @@ export class MisEventosComponent implements OnInit, OnChanges {
     this.reset()
     this.eventoSeleccionado = evento;
     this.mostrarEstadisticas = true;
-    console.log(evento);
+
   }
 
   private _filterNombreEvento(value:any): Evento[] {

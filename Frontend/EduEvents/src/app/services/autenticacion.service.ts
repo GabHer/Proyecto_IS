@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 const helper = new JwtHelperService();
 @Injectable({
@@ -16,7 +17,7 @@ export class AutenticacionService {
   }
 
   inicioSesion( datos:any ){
-    return this.httpClient.post('http://localhost:8888/login', datos)
+    return this.httpClient.post(`${environment.API_URL}/login`, datos)
 
   }
   cerrarSesion(){
@@ -49,16 +50,16 @@ export class AutenticacionService {
 
 
   enviarCorreoRecuperarContrasena( datos:any ){
-    return this.httpClient.post('http://localhost:8888/inicioSesion/restablecer_contrasena/verificar_correo', datos)
+    return this.httpClient.post(`${environment.API_URL}/inicioSesion/restablecer_contrasena/verificar_correo`, datos)
   }
 
   validarTokenRecuperarContrasena( datos:any ){
-    return this.httpClient.post(`http://localhost:8888/inciarSesion/restablecer_contrasena/${datos.Correo}`, datos)
+    return this.httpClient.post(`${environment.API_URL}/inciarSesion/restablecer_contrasena/${datos.Correo}`, datos)
 
   }
 
   actualizarContrasena( datos:any ){
-    return this.httpClient.post(`http://localhost:8888/inciarSesion/restablecer_contrasena/cambio_contrasena/${datos.Correo}`, datos)
+    return this.httpClient.post(`${environment.API_URL}/inciarSesion/restablecer_contrasena/cambio_contrasena/${datos.Correo}`, datos)
   }
 
 

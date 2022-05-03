@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,52 +10,52 @@ export class EventosService {
   constructor( private httpClient: HttpClient ) { }
 
   crearEvento( evento:any ){
-    return this.httpClient.post('http://localhost:8888/eventos/nuevoEvento', evento);
+    return this.httpClient.post(`${environment.API_URL}/eventos/nuevoEvento`, evento);
 
   }
 
   obtenerEventos(){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventos`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerEventos`);
   }
 
   obtenerEventosPorEstado(estado:any){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventosPorEstado/${estado}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerEventosPorEstado/${estado}`);
   }
 
   obtenerMisEventosPorEstado(estado:any, idUsuario:number){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventosPorEstadoYUsuario/${estado}/${idUsuario}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerEventosPorEstadoYUsuario/${estado}/${idUsuario}`);
   }
 
   obtenerEventosPorFecha(fechaInicio:string, fechaFinal:string){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventosPorFecha/${fechaInicio}/${fechaFinal}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerEventosPorFecha/${fechaInicio}/${fechaFinal}`);
   }
 
   obtenerMisEventosPorFecha(fechaInicio:string, fechaFinal:string, idOrganizador:number){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventosPorFechaYOrganizador/${fechaInicio}/${fechaFinal}/${idOrganizador}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerEventosPorFechaYOrganizador/${fechaInicio}/${fechaFinal}/${idOrganizador}`);
   }
 
   obtenerMisEventos( idUsuario:number ){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerMisEventos/${idUsuario}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerMisEventos/${idUsuario}`);
   }
 
   eliminarEvento( idEvento:number ){
-    return this.httpClient.delete(`http://localhost:8888/eventos/eliminarEvento/${idEvento}`);
+    return this.httpClient.delete(`${environment.API_URL}/eventos/eliminarEvento/${idEvento}`);
 
   }
 
   crearConferencia( objConferencia:any ){
-    return this.httpClient.post(`http://localhost:8888/conferencia`, objConferencia);
+    return this.httpClient.post(`${environment.API_URL}/conferencia`, objConferencia);
   }
 
   obtenerEventoPorId(idEvento:number){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerEventoPorId/${idEvento}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerEventoPorId/${idEvento}`);
   }
 
   obtenerListaBlanca( idEvento:number ){
-    return this.httpClient.get(`http://localhost:8888/eventos/obtenerListaBlancaPorIdEvento/${idEvento}`);
+    return this.httpClient.get(`${environment.API_URL}/eventos/obtenerListaBlancaPorIdEvento/${idEvento}`);
   }
   obtenerDatosEstadistica( idEvento:number ){
-    return this.httpClient.get(`http://localhost:8888/asistencia/datosGraficos/${idEvento}`);
+    return this.httpClient.get(`${environment.API_URL}/asistencia/datosGraficos/${idEvento}`);
   }
 
 }

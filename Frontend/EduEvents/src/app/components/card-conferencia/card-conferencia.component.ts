@@ -54,7 +54,6 @@ export class CardConferenciaComponent implements OnInit {
     {tipo:"confirmacion", titulo1:"¿Desinscribirse?", titulo2:"Se eliminara su inscripción de este evento", icono:"quiz"},
   ]
   ngOnInit(): void {
-    console.log(this.conferencia)
     if( this.todoDetalles ){
       this.obtenerEventoActual()
     }else {
@@ -355,7 +354,7 @@ export class CardConferenciaComponent implements OnInit {
   descargarDiploma(){
     this.serviceDiploma.obtenerDatosDiploma(this.conferencia.Id, this.usuarioActual.Id).subscribe(
       (res:any) => {
-        console.log(res.data);
+
         this.createPDF(res.data);
 
       },

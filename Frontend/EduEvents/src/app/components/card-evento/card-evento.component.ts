@@ -96,8 +96,6 @@ export class CardEventoComponent implements OnInit {
   }
 
   extraerDatos(datos): TableRow[]{
-    console.log(datos);
-
     return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre, this.extraerModalidad(row.Modalidad)])
   }
 

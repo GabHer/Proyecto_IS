@@ -39,7 +39,7 @@ export class InicioComponent implements OnInit {
   constructor( private serviceConferencia:ConferenciasService ) { }
 
   ngOnInit(): void {
-    console.log(this.perfil);
+
     this.obtenerMisInscripciones();
   }
 

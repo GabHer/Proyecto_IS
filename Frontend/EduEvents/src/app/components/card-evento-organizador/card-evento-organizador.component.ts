@@ -57,7 +57,7 @@ export class CardEventoOrganizadorComponent implements OnInit {
   }
 
   async createPDF(data){
-    console.log(this.evento);
+
 
     PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -105,7 +105,7 @@ export class CardEventoOrganizadorComponent implements OnInit {
 }
 
 extraerDatos(datos): TableRow[]{
-console.log(datos);
+
 return datos.map(row => [row.Fecha_Inicio.substr(0,10), row.Hora_Inicio, row.Hora_Final, row.Nombre,  row.Medio])
 }
 

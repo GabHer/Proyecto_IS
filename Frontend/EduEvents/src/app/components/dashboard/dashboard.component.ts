@@ -205,7 +205,7 @@ export class DashboardComponent implements OnInit, OnChanges  {
 
   setOcultarBuscador(b:boolean){
     this.ocultarBuscador = b;
-    console.log("Se mostrara el buscador ", b)
+
   }
 
 

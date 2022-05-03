@@ -77,7 +77,7 @@ export class FirmaEncargadoComponent implements OnInit {
     this.usuarioService.obtenerUsuario(this.conferencia.Correo_Encargado).subscribe(
       (res:any) => {
         this.usuarioEncargado = res.data;
-        console.log(this.usuarioEncargado);
+
       },
       (err:any) => {
         console.log(err)

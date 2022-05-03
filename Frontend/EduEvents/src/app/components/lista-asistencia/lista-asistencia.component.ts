@@ -215,7 +215,7 @@ export class ListaAsistenciaComponent implements OnInit {
   obtenerInscripcionesConferencias(){
     this.serviceConferencia.obtenerParticipantesConferencia(this.idConferencia).subscribe(
       (res:any) => {
-        console.log(res.data);
+
         this.inscritos = res.data
       },
       (err:any) => {
@@ -252,7 +252,7 @@ export class ListaAsistenciaComponent implements OnInit {
         this.abrirModal(modalDialogoExito);
         this.listaAsistencia = null;
         this.boolEmisionAsistencia= true;
-        console.log(res.mensaje);
+
       },
 
       (err:any) => {
@@ -300,7 +300,6 @@ export class ListaAsistenciaComponent implements OnInit {
 
     this.serviceDiploma.enviarFirmas(this.jsonGenerarDiplomas).subscribe(
       (res:any) => {
-        console.log(res.mensaje);
         this.abrirModal(modal);
         this.deshabilitar = true;
         this.boolEmisionFirmas = true;
@@ -314,7 +313,6 @@ export class ListaAsistenciaComponent implements OnInit {
 
     );
 
-    console.log(this.jsonGenerarDiplomas);
   }
 
   obtenerAsistencias(){
@@ -354,7 +352,7 @@ export class ListaAsistenciaComponent implements OnInit {
   })
 
   verUsuario(idUsuario){
-    console.log(idUsuario);
+
     this.vistaActual.vistaUsuario = !this.vistaActual.vistaUsuario
     this.vistaActual.vistaLista = !this.vistaActual.vistaLista
     this.idUsuarioSeleccionado = idUsuario;

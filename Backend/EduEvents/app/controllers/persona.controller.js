@@ -33,11 +33,15 @@ exports.crear = (req, res) => {
 
   // Guardar el usuario en la base de datos
   Persona.crear(persona, (err, data) => {
-    if (err)
+    if (err) {
+      console.log(err)
       res.status(500).send({
         mensaje: err.mensaje || "Ocurrió un error al guardar el usuario en la base de datos.",
         error:err
       });
+
+    }
+
     else{
       if(data.estado == 'no_permitido'){
         res.send({mensaje:'Ya existe un usuario registrado con el correo electrónico', codigo:406, estado: data.estado, data:null});
@@ -54,13 +58,12 @@ exports.crear = (req, res) => {
 // Obtener todos lis usuarios de la base de datos
 exports.obtenerPersonas = (req, res) => {
     Persona.obtenerPersonas((err, data) => {
-        if (err)
+        if (err){
+          console.log(err)
           res.status(500).send({
             mensaje: "Se produjo un error al obtener los usuarios de la base de datos"
           });
-        else 
-        {
-          
+        } else {
           res.send(data);
         }
       });

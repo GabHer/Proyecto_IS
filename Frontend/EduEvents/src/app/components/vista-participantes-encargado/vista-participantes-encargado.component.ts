@@ -47,7 +47,7 @@ export class VistaParticipantesEncargadoComponent implements OnInit {
   }
 
   verUsuario(idUsuario){
-    console.log(idUsuario);
+
   }
 
 
