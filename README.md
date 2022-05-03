@@ -1,3 +1,6 @@
+# Deploy
+- Frontend: [https://eduevents.vercel.app](https://eduevents.vercel.app).
+- Backend: [https://edu-events.herokuapp.com](https://edu-events.herokuapp.com).
 # Proyecto_IS
 Desarrollo de una aplicación que permita realizar la gestión de eventos académicos.
 
